@@ -218,7 +218,7 @@ class _SignUpState extends State<SignUp> {
                         TextSpan(
                           recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>const Login()),
                           text: "Sign in",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationColor: AppColors.blueThemeColor),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
                         ),
                       ],
                     ),

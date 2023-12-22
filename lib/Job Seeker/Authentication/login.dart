@@ -60,7 +60,6 @@ class _LoginState extends State<Login> {
                     ),
                     filled: true,
                     fillColor: const Color(0xffFFFFFF),
-                    errorStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.red),
                     hintText: "Enter your email",
                     hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000000),fontWeight: FontWeight.w500),
                   ),
@@ -93,7 +92,6 @@ class _LoginState extends State<Login> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(35),
                       ),
-                      errorStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.red),
                       filled: true,
                       fillColor: Color(0xffFFFFFF),
                       hintText: "Enter your password",
@@ -184,7 +182,7 @@ class _LoginState extends State<Login> {
                         TextSpan(
                           recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>const SignUp()),
                           text: "Sign up",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationColor: AppColors.blueThemeColor,),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
                         ),
                       ],
                     ),

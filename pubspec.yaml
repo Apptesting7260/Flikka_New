@@ -75,7 +75,6 @@ dependencies:
   firebase_database: ^10.2.5
   firebase_messaging: ^14.7.6
   google_sign_in: ^6.2.1
-  ffmpeg_kit_flutter: ^6.0.3
   audioplayers: ^5.2.1
   audio_waveforms: ^1.0.4
   kplayer: ^0.4.2

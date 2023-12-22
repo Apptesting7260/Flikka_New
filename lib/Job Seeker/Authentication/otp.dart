@@ -214,7 +214,7 @@ class OtpScreenState extends State<OtpScreen> {
                                              }
                                            } ,
                                            text: "Resend",
-                                           style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationColor: AppColors.blueThemeColor),
+                                           style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
                                          ),
                                        ],
                                      ),

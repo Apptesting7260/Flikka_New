@@ -603,7 +603,7 @@ class _MarketingInternState extends State<MarketingIntern> {
 
                     },),
                   ),
-                  SizedBox(height: Get.height*.1,),
+                  SizedBox(height: Get.height*.025,),
                 ],
               ),
             ),

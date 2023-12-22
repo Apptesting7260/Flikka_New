@@ -266,28 +266,26 @@ class _SavedPostState extends State<SavedPost> {
                               height: Get.height*.4,
                               width: Get.width,
                               padding: const EdgeInsets.all(15),
-                              decoration: const BoxDecoration(
+                              decoration:  BoxDecoration(
                                 color: AppColors.blackdown,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(22),
-                                    topRight: Radius.circular(22)
-                                ),
+                                borderRadius: BorderRadius.circular(
+                                   22),
                               ),
                               child: SingleChildScrollView(
-                                physics: AlwaysScrollableScrollPhysics(),
-                                padding: EdgeInsets.only(right: 0),
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                padding: const EdgeInsets.only(right: 0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(data?.jobData?.jobTitle ?? "",
+                                    Text(data?.jobData?.jobTitle ?? "No job title",
                                       style: Theme.of(context).textTheme.displayLarge,
                                       softWrap: true,),
-                                    Text(data?.jobData?.jobPositions ?? "",
+                                    Text(data?.jobData?.jobPositions ?? "No positions",
                                       style: Theme.of(context).textTheme.bodySmall!
                                           .copyWith( color: AppColors.ratingcommenttextcolor) ,
                                       softWrap: true,),
                                     SizedBox( height: Get.height * .005,),
-                                    Text(data?.jobData?.recruiterDetails?.companyName ?? "",
+                                    Text(data?.jobData?.recruiterDetails?.companyName ?? "No company name",
                                       style: Theme.of(context).textTheme.bodySmall!
                                           .copyWith( color: AppColors.ratingcommenttextcolor),),
                                     SizedBox( height: Get.height * 0.03,),
@@ -295,13 +293,19 @@ class _SavedPostState extends State<SavedPost> {
                                       style: Theme.of(context).textTheme.titleSmall!
                                           .copyWith(color: AppColors.white),),
                                     SizedBox( height: Get.height * .005,),
+                                    data?.jobData?.description == null || CommonFunctions.parseHTML(data?.jobData?.description).toString().trim().length == 0 ?
+                                    Text("No job description",style: Theme.of(context).textTheme.labelLarge!
+                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
                                     HtmlWidget(data?.jobData?.description ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
                                         .copyWith( color: AppColors.ratingcommenttextcolor),),
-                                    SizedBox( height: Get.height * .005,),
+                                    SizedBox( height: Get.height * .04,),
                                     Text( "Requirements",
                                       style: Theme.of(context).textTheme.titleSmall!
                                           .copyWith(color: AppColors.white),),
                                     SizedBox( height: Get.height * 0.012,),
+                                    data?.jobData?.requirements == null || CommonFunctions.parseHTML(data?.jobData?.requirements).toString().trim().length == 0 ?
+                                    Text("No requirements",style: Theme.of(context).textTheme.labelLarge!
+                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
                                     HtmlWidget(data?.jobData?.requirements ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
                                         .copyWith(color: AppColors.ratingcommenttextcolor),) ,
                                     SizedBox(height: Get.height*.03,) ,
