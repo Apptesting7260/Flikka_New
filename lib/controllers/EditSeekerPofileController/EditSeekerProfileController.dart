@@ -38,11 +38,12 @@ class EditSeekerProfileController extends GetxController {
           .parse(AppUrl.editSeekerProfileImage);
       var request = http.MultipartRequest('POST', url);
       if (profilePath == null) {
-        Map data = {
-          'name': name,
-          'location': location,
-          'position_id': id,
+        var data = {
+
         };
+        data.addIf(name.isNotEmpty,'name',name);
+        data.addIf(location.isNotEmpty,'location',location);
+        data.addIf(id != null && id.toString().length != 0,'position_id',id);
         print(data);
         data.forEach((key, value) {
           request.fields[key] = value.toString();

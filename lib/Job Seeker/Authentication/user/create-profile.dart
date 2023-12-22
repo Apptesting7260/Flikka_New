@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:flikka/controllers/SeekerProfile/SeekerCreateProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
@@ -2704,23 +2703,9 @@ class _CreateProfileState extends State<CreateProfile> {
   Future<void> _startRecording(ImageSource source) async {
     final video = await ImagePicker().pickVideo(source: source,maxDuration: const Duration(seconds: 15)) ;
     if(video != null) {
-      // final trimmedVideoPath = await trimVideo(video.path, duration: 15);
       await compressVideo(video.path);
     }
   }
-
-  // Future<String> trimVideo(String videoPath, {required int duration}) async {
-  //   final flutterFFmpeg = FFmpegKit();
-  //
-  //   // Output path for the trimmed video
-  //   final outputFilePath = '/path/to/output/trimmed_video.mp4';
-  //
-  //   // Execute FFmpeg command to trim the video
-  //   await flutterFFmpeg.(
-  //       '-i $videoPath -ss 0 -t $duration -c copy $outputFilePath');
-  //
-  //   return outputFilePath;
-  // }
 
   Future<void> compressVideo(String inputPath) async {
     CommonFunctions.showLoadingDialog(context, "Uploading") ;

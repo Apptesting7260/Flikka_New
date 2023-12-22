@@ -475,7 +475,7 @@ class _UserProfileState extends State<UserProfile> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
                       controller: mobileNumberSectionController,
-                      initialValue: '+44',
+                      // initialValue: '+44',
                       style: Theme.of(context).textTheme.bodyMedium,
                       pickerDialogStyle: PickerDialogStyle(
                         countryNameStyle:
