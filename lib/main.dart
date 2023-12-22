@@ -7,35 +7,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-var fcmToken ;
- void  main()  {
-   //   WidgetsFlutterBinding.ensureInitialized();
-   // await Firebase.initializeApp();
-   //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-   //   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-   //   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-   //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-   //     print('Got a message whilst in the foreground!');
-   //     print('Message data: ${message.data}');
-   //
-   //     if (message.notification != null) {
-   //       print('Message also contained a notification: ${message.notification}');
-   //     }
-   //   });
-   //   fcmToken = await FirebaseMessaging.instance.getToken();
-   //   print('FCM Token: $fcmToken');
-   //   FirebaseMessaging messaging = FirebaseMessaging.instance;
-   //
-   //   NotificationSettings settings = await messaging.requestPermission(
-   //     alert: true,
-   //     announcement: true,
-   //     badge: true,
-   //     carPlay: false,
-   //     criticalAlert: false,
-   //     provisional: false,
-   //     sound: true,
-   //   );
-  runApp(const MyApp());
+String?fcmToken;
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+
+  // print(notificationBell.value);
+  // notificationBell.value = true;
+  // print(notificationBell.value);
+  print("Handling a background message");
+  print('hello');
+  print('new');
+}
+
+ Future main()  async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+   fcmToken = await FirebaseMessaging.instance.getToken();
+   print('FCM Token: $fcmToken');
+   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+   NotificationSettings settings = await messaging.requestPermission(
+     alert: true,
+     announcement: true,
+     badge: true,
+     carPlay: false,
+     criticalAlert: false,
+     provisional: false,
+     sound: true,
+   );
+   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+     print('Got a message whilst in the foreground!');
+     print('Message data: ${message.data}');
+
+     if (message.notification != null) {
+       print('Message also contained a notification: ${message.notification}');
+     }
+   });
+
+   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -60,13 +71,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-// Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//
-//   // print(notificationBell.value);
-//   // notificationBell.value = true;
-//   // print(notificationBell.value);
-//   print("Handling a background message");
-//   print('hello');
-//   print('new');
-// }

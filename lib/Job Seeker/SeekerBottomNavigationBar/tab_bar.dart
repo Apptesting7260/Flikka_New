@@ -18,6 +18,8 @@ import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsControl
 import '../../controllers/SeekerMapJobsController/SeekerMapJobsController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
+import '../../main.dart';
 import '../SeekerFilter/filter_page.dart';
 import '../SeekerHome/find_job_home_page.dart';
 import '../location.dart';
@@ -48,14 +50,15 @@ class _TabScreenState extends State<TabScreen> {
   SeekerForumIndustryController industryController = Get.put(SeekerForumIndustryController()) ;
   CompaniesListController companiesListController = Get.put(CompaniesListController()) ;
   SeekerMapJobsController jobsController = Get.put(SeekerMapJobsController());
-
+  ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
+  void initState() {print('FCM Token: $fcmToken');
     getJobsListingController.seekerGetAllJobsApi() ;
     seekerProfileController.viewSeekerProfileApi() ;
+    seekerProfileControllerr.viewSeekerProfileApi();
     viewLanguageController.viewLanguageApi() ;
     skillsController.seekerGetAllSkillsApi() ;
     forumDataController.seekerForumListApi() ;

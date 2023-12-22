@@ -21,6 +21,7 @@ import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
 import '../models/EditMobileNumberModel.dart';
+import '../models/NewProfileModelSeeker/NewProfileModelSeeker.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/RecruiterInboxDataModel/RecruiterInboxDataModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
@@ -234,6 +235,13 @@ class AuthRepository {
   Future<SeekerNotificationDataModel> viewSeekerNotificationDataApi() async{
     dynamic response = await _apiService.getApi2(AppUrl.viewSeekerNotificationData);
     return SeekerNotificationDataModel.fromJson(response);
+  }
+
+  Future<ProfileModelSeeker> viewSeekerProfilerr() async{
+    dynamic response = await _apiService.getApi2(AppUrl.viewSeekerProfile);
+    return ProfileModelSeeker.fromJson(response);
+
+
   }
 
 }

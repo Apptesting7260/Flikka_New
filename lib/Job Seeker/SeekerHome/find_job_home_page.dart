@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../chatseeker/CreateChat.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
@@ -27,6 +28,8 @@ import '../SeekerDrawer/Drawer_page.dart';
 import '../SeekerJobs/no_job_available.dart';
 import 'package:get/get.dart';
 
+String ?Recruitername;
+String ?Recruiterimg;
 class FindJobHomeScreen extends StatefulWidget {
   const FindJobHomeScreen({super.key});
 
@@ -57,6 +60,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   }
   /////refresh/////
 
+  final Ctreatechat Ctreatechatinstance=Ctreatechat();
 
   @override
   void dispose() {
@@ -1037,23 +1041,23 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             child: Image.asset(
                                               'assets/images/icon_msg_blue.png',height: Get.height*.06,),
                                           ),
-                                          // onTap: (){
-                                          //   RecruiterId=data?.recruiterId.toString();
-                                          //   Recruitername=data?.recruiterDetails?.companyName;
-                                          //   Recruiterimg=data?.recruiterDetails?.profileImg;
-                                          //
-                                          //   setState(() {
-                                          //     RecruiterId;
-                                          //     Recruitername;
-                                          //     Recruiterimg;
-                                          //   });
-                                          //   if (kDebugMode) {
-                                          //     print( RecruiterId);
-                                          //     print( Recruitername);
-                                          //     print( Recruiterimg);
-                                          //   }
-                                          //   Ctreatechatinstance.CreateChat();
-                                          // },
+                                          onTap: (){
+                                            RecruiterId=data?.recruiterId.toString();
+                                            Recruitername=data?.recruiterDetails?.companyName;
+                                            Recruiterimg=data?.recruiterDetails?.profileImg;
+
+                                            setState(() {
+                                              RecruiterId;
+                                              Recruitername;
+                                              Recruiterimg;
+                                            });
+                                            if (kDebugMode) {
+                                              print( RecruiterId);
+                                              print( Recruitername);
+                                              print( Recruiterimg);
+                                            }
+                                            Ctreatechatinstance.CreateChat();
+                                          },
                                         ) : const SizedBox(),
                                       ],
                                     ),

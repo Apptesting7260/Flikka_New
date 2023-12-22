@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
+import '../../ChatRecruter/CreateFuction.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
 import '../../models/RecuiterJobTitleModel/RecruiterJobTitleModel.dart';
@@ -33,6 +36,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
 
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
+
+  Createchatrecruter Ctreatechatinstance=Createchatrecruter();
 
   String uri = '';
   bool isWork = false;
@@ -111,16 +116,38 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 ),
                 Row(
                   children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: AppColors.white),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                                    'assets/images/icon_msg.png',height: Get.height*.06,),
-                          ],
-                        )),
+                    GestureDetector(
+                      onTap: () {
+                        SeekerIDchat=widget.recruiterData?.seeker?.id.toString();
+                        Seekerimgchat=widget.recruiterData?.seeker?.profileImg.toString();
+                        SeekerName=widget.recruiterData?.seeker?.fullname.toString();
+                        setState(() {
+                          SeekerIDchat;
+                          Seekerimgchat;
+                          SeekerName;
+                        });
+
+                        print(SeekerIDchat);
+                        print(Seekerimgchat);
+                        print(SeekerName);
+                        Timer(Duration(seconds: 2), () {
+                          if(SeekerIDchat.toString()!="null"&&Seekerimgchat.toString()!="null"&&SeekerName.toString()!="null"){
+                            Ctreatechatinstance.CreateChat();
+                          }
+
+                        });
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: AppColors.white),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                      'assets/images/icon_msg.png',height: Get.height*.06,),
+                            ],
+                          )),
+                    ),
                     SizedBox(
                       width: Get.width * 0.045,
                     ),

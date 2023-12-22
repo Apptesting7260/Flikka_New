@@ -117,7 +117,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                           height: Get.height*.002,
                                         ),
                                         Text(
-                                            "${widget.jobTitle}",
+                                            widget.jobTitle ?? "No job title",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall?.copyWith(color: const Color(0xffFFFFFF),fontWeight: FontWeight.w600)
