@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:flikka/controllers/SeekerProfile/SeekerCreateProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
