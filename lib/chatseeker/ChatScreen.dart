@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:audio_waveforms/audio_waveforms.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,13 +9,14 @@ import 'package:flikka/Job%20Recruiter/message/message_page.dart';
 import 'package:flikka/chatseeker/CreateChat.dart';
 import 'package:flikka/chatseeker/chat_functios.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/main.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:kplayer/kplayer.dart';
+// import 'package:kplayer/kplayer.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:video_player/video_player.dart';
@@ -42,7 +43,7 @@ class _ChatPageState extends State<ChatPage> {
   bool audioplayed = false;
   late Uint8List audiobytes;
 // Recording ?recording;
-  AudioPlayer player = AudioPlayer();
+  // AudioPlayer player = AudioPlayer();
   Map<String, dynamic>? messages;
   TextEditingController messagecontroller = TextEditingController();
 
@@ -93,7 +94,7 @@ final MsgFunction chatfunctionsinstance=MsgFunction();
           "time": FieldValue.serverTimestamp(),
         };
  
-
+print(fcmToken);
 
           // setState(() {
           //   anotherseekerid;

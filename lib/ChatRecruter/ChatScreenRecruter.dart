@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:audio_waveforms/audio_waveforms.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -24,7 +24,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:kplayer/kplayer.dart';
+// import 'package:kplayer/kplayer.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:video_player/video_player.dart';
@@ -52,7 +52,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
   bool audioplayed = false;
   late Uint8List audiobytes;
 // Recording ?recording;
-  AudioPlayer player = AudioPlayer();
+  // AudioPlayer player = AudioPlayer();
   Map<String, dynamic>? messages;
   TextEditingController messagecontroller = TextEditingController();
 
@@ -119,6 +119,7 @@ final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
 
 // chatfunctionsinstance.Makersender(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
 
+        chatfunctionsinstance.sendNotification(textmsg.toString(),viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString());
              
           
             

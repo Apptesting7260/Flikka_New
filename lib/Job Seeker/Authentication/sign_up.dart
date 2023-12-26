@@ -1,4 +1,5 @@
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/controllers/SignUPController/SignUpController.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -32,9 +33,34 @@ class _SignUpState extends State<SignUp> {
     final RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
     return emailRegex.hasMatch(email);
   }
+ String fcmToken = "";
+FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+bool _isPasswordVisible = false;
 
-  bool _isPasswordVisible = false;
+Future<void> getFcmToken() async {
+  // Delay for demonstration purposes; you might not need this delay
+  await Future.delayed(Duration(seconds: 1));
 
+  String? token = await FirebaseMessaging.instance.getAPNSToken();
+  print(token);
+}
+
+@override
+void initState() {
+  super.initState();
+  // Call the async function within initState
+  initAsync();
+}
+
+void initAsync() async {
+  // Use a try-catch block to handle potential errors during the async operation
+  try {
+    await getFcmToken();
+  } catch (e) {
+    print("Error getting FCM token: $e");
+    // Handle the error as needed
+  }
+}
   @override
   Widget build(BuildContext context) {
     return SafeArea(

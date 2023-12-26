@@ -57,7 +57,8 @@ class _TabScreenState extends State<TabScreen> {
   final drawerKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {print('FCM Token: $fcmToken');
+
+  void initState() {
 
     getJobsListingController.seekerGetAllJobsApi() ;
     seekerProfileController.viewSeekerProfileApi() ;
