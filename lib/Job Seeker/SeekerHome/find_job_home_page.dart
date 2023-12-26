@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
@@ -23,7 +21,6 @@ import '../../res/components/internet_exception_widget.dart';
 import '../../utils/VideoPlayerScreen.dart';
 import '../SeekerFilter/filter_page.dart';
 import '../marketing_page.dart';
-import 'home_swiper_find_job_widget.dart';
 import '../SeekerDrawer/Drawer_page.dart';
 import '../SeekerJobs/no_job_available.dart';
 import 'package:get/get.dart';
@@ -186,7 +183,6 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             controller: controller,
                             cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
                             numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
-                            // isLoop: false,
                             backCardOffset: const Offset(40, 40),
                             padding: const EdgeInsets.all(24.0),
                             allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
@@ -864,7 +860,6 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                           controller: controller,
                           cardsCount: jobFilterController.jobsData.value.jobs?.length ?? 0 ,
                           numberOfCardsDisplayed: jobFilterController.jobsData.value.jobs?.length == 1 ? 1 : 2,
-                          // isLoop: false,
                           backCardOffset: const Offset(40, 40),
                           padding: const EdgeInsets.all(24.0),
                           allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
