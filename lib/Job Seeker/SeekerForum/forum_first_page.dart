@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
+import 'package:flikka/Job%20Seeker/SeekerForum/seeker_chat_message.dart';
 import 'package:flikka/controllers/SeekerForumController/ForumIndustryListController.dart';
 import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -434,7 +435,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                             )
                                           ],
                                         ),
-                                        const SeekerMessagePage() ,
+                                        const ForumMessagePage() ,
                                       ]),
                                 )
                                 // SizedBox(height: Get.height * .01,),
