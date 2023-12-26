@@ -24,10 +24,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-   fcmToken = await FirebaseMessaging.instance.getToken();
-   print('FCM Token: $fcmToken');
    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
    NotificationSettings settings = await messaging.requestPermission(
      alert: true,
      announcement: true,
@@ -37,6 +34,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
      provisional: false,
      sound: true,
    );
+   fcmToken = await messaging.getToken();
+   print('FCM Token: $fcmToken');
+
+
+
    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
      print('Got a message whilst in the foreground!');
      print('Message data: ${message.data}');

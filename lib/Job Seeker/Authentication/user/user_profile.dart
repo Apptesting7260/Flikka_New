@@ -1860,12 +1860,14 @@ class _UserProfileState extends State<UserProfile> {
                         Container( height: Get.height * 0.55,
                             alignment: Alignment.center,
                             child:const CircularProgressIndicator()) :
-                        CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          height: Get.height * 0.5,
-                          width: Get.width,
-                          placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
-                          imageUrl:  "${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}" ,),
+                        GestureDetector(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            height: Get.height * 0.5,
+                            width: Get.width,
+                            placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
+                            imageUrl:  "${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}" ,),
+                        ),
                         ) ,
                         Padding(
                           padding: const EdgeInsets.all(10.0),
