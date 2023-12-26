@@ -376,7 +376,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       strokeWidth: 0.7,
                       child: GestureDetector(
                         onTap: () {
-                          _openVideoPickerDialog() ;
+                          _startRecording(ImageSource.camera) ;
                         },
                         child: Container(
                           height: Get.height * .15,

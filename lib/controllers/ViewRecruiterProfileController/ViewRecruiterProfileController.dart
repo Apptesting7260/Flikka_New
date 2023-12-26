@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/main.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,7 @@ class ViewRecruiterProfileGetController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void viewRecruiterProfileGetList(ViewRecruiterProfileModel _value) => viewRecruiterProfile.value = _value ;
   void setError(String _value) => error.value = _value ;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 
   Future<void> viewRecruiterProfileApi() async {
@@ -30,7 +33,15 @@ class ViewRecruiterProfileGetController extends GetxController {
       viewRecruiterProfile(value);
 
       print(value);
+       print("DEVICE TOKEN $fcmToken");
+ var deviceTokenRef = _firestore.collection("R-ID${value.recruiterProfileDetails?.id.toString()}").doc('DeviceToken');
 
+      print("fcm token set 5666767hgjjjjgjhgjgjwjjgwjgwjgjgjjw");
+
+
+      deviceTokenRef.set({'device token': fcmToken});
+
+      print("DEVICE TOKEN $fcmToken");
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());

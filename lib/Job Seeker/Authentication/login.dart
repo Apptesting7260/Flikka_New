@@ -1,7 +1,11 @@
 
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/LoginController/LoginController.dart';
 import 'package:flikka/Job%20Seeker/Authentication/sign_up.dart';
+import 'package:flikka/main.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
@@ -29,6 +33,43 @@ class _LoginState extends State<Login> {
     return emailRegex.hasMatch(email);
   }
   bool _isPasswordVisible = false;
+@override
+void initState() {
+  // _getAPNSToken();
+   getFcmToken();
+  super.initState();
+  
+}
+
+// Future<void> _getAPNSToken() async {
+//   try {
+//    fcmToken = await FirebaseMessaging.instance.getAPNSToken();
+
+//     // Use the token for further actions (e.g., send to server)
+//     print('APNS token: $fcmToken');
+//   } catch (e) {
+//     print('Error getting APNS token: $e');
+//     // Handle errors gracefully
+//   }
+// }
+  
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+ 
+
+  getFcmToken() {
+    print("sdfsdfdsfdsfdsafdsfdsf");
+    firebaseMessaging.getToken().then((String? token) async {
+      if (token == null) {
+      } else {
+        fcmToken = token;
+
+        print("token=======$fcmToken");
+      }
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

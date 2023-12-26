@@ -140,6 +140,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   Completer<GoogleMapController> filterMapController = Completer();
 
   bool remote = false;
+  bool hybrid = false;
+  bool all = true;
 
   int _selectedValue = 1;
   Set<Marker> markers = Set();
@@ -412,26 +414,70 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                       },
                                       child: Image.asset(
                                         "assets/images/icon_filter_seeker_home.png",
-                                        height: Get.height * .043,
-                                      )),
-                               const SizedBox(height: 10,),
+                                        height: 30,
+                                      )
+                                  ),
+                                  Text("Filter",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                               const SizedBox(height: 5,),
                                GestureDetector(
                                  onTap: () {
                                    setState(() {
-                                     remote = !remote ;
+                                     remote = true ;
+                                     hybrid = false ;
+                                     all = false ;
                                        updateMap(selectedRadius) ;
                                    });
                                  },
                                  child: Container(
-                                   height: 35,
-                                   width: 35,
+                                   height: 30,
+                                   width: 30,
                                    decoration:  BoxDecoration(
                                      shape: BoxShape.circle,
                                      color: remote ?  AppColors.blueThemeColor : AppColors.white
                                    ),
                                  ),
                                ),
-                                   Text("remote",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                   Text("Remote",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                  const SizedBox(height: 5,),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        hybrid = true ;
+                                        remote = false ;
+                                        all = false ;
+                                        updateMap(selectedRadius) ;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration:  BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: hybrid ?  AppColors.blueThemeColor : AppColors.white
+                                      ),
+                                    ),
+                                  ),
+                                  Text("Hybrid",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                  const SizedBox(height: 5,),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        all = true ;
+                                        hybrid = false ;
+                                        remote = false ;
+                                        updateMap(selectedRadius) ;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration:  BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: all ?  AppColors.blueThemeColor : AppColors.white
+                                      ),
+                                    ),
+                                  ),
+                                  Text("All",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
                                 ],
                               ),
                             ),
@@ -619,6 +665,27 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   }));
             }
             // Trigger a rebuild to update the markers on the map
+          }
+          else if(hybrid){
+            if (markerDistance <= radius && data?.typeOfWorkplace?.toLowerCase() == "hybrid") {
+              if (kDebugMode) {
+                print("object");
+              }
+              markers.add(Marker(
+                  markerId: MarkerId("${data?.id}"),
+                  position: LatLng(
+                      double.parse("${data?.lat}"),
+                      double.parse("${data?.long}")),
+                  infoWindow:
+                  InfoWindow(title: "${data?.recruiterDetails?.companyName}"),
+                  icon: await getMarkerIcon("assets/images/icon_map.png", 5),
+                  onTap: () async {
+                    debugPrint("tapped");
+                    Get.to(() =>
+                        MarketingIntern(
+                            jobData: data, appliedJobScreen: false));
+                  }));
+            }
           } else {
             if (markerDistance <= radius) {
               if (kDebugMode) {

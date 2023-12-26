@@ -47,6 +47,8 @@ class ViewSeekerProfileControllerr extends GetxController {
 
 
       deviceTokenRef.set({'device token': fcmToken});
+
+      print("DEVICE TOKEN $fcmToken");
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());

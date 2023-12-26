@@ -4,6 +4,7 @@ import 'package:flikka/Job%20Seeker/Authentication/user/create-profile.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_position.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_skills.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flikka/main.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -30,6 +31,7 @@ class LoginController extends GetxController {
     Map data = {
       'email': emailController.value.text,
       'password': passwordController.value.text,
+      'device_token' : fcmToken,
     };
     print(data);
     _api.LoginApi(data).then((value) {
