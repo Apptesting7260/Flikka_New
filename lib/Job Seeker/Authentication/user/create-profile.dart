@@ -376,7 +376,8 @@ class _CreateProfileState extends State<CreateProfile> {
                       strokeWidth: 0.7,
                       child: GestureDetector(
                         onTap: () {
-                          _startRecording(ImageSource.camera) ;
+                          // _startRecording(ImageSource.camera) ;
+                          _openVideoPickerDialog() ;
                         },
                         child: Container(
                           height: Get.height * .15,
@@ -2702,6 +2703,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
   Future<void> _startRecording(ImageSource source) async {
     final video = await ImagePicker().pickVideo(source: source,maxDuration: const Duration(seconds: 15)) ;
+
     if(video != null) {
       await compressVideo(video.path);
     }
