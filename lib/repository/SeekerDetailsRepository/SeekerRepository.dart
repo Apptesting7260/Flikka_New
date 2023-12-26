@@ -1,4 +1,5 @@
 
+import 'package:flikka/models/AvtarImageModel/AvtarImageModel.dart';
 import 'package:flikka/models/CompanyListModel/CompanyListModel.dart';
 import 'package:flikka/models/ForumCommentsModel/ForumCommentsModel.dart';
 import 'package:flikka/models/SeekerAppliedJobsModel/SeekerAppliedJobsModel.dart';
@@ -8,6 +9,7 @@ import 'package:flikka/models/SeekerSavedPostModel/SeekerSavedPostModel.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 
 import '../../data/network/network_api_services.dart';
+import '../../models/AvtarImageListModel/AvtarImageListModel.dart';
 import '../../models/EditAboutModel/EditAboutModel.dart';
 import '../../models/FilteredJobsModel/FilteredJobsModel.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
@@ -143,5 +145,17 @@ class SeekerRepository {
         data, AppUrl.viewJobFromNotification);
     return ViewJobFromNotification.fromJson(response);
   }
+
+  Future<AvtarImageModel> avtarImageApi(var data) async {
+    dynamic response = await apiServices.postApi2(data, AppUrl.avtarImage);
+    return AvtarImageModel.fromJson(response);
+  }
+
+  Future<AvtarImageListModel> avtarListApi() async {
+    dynamic response = await apiServices.getApi2(AppUrl.avtarImageList);
+    return AvtarImageListModel.fromJson(response);
+  }
+
+
 
 }

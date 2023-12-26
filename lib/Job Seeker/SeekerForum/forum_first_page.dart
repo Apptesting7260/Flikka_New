@@ -156,7 +156,6 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                               SizedBox(
                                                 height: Get.height * .15,
                                                 child: Row(
-                                          
                                                   children: [
                                                     GestureDetector(
                                                         onTap: () {
@@ -206,11 +205,13 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                       children: [
                                                                         CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
-                                                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                                                                          placeholder: (context, url) => const Center(
+                                                                            child: CircularProgressIndicator(),),
                                                                           imageBuilder: (context, imageProvider) => Container(
                                                                             height: 60,
                                                                             width: 60,
                                                                             decoration: BoxDecoration(
+                                                                              //border: Border.all(color: AppColors.blueThemeColor),
                                                                                 shape: BoxShape.circle ,
                                                                                 image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
                                                                             ),

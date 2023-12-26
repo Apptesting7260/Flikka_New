@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/AddJobPage/create_job_post.dart';
 import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
-import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
-import 'package:flikka/hiring%20Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Job Seeker/SeekerNotification/SeekerNotification.dart';
 import '../../Job Seeker/SeekerNotification/setting_page.dart';
 import '../ChartReport/chart_report.dart';
 
@@ -25,6 +22,13 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
   LogoutController logoutController = Get.put(LogoutController()) ;
   ViewRecruiterProfileGetController viewRecruiterProfileController = Get.put(ViewRecruiterProfileGetController());
 
+  String iconProfile = 'assets/images/profiledrawericon.png' ;
+  String iconApplicant = 'assets/images/icon_applicant.png' ;
+  String iconJobPost = 'assets/images/icon_job_post.png' ;
+  String iconReport = 'assets/images/icon_report.png' ;
+  String iconSetting = 'assets/images/settingdrawericon.png' ;
+  String iconLogout = 'assets/images/logoutdrawericon.png' ;
+  
   @override
   Widget build(BuildContext context) {
     return
@@ -149,12 +153,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-
-                                        },
-                                        icon: Image.asset('assets/images/profiledrawericon.png')
-                                    ),
+                                    leading: drawerIcon(iconProfile),
                                     title: InkWell(
                                         onTap: (){
                                           Get.offAll(TabScreenEmployer(index: 4,));
@@ -189,11 +188,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-                                          //Get.to((ResetPassword()));
-                                        },
-                                        icon: Image.asset('assets/images/icon_applicant.png',scale: 2.8,fit: BoxFit.cover,)),
+                                    leading: drawerIcon(iconApplicant),
                                     title: InkWell(
                                         onTap: (){
                                           Get.offAll(TabScreenEmployer(index: 1,));
@@ -226,11 +221,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-
-                                        },
-                                        icon: Image.asset('assets/images/icon_job_post.png',scale: 2.8,fit: BoxFit.cover,)),
+                                    leading: drawerIcon(iconJobPost),
                                     title: InkWell(
                                         onTap: (){
                                           Get.to(() => CreateJobPost()) ;
@@ -243,11 +234,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-                                          //Get.to((ResetPassword()));
-                                        },
-                                        icon: Image.asset('assets/images/icon_report.png',scale: 2.8,fit: BoxFit.cover,)),
+                                    leading: drawerIcon(iconReport),
                                     title: InkWell(
                                         onTap: (){
                                           Get.to(() => const ChartReport());
@@ -331,12 +318,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-                                          //Get.to((Wishlist()));
-                                        },
-                                        icon: Image.asset('assets/images/settingdrawericon.png',scale: 2.8,fit: BoxFit.cover,)
-                                    ),
+                                    leading: drawerIcon(iconSetting),
                                     title: InkWell(
                                         onTap: () {
                                           Get.to(() =>const SettingPage());
@@ -381,6 +363,11 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
         ]),
       );
   }
+
+  drawerIcon ( String image ) {
+    return Image.asset(image,height: 22,fit: BoxFit.cover,) ;
+  }
+
 
   void showLogoutDialog(BuildContext context) {
     showDialog(

@@ -86,4 +86,6 @@ class AppUrl {
   static const String setJobAlert = '$baseUrl/seeker-job-alert-position-api' ;
   static const String viewSeekerNotificationData = '$baseUrl/seeker-notification-api' ;
   static const String viewJobFromNotification = '$baseUrl/view-job-on-notification-bar' ;
+  static const String avtarImage = '$baseUrl/avtar-image-upload' ;
+  static const String avtarImageList = '$baseUrl/avtar-image-list' ;
 }

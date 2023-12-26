@@ -6,11 +6,7 @@ import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../data/response/status.dart';
 import '../../models/SeekerForumIndustryListModel/SeekerForumIndustryListModel.dart';
-import '../../res/components/general_expection.dart';
-import '../../res/components/internet_exception_widget.dart';
-import '../../res/components/request_timeout_widget.dart';
 import '../../widgets/app_colors.dart';
 
 class AddNewForum extends StatefulWidget {
@@ -55,7 +51,7 @@ class _AddNewForumState extends State<AddNewForum> {
           elevation: 0,
           title: Text("Add New Forum", style: Get.theme.textTheme.displayLarge),
         ),
-      body: SingleChildScrollView(
+         body: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: Get.width * .05),
                       child: Column(
@@ -132,7 +128,7 @@ class _AddNewForumState extends State<AddNewForum> {
 
                             ),
                           ),
-                          SizedBox(height: Get.height * .04,),
+                          SizedBox(height: Get.height * .025,),
                           Form( key: formKey,
                             child: Column(
                               children: [
@@ -174,7 +170,7 @@ class _AddNewForumState extends State<AddNewForum> {
                                     }
                                   },
                                 ),
-                                SizedBox(height: Get.height * .04,),
+                                SizedBox(height: Get.height * .025,),
                                 TextFormField(
                                   controller: descriptionController,
                                     maxLines: 5,
@@ -217,10 +213,10 @@ class _AddNewForumState extends State<AddNewForum> {
                               ],
                             ),
                           ),
-                          SizedBox(height: Get.height * .06,),
+                          SizedBox(height: Get.height * .04,),
                           Obx( () => MyButton(
                             loading: forumController.loading.value,
-                              width: Get.width * .72,
+                              width: Get.width * .75,
                               title: "SUBMIT", onTap1: () {
                               if(forumController.loading.value) {}
                               else {
