@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikka/chatseeker/CreateChat.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,12 +97,12 @@ seekerProfileController.viewSeekerProfileApi();
   print("notification data ");
       var gettingDeviceTokenSnapshot = await _firestore.collection("R-ID${RecruiterId.toString()}").doc('DeviceToken').get();
                                         var gettingDeviceToken = gettingDeviceTokenSnapshot.data();
-                                          print(gettingDeviceToken!['device token']);
+                                        fcmToken=gettingDeviceToken!['device token'];
+                                         print(fcmToken);
       
         // if(onScreen=="false"&&gettingDeviceToken!=null){                               
     var notificationContent = {
       'to': gettingDeviceToken['device token'],
-     
       'notification': {
         'title': '${chatname}',
         'body': body,

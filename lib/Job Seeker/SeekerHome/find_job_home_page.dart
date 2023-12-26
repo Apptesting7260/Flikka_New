@@ -371,23 +371,23 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   child: Image.asset(
                                                     'assets/images/icon_msg_blue.png',height: Get.height*.06,),
                                                 ),
-                                                // onTap: (){
-                                                //   RecruiterId=data?.recruiterId.toString();
-                                                //   Recruitername=data?.recruiterDetails?.companyName;
-                                                //   Recruiterimg=data?.recruiterDetails?.profileImg;
-                                                //
-                                                //   setState(() {
-                                                //     RecruiterId;
-                                                //     Recruitername;
-                                                //     Recruiterimg;
-                                                //   });
-                                                //   if (kDebugMode) {
-                                                //     print( RecruiterId);
-                                                //     print( Recruitername);
-                                                //     print( Recruiterimg);
-                                                //   }
-                                                //   Ctreatechatinstance.CreateChat();
-                                                // },
+                                                onTap: (){
+                                                  RecruiterId=data?.recruiterId.toString();
+                                                  Recruitername=data?.recruiterDetails?.companyName;
+                                                  Recruiterimg=data?.recruiterDetails?.profileImg;
+
+                                                  setState(() {
+                                                    RecruiterId;
+                                                    Recruitername;
+                                                    Recruiterimg;
+                                                  });
+                                                  if (kDebugMode) {
+                                                    print( RecruiterId);
+                                                    print( Recruitername);
+                                                    print( Recruiterimg);
+                                                  }
+                                                  Ctreatechatinstance.CreateChat();
+                                                },
                                               ) : const SizedBox(),
                                               SizedBox(
                                                 height: Get.height * .01,

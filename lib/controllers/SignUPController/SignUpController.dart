@@ -1,6 +1,7 @@
 
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/controllers/SeekerReferalController/SeekerReferralController.dart';
+import 'package:flikka/main.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/res/components/request_timeout_widget.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
@@ -46,7 +47,8 @@ class SignUpController extends GetxController {
       'email' : sp.getString("email"),
       'password' : sp.getString("password"),
       'name' : sp.getString("name"),
-      "role" : "$role"
+      "role" : "$role",
+      "device_token" : fcmToken,
     };
     _api.SignUpApi(data).then((value){
       setRxRequestStatus(Status.COMPLETED);

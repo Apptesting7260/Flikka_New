@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/AvtarImageListController/AvtarImageListController.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
@@ -51,11 +52,14 @@ class _TabScreenState extends State<TabScreen> {
   CompaniesListController companiesListController = Get.put(CompaniesListController()) ;
   SeekerMapJobsController jobsController = Get.put(SeekerMapJobsController());
   ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
+  AvtarImageListController avtarController = Get.put(AvtarImageListController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {print('FCM Token: $fcmToken');
+
+  void initState() {
+
     getJobsListingController.seekerGetAllJobsApi() ;
     seekerProfileController.viewSeekerProfileApi() ;
     seekerProfileControllerr.viewSeekerProfileApi();
@@ -66,6 +70,7 @@ class _TabScreenState extends State<TabScreen> {
     companiesListController.getCompaniesApi() ;
     jobsController.mapJobsApi();
     seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
+    avtarController.getAvtarListApi() ;
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
 

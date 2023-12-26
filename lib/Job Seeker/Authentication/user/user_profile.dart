@@ -42,6 +42,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_compress/video_compress.dart';
+import '../../../controllers/AvtarImageController/AvtarImageController.dart';
+import '../../../controllers/AvtarImageListController/AvtarImageListController.dart';
 import '../../../controllers/EditMobileNumberController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SearchPlaceModel/SearchPlaceModel.dart';
@@ -62,6 +64,8 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+
+  AvtarImageController avtarImageController = Get.put(AvtarImageController()) ;
 
   SeekerChoosePositionGetController seekerChoosePositionGetController = Get.put(SeekerChoosePositionGetController());
 
@@ -1812,6 +1816,67 @@ class _UserProfileState extends State<UserProfile> {
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
   SeekerUpdateVideoController updateVideoController = Get.put(SeekerUpdateVideoController()) ;
 
+  AvtarImageListController avtarController = Get.put(AvtarImageListController()) ;
+
+  Future<void> _openAvtarImageListDialog() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          title: Center(
+            child: Text(
+              'Please choose avtar',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          ),
+          content:  SizedBox(
+            height: Get.height*.6,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: avtarController.avtarImageList.value.avtarImages?.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          CommonFunctions.confirmationDialog(context, message: "Do you want to upload this avtar",
+                              onTap: () async {
+                            CommonFunctions.showLoadingDialog(context, "uploading...") ;
+                            var result = await avtarImageController.avtarImageApiData(context, avtarController.avtarImageList.value.avtarImages?[index].avtarName) ;
+                              Get.back() ;
+                              Get.back() ;
+                              if(result == true) {
+                                Get.back() ;
+                                Get.back() ;
+                              }
+                              },);
+                        },
+                        child: CachedNetworkImage(
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: 90,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                              ),
+                            ),
+                            imageUrl: avtarController.avtarImageList.value.avtarImages?[index].avtarLink ?? ""),
+                      ),
+                      SizedBox(height: Get.height*.01,),
+                    ],
+                  ) ;
+                },),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // seekerProfileController.viewSeekerProfileApi();
@@ -1861,6 +1926,12 @@ class _UserProfileState extends State<UserProfile> {
                             alignment: Alignment.center,
                             child:const CircularProgressIndicator()) :
                         GestureDetector(
+                          onTap: () {
+                            CommonFunctions.confirmationDialog(context, message: "Do you want to upload avtar", onTap: () {
+                              _openAvtarImageListDialog() ;
+                            },);
+
+                          },
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
                             height: Get.height * 0.5,
