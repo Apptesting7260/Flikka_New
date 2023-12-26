@@ -156,7 +156,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                   industryController.industryData.value.industryList?.length == 0 ?
                                               const SizedBox() :
                                               SizedBox(
-                                                height: Get.height * .15,
+                                                height: Get.height * .18,
                                                 child: Row(
                                                   children: [
                                                     GestureDetector(
@@ -168,13 +168,20 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             Container(
-                                                              height: 60,
-                                                              width: 60,
-                                                              decoration: const BoxDecoration(
-                                                                  shape: BoxShape.circle ,
-                                                                  image: DecorationImage(
-                                                                      image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
-                                                                  )
+                                                              padding: const EdgeInsets.all(3),
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.white,width: 2)
+                                                              ),
+                                                              child: Container(
+                                                                height: 60,
+                                                                width: 60,
+                                                                decoration: const BoxDecoration(
+                                                                    shape: BoxShape.circle ,
+                                                                    image: DecorationImage(
+                                                                        image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
+                                                                    )
+                                                                ),
                                                               ),
                                                             ),
                                                             SizedBox(height: Get.height * .01,),
@@ -206,18 +213,31 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                     child: Column(
                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                       children: [
-                                                                        CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
-                                                                          placeholder: (context, url) => const Center(
-                                                                            child: CircularProgressIndicator(),),
-                                                                          imageBuilder: (context, imageProvider) => Container(
-                                                                            height: 60,
-                                                                            width: 60,
+                                                                        Stack(
+                                                                        children: [
+                                                                          Container(
+                                                                            padding: const EdgeInsets.all(3),
                                                                             decoration: BoxDecoration(
-                                                                              //border: Border.all(color: AppColors.blueThemeColor),
-                                                                                shape: BoxShape.circle ,
-                                                                                image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                                                              shape: BoxShape.circle,
+                                                                              border: Border.all(color: data?.id.toString() == industryID.toString() ?
+                                                                              AppColors.blueThemeColor : AppColors.white,width: 2)
+                                                                            ),
+                                                                            child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
+                                                                              placeholder: (context, url) => const Center(
+                                                                                child: CircularProgressIndicator(),),
+                                                                              imageBuilder: (context, imageProvider) => Container(
+                                                                                height: 60,
+                                                                                width: 60,
+                                                                                decoration: BoxDecoration(
+                                                                                    shape: BoxShape.circle ,
+                                                                                    image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                                                                ),
+                                                                            
+                                                                              ),
                                                                             ),
                                                                           ),
+                                                                        
+                                                                        ],
                                                                         ) ,
                                                                         SizedBox(height: Get.height * .01,),
                                                                         Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
@@ -458,7 +478,6 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                 //   ],
                                 // ),
                                 // SizedBox(height: Get.height * .02,),
-                               
                               ],
                             ),
                           ),
