@@ -12,6 +12,7 @@ import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
+import '../SeekerChatMessage/message_page.dart';
 import 'forum_only_comment_page.dart';
 
 class ForumFirstPage extends StatefulWidget {
@@ -426,20 +427,14 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                             ],
                                           ),
                                         ),
-                                        Column(
+                                        const Column(
                                           children: [
                                             Center(
                                               child: Text("Friends"),
                                             )
                                           ],
                                         ),
-                                        Column(
-                                          children: [
-                                            Center(
-                                              child: Text("Messages"),
-                                            )
-                                          ],
-                                        )
+                                        const SeekerMessagePage() ,
                                       ]),
                                 )
                                 // SizedBox(height: Get.height * .01,),
