@@ -80,6 +80,7 @@ dependencies:
   audio_waveforms: ^1.0.4
 #  kplayer: ^0.4.2
   flutter_local_notifications: ^16.2.0
+  fast_contacts: ^3.1.2
 
 #  table_calendar: ^2.3.3
 
