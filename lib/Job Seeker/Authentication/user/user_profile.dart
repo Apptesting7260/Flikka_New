@@ -476,7 +476,7 @@ class _UserProfileState extends State<UserProfile> {
                     SizedBox(height: Get.height * 0.01,),
                     IntlPhoneField(
                       flagsButtonPadding: const EdgeInsets.only(bottom: 3),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      // autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
                       controller: mobileNumberSectionController,
                       // initialValue: '+44',
