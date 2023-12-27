@@ -29,7 +29,7 @@ class SeekerAddForumController extends GetxController {
     _api.seekerAddForum(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       Get.back() ;
-      forumDataController.seekerForumListApi() ;
+      forumDataController.seekerForumListApi(page: "1") ;
       loading(false) ;
       if (kDebugMode) {
         print(value);

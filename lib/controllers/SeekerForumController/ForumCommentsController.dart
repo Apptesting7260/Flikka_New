@@ -28,7 +28,7 @@ class ForumCommentsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       commentsData(value) ;
       reversedList = value.seekerComment ?? [] ;
-      forumDataController.refreshForumListApi(industryID: industryID) ;
+      forumDataController.refreshForumListApi() ;
       if (kDebugMode) {
         print(value);
       }
@@ -48,7 +48,7 @@ class ForumCommentsController extends GetxController {
     _api.forumComments(data).then((value){
       commentsData(value) ;
       reversedList = value.seekerComment ?? [] ;
-      forumDataController.refreshForumListApi(industryID: industryID) ;
+      forumDataController.refreshForumListApi() ;
       if (kDebugMode) {
         print(value);
       }

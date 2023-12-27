@@ -13,6 +13,7 @@ class ContactController extends GetxController {
   List<ContactField> fields = ContactField.values.toList();
 
   Future<void> loadContacts() async {
+    await Permission.contacts.request() ;
     var status = await Permission.contacts.status;
     if (status.isGranted) {
       try {

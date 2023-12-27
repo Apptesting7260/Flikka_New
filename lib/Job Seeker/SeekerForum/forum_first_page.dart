@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flikka/Job%20Seeker/SeekerForum/FriendsFamily/FriendsFamily.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/seeker_chat_message.dart';
 import 'package:flikka/controllers/SeekerForumController/ForumIndustryListController.dart';
 import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
@@ -13,7 +16,6 @@ import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
-import '../SeekerChatMessage/message_page.dart';
 import 'forum_only_comment_page.dart';
 
 class ForumFirstPage extends StatefulWidget {
@@ -29,30 +31,61 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
-     forumDataController.seekerForumListApi();
+     forumDataController.seekerForumListApi(page: "1");
      industryID = null ;
     _refreshController.refreshCompleted();
   }
 
-  void _onLoading() async{
-     forumDataController.seekerForumListApi();
-    if(mounted)
-      setState(() {
+  ScrollController scrollController = ScrollController() ;
 
-      });
-    _refreshController.loadComplete();
-  }
+  // void _onLoading() async{
+  //    forumDataController.seekerForumListApi();
+  //   if(mounted)
+  //     setState(() {
+  //
+  //     });
+  //   _refreshController.loadComplete();
+  // }
   /////refresh/////
 
   SeekerForumDataController forumDataController = Get.put(SeekerForumDataController()) ;
   SeekerForumIndustryController industryController = Get.put(SeekerForumIndustryController()) ;
 
   dynamic industryID ;
+  int page = 1 ;
+
+  void scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      if (kDebugMode) {
+        print("step 1") ;
+      }
+      if(!forumDataController.loadingPage.value) {
+        if (kDebugMode) {
+          print("step 2") ;
+        }
+        if (forumDataController.forumData.value.isLast == false) {
+          page++;
+          if (kDebugMode) {
+            print("step 3") ;
+          }
+          if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+            forumDataController.paginationForumApi(page: "$page");
+            if (kDebugMode) {
+              print("step 4") ;
+            }
+          }
+        }
+      }
+    }
+  }
 
   @override
   void initState() {
     // forumDataController.seekerForumListApi() ;
     // industryController.industryApi() ;
+    scrollController.addListener(scrollListener) ;
     super.initState();
   }
 
@@ -69,16 +102,12 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
             return Scaffold(
               body: InterNetExceptionWidget(
                 onPress: () {
-                  forumDataController.seekerForumListApi();
+                  forumDataController.seekerForumListApi(page: "1");
                 },
               ),);
-          } else if (forumDataController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {
-              forumDataController.seekerForumListApi();
-            }),);
-          } else {
+          }  else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
-              forumDataController.seekerForumListApi();
+              forumDataController.seekerForumListApi(page: "1");
             }),);
           }
         case Status.COMPLETED:
@@ -128,6 +157,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                       child: DefaultTabController(
                         length: 3,
                         child: SingleChildScrollView(
+                          physics: const NeverScrollableScrollPhysics(),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20.0,),
@@ -150,6 +180,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                   child: TabBarView(
                                       children: [
                                         SingleChildScrollView(
+                                          controller: scrollController,
                                           child: Column(
                                             children: [
                                               industryController.industryData.value.industryList == null ||
@@ -315,147 +346,148 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                 height: Get.height * .02,
                                               ),
                                               //************* list *((((((((((((((((((((((((((((((((
-                                              forumDataController.forumList == null || forumDataController.forumList?.length == 0 ?
+
                                               Column(
                                                 children: [
-                                                  SizedBox(height: Get.height*.2,) ,
-                                                  const Text("No Data"),
-                                                ],
-                                              ) :
-                                              ListView.builder(
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  itemCount: forumDataController.forumList?.length,
-                                                  itemBuilder: (context, index) {
-                                                    var data = forumDataController.forumList?[index];
-                                                    return Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                          vertical: Get.height * .02),
-                                                      child: Stack(
-                                                          children: [
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
-                                                              },
-                                                              child: Container(
-                                                                padding: const EdgeInsets.only(left: 7.0, top: 15),
-                                                                decoration: BoxDecoration(
-                                                                  color: const Color(0xff353535),
-                                                                  borderRadius: BorderRadius.circular(22),
-                                                                ),
-                                                                child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  //crossAxisAlignment: CrossAxisAlignment.end,
-                                                                  children: [
-                                                                    CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
-                                                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                                                                      imageBuilder: (context, imageProvider) => Container(
-                                                                        height: 60,
-                                                                        width: 60,
-                                                                        decoration: BoxDecoration(
-                                                                            shape: BoxShape.circle,
-                                                                            image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
-                                                                        ),
-                                                                      ),),
-                                                                    SizedBox(width: Get.width * 0.035,),
-                                                                    Column(
+                                                  forumDataController.forumList == null || forumDataController.forumList?.length == 0 ?
+                                                  Column(
+                                                    children: [
+                                                      SizedBox(height: Get.height*.2,) ,
+                                                      const Text("No Data"),
+                                                    ],
+                                                  ) :
+                                                  ListView.builder(
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      shrinkWrap: true,
+                                                      itemCount: forumDataController.forumList?.length,
+                                                      itemBuilder: (context, index) {
+                                                        var data = forumDataController.forumList?[index];
+                                                        return Padding(
+                                                          padding: EdgeInsets.symmetric(
+                                                              vertical: Get.height * .02),
+                                                          child: Stack(
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
+                                                                  },
+                                                                  child: Container(
+                                                                    padding: const EdgeInsets.only(left: 7.0, top: 15),
+                                                                    decoration: BoxDecoration(
+                                                                      color: const Color(0xff353535),
+                                                                      borderRadius: BorderRadius.circular(22),
+                                                                    ),
+                                                                    child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                      //crossAxisAlignment: CrossAxisAlignment.end,
                                                                       children: [
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.only(top: 8),
-                                                                          child: Column(
-                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              SizedBox( width : Get.width * 0.5,
-                                                                                child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
-                                                                                  style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.blueThemeColor),
-                                                                                  softWrap: true,),
+                                                                        CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
+                                                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                                                                          imageBuilder: (context, imageProvider) => Container(
+                                                                            height: 60,
+                                                                            width: 60,
+                                                                            decoration: BoxDecoration(
+                                                                                shape: BoxShape.circle,
+                                                                                image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                                                            ),
+                                                                          ),),
+                                                                        SizedBox(width: Get.width * 0.035,),
+                                                                        Column(
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.only(top: 8),
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  SizedBox( width : Get.width * 0.5,
+                                                                                    child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
+                                                                                      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.blueThemeColor),
+                                                                                      softWrap: true,),
+                                                                                  ),
+                                                                                  SizedBox(height: Get.height * 0.005,),
+                                                                                  SizedBox( width : Get.width * 0.5,
+                                                                                    child: Text(
+                                                                                      data?.title ?? "",
+                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.white),
+                                                                                      softWrap: true,),
+                                                                                  ),
+                                                                                  SizedBox(height: Get.height * 0.005,),
+                                                                                  Text(data?.seekerName ?? "",
+                                                                                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                                        color: AppColors.ratingcommenttextcolor),),
+                                                                                  SizedBox(height: Get.height * 0.01,),
+                                                                                  SizedBox(width: Get.width * 0.60,
+                                                                                    child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
+                                                                                        .of(context).textTheme.bodySmall!.copyWith(
+                                                                                        color: AppColors.ratingcommenttextcolor, letterSpacing: 0.01),),
+                                                                                  ),
+                                                                                  SizedBox(height: Get.height * 0.15,),
+                                                                                ],
                                                                               ),
-                                                                              SizedBox(height: Get.height * 0.005,),
-                                                                              SizedBox( width : Get.width * 0.5,
-                                                                                child: Text(
-                                                                                  data?.title ?? "",
-                                                                                  overflow: TextOverflow.ellipsis,
-                                                                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.white),
-                                                                                  softWrap: true,),
-                                                                              ),
-                                                                              SizedBox(height: Get.height * 0.005,),
-                                                                              Text(data?.seekerName ?? "",
-                                                                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                                    color: AppColors.ratingcommenttextcolor),),
-                                                                              SizedBox(height: Get.height * 0.01,),
-                                                                              SizedBox(width: Get.width * 0.60,
-                                                                                child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
-                                                                                    .of(context).textTheme.bodySmall!.copyWith(
-                                                                                    color: AppColors.ratingcommenttextcolor, letterSpacing: 0.01),),
-                                                                              ),
-                                                                              SizedBox(height: Get.height * 0.15,),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Positioned(
-                                                              bottom: 0,
-                                                              left: 0,
-                                                              right: 0,
-                                                              child: Container(
-                                                                decoration: const BoxDecoration(
-                                                                  borderRadius: BorderRadius.only(
-                                                                      bottomRight: Radius
-                                                                          .circular(25),
-                                                                      bottomLeft: Radius.circular(
-                                                                          25)),
-                                                                  color: Color(0xff3F3F3F),
-                                                                ),
-                                                                height: 70,
-                                                                child: Center(
-                                                                  child: Padding(
-                                                                    padding: const EdgeInsets.only(left: 18.0),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Image.asset('assets/images/viewicon.png', scale: 0.7,),
-                                                                        SizedBox(width: Get.width * 0.015,),
-                                                                        Text("${data?.forumViewCount} Views",
-                                                                          style: Get.theme.textTheme.bodySmall!
-                                                                              .copyWith(color: AppColors.white),),
-                                                                        SizedBox(width: Get.width * 0.075,),
-                                                                        GestureDetector(
-                                                                          onTap : () {
-                                                                            Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
-                                                                          child: Row(
-                                                                            children: [
-                                                                              Image.asset('assets/images/commenticons.png'),
-                                                                              SizedBox(width: Get.width * 0.015,),
-                                                                              Text("${data?.forumCommentCount} Comments",
-                                                                                style: Get.theme.textTheme.bodySmall!
-                                                                                    .copyWith(color: AppColors.white),),
-                                                                            ],
-                                                                          ),
+                                                                            ),
+                                                                          ],
                                                                         )
                                                                       ],
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ),
-                                                          ]
-                                                      ),
-                                                    );
-                                                  })
+                                                                Positioned(
+                                                                  bottom: 0,
+                                                                  left: 0,
+                                                                  right: 0,
+                                                                  child: Container(
+                                                                    decoration: const BoxDecoration(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          bottomRight: Radius
+                                                                              .circular(25),
+                                                                          bottomLeft: Radius.circular(
+                                                                              25)),
+                                                                      color: Color(0xff3F3F3F),
+                                                                    ),
+                                                                    height: 70,
+                                                                    child: Center(
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.only(left: 18.0),
+                                                                        child: Row(
+                                                                          children: [
+                                                                            Image.asset('assets/images/viewicon.png', scale: 0.7,),
+                                                                            SizedBox(width: Get.width * 0.015,),
+                                                                            Text("${data?.forumViewCount} Views",
+                                                                              style: Get.theme.textTheme.bodySmall!
+                                                                                  .copyWith(color: AppColors.white),),
+                                                                            SizedBox(width: Get.width * 0.075,),
+                                                                            GestureDetector(
+                                                                              onTap : () {
+                                                                                Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Image.asset('assets/images/commenticons.png'),
+                                                                                  SizedBox(width: Get.width * 0.015,),
+                                                                                  Text("${data?.forumCommentCount} Comments",
+                                                                                    style: Get.theme.textTheme.bodySmall!
+                                                                                        .copyWith(color: AppColors.white),),
+                                                                                ],
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ]
+                                                          ),
+                                                        );
+                                                      }),
+                                                  Obx( () => forumDataController.loadingPage.value ? const Center(child: CircularProgressIndicator(),) : SizedBox()) ,
+                                                  SizedBox(height: Get.height *.1,)
+                                                ],
+                                              )
                                             ],
                                           ),
                                         ),
-                                        const Column(
-                                          children: [
-                                            Center(
-                                              child: Text("Friends"),
-                                            )
-                                          ],
-                                        ),
+                                        const FriendsFamily() ,
                                         const ForumMessagePage() ,
                                       ]),
                                 )
