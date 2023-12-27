@@ -19,6 +19,8 @@
     <string>We need access to your location for background location services.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>We need access to your location to provide location-based services.</string>
+    <key>NSContactsUsageDescription</key>
+    <string>This app requires contacts access to function properly.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -68,5 +70,6 @@
     <true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
 </dict>
 </plist>
