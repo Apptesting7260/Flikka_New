@@ -42,6 +42,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_compress/video_compress.dart';
+import 'package:video_trimmer/video_trimmer.dart';
 import '../../../controllers/AvtarImageController/AvtarImageController.dart';
 import '../../../controllers/AvtarImageListController/AvtarImageListController.dart';
 import '../../../controllers/EditMobileNumberController.dart';
@@ -2041,7 +2042,8 @@ class _UserProfileState extends State<UserProfile> {
                                       if(seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
                                           seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0) {
                                         CommonFunctions.confirmationDialog(context, message: "Do you want to upload video", onTap: () {
-                                          _startRecording() ;
+                                          Get.back() ;
+                                          _openVideoPickerDialogUserProfile() ;
                                         },);
                                       } else {
                                         CommonFunctions.doubleButtonDialog(context,
@@ -2052,7 +2054,7 @@ class _UserProfileState extends State<UserProfile> {
                                             },
                                             onTap2: () {
                                               Get.back() ;
-                                          _startRecording() ;
+                                              _openVideoPickerDialogUserProfile() ;
                                             },
                                             title1: "Play",
                                             title2: "Edit") ;
@@ -3061,7 +3063,7 @@ class _UserProfileState extends State<UserProfile> {
                                             Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
                                             SvgPicture.asset('assets/images/PDF.svg') :
-                                            SizedBox( height: Get.height *.4 ,
+                                            SizedBox( height: Get.height *.2 ,
                                               child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
                                                 fit: BoxFit.cover, ),
                                             ) )  ,
@@ -3335,32 +3337,142 @@ class _UserProfileState extends State<UserProfile> {
 
   String videoFilePath = '';
 
-  Future<void> _startRecording() async {
-    final video = await i.ImagePicker().pickVideo(source: i.ImageSource.camera,maxDuration: const Duration(seconds: 15)) ;
+  Future<void> _openVideoPickerDialogUserProfile() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
+          title: Center(
+            child: Text(
+              'Please choose video',
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width * .25,
+                    height: Get.height * .05,
+                    title: "Camera",
+                    onTap1: () {
+                      _startRecording(i.ImageSource.camera);
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width * .25,
+                    height: Get.height * .05,
+                    title: "Gallery",
+                    onTap1: () {
+                      _startRecording(i.ImageSource.gallery);
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _startRecording(i.ImageSource source) async {
+    final video = await i.ImagePicker().pickVideo(
+        source: source,
+        maxDuration: const Duration(seconds: 15)) ;
     if(video != null) {
-      await compressVideo(video.path);
+      await trimVideo(video.path);
     }
   }
 
-  Future<void> compressVideo(String inputPath) async {
-    CommonFunctions.showLoadingDialog(context, "Uploading") ;
-    final MediaInfo? info = await VideoCompress.compressVideo(
-      inputPath,
-      quality: VideoQuality.MediumQuality,
-      deleteOrigin: false,
+  Future<String?> trimVideo(String path) async {
+    CommonFunctions.showLoadingDialog(context, "Uploading...") ;
+    final Trimmer trimmer = Trimmer();
+    String? trimmedPath;
+
+    // Step 1: Trim the video
+    await trimmer.loadVideo(videoFile: File(path));
+
+    await trimmer.saveTrimmedVideo(
+      startValue: 0,
+      endValue: 15000,
+      onSave: (String? outputPath) async {
+        print("$outputPath outputpath------------------------------------------------------") ;
+
+        if (outputPath != null) {
+          setState(() {
+            videoFilePath = outputPath ;
+            updateVideoController.updateVideo(context,videoFilePath) ;
+          });
+          // final MediaInfo? info = await VideoCompress.compressVideo(
+          //   trimmedPath!,
+          //   quality: VideoQuality.MediumQuality,
+          //   deleteOrigin: false,
+          // );
+
+          // if (outputPath?.path != null && info?.path?.isNotEmpty == true) {
+          //   // The compressed video path
+          //   String compressedPath = info!.path!;
+          //   print('Compressed video path: $compressedPath');
+          //
+          //   setState(() {
+          //     videoFilePath = info.path!;
+          //     if (kDebugMode) {
+          //       print("this is file size ================== ${info.filesize}");
+          //     }
+          //   });
+          //
+          //   return compressedPath;
+          // } else {
+          //   print('Video compression failed');
+          //   return null;
+          // }
+        } else {
+          print('Video trimming failed');
+          return null;
+        }
+      },
     );
 
-    if (kDebugMode) {
-      print('Compressed video path: ${info?.path}');
-    }
-    if(info?.path != null && info?.path?.length != 0 ) {
-      setState(() {
-        videoFilePath = info!.path! ;
-        if (kDebugMode) {
-          print("this is file size ================== ${info.filesize}") ;
-        }
-      });
-      updateVideoController.updateVideo(context,videoFilePath) ;
-    }
+    // Step 2: Compress the trimmed video
+
   }
+
+  // Future<void> compressVideo(String inputPath) async {
+  //   CommonFunctions.showLoadingDialog(context, "Uploading") ;
+  //   final MediaInfo? info = await VideoCompress.compressVideo(
+  //     inputPath,
+  //     quality: VideoQuality.MediumQuality,
+  //     deleteOrigin: false,
+  //   );
+  //
+  //   if (kDebugMode) {
+  //     print('Compressed video path: ${info?.path}');
+  //   }
+  //   if(info?.path != null && info?.path?.length != 0 ) {
+  //     setState(() {
+  //       videoFilePath = info!.path! ;
+  //       if (kDebugMode) {
+  //         print("this is file size ================== ${info.filesize}") ;
+  //       }
+  //     });
+  //     updateVideoController.updateVideo(context,videoFilePath) ;
+  //   }
+  // }
 }

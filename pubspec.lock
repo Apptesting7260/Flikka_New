@@ -193,14 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  date_time_picker:
-    dependency: "direct main"
-    description:
-      name: date_time_picker
-      sha256: "6923c568bcb67a66ab7e083708d0adbcae8214b41bb84d49febc17e89e06fc4a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   dbus:
     dependency: transitive
     description:
@@ -253,10 +245,10 @@ packages:
     dependency: transitive
     description:
       name: ffmpeg_kit_flutter
-      sha256: f631fbf54e8a62ac36d79475280d7a0b042139ffa6662c88cb6896c71f3f0cfa
+      sha256: "2b13913a5850d5c0149fe5a322770e72b107e0941d112a5334bce71d91051134"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.0"
+    version: "5.1.0-LTS"
   ffmpeg_kit_flutter_platform_interface:
     dependency: transitive
     description:
@@ -908,10 +900,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "0.18.1"
   intl_phone_field:
     dependency: "direct main"
     description:
@@ -1409,10 +1401,10 @@ packages:
     dependency: "direct main"
     description:
       name: table_calendar_null_safe
-      sha256: "7b3c0becf969af69a4e58fd2d2df6445090210c8d703a268da55bcb985a93d4a"
+      sha256: "0a001044482275776497bbf5305bc95b79ce73029366e4a41da5ff43423cfd8b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.0"
   term_glyph:
     dependency: transitive
     description:
@@ -1641,10 +1633,10 @@ packages:
     dependency: "direct main"
     description:
       name: video_trimmer
-      sha256: "190427d15e4cc3eb394f0528e1bc60d9d4339010fa7919cb55cb0c62e917403e"
+      sha256: "9890756d5be511354e5e50464605ff02baac363c7ce9fab8206f43c7e467592c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
   wakelock_plus:
     dependency: transitive
     description:

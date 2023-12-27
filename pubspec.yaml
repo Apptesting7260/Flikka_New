@@ -23,8 +23,7 @@ dependencies:
   open_file: ^3.0.1
   webview_flutter: ^4.4.1
   flutter_downloader: ^1.11.4
-  date_time_picker: ^2.1.0
-  intl: ^0.17.0
+  intl: ^0.18.0
 
 #  card_swiper: ^3.0.1
   flutter_card_swiper: ^6.0.0
@@ -75,11 +74,12 @@ dependencies:
   firebase_database: ^10.2.5
   firebase_messaging: any
   google_sign_in: ^6.2.1
-  video_trimmer: ^2.0.0
+  video_trimmer: ^2.1.0
 #  audioplayers: ^5.2.1
   audio_waveforms: ^1.0.4
 #  kplayer: ^0.4.2
   flutter_local_notifications: ^16.2.0
+
 
 
 #  table_calendar: ^2.3.3
