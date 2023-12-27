@@ -652,11 +652,7 @@ class _UserProfileState extends State<UserProfile> {
                             CommonWidgets.textFieldHeading(context, "Full Name"),
                             SizedBox(height: Get.height * 0.01,),
                             TextField(
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(fontSize: 13),
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                               onChanged: (String value) {
                               },
                               controller: nameController,
@@ -799,11 +795,7 @@ class _UserProfileState extends State<UserProfile> {
                                       height: 40,
                                       loading: editSeekerProfileController.loading.value,
                                       onTap1: () {
-                                        editSeekerProfileController.profileApi(
-                                            null, nameController.text,
-                                            locationController.text, positionId,
-                                            context
-                                        );
+                                        editSeekerProfileController.profileApi(null, nameController.text, locationController.text, positionId, context);
                                       },
                                       title: 'Submit',
                                     ),
@@ -2160,9 +2152,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           seekerProfileController.viewSeekerData.value.seekerDetails?.positions,
                                                           seekerProfileController.viewSeekerData.value.seekerDetails?.position
                                                       );
-                                                      seekerChoosePositionGetController
-                                                          .seekerGetPositionApi(
-                                                          true);
+                                                      seekerChoosePositionGetController.seekerGetPositionApi(true);
                                                     },
                                                     child: Image.asset(
                                                       "assets/images/icon_edit.png",
