@@ -1187,7 +1187,7 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(height: Get.height *0.01,) ,
                       SizedBox(
                         height: Get.height*.12,
-                          child: RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),)),
+                          child: RangePicker(maxSalary: double.tryParse('100000'),)),
                       SizedBox(height: Get.height *0.02,) ,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -3048,6 +3048,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     onTap: () {
                                                       editSeekerResumeController.documentPath.value = "" ;
                                                       document() ;
+
                                                     },
                                                     child: seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                         seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
@@ -3061,12 +3062,26 @@ class _UserProfileState extends State<UserProfile> {
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
                                             Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
-                                            ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
-                                            SvgPicture.asset('assets/images/PDF.svg') :
-                                            SizedBox( height: Get.height *.2 ,
-                                              child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
-                                                fit: BoxFit.cover, ),
-                                            ) )  ,
+
+                                            ListTile(
+                                              title: Text('Document',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                  color: AppColors.white, fontWeight: FontWeight.w500),),
+                                                onTap: () {
+                                          CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
+                                            onTap: () async {
+                                              launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}')) ;
+                                              // String? directory = await getLocalDownloadDir() ;
+                                              // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
+                                              //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
+                                              // Get.back() ;
+                                              Get.back() ;
+                                            },) ;
+                                        },
+                                                leading:  seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ? SvgPicture.asset('assets/images/PDF.svg') :
+                                               Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, ),
+                                            )   ,
                                             // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                             //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                             SizedBox(height: Get.height * 0.02,),
@@ -3300,7 +3315,7 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> _openFilePicker(bool resume , String? documentType) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: resume ?  ['pdf', 'doc' ,'docx'] : ['jpg','jpeg','png','heic'],
+      allowedExtensions: resume ?  ['pdf', 'doc' ,'docx'] : ['jpg','jpeg','png','heic','pdf'],
       allowMultiple: false,
     );
 

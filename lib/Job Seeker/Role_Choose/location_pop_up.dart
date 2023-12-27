@@ -71,10 +71,10 @@ class _LocationPopUpState extends State<LocationPopUp> {
                                 LocationPermission permission = await Geolocator.checkPermission();
                                 if (permission == LocationPermission.denied) {
                                   permission = await Geolocator.requestPermission();
-                                  if (permission == LocationPermission.denied) {
-                                    // Permissions are denied, next steps are up to you.
-                                    return;
-                                  }
+                                  // if (permission == LocationPermission.denied) {
+                                  //
+                                  //   return;
+                                  // }
                                 }
 
                                 if (permission == LocationPermission.whileInUse || permission == LocationPermission.always ) {
@@ -84,8 +84,8 @@ class _LocationPopUpState extends State<LocationPopUp> {
                                   // Navigate to the next screen
                                   Get.to(() => ImportCv(role: widget.role,));
                                 } else {
-                                  // Handle the case when location permission is denied
-                                  // You can show a message or take other actions here
+                                  permission = await Geolocator.requestPermission();
+                                  // Get.back() ;
                                 }
                               },
                               style: ElevatedButton.styleFrom(
