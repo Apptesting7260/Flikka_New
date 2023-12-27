@@ -30,7 +30,8 @@ class SeekerJobFilterController extends GetxController {
       dynamic employmentType ,
       dynamic qualification ,
       dynamic skills ,
-      dynamic language ,
+      dynamic language,
+      dynamic positionId ,
       ) async{
     loading.value = true ;
 
@@ -46,6 +47,7 @@ class SeekerJobFilterController extends GetxController {
     data.addIf(qualification != null && qualification.toString().length != 0 , 'qualification' , qualification.toString()) ;
     data.addIf(skills != null && skills.toString().length != 0 , 'sales_skills' , skills.toString()) ;
     data.addIf(language != null && language.toString().length != 0 , 'language' , language.toString()) ;
+    data.addIf(positionId != null && positionId.toString().length != 0 , 'job_position_id' , positionId.toString()) ;
     if (kDebugMode) {
       print(data);
     }

@@ -423,76 +423,74 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                     topLeft: Radius.circular(22),
                                                     topRight: Radius.circular(22)),
                                               ),
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      data?.jobTitle ?? "No job title", overflow: TextOverflow.ellipsis,
-                                                      style: Theme.of(context).textTheme.displayLarge,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * .003,
-                                                    ),
-                                                    Text(
-                                                      data?.jobPositions ?? "No positions",overflow: TextOverflow.ellipsis,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium!
-                                                          .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                                      softWrap: true,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * .003,
-                                                    ),
-                                                    Text(
-                                                      data?.recruiterDetails?.companyName ?? "No company name",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium!
-                                                          .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Job Description",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleSmall
-                                                          ?.copyWith(fontWeight: FontWeight.w700),
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * .008,
-                                                    ),
-                                                    data?.description == null || CommonFunctions.parseHTML(data?.description).toString().trim().length == 0 ?
-                                                    Text("No job description",style: Theme.of(context).textTheme.labelLarge!
-                                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
-                                                    HtmlWidget(data?.description ?? "No job description",textStyle: Theme.of(context).textTheme.labelLarge!
-                                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
-                                                    SizedBox(
-                                                      height: Get.height * 0.03,
-                                                    ),
-                                                    Text(
-                                                      "Requirements",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleSmall
-                                                          ?.copyWith(fontWeight: FontWeight.w700),
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * .007,
-                                                    ),
-                                                    data?.requirements == null || CommonFunctions.parseHTML(data?.requirements).toString().trim().length == 0 ?
-                                                    Text("No requirements",style: Theme.of(context).textTheme.labelLarge!
-                                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
-                                                    HtmlWidget(data?.requirements ?? "No requirements",textStyle: Theme.of(context).textTheme.labelLarge!
-                                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
-                                                    SizedBox(
-                                                      height: Get.height * .02,
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    data?.jobTitle ?? "No job title", overflow: TextOverflow.ellipsis,
+                                                    style: Theme.of(context).textTheme.displayLarge,
+                                                  ),
+                                                  SizedBox(
+                                                    height: Get.height * .003,
+                                                  ),
+                                                  Text(
+                                                    data?.jobPositions ?? "No positions",overflow: TextOverflow.ellipsis,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                                    softWrap: true,
+                                                  ),
+                                                  SizedBox(
+                                                    height: Get.height * .003,
+                                                  ),
+                                                  Text(
+                                                    data?.recruiterDetails?.companyName ?? "No company name",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                                  ),
+                                                  SizedBox(
+                                                    height: Get.height * 0.03,
+                                                  ),
+                                                  Text(
+                                                    "Job Description",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall
+                                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                                  ),
+                                                  SizedBox(
+                                                    height: Get.height * .008,
+                                                  ),
+                                                  data?.description == null || CommonFunctions.parseHTML(data?.description).toString().trim().length == 0 ?
+                                                  Text("No job description", style: Theme.of(context).textTheme.labelLarge!
+                                                       .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),maxLines: 3,) :
+                                                  Text(CommonFunctions.parseHtmlAndAddNewline( data?.description ?? "No job description"),overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!
+                                                      .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400,),),
+                                                  SizedBox(
+                                                    height: Get.height * 0.03,
+                                                  ),
+                                                  Text(
+                                                    "Requirements",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall
+                                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                                  ),
+                                                  SizedBox(
+                                                    height: Get.height * .007,
+                                                  ),
+                                                  data?.requirements == null || CommonFunctions.parseHTML(data?.requirements).toString().trim().length == 0 ?
+                                                  Text("No requirements",style: Theme.of(context).textTheme.labelLarge!
+                                                      .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
+                                                  Text(CommonFunctions.parseHtmlAndAddNewline(data?.requirements ?? "No requirements"), overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!
+                                                      .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400,overflow: TextOverflow.ellipsis),),
+                                                  SizedBox(
+                                                    height: Get.height * .02,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
