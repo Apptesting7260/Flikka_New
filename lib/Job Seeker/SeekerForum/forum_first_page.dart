@@ -111,7 +111,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                 return SafeArea(
                   child: Scaffold(
                     appBar: AppBar(
-                      toolbarHeight: 60,
+                      toolbarHeight: 70,
                       leading: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: GestureDetector(
@@ -186,7 +186,8 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                               ),
                                                             ),
                                                             SizedBox(height: Get.height * .01,),
-                                                            Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                                            Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                                color: industryID == null ? AppColors.blueThemeColor : AppColors.white,fontWeight: FontWeight.w700),),
                                                           ],
                                                         )) ,
                                                     SizedBox(width: Get.width*.01,) ,

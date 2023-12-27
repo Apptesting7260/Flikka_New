@@ -31,7 +31,7 @@ class RangePickerState extends State<RangePicker> {
                 });
               },
               min: 0.0,
-              max: widget.maxSalary,
+              max: 100000,
               divisions: 100,
               labels: RangeLabels('${RangePicker.minValue}', '${ RangePicker.maxValue}'),
             ),

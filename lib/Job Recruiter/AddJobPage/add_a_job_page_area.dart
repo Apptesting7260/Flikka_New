@@ -14,7 +14,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:video_compress/video_compress.dart';
+import 'package:video_trimmer/video_trimmer.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
@@ -73,34 +73,144 @@ class _AddAJobPageState extends State<AddAJobPage> {
 
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
 
-  Future<void> _startRecording() async {
-    final video = await ImagePicker().pickVideo(source: ImageSource.camera,maxDuration: const Duration(seconds: 15)) ;
-    if(video != null) {
-      await compressVideo(video.path);
+  Future<void> _openVideoPickerDialogAddJob() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          title: Center(
+            child: Text(
+              'Please choose video',
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width * .25,
+                    height: Get.height * .05,
+                    title: "Camera",
+                    onTap1: () {
+                      _startRecording(ImageSource.camera);
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width * .25,
+                    height: Get.height * .05,
+                    title: "Gallery",
+                    onTap1: () {
+                      _startRecording(ImageSource.gallery);
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _startRecording(ImageSource source) async {
+    final video = await ImagePicker().pickVideo(
+        source: source,
+      maxDuration: const Duration(seconds: 15), ) ;
+    if (video != null) {
+      await trimVideo(video.path);
     }
   }
 
-  Future<void> compressVideo(String inputPath) async {
+  Future<String?> trimVideo(String path) async {
     CommonFunctions.showLoadingDialog(context, "Uploading") ;
-    final MediaInfo? info = await VideoCompress.compressVideo(
-      inputPath,
-      quality: VideoQuality.MediumQuality,
-      deleteOrigin: false,
+    final Trimmer trimmer = Trimmer();
+    String? trimmedPath;
+
+    // Step 1: Trim the video
+    await trimmer.loadVideo(videoFile: File(path));
+
+    await trimmer.saveTrimmedVideo(
+      startValue: 0,
+      endValue: 15000,
+      onSave: (String? outputPath) async {
+        print("$outputPath outputpath------------------------------------------------------") ;
+
+        if (outputPath != null) {
+          setState(() {
+            videoFilePath = outputPath ;
+            Get.back() ;
+          });
+          // final MediaInfo? info = await VideoCompress.compressVideo(
+          //   trimmedPath!,
+          //   quality: VideoQuality.MediumQuality,
+          //   deleteOrigin: false,
+          // );
+
+          // if (outputPath?.path != null && info?.path?.isNotEmpty == true) {
+          //   // The compressed video path
+          //   String compressedPath = info!.path!;
+          //   print('Compressed video path: $compressedPath');
+          //
+          //   setState(() {
+          //     videoFilePath = info.path!;
+          //     if (kDebugMode) {
+          //       print("this is file size ================== ${info.filesize}");
+          //     }
+          //   });
+          //
+          //   return compressedPath;
+          // } else {
+          //   print('Video compression failed');
+          //   return null;
+          // }
+        } else {
+          print('Video trimming failed');
+          return null;
+        }
+      },
     );
 
-    if (kDebugMode) {
-      print('Compressed video path: ${info?.path}');
-    }
-    if(info?.path != null && info?.path?.length != 0 ) {
-      setState(() {
-        videoFilePath = info!.path! ;
-        if (kDebugMode) {
-          print("this is file size ================== ${info.filesize}") ;
-        }
-      });
-      Get.back() ;
-    }
+    // Step 2: Compress the trimmed video
+
   }
+
+  // Future<void> compressVideo(String inputPath) async {
+  //   CommonFunctions.showLoadingDialog(context, "Uploading") ;
+  //   final MediaInfo? info = await VideoCompress.compressVideo(
+  //     inputPath,
+  //     quality: VideoQuality.MediumQuality,
+  //     deleteOrigin: false,
+  //   );
+  //
+  //   if (kDebugMode) {
+  //     print('Compressed video path: ${info?.path}');
+  //   }
+  //   if(info?.path != null && info?.path?.length != 0 ) {
+  //     setState(() {
+  //       videoFilePath = info!.path! ;
+  //       if (kDebugMode) {
+  //         print("this is file size ================== ${info.filesize}") ;
+  //       }
+  //     });
+  //     Get.back() ;
+  //   }
+  // }
   String videoFilePath = '';
 
   TextEditingController jobTitleController = TextEditingController() ;
@@ -310,7 +420,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       strokeWidth: 0.7,
                       child: GestureDetector(
                         onTap: () {
-                          _startRecording() ;
+                          _openVideoPickerDialogAddJob() ;
                         },
                         child: Container(
                           height: Get.height * .15,
