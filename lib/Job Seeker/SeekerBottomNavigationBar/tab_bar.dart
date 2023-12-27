@@ -64,7 +64,7 @@ class _TabScreenState extends State<TabScreen> {
     seekerProfileControllerr.viewSeekerProfileApi();
     viewLanguageController.viewLanguageApi() ;
     skillsController.seekerGetAllSkillsApi() ;
-    forumDataController.seekerForumListApi() ;
+    forumDataController.seekerForumListApi(page: "1") ;
     industryController.industryApi() ;
     companiesListController.getCompaniesApi() ;
     jobsController.mapJobsApi();

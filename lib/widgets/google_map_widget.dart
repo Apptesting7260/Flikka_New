@@ -142,6 +142,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   bool remote = false;
   bool hybrid = false;
   bool all = true;
+  var zoom = 10.4 ;
 
   int _selectedValue = 1;
   Set<Marker> markers = Set();
@@ -249,6 +250,16 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                    updateMap(selectedRadius) ;
                    setState(() {});
                  },
+                 circles: {
+                   Circle(
+                     circleId: const CircleId('selectedLocation'),
+                     center: LatLng(lat, long),
+                     radius: selectedRadius * 1609.344 , // Radius in meters
+                     fillColor: Colors.blue.withOpacity(0.3),
+                     strokeColor: Colors.blue,
+                     strokeWidth: 2,
+                   ),
+                 },
                ),
                Column(
                  children: [
@@ -299,10 +310,35 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                  ?.copyWith(color: AppColors.white),
                            ),
                          );}).toList(),
-                       onChanged: (newValue) {
+                       onChanged: (newValue) async {
+                         selectedRadius = newValue;
+                         if(selectedRadius == 10) {
+                           zoom = 10.4 ;
+                         }
+                         if(selectedRadius == 20) {
+                           zoom = 9.4 ;
+                         }
+                         if(selectedRadius == 30) {
+                           zoom = 8.8 ;
+                         }
+                         if(selectedRadius == 40) {
+                           zoom = 8.4 ;
+                         }
+                         if(selectedRadius == 50) {
+                           zoom = 7.9 ;
+                         }
+                         CameraPosition cameraPosition = CameraPosition(
+                           target: LatLng(lat, long),
+                           zoom: zoom,
+                         );
+                         final GoogleMapController controller = await filterMapController.future;
+                         controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+                         updateMap(newValue);
+                         if (kDebugMode) {
+                           print("$zoom===========------------=======") ;
+                         }
                          setState(() {
-                           selectedRadius = newValue;
-                           updateMap(newValue);
+
                          });
                        },
                      ),
@@ -360,8 +396,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                           GoogleMap(
                             minMaxZoomPreference: const MinMaxZoomPreference(6, 15),
                             initialCameraPosition:  CameraPosition(
-                              target: LatLng(double.parse(jobsController.lat.value) ,double.parse(jobsController.long.value)), // Center of the UK
-                              zoom: 7.0,
+                              target: LatLng(double.parse(jobsController.lat.value) ,double.parse(jobsController.long.value)),
+                              zoom: zoom,
                             ),
                             markers: Set<Marker>.of(markers),
                             onMapCreated: (GoogleMapController controller) {
@@ -370,23 +406,28 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                               markers.add( Marker(
                                 markerId: const MarkerId("My location"),
                                 position: LatLng(double.parse(jobsController.lat.value), double.parse(jobsController.long.value)),
-                                infoWindow: const InfoWindow(
-                                  title: 'My Current Location',
-                                ),
+                                infoWindow: const InfoWindow(title: 'My Current Location',),
                               ),) ;
                               controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
                                 target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.long.value)), // Center of the UK
-                                zoom: 7.0,
+                                zoom: zoom,
                               ),));
-                              updateMap(selectedRadius) ;
                               lat = double.parse(jobsController.lat.value) ;
                               long = double.parse(jobsController.long.value) ;
-                              if (kDebugMode) {
-                                print("inside jobs") ;
-                              }
+                              updateMap(selectedRadius) ;
                               setState(() {});
                             },
                             // zoomControlsEnabled: ,
+                            circles: {
+                              Circle(
+                                circleId: const CircleId('selectedLocation'),
+                                center: LatLng(lat, long),
+                                radius: selectedRadius * 1609.344 , // Radius in meters
+                                fillColor: Colors.blue.withOpacity(0.3),
+                                strokeColor: Colors.blue,
+                                strokeWidth: 2,
+                              ),
+                            },
                           ),
                           Positioned(
                             top: 20,
@@ -502,18 +543,40 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                       value: value,
                                       child: Text(
                                         '$value miles',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
+                                        style: Theme.of(context).textTheme.bodySmall
                                             ?.copyWith(color: AppColors.white),
                                       ),
                                     );
                                   }).toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
+                                  onChanged: (newValue) async {
                                       selectedRadius = newValue;
+                                      if(selectedRadius == 10) {
+                                        zoom = 10.4 ;
+                                      }
+                                      if(selectedRadius == 20) {
+                                        zoom = 9.4 ;
+                                      }
+                                      if(selectedRadius == 30) {
+                                        zoom = 8.8 ;
+                                      }
+                                      if(selectedRadius == 40) {
+                                        zoom = 8.4 ;
+                                      }
+                                      if(selectedRadius == 50) {
+                                        zoom = 7.9 ;
+                                      }
+                                      CameraPosition cameraPosition = CameraPosition(
+                                        target: LatLng(lat, long),
+                                        zoom: zoom,
+                                      );
+                                      final GoogleMapController controller = await mapController.future;
+                                      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
                                       updateMap(newValue);
-                                      // Call the method to filter markers based on the selected radius
+                                      if (kDebugMode) {
+                                        print("$zoom===========------------=======") ;
+                                      }
+                                    setState(() {
+
                                     });
                                   },
                                 ),
@@ -559,20 +622,6 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           filterController.jobsData.value.jobs?.length != 0) {
         for (int i = 0; i < filterController.jobsData.value.jobs!.length; i++) {
           var data = filterController.jobsData.value.jobs?[i];
-          // Calculate distance in meters using the Haversine formula
-          // double distanceInMeters = Geolocator.distanceBetween(
-          //   currentPosition.latitude,
-          //   currentPosition.longitude,
-          //   data?.lat,
-          //   data?.long,
-          // );
-          //
-          // // Convert distance to miles
-          // double distanceInMiles = distanceInMeters / 1609.344;
-          //
-          // print("Distance from current location to center: $distanceInMiles miles");
-
-          // Filter markers within the specified radius
           double markerDistance = Geolocator.distanceBetween(
             // currentPosition.latitude,
             lat,
@@ -585,7 +634,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           if (kDebugMode) {
             print("this is distance $markerDistance");
           }
-          if (markerDistance <= radius) {
+          // if (markerDistance <= radius) {
             markers.add( Marker(
                 markerId: MarkerId("${data?.id}"),
                 position: LatLng(double.parse("${data?.lat}"),
@@ -598,7 +647,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   Get.to(() =>
                       MarketingIntern(jobData: data, appliedJobScreen: false));
                 }));
-          }
+          // }
           // Trigger a rebuild to update the markers on the map
         }
       }
@@ -614,25 +663,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           if (kDebugMode) {
             print("inside loop controller update map");
           }
-          // Calculate distance in meters using the Haversine formula
-          // double distanceInMeters = Geolocator.distanceBetween(
-          //   currentPosition.latitude,
-          //   currentPosition.longitude,
-          //   data?.lat,
-          //   data?.long,
-          // );
-
-          // Convert distance to miles
-          // double distanceInMiles = distanceInMeters / 1609.344;
-
-          // print("Distance from current location to center: $distanceInMiles miles");
-
-          // Filter markers within the specified radius
           double markerDistance = Geolocator.distanceBetween(
-            // currentPosition.latitude,
             lat,
             long,
-            // currentPosition.longitude,
             data?.lat,
             data?.long,
           );
@@ -645,7 +678,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
             print("this is distance in miles $markerDistance");
           }
           if (remote) {
-            if (markerDistance <= radius && data?.typeOfWorkplace?.toLowerCase() == "remote") {
+            if ( data?.typeOfWorkplace?.toLowerCase() == "remote") {
               if (kDebugMode) {
                 print("object");
               }
@@ -659,15 +692,12 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   icon: await getMarkerIcon("assets/images/icon_map.png", 5),
                   onTap: () async {
                     debugPrint("tapped");
-                    Get.to(() =>
-                        MarketingIntern(
-                            jobData: data, appliedJobScreen: false));
+                    Get.to(() => MarketingIntern(jobData: data, appliedJobScreen: false));
                   }));
             }
-            // Trigger a rebuild to update the markers on the map
           }
           else if(hybrid){
-            if (markerDistance <= radius && data?.typeOfWorkplace?.toLowerCase() == "hybrid") {
+            if ( data?.typeOfWorkplace?.toLowerCase() == "hybrid") {
               if (kDebugMode) {
                 print("object");
               }
@@ -687,7 +717,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   }));
             }
           } else {
-            if (markerDistance <= radius) {
+            // if (markerDistance <= radius) {
               if (kDebugMode) {
                 print("object");
               }
@@ -705,10 +735,12 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                         MarketingIntern(
                             jobData: data, appliedJobScreen: false));
                   }));
-            }
+            // }
           }
         }
       }
+
+
     }
     setState(() {});
   }
@@ -747,7 +779,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       // Specified current user's location
       CameraPosition cameraPosition = CameraPosition(
         target: LatLng(lat, long),
-        zoom: 4,
+        zoom: 11,
       );
       if(filtered) {
         final GoogleMapController controller = await filterMapController.future;

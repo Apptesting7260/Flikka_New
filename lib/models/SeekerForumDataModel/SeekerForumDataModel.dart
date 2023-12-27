@@ -11,14 +11,17 @@ String seekerForumDataModelToJson(SeekerForumDataModel data) => json.encode(data
 class SeekerForumDataModel {
   bool? status;
   List<ForumDatum>? forumData;
+  bool? isLast ;
 
   SeekerForumDataModel({
     this.status,
     this.forumData,
+    this.isLast ,
   });
 
   factory SeekerForumDataModel.fromJson(Map<String, dynamic> json) => SeekerForumDataModel(
     status: json["status"],
+    isLast: json["is_last"],
     forumData: json["forum_data"] == null ? json["forum_data"] : List<ForumDatum>.from(json["forum_data"].map((x) => ForumDatum.fromJson(x))),
   );
 

@@ -11,16 +11,16 @@ class SeekerForumDataController extends GetxController {
   final forumData = SeekerForumDataModel().obs ;
   RxString error = ''.obs;
   RxString industryId = ''.obs;
-
+  RxBool loadingPage = false.obs ;
   void getForumData(SeekerForumDataModel _value) => forumData.value = _value ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
   RxList<ForumDatum>? forumList = <ForumDatum>[].obs;
   List<ForumDatum>? reversedList = [] ;
 
-  void seekerForumListApi({String? industryID} ){
+  void seekerForumListApi({String? page} ) {
     var data = {} ;
-    data.addIf(industryID != null && industryID.length != 0 , "industry_id" , industryID) ;
+    data.addIf(page != null && page.length != 0 , "page" , page) ;
 
     setRxRequestStatus(Status.LOADING);
     _api.seekerForumData(data).then((value){
@@ -29,11 +29,6 @@ class SeekerForumDataController extends GetxController {
       if(value.forumData != null) {
         reversedList = value.forumData ?? [] ;
         forumList?.value = value.forumData ?? [] ;
-      }
-      if(industryID != null && industryID?.length != 0 ) {
-        if(value.forumData != null && value.forumData?.length != 0) {
-          industryId.value = "${value.forumData?[0].industryId}" ;
-        }
       }
       if (kDebugMode) {
         print(value);
@@ -48,9 +43,9 @@ class SeekerForumDataController extends GetxController {
     });
   }
 
-  void refreshForumListApi({String? industryID} ){
+  void refreshForumListApi({String? page} ){
     var data = {} ;
-    data.addIf(industryID != null && industryID.length != 0 , "industry_id" , industryID) ;
+    data.addIf(page != null && page.length != 0 , "page" , page) ;
 
 
     _api.seekerForumData(data).then((value){
@@ -59,11 +54,6 @@ class SeekerForumDataController extends GetxController {
       if(value.forumData != null) {
         reversedList = value.forumData ?? [] ;
         forumList?.value = value.forumData ?? [] ;
-      }
-      if(industryID != null && industryID?.length != 0 ) {
-        if(value.forumData != null && value.forumData?.length != 0) {
-          industryId.value = "${value.forumData?[0].industryId}" ;
-        }
       }
       if (kDebugMode) {
         print(value);
@@ -74,6 +64,36 @@ class SeekerForumDataController extends GetxController {
         print(error.toString());
         print(stackTrace.toString());
       }
+      setRxRequestStatus(Status.ERROR);
+    });
+  }
+
+
+  void paginationForumApi({String? page} ){
+    var data = {} ;
+    loadingPage(true) ;
+    data.addIf(page != null && page.length != 0 , "page" , page) ;
+    _api.seekerForumData(data).then((value){
+      forumData.value.isLast = value.isLast ;
+      if(value.forumData != null) {
+        for(int i = 0 ; i < value.forumData!.length ; i++) {
+          if(value.forumData?[i] != null) {
+            reversedList?.add(value.forumData![i]);
+            forumList?.add(value.forumData![i]);
+          }
+        }
+      }
+      loadingPage(false) ;
+      if (kDebugMode) {
+        print(value);
+      }
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+        print(stackTrace.toString());
+      }
+      loadingPage(false) ;
       setRxRequestStatus(Status.ERROR);
     });
   }
