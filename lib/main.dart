@@ -1,14 +1,12 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flikka/Job%20Seeker/splash_screen.dart';
 import 'package:flikka/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
 
 String? fcmToken;
 void main() async {
@@ -79,7 +77,7 @@ class _MyAppState extends State<MyApp> {
     flutterLocalNotificationsPlugin.initialize(platform);
     firebaseMessaging.requestPermission(
         sound: true, alert: true, badge: true, provisional: true);
-    initLocalNotification();
+    // initLocalNotification();
 
     getFcmToken();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -125,42 +123,42 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  Future initLocalNotification() async {
-    if (Platform.isIOS) {
-      // set iOS Local notification.
-      var initializationSettingsAndroid =
-      const AndroidInitializationSettings('ic_launcher');
-      var initializationSettingsIOS = DarwinInitializationSettings(
-        requestAlertPermission: false,
-        requestBadgePermission: false,
-        requestSoundPermission: false,
-        onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
-      );
-
-      final InitializationSettings initializationSettings =
-      InitializationSettings(
-          android: initializationSettingsAndroid,
-          iOS: initializationSettingsDarwin);
-      flutterLocalNotificationsPlugin.initialize(initializationSettings,
-          onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
-    } else {
-      // set Android Local notification.
-      var initializationSettingsAndroid =
-      const AndroidInitializationSettings('@drawable/launch_background');
-      var initializationSettingsIOS = DarwinInitializationSettings(
-          onDidReceiveLocalNotification: _onDidReceiveLocalNotification);
-      var initializationSettings = InitializationSettings(
-          android: initializationSettingsAndroid,
-          iOS: initializationSettingsIOS);
-
-      await flutterLocalNotificationsPlugin.initialize(
-        initializationSettings,
-        onDidReceiveBackgroundNotificationResponse: (details) {
-          _selectNotification(details.payload);
-        },
-      );
-    }
-  }
+  // Future initLocalNotification() async {
+  //   if (Platform.isIOS) {
+  //     // set iOS Local notification.
+  //     var initializationSettingsAndroid =
+  //     const AndroidInitializationSettings('ic_launcher');
+  //     var initializationSettingsIOS = DarwinInitializationSettings(
+  //       requestAlertPermission: false,
+  //       requestBadgePermission: false,
+  //       requestSoundPermission: false,
+  //       onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+  //     );
+  //
+  //     final InitializationSettings initializationSettings =
+  //     InitializationSettings(
+  //         android: initializationSettingsAndroid,
+  //         iOS: initializationSettingsDarwin);
+  //     flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  //         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+  //   } else {
+  //     // set Android Local notification.
+  //     var initializationSettingsAndroid =
+  //     const AndroidInitializationSettings('@drawable/launch_background');
+  //     var initializationSettingsIOS = DarwinInitializationSettings(
+  //         onDidReceiveLocalNotification: _onDidReceiveLocalNotification);
+  //     var initializationSettings = InitializationSettings(
+  //         android: initializationSettingsAndroid,
+  //         iOS: initializationSettingsIOS);
+  //
+  //     await flutterLocalNotificationsPlugin.initialize(
+  //       initializationSettings,
+  //       onDidReceiveBackgroundNotificationResponse: (details) {
+  //         _selectNotification(details.payload);
+  //       },
+  //     );
+  //   }
+  // }
 
   Future showNotification(RemoteNotification? notification) async {
     var android = const AndroidNotificationDetails(
