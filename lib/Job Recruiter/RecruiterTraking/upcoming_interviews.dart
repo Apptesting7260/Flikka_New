@@ -25,7 +25,7 @@ class UpcomingInterviews extends StatefulWidget {
 class _UpcomingInterviewsState extends State<UpcomingInterviews> {
 
   String ?cancelId ;
-  final List<String> jobTypeItems = ['Upcoming','Past','All',];
+  final List<String> jobTypeItems = ['Ongoing','Upcoming','Past','All',];
   String? jobTypeValues;
 
   RecruiterInterviewCancleController RecruiterInterviewCancleControllerInstanse = Get.put(RecruiterInterviewCancleController()) ;

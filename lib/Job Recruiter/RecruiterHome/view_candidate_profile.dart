@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
@@ -14,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-
 import '../../ChatRecruter/CreateFuction.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
@@ -392,7 +390,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                           height: Get.height * 0.001,
                                         ),
                                         HtmlWidget(
-                                          data?.companyName ?? "",
+                                          data?.companyName ?? "No company name",
                                           textStyle: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -404,7 +402,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                         // Text( CommonFunctions.parseHTML(data?.companyName ?? ""),style: Theme.of(context).textTheme.bodySmall!
                                         //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         // ),
-                                        Text("$startDate    $endDate",
+                                        Text("$startDate  -  $endDate",
                                           style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                   color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
                                         ),
@@ -498,7 +496,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                                   fontWeight: FontWeight.w400),
                                         ),
                                         Text(
-                                          "${data?.educationStartDate.month.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.day.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.year.toString().padLeft(4,"0").replaceAll("00:00:00.000", "")}    $endDate",
+                                          "${data?.educationStartDate.month.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.day.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.year.toString().padLeft(4,"0").replaceAll("00:00:00.000", "")}  -  $endDate",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!

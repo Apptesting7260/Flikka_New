@@ -1466,7 +1466,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                         fontWeight: FontWeight
                                                             .w400),
                                                   ),
-                                                  Text("$startDate    $endDate",
+                                                  Text("$startDate  -  $endDate",
                                                     style: Theme
                                                         .of(context)
                                                         .textTheme
@@ -1560,7 +1560,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                         fontWeight: FontWeight
                                                             .w400),
                                                   ),
-                                                  Text("$startDate    $endDate",
+                                                  Text("$startDate  -  $endDate",
                                                     style: Theme
                                                         .of(context)
                                                         .textTheme

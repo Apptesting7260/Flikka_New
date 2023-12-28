@@ -44,7 +44,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
   }
   /////refresh/////
 
-  final List<String> jobTypeItems = ['Upcoming','Past','All',];
+  final List<String> jobTypeItems = ['Ongoing','Upcoming','Past','All',];
   String? jobTypeValues;
 
   @override

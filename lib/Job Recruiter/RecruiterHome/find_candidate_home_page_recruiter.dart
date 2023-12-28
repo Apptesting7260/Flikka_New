@@ -350,7 +350,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(
-                            child: Text(widget.recruiterData?.seeker?.fullname ?? "" ,
+                            child: Text(widget.recruiterData?.seeker?.fullname ?? "No data" ,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.displayLarge,
                               softWrap: true,
@@ -359,9 +359,9 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                           // const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
                         ],
                       ),
-                      Text( widget.recruiterData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
+                      Text( widget.recruiterData?.positions ?? "No position",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
                       SizedBox(height: Get.height * 0.010,),
-                      Text(widget.recruiterData?.seeker?.location ?? "",overflow: TextOverflow.ellipsis,
+                      Text(widget.recruiterData?.seeker?.location ?? "No location",overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                       SizedBox(
                         height: Get.height * 0.03,
@@ -408,7 +408,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                                 //   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                                 // ),
                                 Text(
-                               "$startDate    $endDate",
+                               "$startDate  -  $endDate",
                                   // "${formatDate(data?.jobStartDate.toString())} - ${formatDate(data?.jobEndDate.toString())}",
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                                 ),
@@ -454,7 +454,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                           //
                           //     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                           //   ),
-                            Text(  "${data?.educationStartDate?.month.toString().padLeft(2,'0').replaceAll("00:00:00.000", "")}-${data?.educationStartDate?.day.toString().padLeft(2,'0').replaceAll("00:00:00.000", "")}-${data?.educationStartDate?.year.toString().padLeft(4,'0').replaceAll("00:00:00.000", "")}    $endDate",
+                            Text(  "${data?.educationStartDate?.month.toString().padLeft(2,'0').replaceAll("00:00:00.000", "")}-${data?.educationStartDate?.day.toString().padLeft(2,'0').replaceAll("00:00:00.000", "")}-${data?.educationStartDate?.year.toString().padLeft(4,'0').replaceAll("00:00:00.000", "")}  -  $endDate",
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                             )
                           ],
