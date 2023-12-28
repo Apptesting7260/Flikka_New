@@ -1141,8 +1141,8 @@ class _UserProfileState extends State<UserProfile> {
                                     } else {
                                       seekerProfileController.viewSeekerData.value.workExpJob?[index].workExpJob = jobTitleOrEducationLevelController.text;
                                       seekerProfileController.viewSeekerData.value.workExpJob?[index].companyName = companyOrInstituteController.text;
-                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobStartDate = _startDateController.text;
-                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobEndDate =  present ? "present" : _endDateController.text;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobStartDate = outputStartDate;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobEndDate =  present ? "present" : outputEndDate;
                                       editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
                                     }
                                   } else {
@@ -1157,8 +1157,8 @@ class _UserProfileState extends State<UserProfile> {
                                     } else {
                                       seekerProfileController.viewSeekerData.value.educationLevel?[index].educationLevel = jobTitleOrEducationLevelController.text;
                                       seekerProfileController.viewSeekerData.value.educationLevel?[index].institutionName = companyOrInstituteController.text;
-                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationStartDate = _startDateController.text;
-                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationEndDate =  present ? "present" : _endDateController.text;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationStartDate = outputStartDate;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationEndDate =  present ? "present" : outputEndDate;
                                       editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
                                     }
                                   }
@@ -2293,19 +2293,22 @@ class _UserProfileState extends State<UserProfile> {
                                                   var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
                                                   var endDate ;
                                                   var startDate ;
-                                                  startDate = DateTime.parse("${data?.jobStartDate}") ;
-                                                  startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  startDate = DateTime.tryParse("${data?.jobStartDate}") ;
+                                                  if(startDate != null) {
+                                                    startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  }else {
+                                                    startDate = data?.jobStartDate ;
+                                                  }
                                                   if(data?.present == true) {
                                                     endDate = "Present" ;
                                                   }else {
-                                                    endDate = DateTime.parse("${data?.jobEndDate}") ;
-                                                    endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                                    endDate = DateTime.tryParse("${data?.jobEndDate}") ;
+                                                    if(endDate != null) {
+                                                      endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                                    }else {
+                                                      endDate = data?.jobEndDate ;
+                                                    }
                                                   }
-                                                  // if(data?.present == false) {
-                                                  //  DateTime.parse(data!.jobStartDate.toString()) ;
-                                                  //  print(data?.jobStartDate) ;
-                                                  //  print(data?.jobEndDate) ;
-                                                  // }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       SizedBox(height: Get.height * 0.02,),
@@ -2318,7 +2321,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             children: [
                                                               InkWell(
                                                                   onTap: () {
-                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , data?.jobStartDate.toString() , data?.jobEndDate.toString() ,index);
+                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , startDate , endDate ,index);
                                                                   },
                                                                   child:  Image.asset("assets/images/icon_edit.png",height: 18)),
                                                               const SizedBox(width: 16,),
@@ -2398,12 +2401,21 @@ class _UserProfileState extends State<UserProfile> {
                                                   var data = seekerProfileController.viewSeekerData.value.educationLevel?[index];
                                                   var endDate ;
                                                   var startDate ;
-                                                  startDate = DateTime.parse("${data?.educationStartDate}") ;
-                                                  startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  startDate = DateTime.tryParse("${data?.educationStartDate}") ;
+                                                  if(startDate != null) {
+                                                    startDate = "${startDate.month.toString().padLeft(2, "0")}-${startDate.day.toString().padLeft(2, "0")}-${startDate.year.toString().padLeft(4, "0")}";
+                                                  } else {
+                                                    startDate = data?.educationStartDate ;
+                                                  }
                                                   if(data?.present == true) {
                                                     endDate = "Present" ;
                                                   } else {
-                                                    endDate = "${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}" ;
+                                                    endDate = DateTime.tryParse("${data?.educationEndDate}") ;
+                                                    if(endDate != null) {
+                                                      endDate = "${endDate.month.toString().padLeft(2,'0')}-${endDate.day.toString().padLeft(2,'0')}-${endDate.year.toString().padLeft(4,'0')}" ;
+                                                    }else {
+                                                      endDate = data?.educationEndDate ;
+                                                    }
                                                   }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
