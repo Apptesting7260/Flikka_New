@@ -477,7 +477,7 @@ class _UserProfileState extends State<UserProfile> {
                     SizedBox(height: Get.height * 0.01,),
                     IntlPhoneField(
                       flagsButtonPadding: const EdgeInsets.only(bottom: 3),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      // autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
                       controller: mobileNumberSectionController,
                       // initialValue: '+44',
@@ -504,19 +504,32 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       languageCode: "en",
                       onChanged: (PhoneNumber value) {
-                        if(!value.isValidNumber()) {
-                          validPhone = false ;
+                        // Validate phone number length (6 to 16 characters)
+                        if (value.completeNumber.length >= 6 && value.completeNumber.length <= 16) {
+                          validPhone = true;
                         } else {
-                          validPhone = true ;
-                        } if(value.countryCode == "+44") {
-                          validPhone = RegExp(r'^\+44\d{10}$').hasMatch(value.completeNumber);
+                          validPhone = false;
                         }
 
-                          phone = value.completeNumber;
-                          debugPrint("this is ========= $validPhone");
+                        phone = value.completeNumber;
+                        debugPrint("this is ========= $validPhone");
 
-                          setState(() {});
+                        setState(() {});
                       },
+                      // onChanged: (PhoneNumber value) {
+                      //   if(!value.isValidNumber()) {
+                      //     validPhone = false ;
+                      //   } else {
+                      //     validPhone = true ;
+                      //   } if(value.countryCode == "+44") {
+                      //     validPhone = RegExp(r'^\+44\d{10}$').hasMatch(value.completeNumber);
+                      //   }
+                      //
+                      //     phone = value.completeNumber;
+                      //     debugPrint("this is ========= $validPhone");
+                      //
+                      //     setState(() {});
+                      // },
                       onCountryChanged: (country) {
                         setState(() {
                           selectedCountry = country ;

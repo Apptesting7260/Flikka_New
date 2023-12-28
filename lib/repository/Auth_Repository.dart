@@ -240,8 +240,12 @@ class AuthRepository {
   Future<ProfileModelSeeker> viewSeekerProfilerr() async{
     dynamic response = await _apiService.getApi2(AppUrl.viewSeekerProfile);
     return ProfileModelSeeker.fromJson(response);
+  }
 
-
+  Future<EditAboutModel> interViewConfirmationApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.interViewConfirmation);
+    return EditAboutModel.fromJson(response);
   }
 
 }
