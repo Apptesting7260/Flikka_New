@@ -1,6 +1,7 @@
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/Constants.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -66,26 +67,30 @@ class _LocationPopUpState extends State<LocationPopUp> {
                             width: Get.width*.37,
                             child: ElevatedButton(
                               onPressed: () async {
-                                CommonFunctions.showLoadingDialog(context, "Fetching location") ;
+                                CommonFunctions.showLoadingDialog(context, "Fetching location");
                                 var status = await Permission.location.request();
                                 LocationPermission permission = await Geolocator.checkPermission();
-                                if (permission == LocationPermission.denied) {
-                                  permission = await Geolocator.requestPermission();
-                                  // if (permission == LocationPermission.denied) {
-                                  //
-                                  //   return;
-                                  // }
+                                if (kDebugMode) {
+                                  print("=============================$permission");
+                                }
+                                if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+                                  if (kDebugMode) {
+                                    print("denied==============") ;
+                                  }
+                                  await Permission.location.request();
+                                  permission = await Geolocator.checkPermission();
                                 }
 
-                                if (permission == LocationPermission.whileInUse || permission == LocationPermission.always ) {
-                                  // Get the location
+                                if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
                                   await _getLocation();
-                                  Get.back() ;
-                                  // Navigate to the next screen
-                                  Get.to(() => ImportCv(role: widget.role,));
+                                  Get.back();
+                                  Get.to(() => ImportCv(role: widget.role));
                                 } else {
-                                  permission = await Geolocator.requestPermission();
-                                  // Get.back() ;
+                                  if (kDebugMode) {
+                                    print("=====still not granted") ;
+                                  }
+                                  Get.back();
+                                  Get.to(() => ImportCv(role: widget.role));
                                 }
                               },
                               style: ElevatedButton.styleFrom(
