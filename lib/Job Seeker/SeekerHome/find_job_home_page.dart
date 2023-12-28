@@ -487,8 +487,10 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
                                                   Text(CommonFunctions.parseHtmlAndAddNewline(data?.requirements ?? "No requirements"), overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!
                                                       .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400,overflow: TextOverflow.ellipsis),),
-                                                  SizedBox(
-                                                    height: Get.height * .02,
+                                                  Flexible(
+                                                    child: SizedBox(
+                                                      height: Get.height * .02,
+                                                    ),
                                                   ),
                                                 ],
                                               ),

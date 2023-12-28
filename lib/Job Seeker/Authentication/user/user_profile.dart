@@ -78,6 +78,7 @@ class _UserProfileState extends State<UserProfile> {
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
+
   void _onRefresh() async{
     await seekerProfileController.viewSeekerProfileApi();
     _refreshController.refreshCompleted();
@@ -1024,7 +1025,10 @@ class _UserProfileState extends State<UserProfile> {
                                       onTap: () {
                                         if(!present) {
                                           if (startDateKey.currentState!.validate()) {
-                                            _selectDate(false, context, _startDateController.text);
+                                            List<String> startDateParts = _startDateController.text.split('-');
+
+                                            String outputStartDate = "${startDateParts[2]}-${startDateParts[0]}-${startDateParts[1]}";
+                                            _selectDate(false, context, outputStartDate);
                                           }
                                         }
                                       },
@@ -1110,13 +1114,26 @@ class _UserProfileState extends State<UserProfile> {
                                 }
                                 if(key.currentState!.validate() && startDateKey.currentState!.validate() &&
                                     endDateKey.currentState!.validate()) {
+                                  List<String> startDateParts = _startDateController.text.split('-');
+
+                                  String outputStartDate = "${startDateParts[2]}-${startDateParts[0]}-${startDateParts[1]}";
+                                  String outputEndDate = "" ;
+                                  if(_endDateController.text.isNotEmpty) {
+                                    if(_endDateController.text.toLowerCase() == "present") {
+                                      outputEndDate = "present" ;
+                                    } else {
+                                      List<String> endDateParts = _endDateController.text.split('-');
+                                      outputEndDate = "${endDateParts[2]}-${endDateParts[0]}-${endDateParts[1]}";
+                                    }
+                                  }
                                   if (experience == true) {
                                     WorkExpJob experienceData = WorkExpJob() ;
+
                                     if (add == true) {
                                       experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
                                       experienceData.companyName = companyOrInstituteController.text ;
-                                      experienceData.jobStartDate = _startDateController.text ;
-                                      experienceData.jobEndDate = present ? "present" : _endDateController.text ;
+                                      experienceData.jobStartDate = outputStartDate ;
+                                      experienceData.jobEndDate = present ? "present" : outputEndDate ;
                                       debugPrint("this is experience ${experienceData.companyName}") ;
                                       seekerProfileController.viewSeekerData.value.workExpJob?.add(experienceData);
                                       debugPrint("this is experience list ${seekerProfileController.viewSeekerData.value.workExpJob}") ;
@@ -1133,8 +1150,8 @@ class _UserProfileState extends State<UserProfile> {
                                     if (add == true) {
                                       educationData.educationLevel = jobTitleOrEducationLevelController.text ;
                                       educationData.institutionName = companyOrInstituteController.text ;
-                                      educationData.educationStartDate = _startDateController.text ;
-                                      educationData.educationEndDate =  present ? "present" : _endDateController.text ;
+                                      educationData.educationStartDate =  outputStartDate;
+                                      educationData.educationEndDate =  present ? "present" : outputEndDate ;
                                       seekerProfileController.viewSeekerData.value.educationLevel?.add(educationData) ;
                                       editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
                                     } else {
@@ -2400,7 +2417,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             children: [
                                                               InkWell(
                                                                   onTap: () {
-                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate.toString(), data?.educationEndDate.toString(), index);
+                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, startDate, endDate, index);
                                                                   },
                                                                   child: Image.asset("assets/images/icon_edit.png",height: 18)),
 
@@ -3200,8 +3217,8 @@ class _UserProfileState extends State<UserProfile> {
     );
     if (picked != null ) {
       setState(() {
-     start ?   _startDateController.text = "${picked.year.toString().padLeft(4,"0")}-${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}" :
-        _endDateController.text = "${picked.year.toString().padLeft(4,"0")}-${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}";
+     start ?   _startDateController.text = "${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}-${picked.year.toString().padLeft(4,"0")}" :
+        _endDateController.text = "${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}-${picked.year.toString().padLeft(4,"0")}";
      print(_startDateController.text) ;
       });
     }
