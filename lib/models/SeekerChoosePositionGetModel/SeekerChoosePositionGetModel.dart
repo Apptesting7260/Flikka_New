@@ -4,9 +4,11 @@ class SeekerChoosePositionGetModel {
      this.data,
      this.message,
   });
-  bool ?status;
+  bool? status;
   List<SeekerPositionData>? data;
-  String ?message;
+  String? message;
+
+
 
   SeekerChoosePositionGetModel.fromJson(Map<String, dynamic> json){
     status = json['status'];

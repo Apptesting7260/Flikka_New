@@ -1,3 +1,4 @@
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/Constants.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -65,24 +66,26 @@ class _LocationPopUpState extends State<LocationPopUp> {
                             width: Get.width*.37,
                             child: ElevatedButton(
                               onPressed: () async {
+                                CommonFunctions.showLoadingDialog(context, "Fetching location") ;
                                 var status = await Permission.location.request();
                                 LocationPermission permission = await Geolocator.checkPermission();
                                 if (permission == LocationPermission.denied) {
                                   permission = await Geolocator.requestPermission();
-                                  if (permission == LocationPermission.denied) {
-                                    // Permissions are denied, next steps are up to you.
-                                    return;
-                                  }
+                                  // if (permission == LocationPermission.denied) {
+                                  //
+                                  //   return;
+                                  // }
                                 }
 
                                 if (permission == LocationPermission.whileInUse || permission == LocationPermission.always ) {
                                   // Get the location
                                   await _getLocation();
+                                  Get.back() ;
                                   // Navigate to the next screen
                                   Get.to(() => ImportCv(role: widget.role,));
                                 } else {
-                                  // Handle the case when location permission is denied
-                                  // You can show a message or take other actions here
+                                  permission = await Geolocator.requestPermission();
+                                  // Get.back() ;
                                 }
                               },
                               style: ElevatedButton.styleFrom(

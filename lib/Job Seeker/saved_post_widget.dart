@@ -169,123 +169,121 @@ class _SavedPostState extends State<SavedPost> {
               child: jobsListController.savedPosts.value.data == null ||
       jobsListController.savedPosts.value.data?.length == 0 ?
                   const Center(child: Text("No Saved Post")) :
-              ListView.builder(
-                  itemCount: jobsListController.savedPosts.value.data?.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index){
-                    var data = jobsListController.savedPosts.value.data?[index] ;
-                    return Container(
-                      height: Get.height *.75,
-                      margin: const EdgeInsets.only(top: 15),
-                      decoration: BoxDecoration(
-                          color: AppColors.blackdown,
-                          borderRadius: BorderRadius.circular(40)
-
-                      ),
-                      child: Stack(
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: Get.height*.5,
-                                child: Stack(
-                                  children: [
-                                    CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        width: Get.width,
-                                        placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          height: Get.height*.5,
+              SingleChildScrollView(
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                    itemCount: jobsListController.savedPosts.value.data?.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index){
+                      var data = jobsListController.savedPosts.value.data?[index] ;
+                      return Container(
+                        margin: const EdgeInsets.only(top: 15),
+                        decoration: BoxDecoration(
+                            color: AppColors.blackdown,
+                            borderRadius: BorderRadius.circular(40)
+                
+                        ),
+                        child: Column(
+                          children: [
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: Get.height*.5,
+                                  child: Stack(
+                                    children: [
+                                      CachedNetworkImage(
+                                          fit: BoxFit.cover,
                                           width: Get.width,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(40),
-                                              image: DecorationImage(fit: BoxFit.cover,image: NetworkImage("${data?.jobData?.featureImg}"))
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            height: Get.height*.5,
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(40),
+                                                image: DecorationImage(fit: BoxFit.cover,image: NetworkImage("${data?.jobData?.featureImg}"))
+                                            ),
                                           ),
-                                        ),
-                                        imageUrl:  "${data?.jobData?.featureImg}"
-                                    ),
-                                    // Positioned(
-                                    //   right: 20,
-                                    //   top: 10,
-                                    //   child: Stack(
-                                    //     children: [
-                                    //       Container(
-                                    //         decoration: BoxDecoration(
-                                    //             borderRadius: BorderRadius.circular(40),
-                                    //             border: Border.all(color: AppColors.white, width: 2)),
-                                    //         child: Padding(
-                                    //           padding: const EdgeInsets.all(3.0),
-                                    //           child: Container(
-                                    //               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                    //               child: CircleAvatar(
-                                    //                   radius: 23,
-                                    //                   backgroundColor: AppColors.blueThemeColor,
-                                    //                   child: Center(
-                                    //                     child: Column( mainAxisAlignment: MainAxisAlignment.center,
-                                    //                       children: [
-                                    //                         Text('50%',
-                                    //                             style: Get.theme.textTheme.bodySmall!.copyWith(
-                                    //                                 color: AppColors.white)),
-                                    //                         Text('match',
-                                    //                             style: Get.theme.textTheme.bodySmall!.copyWith(
-                                    //                                 color: AppColors.white, fontSize: 7)),
-                                    //                       ],
-                                    //                     ),
-                                    //                   ))),
-                                    //         ),
-                                    //       )
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                    //*************** for bookmarks **************
-                                    Positioned(
-                                      left: 12,
-                                      top: 15,
-                                      child: GestureDetector( 
-                                        onTap: () {
-                                          CommonFunctions.confirmationDialog(context, message: "Do you want to unsave this post",
-                                              onTap: () async {
-                                                Get.back() ;
-                                            CommonFunctions.showLoadingDialog(context, "unsaving...") ;
-                                             var result = await unSavePostController.unSavePost("${data?.jobId}", "1", context,false) ;
-                                             if(result){
-                                               getJobsListingController.refreshJobsApi() ;
-                                             }
-                                              }) ;
-                                        },
-                                          child: Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,)),
-                                    ),
-                                  ],
+                                          placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
+                                          imageUrl:  "${data?.jobData?.featureImg}"
+                                      ),
+                                      // Positioned(
+                                      //   right: 20,
+                                      //   top: 10,
+                                      //   child: Stack(
+                                      //     children: [
+                                      //       Container(
+                                      //         decoration: BoxDecoration(
+                                      //             borderRadius: BorderRadius.circular(40),
+                                      //             border: Border.all(color: AppColors.white, width: 2)),
+                                      //         child: Padding(
+                                      //           padding: const EdgeInsets.all(3.0),
+                                      //           child: Container(
+                                      //               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                      //               child: CircleAvatar(
+                                      //                   radius: 23,
+                                      //                   backgroundColor: AppColors.blueThemeColor,
+                                      //                   child: Center(
+                                      //                     child: Column( mainAxisAlignment: MainAxisAlignment.center,
+                                      //                       children: [
+                                      //                         Text('50%',
+                                      //                             style: Get.theme.textTheme.bodySmall!.copyWith(
+                                      //                                 color: AppColors.white)),
+                                      //                         Text('match',
+                                      //                             style: Get.theme.textTheme.bodySmall!.copyWith(
+                                      //                                 color: AppColors.white, fontSize: 7)),
+                                      //                       ],
+                                      //                     ),
+                                      //                   ))),
+                                      //         ),
+                                      //       )
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                      //*************** for bookmarks **************
+                                      Positioned(
+                                        left: 12,
+                                        top: 15,
+                                        child: GestureDetector( 
+                                          onTap: () {
+                                            CommonFunctions.confirmationDialog(context, message: "Do you want to unsave this post",
+                                                onTap: () async {
+                                                  Get.back() ;
+                                              CommonFunctions.showLoadingDialog(context, "unsaving...") ;
+                                               var result = await unSavePostController.unSavePost("${data?.jobId}", "1", context,false) ;
+                                               if(result){
+                                                 getJobsListingController.refreshJobsApi() ;
+                                               }
+                                                }) ;
+                                          },
+                                            child: Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,)),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            bottom: Get.height*.03,
-                            child: Container(
-                              height: Get.height*.4,
-                              width: Get.width,
-                              padding: const EdgeInsets.all(15),
-                              decoration:  BoxDecoration(
-                                color: AppColors.blackdown,
-                                borderRadius: BorderRadius.circular(
-                                   22),
-                              ),
-                              child: SingleChildScrollView(
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                padding: const EdgeInsets.only(right: 0),
+                              ],
+                            ),
+                            Transform.translate(
+                              offset: Offset(0, -50),
+                              child: Container(
+                                // height: Get.height*.4,
+                                width: Get.width,
+                                padding: const EdgeInsets.all(15),
+                                decoration:  BoxDecoration(
+                                  color: AppColors.blackdown,
+                                  borderRadius: BorderRadius.circular(
+                                     22),
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(data?.jobData?.jobTitle ?? "No job title",
+                                    Text(data?.jobData?.jobTitle ?? "No job title", overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context).textTheme.displayLarge,
                                       softWrap: true,),
-                                    Text(data?.jobData?.jobPositions ?? "No positions",
+                                    Text(data?.jobData?.jobPositions ?? "No positions", overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context).textTheme.bodySmall!
                                           .copyWith( color: AppColors.ratingcommenttextcolor) ,
                                       softWrap: true,),
                                     SizedBox( height: Get.height * .005,),
-                                    Text(data?.jobData?.recruiterDetails?.companyName ?? "No company name",
+                                    Text(data?.jobData?.recruiterDetails?.companyName ?? "No company name", overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context).textTheme.bodySmall!
                                           .copyWith( color: AppColors.ratingcommenttextcolor),),
                                     SizedBox( height: Get.height * 0.03,),
@@ -308,125 +306,125 @@ class _SavedPostState extends State<SavedPost> {
                                         .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),) :
                                     HtmlWidget(data?.jobData?.requirements ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
                                         .copyWith(color: AppColors.ratingcommenttextcolor),) ,
-                                    SizedBox(height: Get.height*.03,) ,
+                                    // SizedBox(height: Get.height*.03,) ,
                                   ],
                                 ),
                               ),
                             ),
-                          ),
-                          // Positioned(
-                          //   bottom: 0,
-                          //   left: 0,
-                          //   right: 0,
-                          //   child: Align(
-                          //     alignment: AlignmentDirectional.bottomCenter,
-                          //     child: Container(
-                          //       padding: EdgeInsets.all(8),
-                          //       decoration: BoxDecoration(
-                          //         color: Colors.grey[900],
-                          //         borderRadius: const BorderRadius.only(
-                          //             bottomLeft: Radius.circular(22),
-                          //             bottomRight: Radius.circular(22)),
-                          //       ),
-                          //       child: Row(
-                          //         mainAxisAlignment: MainAxisAlignment.end,
-                          //         children: [
-                          //           // Row(
-                          //           //   children: [
-                          //           //     IconButton(
-                          //           //         onPressed: () =>
-                          //           //             toggleFavorite(),
-                          //           //         icon: selectedFav == false
-                          //           //             ? SvgPicture.asset(
-                          //           //           'assets/images/likesvg.svg',
-                          //           //           width: Get.width * 0.027,
-                          //           //           height: Get.height * 0.027,
-                          //           //           color: buttonColor,
-                          //           //         )
-                          //           //             : const Icon(
-                          //           //           Icons.favorite_rounded,
-                          //           //           color: AppColors.red,
-                          //           //         )),
-                          //           //     Text("12",
-                          //           //         style: Theme
-                          //           //             .of(context)
-                          //           //             .textTheme
-                          //           //             .bodySmall!
-                          //           //             .copyWith(
-                          //           //             color: AppColors.white,
-                          //           //             fontSize: 14)),
-                          //           //     SizedBox(
-                          //           //       width: Get.width * 0.04,
-                          //           //     ),
-                          //           //
-                          //           //     //*************************
-                          //           //
-                          //           //     IconButton(
-                          //           //       onPressed: () {
-                          //           //         showCommentDialog();
-                          //           //       },
-                          //           //       icon: SvgPicture.asset(
-                          //           //           'assets/images/commentsvg.svg'),
-                          //           //     ),
-                          //           //     Text("10",
-                          //           //         style: Theme
-                          //           //             .of(context)
-                          //           //             .textTheme
-                          //           //             .bodySmall!
-                          //           //             .copyWith(
-                          //           //             color: AppColors.white,
-                          //           //             fontSize: 14)),
-                          //           //   ],
-                          //           // ),
-                          //           Padding(
-                          //             padding: const EdgeInsets.only(
-                          //                 right: 14.0),
-                          //             child: Row(
-                          //               children: [
-                          //                 Stack(
-                          //                     children: [
-                          //                       CircleAvatar(
-                          //                         backgroundColor: Color(0xff56B8F6),
-                          //                         radius: 17,
-                          //                         child: Image.asset(
-                          //                           'assets/images/personicons.png',
-                          //                         ),
-                          //                         // Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor,)
-                          //                       ),
-                          //                       SvgPicture.asset(
-                          //                           'assets/images/personsvg22.svg')
-                          //                     ]
-                          //                 ),
-                          //                 // IconButton(
-                          //                 //   onPressed: text.isEmpty &&
-                          //                 //       imagePaths.isEmpty &&
-                          //                 //       uri.isEmpty
-                          //                 //       ? null
-                          //                 //       : () => _onShare(context),
-                          //                 //   icon: SvgPicture.asset(
-                          //                 //     'assets/images/sharesvg.svg',
-                          //                 //   ),
-                          //                 // ),
-                          //                 // Text("2",
-                          //                 //     style: Theme
-                          //                 //         .of(context)
-                          //                 //         .textTheme
-                          //                 //         .bodySmall!
-                          //                 //         .copyWith(
-                          //                 //         color: AppColors.white,
-                          //                 //         fontSize: 14)),
-                          //               ],
-                          //             ),
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    );
-                  }),
+                            // Positioned(
+                            //   bottom: 0,
+                            //   left: 0,
+                            //   right: 0,
+                            //   child: Align(
+                            //     alignment: AlignmentDirectional.bottomCenter,
+                            //     child: Container(
+                            //       padding: EdgeInsets.all(8),
+                            //       decoration: BoxDecoration(
+                            //         color: Colors.grey[900],
+                            //         borderRadius: const BorderRadius.only(
+                            //             bottomLeft: Radius.circular(22),
+                            //             bottomRight: Radius.circular(22)),
+                            //       ),
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.end,
+                            //         children: [
+                            //           // Row(
+                            //           //   children: [
+                            //           //     IconButton(
+                            //           //         onPressed: () =>
+                            //           //             toggleFavorite(),
+                            //           //         icon: selectedFav == false
+                            //           //             ? SvgPicture.asset(
+                            //           //           'assets/images/likesvg.svg',
+                            //           //           width: Get.width * 0.027,
+                            //           //           height: Get.height * 0.027,
+                            //           //           color: buttonColor,
+                            //           //         )
+                            //           //             : const Icon(
+                            //           //           Icons.favorite_rounded,
+                            //           //           color: AppColors.red,
+                            //           //         )),
+                            //           //     Text("12",
+                            //           //         style: Theme
+                            //           //             .of(context)
+                            //           //             .textTheme
+                            //           //             .bodySmall!
+                            //           //             .copyWith(
+                            //           //             color: AppColors.white,
+                            //           //             fontSize: 14)),
+                            //           //     SizedBox(
+                            //           //       width: Get.width * 0.04,
+                            //           //     ),
+                            //           //
+                            //           //     //*************************
+                            //           //
+                            //           //     IconButton(
+                            //           //       onPressed: () {
+                            //           //         showCommentDialog();
+                            //           //       },
+                            //           //       icon: SvgPicture.asset(
+                            //           //           'assets/images/commentsvg.svg'),
+                            //           //     ),
+                            //           //     Text("10",
+                            //           //         style: Theme
+                            //           //             .of(context)
+                            //           //             .textTheme
+                            //           //             .bodySmall!
+                            //           //             .copyWith(
+                            //           //             color: AppColors.white,
+                            //           //             fontSize: 14)),
+                            //           //   ],
+                            //           // ),
+                            //           Padding(
+                            //             padding: const EdgeInsets.only(
+                            //                 right: 14.0),
+                            //             child: Row(
+                            //               children: [
+                            //                 Stack(
+                            //                     children: [
+                            //                       CircleAvatar(
+                            //                         backgroundColor: Color(0xff56B8F6),
+                            //                         radius: 17,
+                            //                         child: Image.asset(
+                            //                           'assets/images/personicons.png',
+                            //                         ),
+                            //                         // Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor,)
+                            //                       ),
+                            //                       SvgPicture.asset(
+                            //                           'assets/images/personsvg22.svg')
+                            //                     ]
+                            //                 ),
+                            //                 // IconButton(
+                            //                 //   onPressed: text.isEmpty &&
+                            //                 //       imagePaths.isEmpty &&
+                            //                 //       uri.isEmpty
+                            //                 //       ? null
+                            //                 //       : () => _onShare(context),
+                            //                 //   icon: SvgPicture.asset(
+                            //                 //     'assets/images/sharesvg.svg',
+                            //                 //   ),
+                            //                 // ),
+                            //                 // Text("2",
+                            //                 //     style: Theme
+                            //                 //         .of(context)
+                            //                 //         .textTheme
+                            //                 //         .bodySmall!
+                            //                 //         .copyWith(
+                            //                 //         color: AppColors.white,
+                            //                 //         fontSize: 14)),
+                            //               ],
+                            //             ),
+                            //           )
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      );
+                    }),
+              ),
             ),
           );
       }

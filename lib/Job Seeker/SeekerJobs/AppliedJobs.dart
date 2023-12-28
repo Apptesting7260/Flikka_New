@@ -139,19 +139,19 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                                           ),
                                           placeholder: (context, url) => const CircularProgressIndicator(),
                                         ),
-                                        title:   Text(data?.jobTitle ?? '',
+                                        title:   Text(data?.jobTitle ?? 'No title',
                                             style: Get.theme.textTheme.labelMedium!
                                                 .copyWith(color: AppColors.white)),
 
                                         subtitle: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(data?.jobPositions ?? '',
+                                            Text(data?.jobPositions ?? 'No position',
                                                 style: Get.theme.textTheme.bodySmall!
                                                     .copyWith(color: Color(0xffCFCFCF))),
-                                            Text("${data?.recruiterDetails?.companyName}",
+                                            Text("${data?.recruiterDetails?.companyName ?? "No company name"}",
                                                 style: Get.theme.textTheme.bodySmall!
                                                     .copyWith(color: Color(0xffCFCFCF))),
-                                            Text("${data?.recruiterDetails?.companyLocation}",overflow: TextOverflow.ellipsis,
+                                            Text("${data?.recruiterDetails?.companyLocation ?? "No location"}",overflow: TextOverflow.ellipsis,
                                                 style: Get.theme.textTheme.bodySmall!
                                                     .copyWith(color: Color(0xffCFCFCF))),
                                             Text("${data?.applicantStatus.toString().toUpperCase()}",overflow: TextOverflow.ellipsis,

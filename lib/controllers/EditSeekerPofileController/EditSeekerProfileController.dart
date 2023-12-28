@@ -9,11 +9,13 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/app_url.dart';
 import '../../utils/utils.dart';
+import '../SeekerMapJobsController/SeekerMapJobsController.dart';
 import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
 
 class EditSeekerProfileController extends GetxController {
 
   ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController()) ;
+  SeekerMapJobsController jobsController = Get.put(SeekerMapJobsController());
 
   RxBool loading = false.obs;
   RxBool loadingImage = false.obs;
@@ -68,6 +70,7 @@ class EditSeekerProfileController extends GetxController {
         loading(false);
         loadingImage(false);
         seekerProfileController.viewSeekerProfileApi();
+        jobsController.mapJobsApi();
         Get.back();
         Utils.toastMessage('Profile updated') ;
         if (kDebugMode) {

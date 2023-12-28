@@ -29,8 +29,6 @@ class _ForumMessagePageState extends State<ForumMessagePage> {
         .orderBy('timestamp', descending: true)
         .snapshots();
 
-
-
   }
   String formatTimestamp(Timestamp timestamp) {
     final DateTime dateTime = timestamp.toDate();
@@ -101,7 +99,6 @@ class _ForumMessagePageState extends State<ForumMessagePage> {
                       stream: getMessagesStream(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.active) {
-
                           return snapshot.data!.docs.isEmpty == false
                               ?ListView.builder(
                               itemCount: snapshot.data!.docs.length,

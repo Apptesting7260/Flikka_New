@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/LoginController/LoginController.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'forgot_password.dart';
 
@@ -33,6 +35,9 @@ class _LoginState extends State<Login> {
     return emailRegex.hasMatch(email);
   }
   bool _isPasswordVisible = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 @override
 void initState() {
   // _getAPNSToken();
@@ -41,18 +46,6 @@ void initState() {
   
 }
 
-// Future<void> _getAPNSToken() async {
-//   try {
-//    fcmToken = await FirebaseMessaging.instance.getAPNSToken();
-
-//     // Use the token for further actions (e.g., send to server)
-//     print('APNS token: $fcmToken');
-//   } catch (e) {
-//     print('Error getting APNS token: $e');
-//     // Handle errors gracefully
-//   }
-// }
-  
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
  
 
@@ -195,7 +188,7 @@ void initState() {
                     height: Get.height*.075,
                     child: ElevatedButton(
                       onPressed: () {
-
+                        // _handleSignIn() ;
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xffFFFFFF),
@@ -238,5 +231,44 @@ void initState() {
       ),
     );
   }
+
+  Future<User?> _handleSignIn() async {
+    try {
+      // Trigger Google Sign-In
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+      if (googleSignInAccount == null) {
+        // The user canceled the sign-in
+        return null;
+      }
+
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+      // Create GoogleAuthProvider credential using the obtained tokens
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      // Sign in to Firebase with the Google Auth credentials
+      final UserCredential authResult = await _auth.signInWithCredential(credential);
+
+      // Get the signed-in user
+      final User? user = authResult.user;
+
+      print("Signed in: ${user!.displayName}");
+
+      // Return the signed-in user
+      return user;
+    } catch (error) {
+      print("Error during Google sign-in: $error");
+
+      // Handle sign-in failure gracefully
+      // You can customize this based on your app's requirements
+      // For example, show an error dialog or display a message to the user
+      return null;
+    }
+  }
+
 }
 

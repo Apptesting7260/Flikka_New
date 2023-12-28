@@ -42,6 +42,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_compress/video_compress.dart';
+import 'package:video_trimmer/video_trimmer.dart';
 import '../../../controllers/AvtarImageController/AvtarImageController.dart';
 import '../../../controllers/AvtarImageListController/AvtarImageListController.dart';
 import '../../../controllers/EditMobileNumberController.dart';
@@ -76,6 +77,7 @@ class _UserProfileState extends State<UserProfile> {
   //////refresh//////
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
+
 
   void _onRefresh() async{
     await seekerProfileController.viewSeekerProfileApi();
@@ -474,7 +476,6 @@ class _UserProfileState extends State<UserProfile> {
                     CommonWidgets.textFieldHeading(context, "Phone number"),
                     SizedBox(height: Get.height * 0.01,),
                     IntlPhoneField(
-
                       flagsButtonPadding: const EdgeInsets.only(bottom: 3),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
@@ -639,11 +640,7 @@ class _UserProfileState extends State<UserProfile> {
                             CommonWidgets.textFieldHeading(context, "Full Name"),
                             SizedBox(height: Get.height * 0.01,),
                             TextField(
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(fontSize: 13),
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                               onChanged: (String value) {
                               },
                               controller: nameController,
@@ -786,11 +783,7 @@ class _UserProfileState extends State<UserProfile> {
                                       height: 40,
                                       loading: editSeekerProfileController.loading.value,
                                       onTap1: () {
-                                        editSeekerProfileController.profileApi(
-                                            null, nameController.text,
-                                            locationController.text, positionId,
-                                            context
-                                        );
+                                        editSeekerProfileController.profileApi(null, nameController.text, locationController.text, positionId, context);
                                       },
                                       title: 'Submit',
                                     ),
@@ -1019,7 +1012,10 @@ class _UserProfileState extends State<UserProfile> {
                                       onTap: () {
                                         if(!present) {
                                           if (startDateKey.currentState!.validate()) {
-                                            _selectDate(false, context, _startDateController.text);
+                                            List<String> startDateParts = _startDateController.text.split('-');
+
+                                            String outputStartDate = "${startDateParts[2]}-${startDateParts[0]}-${startDateParts[1]}";
+                                            _selectDate(false, context, outputStartDate);
                                           }
                                         }
                                       },
@@ -1105,13 +1101,26 @@ class _UserProfileState extends State<UserProfile> {
                                 }
                                 if(key.currentState!.validate() && startDateKey.currentState!.validate() &&
                                     endDateKey.currentState!.validate()) {
+                                  List<String> startDateParts = _startDateController.text.split('-');
+
+                                  String outputStartDate = "${startDateParts[2]}-${startDateParts[0]}-${startDateParts[1]}";
+                                  String outputEndDate = "" ;
+                                  if(_endDateController.text.isNotEmpty) {
+                                    if(_endDateController.text.toLowerCase() == "present") {
+                                      outputEndDate = "present" ;
+                                    } else {
+                                      List<String> endDateParts = _endDateController.text.split('-');
+                                      outputEndDate = "${endDateParts[2]}-${endDateParts[0]}-${endDateParts[1]}";
+                                    }
+                                  }
                                   if (experience == true) {
                                     WorkExpJob experienceData = WorkExpJob() ;
+
                                     if (add == true) {
                                       experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
                                       experienceData.companyName = companyOrInstituteController.text ;
-                                      experienceData.jobStartDate = _startDateController.text ;
-                                      experienceData.jobEndDate = present ? "present" : _endDateController.text ;
+                                      experienceData.jobStartDate = outputStartDate ;
+                                      experienceData.jobEndDate = present ? "present" : outputEndDate ;
                                       debugPrint("this is experience ${experienceData.companyName}") ;
                                       seekerProfileController.viewSeekerData.value.workExpJob?.add(experienceData);
                                       debugPrint("this is experience list ${seekerProfileController.viewSeekerData.value.workExpJob}") ;
@@ -1128,8 +1137,8 @@ class _UserProfileState extends State<UserProfile> {
                                     if (add == true) {
                                       educationData.educationLevel = jobTitleOrEducationLevelController.text ;
                                       educationData.institutionName = companyOrInstituteController.text ;
-                                      educationData.educationStartDate = _startDateController.text ;
-                                      educationData.educationEndDate =  present ? "present" : _endDateController.text ;
+                                      educationData.educationStartDate =  outputStartDate;
+                                      educationData.educationEndDate =  present ? "present" : outputEndDate ;
                                       seekerProfileController.viewSeekerData.value.educationLevel?.add(educationData) ;
                                       editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
                                     } else {
@@ -1186,7 +1195,7 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(height: Get.height *0.01,) ,
                       SizedBox(
                         height: Get.height*.12,
-                          child: RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),)),
+                          child: RangePicker(maxSalary: double.tryParse('100000'),)),
                       SizedBox(height: Get.height *0.02,) ,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -2041,7 +2050,8 @@ class _UserProfileState extends State<UserProfile> {
                                       if(seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
                                           seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0) {
                                         CommonFunctions.confirmationDialog(context, message: "Do you want to upload video", onTap: () {
-                                          _startRecording() ;
+                                          Get.back() ;
+                                          _openVideoPickerDialogUserProfile() ;
                                         },);
                                       } else {
                                         CommonFunctions.doubleButtonDialog(context,
@@ -2052,7 +2062,7 @@ class _UserProfileState extends State<UserProfile> {
                                             },
                                             onTap2: () {
                                               Get.back() ;
-                                          _startRecording() ;
+                                              _openVideoPickerDialogUserProfile() ;
                                             },
                                             title1: "Play",
                                             title2: "Edit") ;
@@ -2146,9 +2156,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           seekerProfileController.viewSeekerData.value.seekerDetails?.positions,
                                                           seekerProfileController.viewSeekerData.value.seekerDetails?.position
                                                       );
-                                                      seekerChoosePositionGetController
-                                                          .seekerGetPositionApi(
-                                                          true);
+                                                      seekerChoosePositionGetController.seekerGetPositionApi(true);
                                                     },
                                                     child: Image.asset(
                                                       "assets/images/icon_edit.png",
@@ -2396,7 +2404,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             children: [
                                                               InkWell(
                                                                   onTap: () {
-                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate.toString(), data?.educationEndDate.toString(), index);
+                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, startDate, endDate, index);
                                                                   },
                                                                   child: Image.asset("assets/images/icon_edit.png",height: 18)),
 
@@ -3046,6 +3054,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     onTap: () {
                                                       editSeekerResumeController.documentPath.value = "" ;
                                                       document() ;
+
                                                     },
                                                     child: seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                         seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
@@ -3059,12 +3068,26 @@ class _UserProfileState extends State<UserProfile> {
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
                                             Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
-                                            ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
-                                            SvgPicture.asset('assets/images/PDF.svg') :
-                                            SizedBox( height: Get.height *.4 ,
-                                              child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
-                                                fit: BoxFit.cover, ),
-                                            ) )  ,
+
+                                            ListTile(
+                                              title: Text('Document',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                  color: AppColors.white, fontWeight: FontWeight.w500),),
+                                                onTap: () {
+                                          CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
+                                            onTap: () async {
+                                              launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}')) ;
+                                              // String? directory = await getLocalDownloadDir() ;
+                                              // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
+                                              //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
+                                              // Get.back() ;
+                                              Get.back() ;
+                                            },) ;
+                                        },
+                                                leading:  seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ? SvgPicture.asset('assets/images/PDF.svg') :
+                                               Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, ),
+                                            )   ,
                                             // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                             //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                             SizedBox(height: Get.height * 0.02,),
@@ -3181,8 +3204,8 @@ class _UserProfileState extends State<UserProfile> {
     );
     if (picked != null ) {
       setState(() {
-     start ?   _startDateController.text = "${picked.year.toString().padLeft(4,"0")}-${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}" :
-        _endDateController.text = "${picked.year.toString().padLeft(4,"0")}-${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}";
+     start ?   _startDateController.text = "${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}-${picked.year.toString().padLeft(4,"0")}" :
+        _endDateController.text = "${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}-${picked.year.toString().padLeft(4,"0")}";
      print(_startDateController.text) ;
       });
     }
@@ -3298,7 +3321,7 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> _openFilePicker(bool resume , String? documentType) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: resume ?  ['pdf', 'doc' ,'docx'] : ['jpg','jpeg','png','heic'],
+      allowedExtensions: resume ?  ['pdf', 'doc' ,'docx'] : ['jpg','jpeg','png','heic','pdf'],
       allowMultiple: false,
     );
 
@@ -3335,32 +3358,142 @@ class _UserProfileState extends State<UserProfile> {
 
   String videoFilePath = '';
 
-  Future<void> _startRecording() async {
-    final video = await i.ImagePicker().pickVideo(source: i.ImageSource.camera,maxDuration: const Duration(seconds: 15)) ;
+  Future<void> _openVideoPickerDialogUserProfile() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
+          title: Center(
+            child: Text(
+              'Please choose video',
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width * .25,
+                    height: Get.height * .05,
+                    title: "Camera",
+                    onTap1: () {
+                      _startRecording(i.ImageSource.camera);
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width * .25,
+                    height: Get.height * .05,
+                    title: "Gallery",
+                    onTap1: () {
+                      _startRecording(i.ImageSource.gallery);
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _startRecording(i.ImageSource source) async {
+    final video = await i.ImagePicker().pickVideo(
+        source: source,
+        maxDuration: const Duration(seconds: 15)) ;
     if(video != null) {
-      await compressVideo(video.path);
+      await trimVideo(video.path);
     }
   }
 
-  Future<void> compressVideo(String inputPath) async {
-    CommonFunctions.showLoadingDialog(context, "Uploading") ;
-    final MediaInfo? info = await VideoCompress.compressVideo(
-      inputPath,
-      quality: VideoQuality.MediumQuality,
-      deleteOrigin: false,
+  Future<String?> trimVideo(String path) async {
+    CommonFunctions.showLoadingDialog(context, "Uploading...") ;
+    final Trimmer trimmer = Trimmer();
+    String? trimmedPath;
+
+    // Step 1: Trim the video
+    await trimmer.loadVideo(videoFile: File(path));
+
+    await trimmer.saveTrimmedVideo(
+      startValue: 0,
+      endValue: 15000,
+      onSave: (String? outputPath) async {
+        print("$outputPath outputpath------------------------------------------------------") ;
+
+        if (outputPath != null) {
+          setState(() {
+            videoFilePath = outputPath ;
+            updateVideoController.updateVideo(context,videoFilePath) ;
+          });
+          // final MediaInfo? info = await VideoCompress.compressVideo(
+          //   trimmedPath!,
+          //   quality: VideoQuality.MediumQuality,
+          //   deleteOrigin: false,
+          // );
+
+          // if (outputPath?.path != null && info?.path?.isNotEmpty == true) {
+          //   // The compressed video path
+          //   String compressedPath = info!.path!;
+          //   print('Compressed video path: $compressedPath');
+          //
+          //   setState(() {
+          //     videoFilePath = info.path!;
+          //     if (kDebugMode) {
+          //       print("this is file size ================== ${info.filesize}");
+          //     }
+          //   });
+          //
+          //   return compressedPath;
+          // } else {
+          //   print('Video compression failed');
+          //   return null;
+          // }
+        } else {
+          print('Video trimming failed');
+          return null;
+        }
+      },
     );
 
-    if (kDebugMode) {
-      print('Compressed video path: ${info?.path}');
-    }
-    if(info?.path != null && info?.path?.length != 0 ) {
-      setState(() {
-        videoFilePath = info!.path! ;
-        if (kDebugMode) {
-          print("this is file size ================== ${info.filesize}") ;
-        }
-      });
-      updateVideoController.updateVideo(context,videoFilePath) ;
-    }
+    // Step 2: Compress the trimmed video
+
   }
+
+  // Future<void> compressVideo(String inputPath) async {
+  //   CommonFunctions.showLoadingDialog(context, "Uploading") ;
+  //   final MediaInfo? info = await VideoCompress.compressVideo(
+  //     inputPath,
+  //     quality: VideoQuality.MediumQuality,
+  //     deleteOrigin: false,
+  //   );
+  //
+  //   if (kDebugMode) {
+  //     print('Compressed video path: ${info?.path}');
+  //   }
+  //   if(info?.path != null && info?.path?.length != 0 ) {
+  //     setState(() {
+  //       videoFilePath = info!.path! ;
+  //       if (kDebugMode) {
+  //         print("this is file size ================== ${info.filesize}") ;
+  //       }
+  //     });
+  //     updateVideoController.updateVideo(context,videoFilePath) ;
+  //   }
+  // }
 }
