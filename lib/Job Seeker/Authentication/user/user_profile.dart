@@ -458,7 +458,7 @@ class _UserProfileState extends State<UserProfile> {
         editMobileNumberController.loading.value = false;
         TextEditingController mobileNumberSectionController = TextEditingController();
         var phone = mobile ;
-        bool validPhone = true ;
+        bool validPhone = false ;
         Country? selectedCountry ;
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -480,12 +480,12 @@ class _UserProfileState extends State<UserProfile> {
                       // autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
                       controller: mobileNumberSectionController,
-                      // initialValue: '+44',
+                      initialValue: mobile,
                       style: Theme.of(context).textTheme.bodyMedium,
                       pickerDialogStyle: PickerDialogStyle(
-                        countryNameStyle:
-                        Theme.of(context).textTheme.bodyMedium,
+                        countryNameStyle: Theme.of(context).textTheme.bodyMedium,
                       ),
+                      disableLengthCheck: true,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: const Color(0xff373737),
@@ -504,8 +504,7 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       languageCode: "en",
                       onChanged: (PhoneNumber value) {
-                        // Validate phone number length (6 to 16 characters)
-                        if (value.completeNumber.length >= 6 && value.completeNumber.length <= 16) {
+                        if (value.number.length >= 6 && value.number.length <= 16) {
                           validPhone = true;
                         } else {
                           validPhone = false;
@@ -538,7 +537,8 @@ class _UserProfileState extends State<UserProfile> {
                         print(country.dialCode + phoneController.text);
                       },
                       inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(16),
                       ],
                     ),
                     SizedBox(height: Get.height * 0.02,),
@@ -561,6 +561,8 @@ class _UserProfileState extends State<UserProfile> {
                                 debugPrint("this is on tap ========= $validPhone");
                                 if(validPhone) {
                                   editMobileNumberController.mobileNumberApi(phone ?? "", context) ;
+                                } else {
+                                  Utils.showMessageDialog(context, "Enter valid number") ;
                                 }
                               },
                               title: 'Submit',
@@ -3111,7 +3113,7 @@ class _UserProfileState extends State<UserProfile> {
                                             },) ;
                                         },
                                                 leading:  seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ? SvgPicture.asset('assets/images/PDF.svg') :
-                                               Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, ),
+                                               Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, width: Get.width *.15, ),
                                             )   ,
                                             // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                             //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
