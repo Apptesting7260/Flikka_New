@@ -1,6 +1,7 @@
 class SocialLoginModel {
   SocialLoginModel({
      this.status,
+     this.emailRegistered ,
      this.name,
      this.message,
      this.role,
@@ -8,6 +9,7 @@ class SocialLoginModel {
      this.token,
   });
    bool? status;
+   bool? emailRegistered;
    String? name;
    String? message;
    dynamic role;
@@ -16,6 +18,7 @@ class SocialLoginModel {
 
   SocialLoginModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
+    emailRegistered = json['email_registered'];
     name = json['name'];
     message = json['message'];
     role = json['role'];

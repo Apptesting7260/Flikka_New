@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flikka/data/network/network_api_services.dart';
 import 'package:flikka/models/ApplyJobModel/ApplyJobModel.dart';
 import 'package:flikka/models/CheckEmailSignUpModel/CheckEmailSignUpModel.dart';
+import 'package:flikka/models/CheckSocialLogin/CheckSocialLogin.dart';
 import 'package:flikka/models/EditAboutModel/EditAboutModel.dart';
 import 'package:flikka/models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import 'package:flikka/models/ForgotPasswordModel/Otp/OtpVerificationModel.dart';
@@ -252,6 +253,11 @@ class AuthRepository {
   Future<SocialLoginModel> socialLoginApi(var data) async{
     dynamic response = await _apiService.postApi2(data,AppUrl.socialLogin);
     return SocialLoginModel.fromJson(response);
+  }
+
+  Future<CheckSocialLoginModel> checkSocialLoginApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.checkSocialLogin);
+    return CheckSocialLoginModel.fromJson(response);
   }
 
 }

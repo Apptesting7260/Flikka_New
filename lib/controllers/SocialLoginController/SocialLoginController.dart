@@ -1,9 +1,18 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
-import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../Job Recruiter/bottom_bar/tab_bar.dart';
+import '../../Job Recruiter/recruiter_profile/recruiter_profile_edit.dart';
+import '../../Job Seeker/Authentication/user/create-profile.dart';
+import '../../Job Seeker/Role_Choose/choose_position.dart';
+import '../../Job Seeker/Role_Choose/choose_skills.dart';
+import '../../Job Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 
 class SocialLoginController extends GetxController {
 
@@ -15,39 +24,58 @@ class SocialLoginController extends GetxController {
   Future<bool> socialLoginApi(
       String email ,
       String? name ,
-      String? deviceToke ,
+      String? deviceToken ,
       String? role ,
       String? googleID ,
-      BuildContext context
+      BuildContext context ,
+  {User? user}
       ) async{
     loading.value = true ;
     success(false) ;
     Map data = {};
     data.addIf(email.isNotEmpty ,"email",email);
     data.addIf( name != null &&  name.isNotEmpty ,"name",name);
-    data.addIf(deviceToke != null && deviceToke.isNotEmpty ,"device_token",deviceToke);
+    data.addIf(deviceToken != null && deviceToken.isNotEmpty ,"device_token",deviceToken);
     data.addIf(role != null && role.isNotEmpty ,"role",role);
     data.addIf(googleID != null && googleID.isNotEmpty ,"google_id",googleID);
-    print(data);
+    if (kDebugMode) {
+      print(data);
+    }
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
     return await _api.socialLoginApi(data).then((value){
       loading.value = false ;
-      print(value);
-      if(value.status!){
-        success(true) ;
-        Get.back(result: true) ;
-        // interviewListController.refreshInterview();
-        Utils.toastMessage('Thanks for your response') ;
-        return true ;
+      if (kDebugMode) {
+        print(value);
       }
-      else{
-        errorMessage.value =  value.message.toString();
+      if(value.emailRegistered == false){
+       Get.to( () => ChooseRole(user: user,)) ;
+       loading(false) ;
+        return true ;
+      } else {
+      if (value.role == 0) {
+      value.step == 1
+      ? Get.offAll(() => const ChoosePosition())
+          : value.step == 2
+      ? Get.offAll(() => const ChooseSkills())
+          : value.step == 3
+      ? Get.offAll(() => const CreateProfile())
+          : Get.offAll(const TabScreen(index: 0)) ;
+      sp.setString("loggedIn", "seeker");
+      } else if (value.role == 1) {
+      value.step == 1 ? Get.offAll( () => const RecruiterProfileEdit()) :
+      Get.offAll( () => TabScreenEmployer(index: 0,)) ;
+      sp.setString("loggedIn", "recruiter");
+      }
+      sp.setString("BarrierToken", value.token.toString());
+      sp.setString("name", value.name.toString());
         loading.value = false ;
         return false ;
       }
-      // Get.to(TabScreen(index: 0));
     }).onError((error, stackTrace){
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       loading.value = false ;
       return false ;
     });

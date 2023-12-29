@@ -10,12 +10,14 @@ import 'package:flikka/Job%20Seeker/Authentication/sign_up.dart';
 import 'package:flikka/main.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../controllers/SocialLoginController/SocialLoginController.dart';
 import 'forgot_password.dart';
 
 class Login extends StatefulWidget {
@@ -48,7 +50,7 @@ void initState() {
 }
 
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
- 
+  SocialLoginController socialLoginController = Get.put(SocialLoginController()) ;
 
   getFcmToken() {
     print("sdfsdfdsfdsfdsafdsfdsf");
@@ -257,15 +259,20 @@ void initState() {
       // Get the signed-in user
       final User? user = authResult.user;
       if(user != null) {
-        Get.to(() => const ChooseRole()) ;
+        socialLoginController.socialLoginApi("${user.email}", "${user.displayName}",
+            fcmToken, "", "${user.uid}", context,user: user) ;
       }
 
-      print("Signed in: ${user!.displayName}");
+      if (kDebugMode) {
+        print("Signed in: ${user!.displayName}");
+      }
 
 
       return user;
     } catch (error) {
-      print("Error during Google sign-in: $error");
+      if (kDebugMode) {
+        print("Error during Google sign-in: $error");
+      }
 
       // Handle sign-in failure gracefully
       // You can customize this based on your app's requirements

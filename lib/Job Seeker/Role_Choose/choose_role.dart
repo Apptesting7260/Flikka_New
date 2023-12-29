@@ -1,4 +1,6 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flikka/main.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,8 @@ import '../../controllers/SocialLoginController/SocialLoginController.dart';
 
 
 class ChooseRole extends StatefulWidget {
-  const ChooseRole({Key? key}) : super(key: key);
+  final User? user ;
+  const ChooseRole({super.key, this.user});
 
   @override
   State<ChooseRole> createState() => _ChooseRoleState();
@@ -215,7 +218,8 @@ class _ChooseRoleState extends State<ChooseRole> {
                                         else {
                                           signUpController.signUpApiHit(role , context );
                                         }
-                                        socialLoginController.socialLoginApi("email", "name", "deviceToke", "role", "googleID", context) ;
+                                        socialLoginController.socialLoginApi("${widget.user?.email}", "${widget.user?.displayName}", fcmToken,
+                                            "$role", "${widget.user?.uid}", context) ;
                                       }
                                   ),
                                 ),) ,
