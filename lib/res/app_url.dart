@@ -89,4 +89,5 @@ class AppUrl {
   static const String avtarImage = '$baseUrl/avtar-image-upload' ;
   static const String avtarImageList = '$baseUrl/avtar-image-list' ;
   static const String interViewConfirmation = '$baseUrl/interview-complete-confrimation' ;
+  static const String addInOngoing = '$baseUrl/interview-add-in-ongoing' ;
 }
