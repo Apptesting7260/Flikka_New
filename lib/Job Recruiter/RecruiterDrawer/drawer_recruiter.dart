@@ -331,16 +331,12 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
+                                    leading: drawerIcon(iconLogout),
                                     onTap: () {
                                       logoutController.logout(context) ;
                                       showLogoutDialog(context) ;
                                     },
-                                    leading: IconButton(
-                                        onPressed: () {
-
-                                        },
-                                        icon: Image.asset('assets/images/logoutdrawericon.png',scale: 3,fit: BoxFit.cover,)
-                                    ),
+                                   
                                     title: Text(
                                       "Logout",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),

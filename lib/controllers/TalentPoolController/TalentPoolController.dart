@@ -14,7 +14,7 @@ class TalentPoolController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void talentPoolApi(){
+   talentPoolApi(){
     setRxRequestStatus(Status.LOADING);
     _api.talentPoolApi().then((value){
       setRxRequestStatus(Status.COMPLETED);

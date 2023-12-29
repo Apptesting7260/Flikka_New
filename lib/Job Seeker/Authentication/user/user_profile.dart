@@ -458,7 +458,7 @@ class _UserProfileState extends State<UserProfile> {
         editMobileNumberController.loading.value = false;
         TextEditingController mobileNumberSectionController = TextEditingController();
         var phone = mobile ;
-        bool validPhone = true ;
+        bool validPhone = false ;
         Country? selectedCountry ;
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -477,15 +477,15 @@ class _UserProfileState extends State<UserProfile> {
                     SizedBox(height: Get.height * 0.01,),
                     IntlPhoneField(
                       flagsButtonPadding: const EdgeInsets.only(bottom: 3),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      // autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
                       controller: mobileNumberSectionController,
-                      // initialValue: '+44',
+                      initialValue: mobile,
                       style: Theme.of(context).textTheme.bodyMedium,
                       pickerDialogStyle: PickerDialogStyle(
-                        countryNameStyle:
-                        Theme.of(context).textTheme.bodyMedium,
+                        countryNameStyle: Theme.of(context).textTheme.bodyMedium,
                       ),
+                      disableLengthCheck: true,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: const Color(0xff373737),
@@ -504,19 +504,31 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       languageCode: "en",
                       onChanged: (PhoneNumber value) {
-                        if(!value.isValidNumber()) {
-                          validPhone = false ;
+                        if (value.number.length >= 6 && value.number.length <= 16) {
+                          validPhone = true;
                         } else {
-                          validPhone = true ;
-                        } if(value.countryCode == "+44") {
-                          validPhone = RegExp(r'^\+44\d{10}$').hasMatch(value.completeNumber);
+                          validPhone = false;
                         }
 
-                          phone = value.completeNumber;
-                          debugPrint("this is ========= $validPhone");
+                        phone = value.completeNumber;
+                        debugPrint("this is ========= $validPhone");
 
-                          setState(() {});
+                        setState(() {});
                       },
+                      // onChanged: (PhoneNumber value) {
+                      //   if(!value.isValidNumber()) {
+                      //     validPhone = false ;
+                      //   } else {
+                      //     validPhone = true ;
+                      //   } if(value.countryCode == "+44") {
+                      //     validPhone = RegExp(r'^\+44\d{10}$').hasMatch(value.completeNumber);
+                      //   }
+                      //
+                      //     phone = value.completeNumber;
+                      //     debugPrint("this is ========= $validPhone");
+                      //
+                      //     setState(() {});
+                      // },
                       onCountryChanged: (country) {
                         setState(() {
                           selectedCountry = country ;
@@ -525,7 +537,8 @@ class _UserProfileState extends State<UserProfile> {
                         print(country.dialCode + phoneController.text);
                       },
                       inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(16),
                       ],
                     ),
                     SizedBox(height: Get.height * 0.02,),
@@ -548,6 +561,8 @@ class _UserProfileState extends State<UserProfile> {
                                 debugPrint("this is on tap ========= $validPhone");
                                 if(validPhone) {
                                   editMobileNumberController.mobileNumberApi(phone ?? "", context) ;
+                                } else {
+                                  Utils.showMessageDialog(context, "Enter valid number") ;
                                 }
                               },
                               title: 'Submit',
@@ -1128,8 +1143,8 @@ class _UserProfileState extends State<UserProfile> {
                                     } else {
                                       seekerProfileController.viewSeekerData.value.workExpJob?[index].workExpJob = jobTitleOrEducationLevelController.text;
                                       seekerProfileController.viewSeekerData.value.workExpJob?[index].companyName = companyOrInstituteController.text;
-                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobStartDate = _startDateController.text;
-                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobEndDate =  present ? "present" : _endDateController.text;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobStartDate = outputStartDate;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobEndDate =  present ? "present" : outputEndDate;
                                       editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
                                     }
                                   } else {
@@ -1144,8 +1159,8 @@ class _UserProfileState extends State<UserProfile> {
                                     } else {
                                       seekerProfileController.viewSeekerData.value.educationLevel?[index].educationLevel = jobTitleOrEducationLevelController.text;
                                       seekerProfileController.viewSeekerData.value.educationLevel?[index].institutionName = companyOrInstituteController.text;
-                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationStartDate = _startDateController.text;
-                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationEndDate =  present ? "present" : _endDateController.text;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationStartDate = outputStartDate;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationEndDate =  present ? "present" : outputEndDate;
                                       editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
                                     }
                                   }
@@ -2280,19 +2295,22 @@ class _UserProfileState extends State<UserProfile> {
                                                   var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
                                                   var endDate ;
                                                   var startDate ;
-                                                  startDate = DateTime.parse("${data?.jobStartDate}") ;
-                                                  startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  startDate = DateTime.tryParse("${data?.jobStartDate}") ;
+                                                  if(startDate != null) {
+                                                    startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  }else {
+                                                    startDate = data?.jobStartDate ;
+                                                  }
                                                   if(data?.present == true) {
                                                     endDate = "Present" ;
                                                   }else {
-                                                    endDate = DateTime.parse("${data?.jobEndDate}") ;
-                                                    endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                                    endDate = DateTime.tryParse("${data?.jobEndDate}") ;
+                                                    if(endDate != null) {
+                                                      endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                                    }else {
+                                                      endDate = data?.jobEndDate ;
+                                                    }
                                                   }
-                                                  // if(data?.present == false) {
-                                                  //  DateTime.parse(data!.jobStartDate.toString()) ;
-                                                  //  print(data?.jobStartDate) ;
-                                                  //  print(data?.jobEndDate) ;
-                                                  // }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       SizedBox(height: Get.height * 0.02,),
@@ -2305,7 +2323,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             children: [
                                                               InkWell(
                                                                   onTap: () {
-                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , data?.jobStartDate.toString() , data?.jobEndDate.toString() ,index);
+                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , startDate , endDate ,index);
                                                                   },
                                                                   child:  Image.asset("assets/images/icon_edit.png",height: 18)),
                                                               const SizedBox(width: 16,),
@@ -2385,12 +2403,21 @@ class _UserProfileState extends State<UserProfile> {
                                                   var data = seekerProfileController.viewSeekerData.value.educationLevel?[index];
                                                   var endDate ;
                                                   var startDate ;
-                                                  startDate = DateTime.parse("${data?.educationStartDate}") ;
-                                                  startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  startDate = DateTime.tryParse("${data?.educationStartDate}") ;
+                                                  if(startDate != null) {
+                                                    startDate = "${startDate.month.toString().padLeft(2, "0")}-${startDate.day.toString().padLeft(2, "0")}-${startDate.year.toString().padLeft(4, "0")}";
+                                                  } else {
+                                                    startDate = data?.educationStartDate ;
+                                                  }
                                                   if(data?.present == true) {
                                                     endDate = "Present" ;
                                                   } else {
-                                                    endDate = "${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}" ;
+                                                    endDate = DateTime.tryParse("${data?.educationEndDate}") ;
+                                                    if(endDate != null) {
+                                                      endDate = "${endDate.month.toString().padLeft(2,'0')}-${endDate.day.toString().padLeft(2,'0')}-${endDate.year.toString().padLeft(4,'0')}" ;
+                                                    }else {
+                                                      endDate = data?.educationEndDate ;
+                                                    }
                                                   }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
@@ -3086,7 +3113,7 @@ class _UserProfileState extends State<UserProfile> {
                                             },) ;
                                         },
                                                 leading:  seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ? SvgPicture.asset('assets/images/PDF.svg') :
-                                               Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, ),
+                                               Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, width: Get.width *.15, ),
                                             )   ,
                                             // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                             //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),

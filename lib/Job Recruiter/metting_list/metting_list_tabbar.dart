@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/controllers/AddInOngoingController/AddInOngoingController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
@@ -44,8 +45,11 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
   }
   /////refresh/////
 
-  final List<String> jobTypeItems = ['Upcoming','Past','All',];
+  final List<String> jobTypeItems = ['Ongoing','Upcoming','Past','All',];
   String? jobTypeValues;
+
+  AddInOngoingController ongoingController = Get.put(AddInOngoingController()) ;
+  AddInOngoingController addInOngoingController = Get.put(AddInOngoingController()) ;
 
   @override
   void initState() {
@@ -316,6 +320,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           height: Get.height * .066,
                                           width: Get.width * .75,
                                           title: "JOIN", onTap1: () {
+                                          addInOngoingController.ongoingApi(context, "${data?.id}") ;
                                         launchUrl(Uri.parse("${data?.interviewLink}"),
                                         mode: LaunchMode.externalApplication) ;
                                         },),

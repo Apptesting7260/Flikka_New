@@ -7,6 +7,7 @@ import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/main.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Job Recruiter/bottom_bar/tab_bar.dart';
@@ -27,18 +28,24 @@ class LoginController extends GetxController {
     loading.value = true;
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    print(loading.value);
+    if (kDebugMode) {
+      print(loading.value);
+    }
     Map data = {
       'email': emailController.value.text,
       'password': passwordController.value.text,
       'device_token' : fcmToken,
     };
-    print(data);
+    if (kDebugMode) {
+      print(data);
+    }
     _api.LoginApi(data).then((value) {
       loading.value = false;
       sp.setString("BarrierToken", value.token.toString());
       sp.setString("name", value.name.toString());
-      print(sp.getString("BarrierToken"));
+      if (kDebugMode) {
+        print(sp.getString("BarrierToken"));
+      }
 
       if (value.status == true) {
         sp.setInt("step", value.step) ;

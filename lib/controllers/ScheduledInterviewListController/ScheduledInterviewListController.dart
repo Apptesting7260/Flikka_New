@@ -15,7 +15,7 @@ class ScheduledInterviewListController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void interviewListApi({String? filter}){
+   interviewListApi({String? filter}){
     var data = {} ;
     data.addIf(filter != null && filter.length != 0 , "interview" , filter?.toLowerCase()) ;
 
@@ -35,17 +35,13 @@ class ScheduledInterviewListController extends GetxController {
   void refreshInterview({String? filter}){
     var data = {} ;
     data.addIf(filter != null && filter.length != 0 , "interview" , filter?.toLowerCase()) ;
-
-    // setRxRequestStatus(Status.LOADING);
     _api.getInterviewList(data).then((value){
-      // setRxRequestStatus(Status.COMPLETED);
       interviewData(value) ;
       print(value);
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());
       print(stackTrace.toString());
-      // setRxRequestStatus(Status.ERROR);
     });
   }
 }

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flikka/data/network/network_api_services.dart';
 import 'package:flikka/models/ApplyJobModel/ApplyJobModel.dart';
 import 'package:flikka/models/CheckEmailSignUpModel/CheckEmailSignUpModel.dart';
+import 'package:flikka/models/CheckSocialLogin/CheckSocialLogin.dart';
 import 'package:flikka/models/EditAboutModel/EditAboutModel.dart';
 import 'package:flikka/models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import 'package:flikka/models/ForgotPasswordModel/Otp/OtpVerificationModel.dart';
@@ -17,6 +18,7 @@ import 'package:flikka/models/SeekerReferalModel/SeekerReferalModel.dart';
 import 'package:flikka/models/SelectIndustryModel/SelectIndustryModel.dart';
 import 'package:flikka/models/SetRollModel/SetRollModel.dart';
 import 'package:flikka/models/SkipStepModel/SkipStepModel.dart';
+import 'package:flikka/models/SocialLoginModel/SocialLoginModel.dart';
 import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
@@ -240,8 +242,22 @@ class AuthRepository {
   Future<ProfileModelSeeker> viewSeekerProfilerr() async{
     dynamic response = await _apiService.getApi2(AppUrl.viewSeekerProfile);
     return ProfileModelSeeker.fromJson(response);
+  }
 
+  Future<EditAboutModel> interViewConfirmationApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.interViewConfirmation);
+    return EditAboutModel.fromJson(response);
+  }
 
+  Future<SocialLoginModel> socialLoginApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.socialLogin);
+    return SocialLoginModel.fromJson(response);
+  }
+
+  Future<CheckSocialLoginModel> checkSocialLoginApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.checkSocialLogin);
+    return CheckSocialLoginModel.fromJson(response);
   }
 
 }

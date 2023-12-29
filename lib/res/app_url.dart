@@ -88,4 +88,8 @@ class AppUrl {
   static const String viewJobFromNotification = '$baseUrl/view-job-on-notification-bar' ;
   static const String avtarImage = '$baseUrl/avtar-image-upload' ;
   static const String avtarImageList = '$baseUrl/avtar-image-list' ;
+  static const String interViewConfirmation = '$baseUrl/interview-complete-confrimation' ;
+  static const String addInOngoing = '$baseUrl/interview-add-in-ongoing' ;
+  static const String socialLogin = '$baseUrl/socialite-login' ;
+  static const String checkSocialLogin = '$baseUrl/check-registraion-email-for-socialite' ;
 }
