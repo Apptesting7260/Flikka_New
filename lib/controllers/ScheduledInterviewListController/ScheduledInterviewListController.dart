@@ -15,7 +15,7 @@ class ScheduledInterviewListController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void interviewListApi({String? filter}){
+   interviewListApi({String? filter}){
     var data = {} ;
     data.addIf(filter != null && filter.length != 0 , "interview" , filter?.toLowerCase()) ;
 
