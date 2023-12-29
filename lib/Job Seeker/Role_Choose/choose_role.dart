@@ -4,6 +4,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/SignUPController/SignUpController.dart';
+import '../../controllers/SocialLoginController/SocialLoginController.dart';
 
 
 class ChooseRole extends StatefulWidget {
@@ -15,6 +16,7 @@ class ChooseRole extends StatefulWidget {
 
 class _ChooseRoleState extends State<ChooseRole> {
 
+  SocialLoginController socialLoginController = Get.put(SocialLoginController()) ;
   SignUpController signUpController = Get.put(SignUpController()) ;
 
   var choose = 1;
@@ -198,7 +200,6 @@ class _ChooseRoleState extends State<ChooseRole> {
                                             color: AppColors.blueThemeColor,
                                           ),
                                         ),
-
                                         const SizedBox(width: 16.0),
                                       ],
                                     ),
@@ -206,7 +207,6 @@ class _ChooseRoleState extends State<ChooseRole> {
                                 ),
                                 SizedBox(height: Get.height*.04,),
                                 Obx(() =>   Center(
-
                                   child: MyButton(
                                       loading: signUpController.loading.value,
                                       title: "SIGN UP",
@@ -215,6 +215,7 @@ class _ChooseRoleState extends State<ChooseRole> {
                                         else {
                                           signUpController.signUpApiHit(role , context );
                                         }
+                                        socialLoginController.socialLoginApi("email", "name", "deviceToke", "role", "googleID", context) ;
                                       }
                                   ),
                                 ),) ,

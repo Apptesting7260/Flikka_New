@@ -17,6 +17,7 @@ import 'package:flikka/models/SeekerReferalModel/SeekerReferalModel.dart';
 import 'package:flikka/models/SelectIndustryModel/SelectIndustryModel.dart';
 import 'package:flikka/models/SetRollModel/SetRollModel.dart';
 import 'package:flikka/models/SkipStepModel/SkipStepModel.dart';
+import 'package:flikka/models/SocialLoginModel/SocialLoginModel.dart';
 import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
@@ -246,6 +247,11 @@ class AuthRepository {
     dynamic response = await _apiService.postApi2(
         data, AppUrl.interViewConfirmation);
     return EditAboutModel.fromJson(response);
+  }
+
+  Future<SocialLoginModel> socialLoginApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.socialLogin);
+    return SocialLoginModel.fromJson(response);
   }
 
 }
