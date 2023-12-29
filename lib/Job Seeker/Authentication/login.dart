@@ -8,6 +8,7 @@ import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/LoginController/LoginController.dart';
 import 'package:flikka/Job%20Seeker/Authentication/sign_up.dart';
 import 'package:flikka/main.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/foundation.dart';
@@ -259,8 +260,12 @@ void initState() {
       // Get the signed-in user
       final User? user = authResult.user;
       if(user != null) {
-        socialLoginController.socialLoginApi("${user.email}", "${user.displayName}",
+        CommonFunctions.showLoadingDialog(context, "Loading...") ;
+      var result = await  socialLoginController.socialLoginApi("${user.email}", "${user.displayName}",
             fcmToken, "", "${user.uid}", context,user: user) ;
+      if(result != null){
+        Get.back() ;
+      }
       }
 
       if (kDebugMode) {

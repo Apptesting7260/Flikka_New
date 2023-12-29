@@ -5,7 +5,11 @@ import 'package:flikka/controllers/RecruiterJobTitleController/RecruiterJobTitle
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../controllers/CandidateJobStatusController/CandidateJobStatusController.dart';
+import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
+import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
+import '../../controllers/ScheduledInterviewListController/ScheduledInterviewListController.dart';
+import '../../controllers/TalentPoolController/TalentPoolController.dart';
 import '../bottom_bar/tab_bar.dart';
 import 'all_candidate.dart';
 import 'upcoming_interviews.dart';
@@ -18,6 +22,14 @@ class ApplicantTracking extends StatefulWidget {
 }
 
 class _ApplicantTrackingState extends State<ApplicantTracking> {
+
+  RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
+  ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
+  CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
+  RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
+  ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
+  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
+  TalentPoolController poolController = Get.put(TalentPoolController()) ;
 
   // //////refresh//////
   // RefreshController _refreshController = RefreshController(initialRefresh: false);
@@ -37,8 +49,17 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
   // }
   // /////refresh/////
 
-  RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
-  ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
+  @override
+  void initState(){
+    jobsController.recruiterJobsApi() ;
+    jobTitleController.recruiterJobTitleApi() ;
+    trackingDataController.applicantTrackingApi("" ,"" ) ;
+    interviewListController.interviewListApi() ;
+    ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    poolController.talentPoolApi() ;
+    super.initState() ;
+  }
+
 
   @override
   Widget build(BuildContext context) {

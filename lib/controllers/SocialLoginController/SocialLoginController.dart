@@ -69,6 +69,7 @@ class SocialLoginController extends GetxController {
       }
       sp.setString("BarrierToken", value.token.toString());
       sp.setString("name", value.name.toString());
+      sp.setInt("step", value.step) ;
         loading.value = false ;
         return false ;
       }

@@ -7,7 +7,10 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/ApplicantTrackingController/ApplicantTrackingController.dart';
 import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
+import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
+import '../../controllers/ScheduledInterviewListController/ScheduledInterviewListController.dart';
+import '../../controllers/TalentPoolController/TalentPoolController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -35,13 +38,14 @@ class _AllCandidateState extends State<AllCandidate> {
   ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
   CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
   RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
+  ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
+  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
+  TalentPoolController poolController = Get.put(TalentPoolController()) ;
 
 @override
   void initState() {
   jobTitleValue=null;
-  jobsController.recruiterJobsApi() ;
-  jobTitleController.recruiterJobTitleApi() ;
-   trackingDataController.applicantTrackingApi(positionID ,statusValue ) ;
+
     super.initState();
   }
 
@@ -68,49 +72,49 @@ class _AllCandidateState extends State<AllCandidate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SmartRefresher(
-        controller: _refreshController,
-        onLoading: _onLoading,
-        onRefresh: _onRefresh,
-        child: Obx(() {
-          switch (trackingDataController.rxRequestStatus.value) {
-            case Status.LOADING:
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),);
-            case Status.ERROR:
-              if (trackingDataController.error.value == 'No internet') {
-                return Scaffold(
-                  body: InterNetExceptionWidget(
-                  onPress: () {
-                    trackingDataController.applicantTrackingApi(positionID ,statusValue ) ;
-                  },
-                ),);
-              } else {
-                return Scaffold(body: GeneralExceptionWidget(onPress: () {
+      body: Obx(() {
+        switch (trackingDataController.rxRequestStatus.value) {
+          case Status.LOADING:
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),);
+          case Status.ERROR:
+            if (trackingDataController.error.value == 'No internet') {
+              return Scaffold(
+                body: InterNetExceptionWidget(
+                onPress: () {
                   trackingDataController.applicantTrackingApi(positionID ,statusValue ) ;
-                }),);
-              }
-            case Status.COMPLETED:
-              return Obx(() {
-                switch (jobsController.rxRequestStatus.value) {
-                  case Status.LOADING:
-                    return const Scaffold(
-                      body: Center(child: CircularProgressIndicator()),);
-                  case Status.ERROR:
-                    if (jobsController.error.value == 'No internet') {
-                      return Scaffold(
-                        body: InterNetExceptionWidget(
-                          onPress: () {
-                            jobsController.recruiterJobsApi() ;
-                          },
-                        ),);
-                    } else {
-                      return Scaffold(body: GeneralExceptionWidget(onPress: () {
-                        jobsController.recruiterJobsApi() ;
-                      }),);
-                    }
-                  case Status.COMPLETED:
-                          return Padding(
+                },
+              ),);
+            } else {
+              return Scaffold(body: GeneralExceptionWidget(onPress: () {
+                trackingDataController.applicantTrackingApi(positionID ,statusValue ) ;
+              }),);
+            }
+          case Status.COMPLETED:
+            return Obx(() {
+              switch (jobsController.rxRequestStatus.value) {
+                case Status.LOADING:
+                  return const Scaffold(
+                    body: Center(child: CircularProgressIndicator()),);
+                case Status.ERROR:
+                  if (jobsController.error.value == 'No internet') {
+                    return Scaffold(
+                      body: InterNetExceptionWidget(
+                        onPress: () {
+                          jobsController.recruiterJobsApi() ;
+                        },
+                      ),);
+                  } else {
+                    return Scaffold(body: GeneralExceptionWidget(onPress: () {
+                      jobsController.recruiterJobsApi() ;
+                    }),);
+                  }
+                case Status.COMPLETED:
+                        return SmartRefresher(
+                          controller: _refreshController,
+                          onLoading: _onLoading,
+                          onRefresh: _onRefresh,
+                          child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
                             child: SingleChildScrollView(
                               child: Column(
@@ -550,13 +554,13 @@ class _AllCandidateState extends State<AllCandidate> {
                                 ],
                               ),
                             ),
-                          );
-                }
+                          ),
+                        );
               }
-              );
-          }
+            }
+            );
         }
-        ),
+      }
       ),
     );
   }

@@ -49,6 +49,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
   String? jobTypeValues;
 
   AddInOngoingController ongoingController = Get.put(AddInOngoingController()) ;
+  AddInOngoingController addInOngoingController = Get.put(AddInOngoingController()) ;
 
   @override
   void initState() {
@@ -319,6 +320,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           height: Get.height * .066,
                                           width: Get.width * .75,
                                           title: "JOIN", onTap1: () {
+                                          addInOngoingController.ongoingApi(context, "${data?.id}") ;
                                         launchUrl(Uri.parse("${data?.interviewLink}"),
                                         mode: LaunchMode.externalApplication) ;
                                         },),

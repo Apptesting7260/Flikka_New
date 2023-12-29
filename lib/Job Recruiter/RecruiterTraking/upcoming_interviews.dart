@@ -39,7 +39,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
 
   @override
   void initState() {
-   interviewListController.interviewListApi() ;
+
     super.initState();
   }
 

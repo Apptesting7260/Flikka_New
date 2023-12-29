@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controllers/CheckEmailSignUpController/CheckEmailSignUpController.dart';
 import '../../controllers/SocialLoginController/SocialLoginController.dart';
+import '../../utils/CommonFunctions.dart';
 import 'login.dart';
 
 class SignUp extends StatefulWidget {
@@ -292,9 +293,14 @@ void initAsync() async {
       // Get the signed-in user
       final User? user = authResult.user;
       if(user != null) {
-        socialLoginController.socialLoginApi("${user.email}", "${user.displayName}",
+        CommonFunctions.showLoadingDialog(context, "Loading...") ;
+      var result = await socialLoginController.socialLoginApi("${user.email}", "${user.displayName}",
             fcmToken, "", "${user.uid}", context,user: user) ;
+        if(result != null){
+          Get.back() ;
+        }
       }
+
 
       if (kDebugMode) {
         print("Signed in: ${user!.displayName}");
