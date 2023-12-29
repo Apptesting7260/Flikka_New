@@ -202,19 +202,19 @@ class _InboxState extends State<Inbox> {
                                                   ],
                                                 ),
                                               ),
-                                              SizedBox(
-                                                height: Get.height * .02,
-                                              ),
-                                              Text(
-                                                "Experience when moving to a new job",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelLarge
-                                                    ?.copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Color(0xffFFFFFF)),
-                                              ),
+                                              // SizedBox(
+                                              //   height: Get.height * .01,
+                                              // ),
+                                              // Text(
+                                              //   "Experience when moving to a new job",
+                                              //   style: Theme.of(context)
+                                              //       .textTheme
+                                              //       .labelLarge
+                                              //       ?.copyWith(
+                                              //           fontWeight:
+                                              //               FontWeight.w700,
+                                              //           color: Color(0xffFFFFFF)),
+                                              // ),
                                               SizedBox(
                                                 height: Get.height * .02,
                                               ),
