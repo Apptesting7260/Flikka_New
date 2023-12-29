@@ -44,6 +44,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   void _onRefresh() async{
      getJobsListingController.seekerGetAllJobsApi();
+     jobFilterController.reset(true) ;
     _refreshController.refreshCompleted();
   }
 
@@ -1549,21 +1550,17 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
         CommonFunctions.confirmationDialog(context, message: "Do you want to Apply for the post", onTap: () {
           Get.back() ;
           CommonFunctions.showLoadingDialog(context, "Applying") ;
-          applyJobController.applyJob(getJobsListingController.getJobsListing.value.jobs?[previousIndex].id.toString()) ;
+          jobFilterController.reset.value ?   applyJobController.applyJob(getJobsListingController.getJobsListing.value.jobs?[previousIndex].id.toString()) :
+          applyJobController.applyJob(jobFilterController.jobsData.value.jobs?[previousIndex].id.toString()) ;
         }) ;
-        // debugPrint("this is approved list $approved");
       } else if (direction.name == "top") {
         CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
           Get.back() ;
           CommonFunctions.showLoadingDialog(context, "Saving") ;
-          seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[previousIndex].id , 1) ;
+          jobFilterController.reset.value ?  seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[previousIndex].id , 1) :
+          seekerSaveJobController.saveJobApi(jobFilterController.jobsData.value.jobs?[previousIndex].id , 1) ;
         }) ;
-
-        // print("this is saved list $saved");
       }
-      // debugPrint(
-      //   'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
-      // );
     }
       return true;
 

@@ -255,9 +255,5 @@ class AuthRepository {
     return SocialLoginModel.fromJson(response);
   }
 
-  Future<CheckSocialLoginModel> checkSocialLoginApi(var data) async{
-    dynamic response = await _apiService.postApi2(data,AppUrl.checkSocialLogin);
-    return CheckSocialLoginModel.fromJson(response);
-  }
 
 }

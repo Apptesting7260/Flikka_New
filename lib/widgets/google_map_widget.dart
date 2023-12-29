@@ -142,7 +142,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   bool remote = false;
   bool hybrid = false;
   bool all = true;
-  var zoom = 10.4 ;
+  var zoom = 9.8 ;
 
   int _selectedValue = 1;
   Set<Marker> markers = Set();
@@ -225,7 +225,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                GoogleMap(
                  initialCameraPosition:  CameraPosition(
                    target: LatLng(double.parse(jobsController.lat.value) ,double.parse(jobsController.long.value)), // Center of the UK
-                   zoom: 4.0,
+                   zoom: zoom,
                  ),
                  markers: Set<Marker>.of(markers),
                  onMapCreated: (GoogleMapController controller) {
@@ -240,7 +240,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                    ),) ;
                    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
                      target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.long.value)), // Center of the UK
-                     zoom: 4.0,
+                     zoom: zoom,
                    ),));
                    if (kDebugMode) {
                      print("inside GoogleMapController filter") ;
