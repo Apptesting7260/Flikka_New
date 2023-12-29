@@ -313,19 +313,19 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                        onChanged: (newValue) async {
                          selectedRadius = newValue;
                          if(selectedRadius == 10) {
-                           zoom = 10.4 ;
+                           zoom = 9.8 ;
                          }
                          if(selectedRadius == 20) {
-                           zoom = 9.4 ;
-                         }
-                         if(selectedRadius == 30) {
                            zoom = 8.8 ;
                          }
+                         if(selectedRadius == 30) {
+                           zoom = 8.2 ;
+                         }
                          if(selectedRadius == 40) {
-                           zoom = 8.4 ;
+                           zoom = 7.8 ;
                          }
                          if(selectedRadius == 50) {
-                           zoom = 7.9 ;
+                           zoom = 7.5 ;
                          }
                          CameraPosition cameraPosition = CameraPosition(
                            target: LatLng(lat, long),
@@ -551,19 +551,19 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                   onChanged: (newValue) async {
                                       selectedRadius = newValue;
                                       if(selectedRadius == 10) {
-                                        zoom = 10.4 ;
+                                        zoom = 9.8 ;
                                       }
                                       if(selectedRadius == 20) {
-                                        zoom = 9.4 ;
-                                      }
-                                      if(selectedRadius == 30) {
                                         zoom = 8.8 ;
                                       }
+                                      if(selectedRadius == 30) {
+                                        zoom = 8.2 ;
+                                      }
                                       if(selectedRadius == 40) {
-                                        zoom = 8.4 ;
+                                        zoom = 7.8 ;
                                       }
                                       if(selectedRadius == 50) {
-                                        zoom = 7.9 ;
+                                        zoom = 7.5 ;
                                       }
                                       CameraPosition cameraPosition = CameraPosition(
                                         target: LatLng(lat, long),
