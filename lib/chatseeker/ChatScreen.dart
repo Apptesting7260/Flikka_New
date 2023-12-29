@@ -138,12 +138,6 @@ print(fcmToken);
  chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),"GPR"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),messages);
 
 
-// chatfunctionsinstance.selfsender(latmdg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
-//           value.ProfileDetail!.id
-//               .toString(), roomid.toString(), messages);
-//                chatfunctionsinstance.anotherseekersender(latmdg.toString(), anotherseekerid, roomid.toString(), messages);
-
-// chatfunctionsinstance.Makersender(latmdg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
        setState(() {
         messagetype="text";
         print(messagetype);
@@ -189,19 +183,25 @@ print(fcmToken);
 
   String customPath = '/flutter_audio_recorder_';
   Future<String> uploadSelectedImageAndGetUrl(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
+  final picker = ImagePicker();
+  final pickedFile = await picker.pickImage(source: source);
 
-    if (pickedFile != null) {
-      try {
+  if (pickedFile != null) {
+    try {
+      // Check if the picked file is an image
+      if (pickedFile.path != null && await File(pickedFile.path!).exists()) {
+        // Determine the file extension based on MIME type
+        final String fileExtension =
+            pickedFile.mimeType?.split('/').last ?? 'jpg';
+
         // Create a reference to the Firebase Storage location where you want to store the image.
         final Reference storageReference = FirebaseStorage.instance
             .ref()
-            .child('images/${DateTime.now()}.jpg');
+            .child('images/${DateTime.now()}.$fileExtension');
 
         // Upload the selected image to Firebase Storage
         final UploadTask uploadTask =
-            storageReference.putFile(File(pickedFile.path));
+            storageReference.putFile(File(pickedFile.path!));
 
         // Await the completion of the upload
         final TaskSnapshot storageTaskSnapshot =
@@ -212,14 +212,17 @@ print(fcmToken);
             await storageTaskSnapshot.ref.getDownloadURL();
         print(downloadUrl);
 
-setState(() {
-  messageimgurl=downloadUrl;
-  messagetype="img";
-});
-onSendMessage();
-      return downloadUrl;
-
-      
+        setState(() {
+          messageimgurl = downloadUrl;
+          messagetype = "img";
+        });
+        onSendMessage();
+        print(downloadUrl);
+        return downloadUrl;
+      } else {
+        print('Selected file is not an image.');
+        return "null";
+      }
     } catch (error) {
       // Handle any errors that occur during the upload process
       print('Error uploading image: $error');
@@ -735,11 +738,12 @@ appBar: AppBar(
                           ),
                         onPressed:(){
                                        
-                                      } ,
+                                    } ,
                         ),
                         prefixIcon: IconButton(
                           icon: Image.asset('assets/images/addfile.png'),
                           onPressed: () {
+                             showPopup(context); 
                             // Handle add file button tap
                           },
                         ),
@@ -919,7 +923,7 @@ Future<void> MessengeRead() async {
         .get();
 
     final sentBy = result.data()?['sentby'];
-    print("Sent By: $sentBy");
+    // print("Sent By: $sentBy");
 
     if (sentBy ==RecruiterId ) {
   DocumentReference roomRef2 = _firestore.collection("Rooms").doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection('massages').doc(element.id);
@@ -935,6 +939,61 @@ Future<void> MessengeRead() async {
     }
   }
 }
+
+
+void showPopup(BuildContext context){
+    showDialog(  
+
+      barrierColor: Colors.transparent,
+      context: context, builder: ((context) => AlertDialog(
+      backgroundColor: Color(0xffE6F4F6),
+      alignment: Alignment.bottomCenter,
+      shadowColor: Colors.transparent,
+      elevation: 0,
+
+      insetPadding: EdgeInsets.only(bottom: 100),
+     title:
+       Container(child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+       Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: AppColors.blueThemeColor,
+              radius: 30,child: Center(child: Image.asset('assets/images/docs.png' ,height: 30,width: 30,color: Colors.white,)),),
+                 SizedBox(height: 10,),
+            Text("Documents",style: TextStyle(color:AppColors.blueThemeColor,fontSize: 15),)
+
+          ],
+        ),
+      InkWell(
+        child: Column(
+            children: [
+              CircleAvatar(
+                backgroundColor: AppColors.blueThemeColor,
+                radius: 30,child: Center(child: Image.asset('assets/images/camera2.png' ,height: 30,width: 30,color: Colors.white,)),),
+                   SizedBox(height: 10,),
+              Text("Camera",style: TextStyle(color:AppColors.blueThemeColor,fontSize: 15),)
+        
+            ],
+          ),
+          onTap: (){
+            uploadSelectedImageAndGetUrl(ImageSource.gallery);
+          },
+      ),
+        Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: AppColors.blueThemeColor,
+              radius: 30,child: Center(child: Image.asset('assets/images/image-gallery.png' ,height: 30,width: 30,color: Colors.white,)),),
+                 SizedBox(height: 10,),
+            Text("Camera",style: TextStyle(color:AppColors.blueThemeColor,fontSize: 15),)
+
+          ],
+        ),
+       ],))
+    )));
+   }
 
 }
 
