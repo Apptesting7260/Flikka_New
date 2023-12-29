@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/LoginController/LoginController.dart';
 import 'package:flikka/Job%20Seeker/Authentication/sign_up.dart';
@@ -188,7 +189,7 @@ void initState() {
                     height: Get.height*.075,
                     child: ElevatedButton(
                       onPressed: () {
-                        // _handleSignIn() ;
+                        _handleSignIn() ;
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xffFFFFFF),
@@ -255,10 +256,13 @@ void initState() {
 
       // Get the signed-in user
       final User? user = authResult.user;
+      if(user != null) {
+        Get.to(() => const ChooseRole()) ;
+      }
 
       print("Signed in: ${user!.displayName}");
 
-      // Return the signed-in user
+
       return user;
     } catch (error) {
       print("Error during Google sign-in: $error");
