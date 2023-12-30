@@ -92,4 +92,5 @@ class AppUrl {
   static const String addInOngoing = '$baseUrl/interview-add-in-ongoing' ;
   static const String socialLogin = '$baseUrl/socialite-login' ;
   static const String checkSocialLogin = '$baseUrl/check-registraion-email-for-socialite' ;
+  static const String notificationSeen = '$baseUrl/notification-seen-unseen' ;
 }

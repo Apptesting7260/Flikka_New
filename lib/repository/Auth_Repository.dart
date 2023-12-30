@@ -19,6 +19,7 @@ import 'package:flikka/models/SocialLoginModel/SocialLoginModel.dart';
 import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
+import 'package:flutter/foundation.dart';
 import '../models/EditMobileNumberModel.dart';
 import '../models/NewProfileModelSeeker/NewProfileModelSeeker.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
@@ -37,9 +38,13 @@ class AuthRepository {
   final _apiService  = NetworkApiServices() ;
 
   Future<SignUpModel> SignUpApi(var data) async{
-    print("object");
+    if (kDebugMode) {
+      print("object");
+    }
     dynamic response = await _apiService.postApi(data, AppUrl.SignUpUrl);
-    print('api successssssssssssssssss');
+    if (kDebugMode) {
+      print('api successssssssssssssssss');
+    }
     // print(response);
     return SignUpModel.fromJson(response);
   }

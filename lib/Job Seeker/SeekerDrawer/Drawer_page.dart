@@ -9,6 +9,7 @@ import 'package:flikka/Payment_Methods/wallet.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
 import '../SeekerNotification/SeekerNotification.dart';
@@ -30,6 +31,7 @@ class DrawerClass extends StatefulWidget {
 class _DrawerClassState extends State<DrawerClass> {
 
   LogoutController logoutController  = Get.put( LogoutController()) ;
+  SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
 
   String homeIcon = 'assets/images/homedrawericon.png' ;
   String profileIcon = 'assets/images/profiledrawericon.png' ;
@@ -203,9 +205,25 @@ class _DrawerClassState extends State<DrawerClass> {
                                     horizontalTitleGap:0,
                                     dense: true,
                                     leading: drawerIcon(notificationIcon),
-                                    title: Text(
-                                      "Notifications",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    title: Stack(
+                                      children: [
+                                        Text("Notifications",
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                    trailing:  Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                        const SizedBox() :
+                                        Container(
+                                        height: 30,
+                                        width: 30,
+                                        alignment: Alignment.center,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle ,
+                                          color: AppColors.red
+                                        ),
+                                        child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),)),
+                                      ),
                                     ),
                                   ),
                                   ListTile(

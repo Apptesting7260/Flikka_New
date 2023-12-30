@@ -161,6 +161,10 @@ class SeekerRepository {
     return AvtarImageListModel.fromJson(response);
   }
 
+  Future<EditAboutModel> notificationSeen(var data) async {
+    dynamic response = await apiServices.postApi2(data, AppUrl.notificationSeen);
+    return EditAboutModel.fromJson(response);
+  }
 
 
 }

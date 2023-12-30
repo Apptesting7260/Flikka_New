@@ -15,6 +15,7 @@ import '../../controllers/SeekerForumController/ForumIndustryListController.dart
 import '../../controllers/SeekerForumController/SeekerForumDataController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../controllers/SeekerMapJobsController/SeekerMapJobsController.dart';
+import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
@@ -53,6 +54,7 @@ class _TabScreenState extends State<TabScreen> {
   ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
   AvtarImageListController avtarController = Get.put(AvtarImageListController()) ;
   ContactController contactController = Get.put(ContactController()) ;
+  SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
@@ -73,6 +75,7 @@ class _TabScreenState extends State<TabScreen> {
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
     contactController.loadContacts() ;
+    SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
 
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
