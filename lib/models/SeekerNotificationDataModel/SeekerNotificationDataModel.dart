@@ -3,15 +3,18 @@ class SeekerNotificationDataModel {
      this.status,
      this.message,
      this.seekerNotification,
+    this.unseenNotification,
   });
    bool ?status;
    String ?message;
+   dynamic unseenNotification ;
    List<SeekerNotification> ?seekerNotification;
 
   SeekerNotificationDataModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
-    seekerNotification = List.from(json['seeker_notification']).map((e)=>SeekerNotification.fromJson(e)).toList();
+    unseenNotification = json["unseen_notification"];
+    seekerNotification = json['seeker_notification'] == null ? json['seeker_notification'] :  List.from(json['seeker_notification']).map((e)=>SeekerNotification.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {

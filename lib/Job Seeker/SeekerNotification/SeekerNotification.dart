@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerNotification/viewJobFromNotification.dart';
+import 'package:flikka/controllers/NotificationSeenController/NotificationSeenController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
+import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -37,13 +39,13 @@ class _Notification1PageState extends State<SeekerNotification> {
     _refreshController.loadComplete();
   }
   /////refresh/////
-
+  ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
+  SeekerNotificationSeenController seenController = Get.put(SeekerNotificationSeenController()) ;
 
   @override
   void initState() {
-    // TODO: implement initState
-    SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
+    seenController.notificationSeen(context, seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
     super.initState();
   }
 
@@ -57,17 +59,20 @@ class _Notification1PageState extends State<SeekerNotification> {
           );
 
         case Status.ERROR:
-          if (SeekerViewNotificationControllerInstanse.error.value ==
-              'No internet') {
-            return InterNetExceptionWidget(
-              onPress: () {
-                SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
-              },
+          if (SeekerViewNotificationControllerInstanse.error.value == 'No internet') {
+            return Scaffold(
+              body: InterNetExceptionWidget(
+                onPress: () {
+                  SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
+                },
+              ),
             );
           } else {
-            return GeneralExceptionWidget(onPress: () {
-              SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
-            });
+            return Scaffold(
+              body: GeneralExceptionWidget(onPress: () {
+                SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
+              }),
+            );
           }
         case Status.COMPLETED:
           return Scaffold(
