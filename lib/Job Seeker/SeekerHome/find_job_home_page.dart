@@ -1691,7 +1691,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     children: [
                       Center(child: Image.asset("assets/images/icon_earn.png",height: Get.height*.2,)),
                       Center(
-                        child: Text("$minimumSalary",style: Theme.of(context).textTheme.displaySmall,),
+                        child: Text("$minimumSalary £",style: Theme.of(context).textTheme.displaySmall,),
                       )
                     ],
                   ),
@@ -1708,7 +1708,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     children: [
                       const TextSpan(text: 'According to this job you will get '),
                       TextSpan(
-                        text: "$minimumSalary",
+                        text: "$minimumSalary £",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.blueThemeColor,
