@@ -12,7 +12,7 @@ class ApplyJobController extends GetxController {
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
   Future<bool> applyJob(dynamic id , {
-    String? seekerID
+    String? seekerID , String? referralCode
   }) async{
     loading.value = true ;
 
@@ -23,6 +23,7 @@ class ApplyJobController extends GetxController {
       print(data);
     }
     data.addIf(seekerID != null && seekerID.isNotEmpty , "seeker_id", seekerID) ;
+    data.addIf(referralCode != null && referralCode.isNotEmpty , "referral_by", referralCode) ;
 
   return await  _api.applyJobApi(data).then((value){
       loading.value = false ;

@@ -137,7 +137,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                       ),
                     ),
                     title: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].companyName ?? "",
-                        overflow: TextOverflow.ellipsis),
+                        overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white,fontSize: 15)),
                     subtitle: Text( SeekerViewNotificationControllerInstanse
                         .viewSeekerNotificationData.value
                         .seekerNotification?[index].description ?? "" ,
@@ -152,7 +152,6 @@ class _Notification1PageState extends State<SeekerNotification> {
         ),
       ),
             )
-
           );
       }
     }
