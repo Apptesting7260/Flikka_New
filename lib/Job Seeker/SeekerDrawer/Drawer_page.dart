@@ -322,7 +322,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                      Get.to(() =>const SettingPage());
+
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
