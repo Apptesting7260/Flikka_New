@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
+import '../SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
 
 class SeekerNotificationSeenController extends GetxController {
@@ -14,7 +15,7 @@ class SeekerNotificationSeenController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs ;
   RxString error = ''.obs;
   var loading = false.obs ;
-
+  SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
@@ -24,6 +25,7 @@ class SeekerNotificationSeenController extends GetxController {
     data.addIf(email != null && email.length != 0 , "email" , email ) ;
     setRxRequestStatus(Status.LOADING);
     return await _api.notificationSeen(data).then((value) {
+      SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
       setRxRequestStatus(Status.COMPLETED);
       loading(false);
       if (kDebugMode) {
