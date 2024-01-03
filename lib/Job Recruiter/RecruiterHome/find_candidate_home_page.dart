@@ -346,7 +346,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                 title: "Select",
                                 onTap1: () {
                                   if(jobTitleID != null) {
-                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.Seeker_Details?[previousIndex].seekerId.toString(),) ;
+                                    applyJobController.applyJob(context,jobTitleID,seekerID: homeController.homeData.value.Seeker_Details?[previousIndex].seekerId.toString(),) ;
                                   }else {
                                     errorMessage.value = "Select Job before selecting" ;
                                   }

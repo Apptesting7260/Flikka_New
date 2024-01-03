@@ -30,6 +30,7 @@ import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
 import '../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
 import '../models/SetJobAlertModel/SetJobAlert.dart';
 import '../models/ShowBankDetailsModel/ShowBankDetailsModel.dart';
+import '../models/ShowReferralByUserSeeker/ShowReferralByUserSeeker.dart';
 import '../models/SignUpModel/SignUpModel.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 
@@ -256,6 +257,5 @@ class AuthRepository {
     dynamic response = await _apiService.postApi2(data,AppUrl.socialLogin);
     return SocialLoginModel.fromJson(response);
   }
-
 
 }

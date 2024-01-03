@@ -10,8 +10,8 @@ class ApplyJobController extends GetxController {
   final _api = AuthRepository();
 
   RxBool loading = false.obs;
-  var errorMessage = "".obs ;
-  Future<bool> applyJob(dynamic id , {
+  var errorMessageApplyReferral = "".obs ;
+  Future<bool> applyJob(BuildContext context,dynamic id , {
     String? seekerID , String? referralCode
   }) async{
     loading.value = true ;
@@ -37,14 +37,14 @@ class ApplyJobController extends GetxController {
         return true ;
       }
       else{
-        errorMessage.value =  value.message.toString();
-        Utils.toastMessage( "${value.message}") ;
-        Get.back() ;
+        errorMessageApplyReferral.value =  value.message.toString();
+        Utils.showMessageDialog(context, "${value.message}") ;
         return false ;
       }
     }).onError((error, stackTrace){
       debugPrint(error.toString());
       loading.value = false ;
+      Utils.showMessageDialog(context, "Something went wrong") ;
       return false ;
     });
   }

@@ -762,7 +762,7 @@ class _ViewNotificationJobState extends State<ViewNotificationJob> {
                                 onTap1: () async {
                                   if (!applyJobController.loading.value) {
                                     var result = await applyJobController
-                                        .applyJob("${widget.jobId}");
+                                        .applyJob(context,"${widget.jobId}");
                                     if (result == true) {
                                       jobController.viewJobFromNotificationData(
                                           context, widget.jobId,

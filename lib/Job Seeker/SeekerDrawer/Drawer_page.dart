@@ -6,6 +6,7 @@ import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerJobs/AppliedJobs.dart';
 import 'package:flikka/Payment_Methods/wallet.dart';
+import 'package:flikka/Payment_Methods/wallet_section.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -266,7 +267,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     horizontalTitleGap:0,
                                     dense: true,
                                     onTap: () {
-                                      Get.to( () => const Wallet()) ;
+                                      Get.to( () => const WalletSection()) ;
                                     },
                                     leading: drawerIcon(walletIcon) ,
                                     title: Text(

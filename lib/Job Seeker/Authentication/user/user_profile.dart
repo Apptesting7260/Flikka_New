@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
-import 'package:flikka/Payment_Methods/wallet.dart';
 import 'package:flikka/controllers/EditAboutController/EditAboutController.dart';
 import 'package:flikka/controllers/EditSeekerAppreciationController/EditSeekerAppreciationController.dart';
 import 'package:flikka/controllers/EditSeekerLanguageController/EditSeekerLanguageController.dart';
@@ -3113,7 +3112,7 @@ class _UserProfileState extends State<UserProfile> {
                                               Get.back() ;
                                             },) ;
                                         },
-                                                leading:  seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ? SvgPicture.asset('assets/images/PDF.svg') :
+                                                leading:  seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ? Image.asset('assets/images/icon_uploaded_docs.png') :
                                                Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}", fit: BoxFit.cover, height: Get.height*.1, width: Get.width *.15, ),
                                             )   ,
                                             // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",

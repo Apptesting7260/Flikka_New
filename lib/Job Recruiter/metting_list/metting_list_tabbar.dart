@@ -8,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Job Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import '../../controllers/InterViewConfirmationController.dart';
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
+import '../../utils/CommonFunctions.dart';
 import '../../widgets/app_colors.dart';
 import '../../widgets/my_button.dart';
 
@@ -50,6 +52,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
 
   AddInOngoingController ongoingController = Get.put(AddInOngoingController()) ;
   AddInOngoingController addInOngoingController = Get.put(AddInOngoingController()) ;
+  InterViewConfirmationController interviewConfirmationController = Get.put(InterViewConfirmationController()) ;
 
   @override
   void initState() {
@@ -315,6 +318,38 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                             color: AppColors.blueThemeColor)),
                                       ) ,
                                       SizedBox(height: Get.height * .031,),
+                                      data?.ongoing == true ?  Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Obx(() =>
+                                              MyButton(
+                                                loading: interviewConfirmationController.loading.value,
+                                                width: Get.width*.38 ,
+                                                height: Get.height * .066,
+                                                title: "COMPLETE", onTap1: () {
+                                                CommonFunctions.confirmationDialog(context, message: "Do you want to complete the interview", onTap: () async {
+                                                  Get.back() ;
+                                                  if(!interviewConfirmationController.loading.value){
+                                                    var result = await interviewConfirmationController.interViewConfirmationApi("${data?.id}", "done", "", context) ;
+                                                    if(result){
+                                                      setState(() {
+                                                        jobTypeValues = "All" ;
+                                                      });
+                                                    }
+                                                  }
+                                                },) ;
+
+
+                                              },),
+                                          ),
+                                          MyButton(
+                                            width: Get.width*.38,
+                                            height: Get.height * .066,
+                                            title: "DECLINE", onTap1: () {
+                                            interViewCancleReason("${data?.id}") ;
+                                          },),
+                                        ],
+                                      ):
                                       data?.interviewScheduleTime?.isBefore(DateTime.now()) ? SizedBox() :  Center(
                                         child: MyButton(
                                           height: Get.height * .066,
@@ -344,4 +379,81 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
     }
     );
   }
+
+  interViewCancleReason(
+      String requestId
+      ) {
+    TextEditingController reasonController = TextEditingController() ;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Enter reason to decline",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),) ,
+                SizedBox(height: Get.height * 0.02,),
+                TextField(
+                  maxLines: 4,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                  onChanged: (String value) {},
+                  controller: reasonController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xff373737),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(33),
+                        borderSide: BorderSide.none
+                    ),
+                    hintText: 'Enter your reason',
+                    hintStyle: Theme
+                        .of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: AppColors.white, fontSize: 12),
+                  ),
+                ),
+                SizedBox(height: Get.height * 0.02,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Obx(() =>
+                        MyButton(
+                          loading: interviewConfirmationController.loading.value,
+                          width: Get.width*.38 ,
+                          height: Get.height * .066,
+                          title: "SUBMIT", onTap1: () async {
+                          if(!interviewConfirmationController.loading.value) {
+                            var result = await interviewConfirmationController.interViewConfirmationApi(requestId, "decline", reasonController.text, context);
+                            if(result){
+                              setState(() {
+                                jobTypeValues = "All" ;
+                              });
+                            }
+                          }
+                        },),
+                    ),
+                    MyButton(
+                      width: Get.width*.38,
+                      height: Get.height * .066,
+                      title: "CANCEL", onTap1: () {
+                      Get.back() ;
+                    },),
+                  ],
+                ),
+                SizedBox(height: Get.height * 0.02,),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }

@@ -593,6 +593,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                       title: widget.jobData?.postApplied == true ? "APPLIED" : "APPLY NOW",
                       onTap1: () async {
                         if(widget.jobData?.postApplied == true ){}else{
+                          applyJobController.errorMessageApplyReferral.value = "" ;
                           showReferralSubmissionDialog(context) ;
                           // if(!applyJobController.loading.value) {
                           //   var result = await applyJobController.applyJob("${widget.jobData?.id}") ;
@@ -692,6 +693,10 @@ class _MarketingInternState extends State<MarketingIntern> {
                             contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
                         ),
                       ),
+                      Obx(() =>  applyJobController.errorMessageApplyReferral.value.isEmpty ?
+                      const SizedBox() :
+                      Center(child: Text(applyJobController.errorMessageApplyReferral.value,
+                          style: const TextStyle(color: Colors.red,fontSize: 12)),),),
                       SizedBox(height: Get.height * 0.04),
                       Center(
                         child: Row(
@@ -700,11 +705,15 @@ class _MarketingInternState extends State<MarketingIntern> {
                             Expanded(
                               child: SizedBox(
                                 height: Get.height * 0.06,
-                                child: MyButton(onTap1: () async {
-                                  if(_formKey.currentState!.validate()) {
-                                    CommonFunctions.showLoadingDialog(context, "Applying...") ;
+                                child: Obx(() =>
+                                  MyButton(
+                                    loading: applyJobController.loading.value,
+                                    onTap1: () async {
+                                      applyJobController.errorMessageApplyReferral.value = "" ;
+                                      if(controller.text.isNotEmpty) {
+                                    // CommonFunctions.showLoadingDialog(context, "Applying...") ;
                                     if(!applyJobController.loading.value) {
-                                      var result = await applyJobController.applyJob("${widget.jobData?.id}",referralCode:controller.text ) ;
+                                      var result = await applyJobController.applyJob(context,"${widget.jobData?.id}",referralCode:controller.text ) ;
                                       if(result == true) {
                                         Get.back() ;
                                         widget.jobData?.postApplied = true ;
@@ -715,8 +724,11 @@ class _MarketingInternState extends State<MarketingIntern> {
                                         Get.back() ;
                                       }
                                     }
-                                  }
-                                }, title: 'SUBMIT', style: Get.theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),),
+                                  }else{
+                                        applyJobController.errorMessageApplyReferral.value = "Please enter referral code" ;
+                                      }
+                                  }, title: 'SUBMIT', style: Get.theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),),
+                                ),
                               ),
                             ),
                             const SizedBox(width: 20), // Adding spacing between buttons
@@ -733,7 +745,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                                   onPressed: () async {
                                     CommonFunctions.showLoadingDialog(context, "Applying...") ;
                                     if(!applyJobController.loading.value) {
-                                      var result = await applyJobController.applyJob("${widget.jobData?.id}") ;
+                                      var result = await applyJobController.applyJob(context,"${widget.jobData?.id}") ;
                                       if(result == true) {
                                         widget.jobData?.postApplied = true ;
                                         Get.back() ;

@@ -1151,7 +1151,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   title: "Select",
                                   onTap1: () {
                                     if(jobTitleID != null) {
-                                      applyJobController.applyJob( jobTitleID,seekerID: widget.recruiterData?.seekerId.toString(),) ;
+                                      applyJobController.applyJob(context,jobTitleID,seekerID: widget.recruiterData?.seekerId.toString(),) ;
                                     }else {
                                       errorMessage.value = "Choose Job before selecting" ;
                                     }

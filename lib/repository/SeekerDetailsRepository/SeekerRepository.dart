@@ -19,6 +19,7 @@ import '../../models/SeekerForumDataModel/SeekerForumDataModel.dart';
 import '../../models/SeekerForumIndustryListModel/SeekerForumIndustryListModel.dart';
 import '../../models/SeekerMapJobsModel/SeekerMapJobsModel.dart';
 import '../../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
+import '../../models/ShowReferralByUserSeeker/ShowReferralByUserSeeker.dart';
 import '../../models/ViewJobFromNotification/ViewJobFromNotification.dart';
 import '../../res/app_url.dart';
 
@@ -30,9 +31,9 @@ class SeekerRepository {
     return GetJobsListingModel.fromJson(response);
   }
 
-  Future<SeekerEarningModel> getWalletApi() async {
+  Future<ShowReferralByUserModel> getWalletApi() async {
     dynamic response = await apiServices.getApi2(AppUrl.seekerEarningDetails);
-    return SeekerEarningModel.fromJson(response);
+    return ShowReferralByUserModel.fromJson(response);
   }
 
   Future<CompanyListModel> companiesListApi() async {

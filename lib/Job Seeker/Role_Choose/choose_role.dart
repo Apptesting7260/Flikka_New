@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import '../../controllers/SignUPController/SignUpController.dart';
 import '../../controllers/SocialLoginController/SocialLoginController.dart';
 
-
 class ChooseRole extends StatefulWidget {
   final User? user ;
   const ChooseRole({super.key, this.user});
@@ -216,10 +215,14 @@ class _ChooseRoleState extends State<ChooseRole> {
                                       onTap1: () {
                                         if(signUpController.loading.value) {}
                                         else {
-                                          signUpController.signUpApiHit(role , context );
+                                          if(widget.user != null) {
+                                            socialLoginController.socialLoginApi("${widget.user?.email}", "${widget.user?.displayName}", fcmToken,
+                                                "$role", "${widget.user?.uid}", context) ;
+                                          }else {
+                                            signUpController.signUpApiHit(
+                                                role, context);
+                                          }
                                         }
-                                        socialLoginController.socialLoginApi("${widget.user?.email}", "${widget.user?.displayName}", fcmToken,
-                                            "$role", "${widget.user?.uid}", context) ;
                                       }
                                   ),
                                 ),) ,

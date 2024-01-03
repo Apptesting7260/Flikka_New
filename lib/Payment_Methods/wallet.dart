@@ -227,7 +227,7 @@ class _WalletState extends State<Wallet> {
                                 title: "Request Withdraw",
                                 onTap1: () {
                                   seekerEarningController
-                                          .getEarningDetails.value.bankAccount
+                                          .getEarningDetails.value.bankAccount == true
                                       ? Get.to(() => const RequestWithdraw())
                                       : Utils.showMessageDialog(context,
                                           "Please add bank account details");
