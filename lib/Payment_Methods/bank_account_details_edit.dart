@@ -25,6 +25,15 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
   void initState() {
     super.initState();
     ShowBankDetailsControllerInstanse.showBankDetailsApi();
+
+    bankController.text =
+        ShowBankDetailsControllerInstanse.viewShowBankDetails.value.bankDetails?.bankName ?? '';
+    nameController.text =
+        ShowBankDetailsControllerInstanse.viewShowBankDetails.value.bankDetails?.accountHolder ?? '';
+    branchController.text =
+        ShowBankDetailsControllerInstanse.viewShowBankDetails.value.bankDetails?.branchCode ?? '';
+    acNumberController.text =
+        ShowBankDetailsControllerInstanse.viewShowBankDetails.value.bankDetails?.accountNumber ?? '';
   }
 
   //////refresh//////
@@ -42,7 +51,6 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
     _refreshController.loadComplete();
   }
 /////refresh/////
-
 
   final bankController = TextEditingController();
   final nameController = TextEditingController();
@@ -70,8 +78,7 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
             ;
           } else {
             return Scaffold(body: GeneralExceptionWidget(
-                onPress: () {}),)
-            ;
+                onPress: () {}),);
           }
         case Status.COMPLETED:
           return
@@ -110,18 +117,18 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                         TextFormField(
                           controller: bankController,
                           readOnly: true,
-                          style: TextStyle(color: Colors.white,
+                          style: const TextStyle(color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                           decoration: InputDecoration(
                             filled: true,
                             hintText: ShowBankDetailsControllerInstanse
                                 .viewShowBankDetails.value.bankDetails!.bankName,
-                            hintStyle: TextStyle(fontSize: 14.0, color: Color
+                            hintStyle: const TextStyle(fontSize: 14.0, color: Color
                                 .fromRGBO(255, 255, 255, 1)),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
-                            fillColor: Color(0xff373737),
+                            fillColor: const Color(0xff373737),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(33),
                                 borderSide: BorderSide.none
@@ -136,7 +143,7 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                         TextFormField(
                           controller: bankController,
                           readOnly: true,
-                          style: TextStyle(color: Colors.white,
+                          style: const TextStyle(color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                           decoration: InputDecoration(
@@ -144,9 +151,9 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                             hintText: ShowBankDetailsControllerInstanse
                                 .viewShowBankDetails.value.bankDetails!
                                 .accountHolder,
-                            hintStyle: TextStyle(fontSize: 14.0, color: Color
+                            hintStyle: const TextStyle(fontSize: 14.0, color: Color
                                 .fromRGBO(255, 255, 255, 1)),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
                             fillColor: Color(0xff373737),
                             border: OutlineInputBorder(
@@ -162,7 +169,7 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                         TextFormField(
                           controller: bankController,
                           readOnly: true,
-                          style: TextStyle(color: Colors.white,
+                          style: const TextStyle(color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                           decoration: InputDecoration(
@@ -170,11 +177,11 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                             hintText: ShowBankDetailsControllerInstanse
                                 .viewShowBankDetails.value.bankDetails!
                                 .branchCode,
-                            hintStyle: TextStyle(fontSize: 14.0, color: Color
+                            hintStyle: const TextStyle(fontSize: 14.0, color: Color
                                 .fromRGBO(255, 255, 255, 1)),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
-                            fillColor: Color(0xff373737),
+                            fillColor: const Color(0xff373737),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(33),
                                 borderSide: BorderSide.none
@@ -188,7 +195,7 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                         TextFormField(
                           controller: bankController,
                           readOnly: true,
-                          style: TextStyle(color: Colors.white,
+                          style: const TextStyle(color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                           decoration: InputDecoration(
@@ -196,7 +203,7 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                             hintText: ShowBankDetailsControllerInstanse
                                 .viewShowBankDetails.value.bankDetails!
                                 .accountNumber,
-                            hintStyle: TextStyle(fontSize: 14.0, color: Color
+                            hintStyle: const TextStyle(fontSize: 14.0, color: Color
                                 .fromRGBO(255, 255, 255, 1)),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
@@ -213,16 +220,16 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                         TextFormField(
                           controller: bankController,
                           readOnly: true,
-                          style: TextStyle(color: Colors.white,
+                          style: const TextStyle(color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                           decoration: InputDecoration(
                             filled: true,
                             hintText: ShowBankDetailsControllerInstanse
                                 .viewShowBankDetails.value.bankDetails!.ifscCode,
-                            hintStyle: TextStyle(fontSize: 14.0, color: Color
+                            hintStyle: const TextStyle(fontSize: 14.0, color: Color
                                 .fromRGBO(255, 255, 255, 1)),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
                             fillColor: Color(0xff373737),
                             border: OutlineInputBorder(
@@ -238,7 +245,16 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
                             height: Get.height * .08,
                             width: Get.width * .75,
                             title: "EDIT", onTap1: () {
-                            Get.to(() => const AddBankAccountDetails());
+                            String updatedBankName = bankController.text;
+                            String updatedAccountHolderName = nameController.text;
+                            String updatedBranchCode = branchController.text;
+                            String updatedAccountNumber = acNumberController.text;
+                            Get.to(() =>  AddBankAccountDetails(
+                              bankName: updatedBankName,
+                              accountHolderName: updatedAccountHolderName,
+                              branchCode: updatedBranchCode,
+                              accountNumber: updatedAccountNumber,
+                            ));
                           },),
                         ),
                         SizedBox(height: Get.height * .02,),

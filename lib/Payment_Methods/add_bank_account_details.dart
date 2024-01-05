@@ -1,14 +1,12 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/SaveBankDetailsController/SaveBankDetailsController.dart';
-
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../widgets/app_colors.dart';
 
 class AddBankAccountDetails extends StatefulWidget {
-  const AddBankAccountDetails({super.key});
+  const AddBankAccountDetails({super.key, required String bankName, required String accountHolderName, required String branchCode, required String accountNumber,});
 
   @override
   State<AddBankAccountDetails> createState() => _AddBankAccountDetailsState();

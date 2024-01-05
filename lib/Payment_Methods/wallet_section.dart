@@ -291,7 +291,7 @@ class PieChart2State extends State {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => const AddBankAccountDetails());
+                      Get.to(() => const AddBankAccountDetails(bankName: '', accountHolderName: '', branchCode: '', accountNumber: '',));
                     },
                     child: Text(
                       "Add bank account details",
@@ -366,6 +366,12 @@ class PieChart2State extends State {
                     mainAxisSpacing: 13,
                     childAspectRatio: 1.7),
                 itemBuilder: (context, index) {
+                  List<String> itemTexts = [
+                    "App \nReferral",
+                    "Subscription Referral",
+                    "Employment Referral",
+                    "Recruitment Referral",
+                  ];
                   return GestureDetector(
                     onTap: () {
                       Get.to(() => const AppReferral());
@@ -380,12 +386,12 @@ class PieChart2State extends State {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                              width: Get.width * .16,
+                              width: Get.width * .22,
                               child: Text(
-                                "App \nReferral",
+                                itemTexts[index],
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.bodyMedium,
-                                textAlign: TextAlign.center,
+                                // textAlign: TextAlign.center,
                               )),
                           const Icon(
                             Icons.arrow_forward_ios_rounded,
