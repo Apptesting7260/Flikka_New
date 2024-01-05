@@ -588,8 +588,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                               }),
                         ],)
                  :
-                      Obx( () => MyButton(
-                      loading: applyJobController.loading.value,
+                      MyButton(
                       title: widget.jobData?.postApplied == true ? "APPLIED" : "APPLY NOW",
                       onTap1: () async {
                         if(widget.jobData?.postApplied == true ){}else{
@@ -604,7 +603,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                           // }
                         }
 
-                    },),
+                    }
                   ),
                   SizedBox(height: Get.height*.025,),
                 ],
@@ -705,9 +704,8 @@ class _MarketingInternState extends State<MarketingIntern> {
                             Expanded(
                               child: SizedBox(
                                 height: Get.height * 0.06,
-                                child: Obx(() =>
+                                child:
                                   MyButton(
-                                    loading: applyJobController.loading.value,
                                     onTap1: () async {
                                       applyJobController.errorMessageApplyReferral.value = "" ;
                                       if(controller.text.isNotEmpty) {
@@ -730,7 +728,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                                   }, title: 'SUBMIT', style: Get.theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),),
                                 ),
                               ),
-                            ),
+
                             const SizedBox(width: 20), // Adding spacing between buttons
                             Expanded(
                               child: SizedBox(

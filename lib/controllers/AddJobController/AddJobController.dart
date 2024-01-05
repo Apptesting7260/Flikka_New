@@ -102,5 +102,4 @@ class AddJobController extends GetxController {
       debugPrint(stackTrace.toString()) ;
     }
   }
-
 }

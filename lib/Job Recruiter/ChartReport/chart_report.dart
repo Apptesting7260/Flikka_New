@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
-import 'package:pie_chart/pie_chart.dart';
 
 class ChartReport extends StatefulWidget {
   const ChartReport({super.key});
@@ -19,8 +19,26 @@ class ChartReport extends StatefulWidget {
 
 class _ChartReportState extends State<ChartReport> {
 
-  RecruiterReportController reportController =
-      Get.put(RecruiterReportController());
+  RecruiterReportController reportController = Get.put(RecruiterReportController());
+
+  //////refresh//////
+  // RefreshController _refreshController =
+  // RefreshController(initialRefresh: false);
+  //
+  // void _onRefresh() async{
+  //   await reportController.reportApi() ;
+  //   _refreshController.refreshCompleted();
+  // }
+  //
+  // void _onLoading() async{
+  //   await reportController.reportApi() ;
+  //   if(mounted)
+  //     setState(() {
+  //
+  //     });
+  //   _refreshController.loadComplete();
+  // }
+  /////refresh/////
 
   @override
   void initState() {
@@ -39,7 +57,7 @@ class _ChartReportState extends State<ChartReport> {
   List<Color> colorList = [
     AppColors.blueThemeColor,
     Color(0xff0BA7D9),
-    Color(0xff0EBBF1),
+    Color(0xff33CEFF),
     Color(0xff0C5A96),
     Color(0xff25BFC3),
   ];
@@ -104,13 +122,6 @@ class _ChartReportState extends State<ChartReport> {
                         ),
                         SizedBox(
                           height: Get.height * .035,
-                        ),
-                        Text(
-                          "Report",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -414,10 +425,11 @@ class _ChartReportState extends State<ChartReport> {
                               legendPosition: LegendPosition.right,
                             ),
                             chartValuesOptions: ChartValuesOptions(
-                              showChartValuesInPercentage: true,
+                               showChartValuesInPercentage: true,
                             ),
                           ),
                         ),
+                        SizedBox(height: Get.height*.04,),
                         Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -426,7 +438,7 @@ class _ChartReportState extends State<ChartReport> {
                                       height: 18,
                                       width: 18,
                                       decoration: BoxDecoration(
-                                          color: Color(0xff4D6FED),
+                                          color: Color(0xff0F63A4),
                                           shape: BoxShape.circle),
                                     ),
                                     Text(
@@ -439,7 +451,7 @@ class _ChartReportState extends State<ChartReport> {
                                       height: 18,
                                       width: 18,
                                       decoration: BoxDecoration(
-                                          color: Color(0xff0BA7D9),
+                                          color: Color(0xff33CEFF),
                                           shape: BoxShape.circle),
                                     ),
                                     Text(
@@ -472,7 +484,7 @@ class _ChartReportState extends State<ChartReport> {
                                       height: 18,
                                       width: 18,
                                       decoration: BoxDecoration(
-                                          color: Color(0xff0C5A96),
+                                          color: AppColors.blueThemeColor,
                                           shape: BoxShape.circle),
                                     ),
                                     Text(

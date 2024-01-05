@@ -417,7 +417,12 @@ class PieChart2State extends State {
 );
   }
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+   var total = double.parse(seekerEarningController.getEarningDetails.value.totalAmount ?? "") ;
+   var appReferral = seekerEarningController.getEarningDetails.value.appReferralAmount ;
+   var employementReferral = seekerEarningController.getEarningDetails.value.employmentReferralAmount ;
+
+
+    return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 20.0 : 10.0;
       final radius = isTouched ? 60.0 : 40.0;

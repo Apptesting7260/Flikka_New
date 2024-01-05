@@ -2,6 +2,8 @@ class ShowReferralByUserModel {
   ShowReferralByUserModel({
      this.status,
      this.referralCode,
+     this.appReferralAmount,
+     this.employmentReferralAmount,
      this.totalAmount,
      this.bankAccount,
      this.appReferrrals,
@@ -9,6 +11,8 @@ class ShowReferralByUserModel {
   });
    bool?  status;
    String? referralCode;
+   dynamic appReferralAmount;
+   dynamic employmentReferralAmount;
    String? totalAmount;
    bool? bankAccount;
    AppReferrrals? appReferrrals;
@@ -17,6 +21,8 @@ class ShowReferralByUserModel {
   ShowReferralByUserModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     referralCode = json['referral_code'];
+    appReferralAmount = json['app_referral_amount'];
+    employmentReferralAmount = json['employment_referral_amount'];
     totalAmount = json['total_amount'];
     bankAccount = json['bank_account'];
     appReferrrals = json['app_referrrals'] == null ? json['app_referrrals'] : AppReferrrals.fromJson(json['app_referrrals']);

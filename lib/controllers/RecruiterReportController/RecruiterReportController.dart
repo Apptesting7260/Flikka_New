@@ -15,7 +15,7 @@ class RecruiterReportController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void reportApi(){
+   reportApi(){
     setRxRequestStatus(Status.LOADING);
     _api.reportApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
