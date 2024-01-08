@@ -137,16 +137,12 @@ class PieChart2State extends State {
                             colorList: colorList,
                             baseChartColor: AppColors.graySilverColor,
                             totalValue: double.parse("${seekerEarningController.getEarningDetails.value.totalAmount}"),
-                            chartRadius: MediaQuery.of(context).size.width /
-                                1.5, // Adjust as needed
+                            chartRadius: MediaQuery.of(context).size.width / 1.5, // Adjust as needed
                             animationDuration: const Duration(milliseconds: 800),
                             chartType: ChartType.ring, // Optional: Change chart type
-                            ringStrokeWidth:
-                                30, // Optional: Adjust ring stroke width
-                            legendOptions: const LegendOptions(
-                              showLegends: false,
-                              legendPosition: LegendPosition.right,
-                            ),
+                            ringStrokeWidth: 30, // Optional: Adjust ring stroke width
+                            legendOptions: const LegendOptions(showLegends: false,
+                              legendPosition: LegendPosition.right,),
                             chartValuesOptions: const ChartValuesOptions(
                                 // showChartValuesInPercentage: true,
                                 showChartValuesOutside: true),
