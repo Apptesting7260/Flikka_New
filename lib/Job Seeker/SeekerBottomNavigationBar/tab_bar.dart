@@ -11,6 +11,7 @@ import '../../controllers/AvtarImageListController/AvtarImageListController.dart
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
+import '../../controllers/SeekerEarningController/SeekerEarningController.dart';
 import '../../controllers/SeekerForumController/ForumIndustryListController.dart';
 import '../../controllers/SeekerForumController/SeekerForumDataController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
@@ -55,6 +56,7 @@ class _TabScreenState extends State<TabScreen> {
   AvtarImageListController avtarController = Get.put(AvtarImageListController()) ;
   ContactController contactController = Get.put(ContactController()) ;
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
+  SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
@@ -76,6 +78,7 @@ class _TabScreenState extends State<TabScreen> {
     pageController = PageController(initialPage: widget.index, keepPage: true);
     contactController.loadContacts() ;
     SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
+    seekerEarningController.seekerEarningApi();
 
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";

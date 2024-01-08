@@ -13,7 +13,7 @@ class ShowReferralByUserModel {
    String? referralCode;
    dynamic appReferralAmount;
    dynamic employmentReferralAmount;
-   String? totalAmount;
+   dynamic totalAmount;
    bool? bankAccount;
    AppReferrrals? appReferrrals;
    List<EmploymentReferrals>? employmentReferrals;

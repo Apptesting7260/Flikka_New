@@ -32,21 +32,12 @@ class PieChart2State extends State {
 
   @override
   void initState() {
-    seekerEarningController.seekerEarningApi();
-     total = double.parse("${seekerEarningController.getEarningDetails.value.totalAmount}" ?? "0") ;
-     appReferral = seekerEarningController.getEarningDetails.value.appReferralAmount ?? 0 ;
-     employementReferral = seekerEarningController.getEarningDetails.value.employmentReferralAmount ?? 0;
-    dataMap = {
-      "Slice 1": appReferral/total ,
-      "Slice 2": employementReferral/total,
-      "Slice 3": 0.0,
-    };
+
     super.initState();
   }
 
   //////refresh//////
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     seekerEarningController.seekerEarningApi();
@@ -135,7 +126,13 @@ class PieChart2State extends State {
                       child: Column(
                         children: <Widget>[
                           PieChart(
-                            dataMap: dataMap,
+                            dataMap: {
+                              "Slice 1": seekerEarningController.getEarningDetails.value.appReferralAmount/seekerEarningController.getEarningDetails.value.totalAmount ,
+                              "Slice 2": seekerEarningController.getEarningDetails.value.employmentReferralAmount/seekerEarningController.getEarningDetails.value.totalAmount,
+                              "Slice 3": 0.0,
+                            },
+                            centerText: "\£ ${seekerEarningController.getEarningDetails.value.totalAmount}",
+                            emptyColor: AppColors.graySilverColor,
                             colorList: colorList,
                             chartRadius: MediaQuery.of(context).size.width /
                                 1.5, // Adjust as needed
@@ -153,49 +150,6 @@ class PieChart2State extends State {
                                 // showChartValuesInPercentage: true,
                                 showChartValuesOutside: true),
                           )
-                          // Expanded(
-                          //   child: AspectRatio(
-                          //     aspectRatio: 1,
-                          //     child: Stack(
-                          //       children: [
-                          //         PieChart(
-                          //           PieChartData(
-                          //             pieTouchData: PieTouchData(
-                          //               touchCallback:
-                          //                   (FlTouchEvent event, pieTouchResponse) {
-                          //                 setState(() {
-                          //                   if (!event.isInterestedForInteractions ||
-                          //                       pieTouchResponse == null ||
-                          //                       pieTouchResponse.touchedSection ==
-                          //                           null) {
-                          //                     touchedIndex = -1;
-                          //                     return;
-                          //                   }
-                          //                   touchedIndex = pieTouchResponse
-                          //                       .touchedSection!.touchedSectionIndex;
-                          //                 });
-                          //               },
-                          //             ),
-                          //             borderData: FlBorderData(
-                          //               show: false,
-                          //             ),
-                          //             sectionsSpace: 0,
-                          //             centerSpaceRadius: Get.height * .12,
-                          //             sections: showingSections(),
-                          //           ),
-                          //         ),
-                          //         Center(
-                          //             child: Text(
-                          //           "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",
-                          //           style: Theme.of(context)
-                          //               .textTheme
-                          //               .displayLarge
-                          //               ?.copyWith(fontSize: 23),
-                          //         ))
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -214,7 +168,7 @@ class PieChart2State extends State {
                                 height: Get.height * .01,
                               ),
                               Text(
-                                "\£ 12.00",
+                                "\£ ${seekerEarningController.getEarningDetails.value.appReferralAmount}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
@@ -230,15 +184,13 @@ class PieChart2State extends State {
                           Column(
                             children: [
                               Text("Other",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
+                                  style: Theme.of(context).textTheme.bodyLarge
                                       ?.copyWith(color: AppColors.white)),
                               SizedBox(
                                 height: Get.height * .01,
                               ),
                               Text(
-                                "\£ 12.00",
+                                "\£ ${seekerEarningController.getEarningDetails.value.employmentReferralAmount.toString()}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
@@ -257,9 +209,7 @@ class PieChart2State extends State {
                           width: Get.width * .7,
                           title: "REQUEST WITHDRAW",
                           onTap1: () {
-                            seekerEarningController
-                                        .getEarningDetails.value.bankAccount ==
-                                    true
+                            seekerEarningController.getEarningDetails.value.bankAccount == true
                                 ? Get.to(() => const RequestWithdraw())
                                 : Utils.showMessageDialog(
                                     context, "Please add bank account details");

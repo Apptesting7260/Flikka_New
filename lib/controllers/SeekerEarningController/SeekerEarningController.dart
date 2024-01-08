@@ -10,7 +10,7 @@ class SeekerEarningController extends GetxController {
   final _api = SeekerRepository();
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final getEarningDetails =ShowReferralByUserModel().obs ;
+  final getEarningDetails = ShowReferralByUserModel().obs ;
   RxString error = ''.obs;
   var refreshLoading = false.obs ;
 
