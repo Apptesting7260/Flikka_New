@@ -1,5 +1,6 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../models/SeekerNotificationDataModel/SeekerNotificationDataModel.dart';
 
@@ -35,6 +36,30 @@ class SeekerViewNotificationController extends GetxController {
       loading(false) ;
       setRxRequestStatus(Status.ERROR);
 
+    });
+  }
+
+
+  Future<void> refreshSeekerNotificationApi() async {
+    // setRxRequestStatus(Status.LOADING);
+    // loading(true) ;
+    _api.viewSeekerNotificationDataApi().then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      viewSeekerNotificationData(value);
+      // loading(false) ;
+      if (kDebugMode) {
+        print(value);
+      }
+
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      if (kDebugMode) {
+        print(stackTrace);
+        print(error.toString());
+      }
+      // loading(false) ;
+      // setRxRequestStatus(Status.ERROR);
     });
   }
 
