@@ -131,15 +131,16 @@ class PieChart2State extends State {
                               "Slice 2": seekerEarningController.getEarningDetails.value.employmentReferralAmount/seekerEarningController.getEarningDetails.value.totalAmount,
                               "Slice 3": 0.0,
                             },
-                            centerText: "\£ ${seekerEarningController.getEarningDetails.value.totalAmount}",
+                            centerWidget: Text("\£ ${seekerEarningController.getEarningDetails.value.totalAmount}",
+                              style: Theme.of(context).textTheme.labelMedium,),
                             emptyColor: AppColors.graySilverColor,
                             colorList: colorList,
+                            baseChartColor: AppColors.graySilverColor,
+                            totalValue: double.parse("${seekerEarningController.getEarningDetails.value.totalAmount}"),
                             chartRadius: MediaQuery.of(context).size.width /
                                 1.5, // Adjust as needed
-                            animationDuration:
-                                const Duration(milliseconds: 800),
-                            chartType:
-                                ChartType.ring, // Optional: Change chart type
+                            animationDuration: const Duration(milliseconds: 800),
+                            chartType: ChartType.ring, // Optional: Change chart type
                             ringStrokeWidth:
                                 30, // Optional: Adjust ring stroke width
                             legendOptions: const LegendOptions(
