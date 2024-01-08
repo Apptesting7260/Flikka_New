@@ -1,13 +1,10 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
-import 'package:flikka/utils/CommonFunctions.dart';
-import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-
 import '../SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
-import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
+
 
 class SeekerNotificationSeenController extends GetxController {
 
