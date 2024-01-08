@@ -1,6 +1,6 @@
 class AppUrl {
-  static const String baseUrl = 'https://urlsdemo.xyz/flikka/api' ;
-  static const String baseImageUrl = 'https://urlsdemo.xyz/flikka/public/images/seekers/' ;
+  static const String baseUrl = 'https://urlsdemo.online/flikka/api' ;
+  static const String baseImageUrl = 'https://urlsdemo.online/flikka/public/images/seekers/' ;
   static const String SignUpUrl = '$baseUrl/auth/register' ;
   static const String SetRollUrl = '$baseUrl/auth/register_role' ;
   static const String LoginUrl = '$baseUrl/auth/login' ;
@@ -93,4 +93,5 @@ class AppUrl {
   static const String socialLogin = '$baseUrl/socialite-login' ;
   static const String checkSocialLogin = '$baseUrl/check-registraion-email-for-socialite' ;
   static const String notificationSeen = '$baseUrl/notification-seen-unseen' ;
+
 }

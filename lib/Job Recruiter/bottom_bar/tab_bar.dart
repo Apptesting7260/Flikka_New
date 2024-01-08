@@ -6,7 +6,10 @@ import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabba
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../controllers/RecruiterReportController/RecruiterReportController.dart';
 import '../message/message_page.dart';
 import 'bottom_navigation_bar_.dart';
 
@@ -21,6 +24,11 @@ class TabScreenEmployer extends StatefulWidget {
 }
 
 class _TabScreenEmployerState extends State<TabScreenEmployer> {
+
+  RecruiterReportController reportController =
+  Get.put(RecruiterReportController());
+
+
   int? bottomSelectedIndex;
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
@@ -31,7 +39,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
   @override
   void initState() {
     // fetchApi();
-
+    reportController.reportApi();
     // TODO: implement initState
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);

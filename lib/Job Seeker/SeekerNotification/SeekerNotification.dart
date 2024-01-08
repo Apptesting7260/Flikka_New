@@ -5,7 +5,6 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../../data/response/status.dart';
@@ -39,6 +38,7 @@ class _Notification1PageState extends State<SeekerNotification> {
     _refreshController.loadComplete();
   }
   /////refresh/////
+
   ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   SeekerNotificationSeenController seenController = Get.put(SeekerNotificationSeenController()) ;

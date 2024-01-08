@@ -2,6 +2,7 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:get/get.dart';
+import '../../models/ShowReferralByUserSeeker/ShowReferralByUserSeeker.dart';
 import '../../repository/SeekerDetailsRepository/SeekerRepository.dart';
 
 class SeekerEarningController extends GetxController {
@@ -9,12 +10,12 @@ class SeekerEarningController extends GetxController {
   final _api = SeekerRepository();
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final getEarningDetails =SeekerEarningModel().obs ;
+  final getEarningDetails =ShowReferralByUserModel().obs ;
   RxString error = ''.obs;
   var refreshLoading = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
-  void seekerEarnings(SeekerEarningModel _value) => getEarningDetails.value = _value ;
+  void seekerEarnings(ShowReferralByUserModel _value) => getEarningDetails.value = _value ;
   void setError(String _value) => error.value = _value ;
 
 

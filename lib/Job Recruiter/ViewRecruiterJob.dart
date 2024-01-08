@@ -675,7 +675,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                        child: Obx( () => MyButton(title: "Apply",
                                                 loading: applyJobController.loading.value,
                                                 onTap1: () async {
-                                             var result = await applyJobController.applyJob(widget.recruiterJobsData?.id.toString()) ;
+                                             var result = await applyJobController.applyJob(context,widget.recruiterJobsData?.id.toString()) ;
                                              if(result) {
                                                widget.recruiterJobsData?.isApplied = true ;
                                                setState(() {

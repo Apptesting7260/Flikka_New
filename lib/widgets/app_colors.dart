@@ -18,6 +18,7 @@ class AppColors {
   static const whiteBorderColor=Color(0xff686868);
   static const textFieldFilledColor=Color(0xff353535);
   static const graySilverColor=Color(0xffCFCFCF);
+  static const blueSimilar=Color(0xff8573e9);
 
 // static const azure=Color(0xff007AFF);
 // static const oldSilver=Color(0xff848282);
