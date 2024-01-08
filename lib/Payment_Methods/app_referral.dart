@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../controllers/SeekerEarningController/SeekerEarningController.dart';
 import '../widgets/app_colors.dart';
 
@@ -60,7 +61,7 @@ class _AppReferralState extends State<AppReferral> {
                         height: Get.height * .01,
                       ),
                       Text(
-                        "£60.00",
+                        "\£ ${seekerEarningController.getEarningDetails.value.appReferralAmount}",
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall
@@ -98,6 +99,7 @@ class _AppReferralState extends State<AppReferral> {
                   length: 2,
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const TabBar(
                           isScrollable: true,
@@ -106,91 +108,120 @@ class _AppReferralState extends State<AppReferral> {
                           indicatorColor: AppColors.blueThemeColor,
                           indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                           tabs: [
-                            Tab(child: Text("SEEKER"),),
-                            Tab(child: Text("RECRUITER"),),
+                            Tab(child: Text("EMPLOYEE"),),
+                            Tab(child: Text("EMPLOYER"),),
                           ],
                         ),
                         SizedBox(height: Get.height*.02,) ,
                         SizedBox(
-                          height: Get.height*.9,
+                          height: Get.height *.9,
                           child:  TabBarView(
                               children: [
                                 seekerEarningController.getEarningDetails.value.appReferrrals?.seekerReferrals?.length == 0 ||
                                     seekerEarningController.getEarningDetails.value.appReferrrals?.seekerReferrals == null ?
                                     Center(child: Text("No data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),) :
-                                ListView.builder(
-                                    physics: AlwaysScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: seekerEarningController.getEarningDetails.value.appReferrrals?.seekerReferrals?.length,
-                                    itemBuilder: (context, index) {
-                                      var data = seekerEarningController.getEarningDetails.value.appReferrrals?.seekerReferrals?[index] ;
-                                      return Padding(
-                                        padding: EdgeInsets.only(bottom: Get.height*.02),
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(vertical: Get.height*.01),
-                                          decoration: BoxDecoration(
-                                              color: AppColors.textFieldFilledColor,
-                                              borderRadius: BorderRadius.circular(15)
-                                          ),
-                                          child: ListTile(
-                                            title: Text(data?.email ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
-                                            subtitle: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(height: Get.height*.001,),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text("£12.00",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor),),
-                                                    Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w600),),
-                                                  ],
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: Get.height *.8,
+                                      child: ListView.builder(
+                                          physics: NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: seekerEarningController.getEarningDetails.value.appReferrrals?.seekerReferrals?.length,
+                                          itemBuilder: (context, index) {
+                                            var data = seekerEarningController.getEarningDetails.value.appReferrrals?.seekerReferrals?[index] ;
+                                            return Padding(
+                                              padding: EdgeInsets.only(bottom: Get.height*.02),
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(vertical: Get.height*.01),
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.textFieldFilledColor,
+                                                    borderRadius: BorderRadius.circular(15)
                                                 ),
-                                                SizedBox(height: Get.height*.001,),
-                                                Text("Today 10:40 AM",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
+                                                child: ListTile(
+                                                  title: Text(data?.fullname ?? "No data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
+                                                  subtitle: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: Get.height*.001,),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          // Text("£12.00",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor),),
+                                                          // Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w600),),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: Get.height*.001,),
+                                                      Text(
+                                                        formatDateTime(data?.createdAt != null ? DateTime.parse(data?.createdAt ?? "") : null),
+                                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Color(0xffCFCFCF),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                    SizedBox(height: Get.height*.02,),
+                                  ],
+                                ),
                                 seekerEarningController.getEarningDetails.value.appReferrrals?.recruiterReferrals?.length == 0 ||
                                     seekerEarningController.getEarningDetails.value.appReferrrals?.recruiterReferrals == null ?
                                 Center(child: Text("No data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),) :
-                                ListView.builder(
-                                    physics: AlwaysScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: seekerEarningController.getEarningDetails.value.appReferrrals?.recruiterReferrals?.length,
-                                    itemBuilder: (context, index) {
-                                       var data = seekerEarningController.getEarningDetails.value.appReferrrals?.recruiterReferrals?[index] ;
-                                      return Padding(
-                                        padding: EdgeInsets.only(bottom: Get.height*.02),
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(vertical: Get.height*.01),
-                                          decoration: BoxDecoration(
-                                              color: AppColors.textFieldFilledColor,
-                                              borderRadius: BorderRadius.circular(15)
-                                          ),
-                                          child: ListTile(
-                                            title: Text(  data?.email ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
-                                            subtitle: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(height: Get.height*.001,),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text("£12.00",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor),),
-                                                    Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w600),),
-                                                  ],
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: Get.height*.8,
+                                      child: ListView.builder(
+                                          physics: NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: seekerEarningController.getEarningDetails.value.appReferrrals?.recruiterReferrals?.length,
+                                          itemBuilder: (context, index) {
+                                             var data = seekerEarningController.getEarningDetails.value.appReferrrals?.recruiterReferrals?[index] ;
+                                            return Padding(
+                                              padding: EdgeInsets.only(bottom: Get.height*.02),
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(vertical: Get.height*.01),
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.textFieldFilledColor,
+                                                    borderRadius: BorderRadius.circular(15)
                                                 ),
-                                                SizedBox(height: Get.height*.001,),
-                                                // Text("Today 10:40 AM",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
+                                                child: ListTile(
+                                                  title: Text(  data?.fullname ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
+                                                  subtitle: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: Get.height*.001,),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text(data?.companyName ?? "No data",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),),
+                                                          // Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w600),),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: Get.height*.001,),
+                                                      Text(
+                                                        formatDateTime(data?.createdAt != null ? DateTime.parse(data?.createdAt ?? "") : null),
+                                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Color(0xffCFCFCF),
+                                                        ),
+                                                      )
+
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: Get.height*.02,),
                               ]),
                         )
                       ],
@@ -202,4 +233,28 @@ class _AppReferralState extends State<AppReferral> {
       )),
     );
   }
+  String formatDateTime(DateTime? dateTime) {
+    final now = DateTime.now();
+
+    if (dateTime == null) {
+      return "No date available";
+    }
+
+    final difference = now.difference(dateTime);
+
+    if (difference.inSeconds < 60) {
+      return "Just now";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} minutes ago";
+    } else if (difference.inHours < 24) {
+      return "Today at ${DateFormat('hh:mm a').format(dateTime)}";
+    } else if (difference.inDays == 1) {
+      return "Yesterday";
+    } else if (difference.inDays < 7) {
+      return DateFormat('EEEE').format(dateTime);
+    } else {
+      return DateFormat('MMMM d, y').format(dateTime); // Include the year
+    }
+  }
+
 }

@@ -29,6 +29,7 @@ class PieChart2State extends State {
   var total = 0.0 ;
   var appReferral = 0.0;
   var employementReferral = 0.0;
+  var subscriptionReferral  = 0.0;
 
   @override
   void initState() {
@@ -43,8 +44,6 @@ class PieChart2State extends State {
     seekerEarningController.seekerEarningApi();
     _refreshController.refreshCompleted();
   }
-
-
 
   Map<String, double> dataMap = {};
 
@@ -127,9 +126,9 @@ class PieChart2State extends State {
                         children: <Widget>[
                           PieChart(
                             dataMap: {
-                              "Slice 1": seekerEarningController.getEarningDetails.value.appReferralAmount/seekerEarningController.getEarningDetails.value.totalAmount ,
-                              "Slice 2": seekerEarningController.getEarningDetails.value.employmentReferralAmount/seekerEarningController.getEarningDetails.value.totalAmount,
-                              "Slice 3": 0.0,
+                              "Slice 1": seekerEarningController.getEarningDetails.value.appReferralAmount/1 ,
+                              "Slice 2": seekerEarningController.getEarningDetails.value.employmentReferralAmount/1,
+                              "Slice 3": seekerEarningController.getEarningDetails.value.subscriptionReferralAmount/1,
                             },
                             centerWidget: Text("\£ ${seekerEarningController.getEarningDetails.value.totalAmount}",
                               style: Theme.of(context).textTheme.labelMedium,),
@@ -203,7 +202,7 @@ class PieChart2State extends State {
                       ),
                     ),
                     SizedBox(
-                      height: Get.height * .08,
+                      height: Get.height * .06,
                     ),
                     Center(
                       child: MyButton(

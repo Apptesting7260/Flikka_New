@@ -4,6 +4,7 @@ class ShowReferralByUserModel {
      this.referralCode,
      this.appReferralAmount,
      this.employmentReferralAmount,
+     this.subscriptionReferralAmount,
      this.totalAmount,
      this.bankAccount,
      this.appReferrrals,
@@ -13,6 +14,7 @@ class ShowReferralByUserModel {
    String? referralCode;
    dynamic appReferralAmount;
    dynamic employmentReferralAmount;
+   dynamic subscriptionReferralAmount;
    dynamic totalAmount;
    bool? bankAccount;
    AppReferrrals? appReferrrals;
@@ -23,6 +25,7 @@ class ShowReferralByUserModel {
     referralCode = json['referral_code'];
     appReferralAmount = json['app_referral_amount'];
     employmentReferralAmount = json['employment_referral_amount'];
+    subscriptionReferralAmount = json['subscription_referral_amount'];
     totalAmount = json['total_amount'];
     bankAccount = json['bank_account'];
     appReferrrals = json['app_referrrals'] == null ? json['app_referrrals'] : AppReferrrals.fromJson(json['app_referrrals']);
@@ -194,6 +197,7 @@ class RecruiterReferrals {
      this.createdAt,
      this.updatedAt,
     this.recruiterdetails,
+    this.companyName,
   });
    dynamic id;
    String? fullname;
@@ -212,6 +216,7 @@ class RecruiterReferrals {
    String? createdAt;
    String? updatedAt;
    String? recruiterdetails;
+   String? companyName;
 
   RecruiterReferrals.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -231,6 +236,7 @@ class RecruiterReferrals {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     recruiterdetails = null;
+    companyName = json['company_name'];
   }
 
   Map<String, dynamic> toJson() {

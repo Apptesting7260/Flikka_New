@@ -169,7 +169,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                       Get.to(() => const UserProfile());
                                     },
                                     dense: true,
-                                    leading: drawerIcon(profileIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child: drawerIcon(profileIcon,),
+                                    ),
                                     title: Text(
                                       "Profile",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -181,7 +184,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                       Get.to(() =>const SeekerMessagePage());
                                     } ,
                                     dense: true,
-                                    leading: drawerIcon(messageIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child: drawerIcon(messageIcon) ,
+                                    ),
                                     title: Text(
                                       "Message",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -193,7 +199,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                     onTap: () {
                                       Get.to(const MettingListTabbar());
                                     },
-                                    leading: drawerIcon(interviewIcon),
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child: drawerIcon(interviewIcon) ,
+                                    ),
                                     title: Text(
                                       "Interviews",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -205,7 +214,34 @@ class _DrawerClassState extends State<DrawerClass> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: drawerIcon(notificationIcon),
+                                    leading: SizedBox(
+                                      width: 45,
+                                      height: 40,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            bottom: 9,
+                                              child: drawerIcon(notificationIcon),) ,
+                                          Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                          const SizedBox() :
+                                          Positioned(
+                                            top: 0,
+                                            right: 13,
+                                            child: Container(
+                                              height: 20,
+                                              width: 20,
+                                              alignment: Alignment.center,
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle ,
+                                                  color: AppColors.red
+                                              ),
+                                              child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10),)),
+                                            ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ) ,
                                     title: Stack(
                                       children: [
                                         Text("Notifications",
@@ -213,19 +249,19 @@ class _DrawerClassState extends State<DrawerClass> {
                                         ),
                                       ],
                                     ),
-                                    trailing:  Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
-                                        const SizedBox() :
-                                        Container(
-                                        height: 30,
-                                        width: 30,
-                                        alignment: Alignment.center,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle ,
-                                          color: AppColors.red
-                                        ),
-                                        child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),)),
-                                      ),
-                                    ),
+                                    // trailing:  Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                    //     const SizedBox() :
+                                    //     Container(
+                                    //     height: 30,
+                                    //     width: 30,
+                                    //     alignment: Alignment.center,
+                                    //     decoration: const BoxDecoration(
+                                    //       shape: BoxShape.circle ,
+                                    //       color: AppColors.red
+                                    //     ),
+                                    //     child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),)),
+                                    //   ),
+                                    // ),
                                   ),
                                   ListTile(
                                     onTap: () {
@@ -233,7 +269,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: drawerIcon(jobAlertIcon),
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:  drawerIcon(jobAlertIcon),
+                                    ),
                                     title: Text(
                                       "Job alert",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -245,7 +284,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: drawerIcon(savePostIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:  drawerIcon(savePostIcon) ,
+                                    ),
                                     title: Text(
                                       "Save Post",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -257,7 +299,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                     onTap: () {
                                       Get.to( () => const SeekerAppliedJobs()) ;
                                     },
-                                    leading: drawerIcon(appliedJobsIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:   drawerIcon(appliedJobsIcon) ,
+                                    ),
                                     title: Text(
                                       "Applied jobs",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -269,7 +314,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                     onTap: () {
                                       Get.to( () => const WalletSection()) ;
                                     },
-                                    leading: drawerIcon(walletIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:   drawerIcon(walletIcon) ,
+                                    ),
                                     title: Text(
                                       "Wallet",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -315,7 +363,11 @@ class _DrawerClassState extends State<DrawerClass> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: drawerIcon(settingIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:   drawerIcon(settingIcon) ,
+                                    ),
+
                                     title: Text(
                                       "Setting",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -327,7 +379,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    leading: drawerIcon("assets/images/icon_help.png") ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:    drawerIcon("assets/images/icon_help.png") ,
+                                    ),
                                     title: Text(
                                       "Help",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
@@ -340,7 +395,10 @@ class _DrawerClassState extends State<DrawerClass> {
                                       logoutController.logout(context) ;
                                       showLogoutDialog(context)  ;
                                     },
-                                    leading: drawerIcon(logoutIcon) ,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:   drawerIcon(logoutIcon) ,
+                                    ),
                                     title: Text(
                                       "Logout",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
