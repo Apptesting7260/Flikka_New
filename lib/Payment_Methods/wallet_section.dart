@@ -1,8 +1,8 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flikka/Payment_Methods/request_withdraw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/SeekerEarningController/SeekerEarningController.dart';
 import '../data/response/status.dart';
@@ -26,21 +26,44 @@ class PieChart2State extends State {
       Get.put(SeekerEarningController());
 
   int touchedIndex = -1;
+  var total = 0.0 ;
+  var appReferral = 0.0;
+  var employementReferral = 0.0;
 
   @override
   void initState() {
     seekerEarningController.seekerEarningApi();
+     total = double.parse("${seekerEarningController.getEarningDetails.value.totalAmount}" ?? "0") ;
+     appReferral = seekerEarningController.getEarningDetails.value.appReferralAmount ?? 0 ;
+     employementReferral = seekerEarningController.getEarningDetails.value.employmentReferralAmount ?? 0;
+    dataMap = {
+      "Slice 1": appReferral/total ,
+      "Slice 2": employementReferral/total,
+      "Slice 3": 0.0,
+    };
     super.initState();
   }
 
   //////refresh//////
   RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     seekerEarningController.seekerEarningApi();
     _refreshController.refreshCompleted();
   }
+
+
+
+  Map<String, double> dataMap = {};
+
+  List<Color> colorList = [
+    Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.purple,
+    Colors.orange,
+  ];
 
   void _onLoading() async {
     seekerEarningController.seekerEarningApi();
@@ -54,8 +77,9 @@ class PieChart2State extends State {
     return Obx(() {
       switch (seekerEarningController.rxRequestStatus.value) {
         case Status.LOADING:
-          return const
-          Scaffold(body: Center(child: CircularProgressIndicator()),);
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
 
         case Status.ERROR:
           if (seekerEarningController.error.value == 'No internet') {
@@ -66,426 +90,426 @@ class PieChart2State extends State {
             return GeneralExceptionWidget(onPress: () {});
           }
         case Status.COMPLETED:
-          return
-      Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 75,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 15.0),
-          child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Image.asset('assets/images/icon_back_blue.png')),
-        ),
-        elevation: 0,
-        title: Text(
-          "Wallet",
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(fontWeight: FontWeight.w700),
-        ),
-      ),
-      body: SmartRefresher(
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
-          child: Column(
-            children: [
-              Text(
-                "Earnings",
-                style: Theme.of(context).textTheme.displayLarge,
+          return Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 75,
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Image.asset('assets/images/icon_back_blue.png')),
               ),
-              Text(
-                "How do I earn",
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: AppColors.blueThemeColor,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline),
+              elevation: 0,
+              title: Text(
+                "Wallet",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
               ),
-              AspectRatio(
-                aspectRatio: 1,
+            ),
+            body: SmartRefresher(
+              controller: _refreshController,
+              onRefresh: _onRefresh,
+              onLoading: _onLoading,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
                 child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Stack(
-                          children: [
-                            PieChart(
-                              PieChartData(
-                                pieTouchData: PieTouchData(
-                                  touchCallback:
-                                      (FlTouchEvent event, pieTouchResponse) {
-                                    setState(() {
-                                      if (!event.isInterestedForInteractions ||
-                                          pieTouchResponse == null ||
-                                          pieTouchResponse.touchedSection ==
-                                              null) {
-                                        touchedIndex = -1;
-                                        return;
-                                      }
-                                      touchedIndex = pieTouchResponse
-                                          .touchedSection!.touchedSectionIndex;
-                                    });
-                                  },
-                                ),
-                                borderData: FlBorderData(
-                                  show: false,
-                                ),
-                                sectionsSpace: 0,
-                                centerSpaceRadius: Get.height * .12,
-                                sections: showingSections(),
-                              ),
-                            ),
-                            Center(
-                                child: Text(
-                              "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge
-                                  ?.copyWith(fontSize: 23),
-                            ))
-                          ],
-                        ),
-                      ),
-                    ),
-                    // const Column(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: <Widget>[
-                    //     Indicator(
-                    //       color: AppColors.blueThemeColor,
-                    //       text: 'First',
-                    //       isSquare: true,
-                    //     ),
-                    //     SizedBox(
-                    //       height: 4,
-                    //     ),
-                    //     Indicator(
-                    //       color: AppColors.textFieldFilledColor,
-                    //       text: 'Second',
-                    //       isSquare: true,
-                    //     ),
-                    //     SizedBox(
-                    //       height: 4,
-                    //     ),
-                    //     Indicator(
-                    //       color: AppColors.red,
-                    //       text: 'Third',
-                    //       isSquare: true,
-                    //     ),
-                    //     SizedBox(
-                    //       height: 4,
-                    //     ),
-                    //     Indicator(
-                    //       color: AppColors.ratingcodeColor,
-                    //       text: 'Fourth',
-                    //       isSquare: true,
-                    //     ),
-                    //     SizedBox(
-                    //       height: 18,
-                    //     ),
-                    //   ],
-                    // ),
-                    // const SizedBox(
-                    //   width: 28,
-                    // ),
-                  ],
-                ),
-              ),
-              IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        Text("App Referral",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: AppColors.white)),
-                        SizedBox(height: Get.height*.01,),
-                        Text(
-                          "\£ 12.00",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(color: AppColors.blueThemeColor),
-                        ),
-                      ],
+                    Text(
+                      "Earnings",
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
-                    const VerticalDivider(
-                      width: 40,
-                      thickness: 2,
-                      color: Color(0xffFFFFFF),
-                    ),
-                    Column(
-                      children: [
-                        Text("Other",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: AppColors.white)),
-                        SizedBox(height: Get.height*.01,),
-                        Text(
-                          "\£ 12.00",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(color: AppColors.blueThemeColor),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Get.height * .08,
-              ),
-              Center(
-                child: MyButton(
-                    width: Get.width * .7,
-                    title: "REQUEST WITHDRAW",
-                    onTap1: () {
-                      seekerEarningController
-                          .getEarningDetails.value.bankAccount == true
-                          ? Get.to(() =>  const RequestWithdraw())
-                          : Utils.showMessageDialog(context,
-                          "Please add bank account details");
-                    }),
-              ),
-              SizedBox(
-                height: Get.height * .02,
-              ),
-              GestureDetector(
-                onTap: () {
-                  _dialogBuilder(context);
-                },
-                child: Container(
-                  height: Get.height * .075,
-                  width: Get.width * .7,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(60)),
-                  child: Text('See Referral Code',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          color: Colors.black)),
-                ),
-              ),
-              SizedBox(
-                height: Get.height * .045,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Balance",
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => const AddBankAccountDetails(bankName: '', accountHolderName: '', branchCode: '', accountNumber: '',));
-                    },
-                    child: Text(
-                      "Add bank account details",
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Get.height * .01,
-              ),
-              Container(
-                height: Get.height * 0.07,
-                width: Get.width * 0.85,
-                decoration: BoxDecoration(
-                    color: AppColors.textFieldFilledColor,
-                    borderRadius: BorderRadius.circular(60)),
-                child: Row(
-                  children: [
-                    Container(
-                      width: Get.width * 0.15,
-                      height: Get.height,
-                      padding: const EdgeInsets.all(13),
-                      decoration: const BoxDecoration(
+                    Text(
+                      "How do I earn",
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: AppColors.blueThemeColor,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(60),
-                              topLeft: Radius.circular(60))),
-                      child: Image.asset(
-                        'assets/images/icon_wallets.png',
-                      ),
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Container(
-                        width: Get.width * 0.64,
-                        child: TextFormField(
-                          // controller: amountController,
-                          readOnly: true,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                          decoration:  InputDecoration(
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: AppColors.white,
-                              size: 20,
+                    SizedBox(height: Get.height*.04,),
+                    AspectRatio(
+                      aspectRatio: 1,
+                      child: Column(
+                        children: <Widget>[
+                          PieChart(
+                            dataMap: dataMap,
+                            colorList: colorList,
+                            chartRadius: MediaQuery.of(context).size.width /
+                                1.5, // Adjust as needed
+                            animationDuration:
+                                const Duration(milliseconds: 800),
+                            chartType:
+                                ChartType.ring, // Optional: Change chart type
+                            ringStrokeWidth:
+                                30, // Optional: Adjust ring stroke width
+                            legendOptions: const LegendOptions(
+                              showLegends: false,
+                              legendPosition: LegendPosition.right,
                             ),
-                            fillColor: Colors.white,
-                            border:
-                                UnderlineInputBorder(borderSide: BorderSide.none),
-                            hintText: "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}" ,
-                            hintStyle: Theme.of(context).textTheme.labelMedium
-                          ),
-                        ),
+                            chartValuesOptions: const ChartValuesOptions(
+                                // showChartValuesInPercentage: true,
+                                showChartValuesOutside: true),
+                          )
+                          // Expanded(
+                          //   child: AspectRatio(
+                          //     aspectRatio: 1,
+                          //     child: Stack(
+                          //       children: [
+                          //         PieChart(
+                          //           PieChartData(
+                          //             pieTouchData: PieTouchData(
+                          //               touchCallback:
+                          //                   (FlTouchEvent event, pieTouchResponse) {
+                          //                 setState(() {
+                          //                   if (!event.isInterestedForInteractions ||
+                          //                       pieTouchResponse == null ||
+                          //                       pieTouchResponse.touchedSection ==
+                          //                           null) {
+                          //                     touchedIndex = -1;
+                          //                     return;
+                          //                   }
+                          //                   touchedIndex = pieTouchResponse
+                          //                       .touchedSection!.touchedSectionIndex;
+                          //                 });
+                          //               },
+                          //             ),
+                          //             borderData: FlBorderData(
+                          //               show: false,
+                          //             ),
+                          //             sectionsSpace: 0,
+                          //             centerSpaceRadius: Get.height * .12,
+                          //             sections: showingSections(),
+                          //           ),
+                          //         ),
+                          //         Center(
+                          //             child: Text(
+                          //           "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",
+                          //           style: Theme.of(context)
+                          //               .textTheme
+                          //               .displayLarge
+                          //               ?.copyWith(fontSize: 23),
+                          //         ))
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Get.height * .04,
-              ),
-              GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 4,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 13,
-                    mainAxisSpacing: 13,
-                    childAspectRatio: 1.7),
-                itemBuilder: (context, index) {
-                  List<String> itemTexts = [
-                    "App \nReferral",
-                    "Subscription Referral",
-                    "Employment Referral",
-                    "Recruitment Referral",
-                  ];
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(() => const AppReferral());
-                    },
-                    child: Container(
-                      height: Get.height * .3,
-                      width: Get.width * .2,
-                      decoration: BoxDecoration(
-                          color: AppColors.textFieldFilledColor,
-                          borderRadius: BorderRadius.circular(13)),
+                    IntrinsicHeight(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                              width: Get.width * .22,
-                              child: Text(
-                                itemTexts[index],
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                                // textAlign: TextAlign.center,
-                              )),
-                          const Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: AppColors.white,
-                            size: 20,
+                          Column(
+                            children: [
+                              Text("App Referral",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(color: AppColors.white)),
+                              SizedBox(
+                                height: Get.height * .01,
+                              ),
+                              Text(
+                                "\£ 12.00",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(color: AppColors.blueThemeColor),
+                              ),
+                            ],
+                          ),
+                          const VerticalDivider(
+                            width: 40,
+                            thickness: 2,
+                            color: Color(0xffFFFFFF),
+                          ),
+                          Column(
+                            children: [
+                              Text("Other",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(color: AppColors.white)),
+                              SizedBox(
+                                height: Get.height * .01,
+                              ),
+                              Text(
+                                "\£ 12.00",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(color: AppColors.blueThemeColor),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                  );
-                },
+                    SizedBox(
+                      height: Get.height * .08,
+                    ),
+                    Center(
+                      child: MyButton(
+                          width: Get.width * .7,
+                          title: "REQUEST WITHDRAW",
+                          onTap1: () {
+                            seekerEarningController
+                                        .getEarningDetails.value.bankAccount ==
+                                    true
+                                ? Get.to(() => const RequestWithdraw())
+                                : Utils.showMessageDialog(
+                                    context, "Please add bank account details");
+                          }),
+                    ),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _dialogBuilder(context);
+                      },
+                      child: Container(
+                        height: Get.height * .075,
+                        width: Get.width * .7,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(60)),
+                        child: Text('See Referral Code',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: Colors.black)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * .045,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Balance",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const AddBankAccountDetails(
+                                  bankName: '',
+                                  accountHolderName: '',
+                                  branchCode: '',
+                                  accountNumber: '',
+                                ));
+                          },
+                          child: Text(
+                            "Add bank account details",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: Get.height * .01,
+                    ),
+                    Container(
+                      height: Get.height * 0.07,
+                      width: Get.width * 0.85,
+                      decoration: BoxDecoration(
+                          color: AppColors.textFieldFilledColor,
+                          borderRadius: BorderRadius.circular(60)),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: Get.width * 0.15,
+                            height: Get.height,
+                            padding: const EdgeInsets.all(13),
+                            decoration: const BoxDecoration(
+                                color: AppColors.blueThemeColor,
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(60),
+                                    topLeft: Radius.circular(60))),
+                            child: Image.asset(
+                              'assets/images/icon_wallets.png',
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: Container(
+                              width: Get.width * 0.64,
+                              child: TextFormField(
+                                // controller: amountController,
+                                readOnly: true,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
+                                decoration: InputDecoration(
+                                    suffixIcon: Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      color: AppColors.white,
+                                      size: 20,
+                                    ),
+                                    fillColor: Colors.white,
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    hintText:
+                                        "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * .04,
+                    ),
+                    GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 4,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 13,
+                              mainAxisSpacing: 13,
+                              childAspectRatio: 1.7),
+                      itemBuilder: (context, index) {
+                        List<String> itemTexts = [
+                          "App \nReferral",
+                          "Subscription Referral",
+                          "Employment Referral",
+                          "Recruitment Referral",
+                        ];
+                        return GestureDetector(
+                          onTap: () {
+                            Get.to(() => const AppReferral());
+                          },
+                          child: Container(
+                            height: Get.height * .3,
+                            width: Get.width * .2,
+                            decoration: BoxDecoration(
+                                color: AppColors.textFieldFilledColor,
+                                borderRadius: BorderRadius.circular(13)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                    width: Get.width * .22,
+                                    child: Text(
+                                      itemTexts[index],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                      // textAlign: TextAlign.center,
+                                    )),
+                                const Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: AppColors.white,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: Get.height * .1,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                height: Get.height * .1,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-);
-  }
-  List<PieChartSectionData> showingSections() {
-   var total = double.parse(seekerEarningController.getEarningDetails.value.totalAmount ?? "") ;
-   var appReferral = seekerEarningController.getEarningDetails.value.appReferralAmount ;
-   var employementReferral = seekerEarningController.getEarningDetails.value.employmentReferralAmount ;
-
-
-    return List.generate(3, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 20.0 : 10.0;
-      final radius = isTouched ? 60.0 : 40.0;
-      const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Color(0xff0F63A4),
-            value: 25,
-            title: '25%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: AppColors.white,
-                decoration: TextDecoration.none
-              // shadows: shadows,
             ),
           );
-        case 1:
-          return PieChartSectionData(
-            color: Color(0xff25BFC3),
-            value: 25,
-            title: '25%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: AppColors.white,
-                // shadows: shadows,
-                decoration: TextDecoration.none),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: AppColors.blueThemeColor,
-            value: 25,
-            title: '25%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: AppColors.white,
-                // shadows: shadows,
-                decoration: TextDecoration.none),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Color(0xff33CEFF),
-            value: 25,
-            title: '25%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: AppColors.white,
-                // shadows: shadows,
-                decoration: TextDecoration.none),
-          );
-        default:
-          throw Error();
       }
     });
   }
+  // List<PieChartSectionData> showingSections() {
+  //  var total = double.parse(seekerEarningController.getEarningDetails.value.totalAmount ?? "") ;
+  //  var appReferral = seekerEarningController.getEarningDetails.value.appReferralAmount ;
+  //  var employementReferral = seekerEarningController.getEarningDetails.value.employmentReferralAmount ;
+  //
+  //
+  //   return List.generate(3, (i) {
+  //     final isTouched = i == touchedIndex;
+  //     final fontSize = isTouched ? 20.0 : 10.0;
+  //     final radius = isTouched ? 60.0 : 40.0;
+  //     const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
+  //     switch (i) {
+  //       case 0:
+  //         return PieChartSectionData(
+  //           color: Color(0xff0F63A4),
+  //           value: 25,
+  //           title: '25%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //               fontSize: fontSize,
+  //               fontWeight: FontWeight.bold,
+  //               color: AppColors.white,
+  //               decoration: TextDecoration.none
+  //             // shadows: shadows,
+  //           ),
+  //         );
+  //       case 1:
+  //         return PieChartSectionData(
+  //           color: Color(0xff25BFC3),
+  //           value: 25,
+  //           title: '25%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //               fontSize: fontSize,
+  //               fontWeight: FontWeight.bold,
+  //               color: AppColors.white,
+  //               // shadows: shadows,
+  //               decoration: TextDecoration.none),
+  //         );
+  //       case 2:
+  //         return PieChartSectionData(
+  //           color: AppColors.blueThemeColor,
+  //           value: 25,
+  //           title: '25%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //               fontSize: fontSize,
+  //               fontWeight: FontWeight.bold,
+  //               color: AppColors.white,
+  //               // shadows: shadows,
+  //               decoration: TextDecoration.none),
+  //         );
+  //       case 3:
+  //         return PieChartSectionData(
+  //           color: Color(0xff33CEFF),
+  //           value: 25,
+  //           title: '25%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //               fontSize: fontSize,
+  //               fontWeight: FontWeight.bold,
+  //               color: AppColors.white,
+  //               // shadows: shadows,
+  //               decoration: TextDecoration.none),
+  //         );
+  //       default:
+  //         throw Error();
+  //     }
+  //   });
+  // }
 
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
@@ -586,14 +610,14 @@ class PieChart2State extends State {
                             width: Get.width * 0.6,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              // gradient: const LinearGradient(
-                              //     colors: [
-                              //       Color(0xff56B8F6),
-                              //       Color(0xff4D6FED)
-                              //     ],begin: Alignment.topCenter,
-                              //     end: Alignment.bottomCenter
-                              //
-                              // ),
+                                // gradient: const LinearGradient(
+                                //     colors: [
+                                //       Color(0xff56B8F6),
+                                //       Color(0xff4D6FED)
+                                //     ],begin: Alignment.topCenter,
+                                //     end: Alignment.bottomCenter
+                                //
+                                // ),
                                 color: AppColors.blueThemeColor,
                                 borderRadius: BorderRadius.circular(60)),
                             child: const Text('Copy',
