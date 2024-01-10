@@ -43,6 +43,7 @@ class ForumAddCommentController extends GetxController {
         print(error.toString());
         print(stackTrace.toString());
       }
+      Get.back() ;
       Utils.showMessageDialog(context, "oops! something went wrong") ;
       setRxRequestStatus(Status.ERROR);
     });

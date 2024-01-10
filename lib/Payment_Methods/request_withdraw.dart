@@ -28,15 +28,6 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   leading: GestureDetector(
-        //     onTap: () {
-        //       Get.back() ;
-        //     },
-        //       child: Image.asset("assets/images/icon_back_blue.png")),
-        //   title: Text("Request Withdraw", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
-        //   toolbarHeight: 40,
-        // ),
         appBar: AppBar(
           title: Text("Request Withdraw", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
           toolbarHeight: 75,
@@ -56,68 +47,70 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
             key: formKey,
             child: Column(
               children: [
-                SizedBox(height: Get.height*.02,) ,
-                Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppColors.blueThemeColor,fontSize: 30)),
+                SizedBox(height: Get.height*.01,) ,
+                Center(child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppColors.blueThemeColor,fontSize: 30))),
                 SizedBox(height: Get.height*0.001,),
                 Text("Your balance",style: Theme.of(context).textTheme.bodyMedium),
                 SizedBox(height: Get.height*0.01,),
                 GestureDetector(
                 onTap: () {
-                Get.to(()=>ShowBankAccountDetail());
+                Get.to(()=>const ShowBankAccountDetail(bankName: '',));
                },
               child: Text("See Account Details",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor))),
-                SizedBox(height: Get.height*0.05,),
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  keyboardType: TextInputType.number,
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500),
-                  controller: amountController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 15),
-                    filled: true,
-                    fillColor: Color(0xff454545),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(33),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 13),
-                          decoration: BoxDecoration(
-                            color: AppColors.blueThemeColor,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(33),
-                            bottomLeft: Radius.circular(33))
-                          ),
-                          width: 42,
-                          height: 55,
-                          child: Center(
-                            child: Text("£",style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w500)),
-
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  validator: (value) {
-                    if(value == null || value.isEmpty) {
-                      return "Please enter your amount" ;
-                    }
-                  },
-                ),
+                // SizedBox(height: Get.height*0.05,),
+                // TextFormField(
+                //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                //   keyboardType: TextInputType.number,
+                //   style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500),
+                //   controller: amountController,
+                //   decoration: InputDecoration(
+                //     contentPadding: EdgeInsets.symmetric(vertical: 15),
+                //     filled: true,
+                //     fillColor: Color(0xff454545),
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(33),
+                //       borderSide: BorderSide.none,
+                //     ),
+                //     prefixIcon: Column(
+                //       children: [
+                //         Container(
+                //           margin: EdgeInsets.only(right: 13),
+                //           decoration: BoxDecoration(
+                //             color: AppColors.blueThemeColor,
+                //         borderRadius: BorderRadius.only(
+                //             topLeft: Radius.circular(33),
+                //             bottomLeft: Radius.circular(33))
+                //           ),
+                //           width: 42,
+                //           height: 55,
+                //           child: Center(
+                //             child: Text("£",style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w500)),
+                //
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                //   validator: (value) {
+                //     if(value == null || value.isEmpty) {
+                //       return "Please enter your amount" ;
+                //     }
+                //   },
+                // ),
                 SizedBox(height: Get.height*0.03,),
-              Obx( () =>
-                 MyButton(
-                   loading: paymentRequestController.loading.value,
-                  width: Get.width*.66,
-                  title: "CONTINUE", onTap1: () {
-                     if(formKey.currentState!.validate()) {
-                       paymentRequestController.paymentRequestApiHit(amountController.text,context) ;
-                     }
-                  // Get.to(() =>AddBankAccountDetails());
-                },),
-              )
+                Obx(() => MyButton(
+                  loading: paymentRequestController.loading.value,
+                  width: Get.width * 0.66,
+                  title: "CONTINUE",
+                  onTap1: () {
+                      if (seekerEarningController.getEarningDetails.value.totalAmount != null &&
+                          seekerEarningController.getEarningDetails.value.totalAmount! > 0) {
+                        paymentRequestController.paymentRequestApiHit(amountController.text, context);
+                      } else {
+                        print("Total amount is 0. Cannot continue.");
+                      }
+                    }
+                )),
             ],),
           ),
         ),

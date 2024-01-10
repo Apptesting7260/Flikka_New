@@ -20,5 +20,17 @@ class AppColors {
   static const graySilverColor = Color(0xffCFCFCF);
   static const blueSimilar = Color(0xff8573e9);
   static const homeGrey = Color(0xffE0E0E0);
+  static const employmentReferralColor=Color(0xff33CEFF);
+  static const appReferralColor=Color(0xff0F63A4);
+
+// static const azure=Color(0xff007AFF);
+// static const oldSilver=Color(0xff848282);
+// static const graniteGray=Color(0xff636363);
+// static const chartBlueEyes=Color(0xffa8c5f5);
+// static const chartBlueEyesBg=Color(0x80a1c4fd);
+// static const yellow=Color(0xffFF9600);
+// static const darkGreen=Color(0xff008000);
+// static const orderBg=Color(0x20C4C4C4);
+// static const barchartFillColor=Color(0xff777CF8);
 
 }

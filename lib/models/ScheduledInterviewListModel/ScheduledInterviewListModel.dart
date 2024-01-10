@@ -100,7 +100,7 @@ class SeekerData {
   dynamic totalExperience;
   String? referralCode;
   String? referralBy;
-  String? currentAmount;
+  dynamic currentAmount;
   String? status;
   dynamic staupType;
   dynamic resetPassOtp;

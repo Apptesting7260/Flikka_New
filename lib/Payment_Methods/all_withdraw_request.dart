@@ -1,7 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get.dart';
 
 class AllWithdrawRequest extends StatefulWidget {
@@ -20,6 +18,7 @@ class _AllWithdrawRequestState extends State<AllWithdrawRequest> {
     'Latest4',
     'Latest5',
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

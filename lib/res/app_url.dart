@@ -93,5 +93,7 @@ class AppUrl {
   static const String socialLogin = '$baseUrl/socialite-login' ;
   static const String checkSocialLogin = '$baseUrl/check-registraion-email-for-socialite' ;
   static const String notificationSeen = '$baseUrl/notification-seen-unseen' ;
+  static const String onboarding = '$baseUrl/recruiter-onboding-seeker-listing' ;
+  static const String selectOrRejectAfterInterview = '$baseUrl/recruiter-select-interview-status' ;
 
 }

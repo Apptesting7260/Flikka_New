@@ -84,7 +84,7 @@ class SeekerData {
   String? resume;
   String? referralCode;
   String? referralBy;
-  String? currentAmount;
+  dynamic currentAmount;
   dynamic resetPassOtp;
   dynamic resetPassOtpTime;
   dynamic googleId;

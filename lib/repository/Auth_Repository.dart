@@ -22,12 +22,14 @@ import 'package:flikka/res/app_url.dart';
 import 'package:flutter/foundation.dart';
 import '../models/EditMobileNumberModel.dart';
 import '../models/NewProfileModelSeeker/NewProfileModelSeeker.dart';
+import '../models/OnboardingModel/OnboardingModel.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/RecruiterInboxDataModel/RecruiterInboxDataModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../models/SeekerNotificationDataModel/SeekerNotificationDataModel.dart';
 import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
 import '../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
+import '../models/SelectOrRejectAfterInterviewModel/SelectOrRejectAfterInterviewModel.dart';
 import '../models/SetJobAlertModel/SetJobAlert.dart';
 import '../models/ShowBankDetailsModel/ShowBankDetailsModel.dart';
 import '../models/ShowReferralByUserSeeker/ShowReferralByUserSeeker.dart';
@@ -256,6 +258,16 @@ class AuthRepository {
   Future<SocialLoginModel> socialLoginApi(var data) async{
     dynamic response = await _apiService.postApi2(data,AppUrl.socialLogin);
     return SocialLoginModel.fromJson(response);
+  }
+
+  Future<OnboardingModel> onboardingApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.onboarding);
+    return OnboardingModel.fromJson(response);
+  }
+
+  Future<SelectOrRejectAfterInterviewModel> selectOrRejectInterviewApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.selectOrRejectAfterInterview);
+    return SelectOrRejectAfterInterviewModel.fromJson(response);
   }
 
 }
