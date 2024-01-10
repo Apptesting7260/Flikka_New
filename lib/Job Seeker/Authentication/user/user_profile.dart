@@ -1846,55 +1846,60 @@ class _UserProfileState extends State<UserProfile> {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return Dialog(
           backgroundColor: const Color(0xff373737),
           shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-          title: Center(
-            child: Text(
-              'Please choose avtar',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
-            ),
-          ),
-          content:  SizedBox(
-            height: Get.height*.6,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: avtarController.avtarImageList.value.avtarImages?.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          CommonFunctions.confirmationDialog(context, message: "Do you want to upload this avtar",
-                              onTap: () async {
-                            CommonFunctions.showLoadingDialog(context, "uploading...") ;
-                            var result = await avtarImageController.avtarImageApiData(context, avtarController.avtarImageList.value.avtarImages?[index].avtarName) ;
-                              Get.back() ;
-                              Get.back() ;
-                              if(result == true) {
-                                Get.back() ;
-                                Get.back() ;
-                              }
-                              },);
-                        },
-                        child: CachedNetworkImage(
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                            imageBuilder: (context, imageProvider) => Container(
-                              height: 90,
-                              width: 90,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
-                              ),
-                            ),
-                            imageUrl: avtarController.avtarImageList.value.avtarImages?[index].avtarLink ?? ""),
-                      ),
-                      SizedBox(height: Get.height*.01,),
-                    ],
-                  ) ;
-                },),
+          child:  Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: Text(
+                  'Please choose avtar',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+                ),
+              ),
+              SizedBox(
+                height: Get.height*.6,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: avtarController.avtarImageList.value.avtarImages?.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              CommonFunctions.confirmationDialog(context, message: "Do you want to upload this avtar",
+                                  onTap: () async {
+                                CommonFunctions.showLoadingDialog(context, "uploading...") ;
+                                var result = await avtarImageController.avtarImageApiData(context, avtarController.avtarImageList.value.avtarImages?[index].avtarName) ;
+                                  Get.back() ;
+                                  Get.back() ;
+                                  if(result == true) {
+                                    Get.back() ;
+                                    Get.back() ;
+                                  }
+                                  },);
+                            },
+                            child: CachedNetworkImage(
+                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                imageBuilder: (context, imageProvider) => Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                  ),
+                                ),
+                                imageUrl: avtarController.avtarImageList.value.avtarImages?[index].avtarLink ?? ""),
+                          ),
+                          SizedBox(height: Get.height*.01,),
+                        ],
+                      ) ;
+                    },),
+              ),
+            ],
           ),
         );
       },

@@ -10,6 +10,12 @@ class SaveBankDetailsController extends GetxController {
   RxBool loading = false.obs;
   var bankErrorMessage = ''.obs ;
 
+  var bankName = "".obs ;
+  Rx<TextEditingController> accountHolderNameController = TextEditingController().obs;
+  Rx<TextEditingController> branchCodeController = TextEditingController().obs ;
+  Rx<TextEditingController> accountNumberController = TextEditingController().obs ;
+  Rx<TextEditingController> ifscCodeController = TextEditingController().obs ;
+
   Future<void> saveBankDetailsApiHit(
       var bankName,
       var accountHolder,
@@ -22,10 +28,10 @@ class SaveBankDetailsController extends GetxController {
     loading.value = true ;
     Map data = {
       'bank_name' : bankName.toString(),
-      'account_holder' : accountHolder,
-      'branch_code' : branchCode,
-      'account_number' : accountNumber,
-      'IFSC_code' : ifscCode,
+      'account_holder' : accountHolderNameController.value.text,
+      'branch_code' : branchCodeController.value.text,
+      'account_number' : accountNumberController.value.text,
+      'IFSC_code' : ifscCodeController.value.text,
     };
     print(data);
 

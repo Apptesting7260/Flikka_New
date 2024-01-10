@@ -39,7 +39,7 @@ class PaymentRequestController extends GetxController {
       if(value.status == true) {
        Utils.showMessageDialog(context, "Payment Request Successfully") ;
       }else if(value.status == false) {
-      paymentDialog(context) ;
+       paymentDialog(context) ;
       }
     }).onError((error, stackTrace){
       print(error);
@@ -58,13 +58,13 @@ class PaymentRequestController extends GetxController {
           ),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           child:  Padding(
-            padding: EdgeInsets.all(28.0),
+            padding: const EdgeInsets.all(28.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Text("Please fill a valid amount",style: Theme.of(context).textTheme.titleSmall,)) ,
-              SizedBox(height: 15,) ,
+                Center(child: Text("message: You can only make one withdrawal request per month",style: Theme.of(context).textTheme.titleSmall,)) ,
+              const SizedBox(height: 15,) ,
                 Center(
                   child: MyButton(
                     width: Get.width*.3,

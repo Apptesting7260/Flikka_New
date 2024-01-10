@@ -11,7 +11,6 @@ import '../../widgets/app_colors.dart';
 import '../marketing_page.dart';
 
 class SeekerAppliedJobs extends StatefulWidget {
-
   const SeekerAppliedJobs({super.key});
 
   @override
@@ -109,7 +108,8 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                    ),
                     SizedBox(
                       height: Get.height *.8 ,
-                      child: TabBarView(children: [
+                      child: TabBarView(
+                          children: [
                         jobsController.appliedJobs.isEmpty ?
                             const Center(child: Text("No Applied Jobs"),) :
                             ListView.builder(

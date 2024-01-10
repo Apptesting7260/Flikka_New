@@ -19,6 +19,8 @@ class AppColors {
   static const textFieldFilledColor=Color(0xff353535);
   static const graySilverColor=Color(0xffCFCFCF);
   static const blueSimilar=Color(0xff8573e9);
+  static const employmentReferralColor=Color(0xff33CEFF);
+  static const appReferralColor=Color(0xff0F63A4);
 
 // static const azure=Color(0xff007AFF);
 // static const oldSilver=Color(0xff848282);

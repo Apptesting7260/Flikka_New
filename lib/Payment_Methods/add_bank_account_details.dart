@@ -3,10 +3,11 @@ import 'package:flikka/controllers/SaveBankDetailsController/SaveBankDetailsCont
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/ShowBankDetailsController/ShowBankDetailsController.dart';
 import '../widgets/app_colors.dart';
 
 class AddBankAccountDetails extends StatefulWidget {
-  const AddBankAccountDetails({super.key, required String bankName, required String accountHolderName, required String branchCode, required String accountNumber,});
+  const AddBankAccountDetails({super.key,});
 
   @override
   State<AddBankAccountDetails> createState() => _AddBankAccountDetailsState();
@@ -27,20 +28,15 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
   final List<String> bankItems = [
     'State Bank of India','Bank of Baroda','ICICI Bank Ltd','Union Bank of India'
   ];
+
   String? bankValues;
+
+  ShowBankDetailsController ShowBankDetailsControllerInstanse = Get.put(ShowBankDetailsController());
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          // appBar: AppBar(
-          //   leading: GestureDetector(
-          //     onTap: () {
-          //       Get.back() ;
-          //     },
-          //       child: Image.asset("assets/images/icon_back_blue.png")),
-          //   toolbarHeight: 40,
-          // ),
           appBar: AppBar(
             toolbarHeight: 75,
             leading: Padding(
@@ -94,10 +90,10 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                         ),
                       ))
                           .toList(),
-                      value: bankValues,
+                      value: SaveBankDetailsControllerInstanse.bankName.value,
                       onChanged: (String? value) {
                         setState(() {
-                          bankValues = value;
+                          SaveBankDetailsControllerInstanse.bankName.value = value ?? "";
                           bankName = value ;
                           SaveBankDetailsControllerInstanse.bankErrorMessage.value = "" ;
 
@@ -150,7 +146,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                 SizedBox(height: Get.height*.004,),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: accountHolderController,
+                  controller: SaveBankDetailsControllerInstanse.accountHolderNameController.value,
                   style: Theme.of(context).textTheme.bodyMedium,
                   decoration: InputDecoration(
                       border:OutlineInputBorder(
@@ -190,7 +186,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                 SizedBox(height: Get.height*.004,),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: branchCodeController,
+                  controller: SaveBankDetailsControllerInstanse.branchCodeController.value,
                   style: Theme.of(context).textTheme.bodyMedium,
                   decoration: InputDecoration(
                       border:OutlineInputBorder(
@@ -230,7 +226,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                 SizedBox(height: Get.height*.004,),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: accountNumberController,
+                  controller: SaveBankDetailsControllerInstanse.accountNumberController.value,
                   style: Theme.of(context).textTheme.bodyMedium,
                   decoration: InputDecoration(
                       border:OutlineInputBorder(
@@ -270,7 +266,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                 SizedBox(height: Get.height*.004,),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: ifscCodeController,
+                  controller: SaveBankDetailsControllerInstanse.ifscCodeController.value,
                   style: Theme.of(context).textTheme.bodyMedium,
                   decoration: InputDecoration(
                       border:OutlineInputBorder(
@@ -316,11 +312,12 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                       }
                       else if(_formKey.currentState!.validate()){
                             SaveBankDetailsControllerInstanse.saveBankDetailsApiHit(
-                                bankName.toString(),
-                                accountHolderController.text,
-                                branchCodeController.text,
-                                accountNumberController.text,
-                                ifscCodeController.text,context) ;
+                              SaveBankDetailsControllerInstanse.bankName.value,
+                              SaveBankDetailsControllerInstanse.accountHolderNameController.value.text,
+                              SaveBankDetailsControllerInstanse.branchCodeController.value.text,
+                              SaveBankDetailsControllerInstanse.accountNumberController.value.text,
+                              SaveBankDetailsControllerInstanse.ifscCodeController.value.text,
+                              context) ;
                         }
                    },),
                  ),

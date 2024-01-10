@@ -6,12 +6,14 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/CandidateJobStatusController/CandidateJobStatusController.dart';
+import '../../controllers/OnboardingController/OnboardingController.dart';
 import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
 import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
 import '../../controllers/ScheduledInterviewListController/ScheduledInterviewListController.dart';
 import '../../controllers/TalentPoolController/TalentPoolController.dart';
 import '../bottom_bar/tab_bar.dart';
 import 'all_candidate.dart';
+import 'onboarding.dart';
 import 'upcoming_interviews.dart';
 
 class ApplicantTracking extends StatefulWidget {
@@ -30,24 +32,9 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
   ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
   ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
   TalentPoolController poolController = Get.put(TalentPoolController()) ;
+  OnboardingController onboardingController = Get.put(OnboardingController()) ;
 
-  // //////refresh//////
-  // RefreshController _refreshController = RefreshController(initialRefresh: false);
-  //
-  // void _onRefresh() async{
-  //   await trackingDataController.applicantTrackingApi("jobTitle" ,"status");
-  //   _refreshController.refreshCompleted();
-  // }
-  //
-  // void _onLoading() async{
-  //   await trackingDataController.applicantTrackingApi("jobTitle", "status");
-  //   if(mounted)
-  //     setState(() {
-  //
-  //     });
-  //   _refreshController.loadComplete();
-  // }
-  // /////refresh/////
+  String? positionID ;
 
   @override
   void initState(){
@@ -57,16 +44,16 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
     interviewListController.interviewListApi() ;
     ShowInboxDataControllerInstanse.showInboxDataApi() ;
     poolController.talentPoolApi() ;
+    onboardingController.onboardingApiHit(positionID, context) ;
     super.initState() ;
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black,
       body: DefaultTabController(
-        length: 4,
+        length: 5,
         child: Scaffold(
           backgroundColor: AppColors.black,
           appBar: AppBar(
@@ -107,6 +94,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
                 Tab(text: "INTERVIEWS"),
                 Tab(text: "INBOX",),
                 Tab(text: "TALENT POOL",),
+                Tab(text: "ONBOARDING",),
               ],
             ),
           ),
@@ -116,6 +104,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
               UpcomingInterviews(),
               Inbox(),
               TalentPool(),
+              Onboarding(),
             ],
           ),
         ),

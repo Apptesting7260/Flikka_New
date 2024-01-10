@@ -268,6 +268,7 @@ class EmploymentReferrals {
      this.seekerId,
      this.jobId,
      this.status,
+     this.fullName,
      this.interviewScheduleTime,
      this.interviewStatus,
      this.referralByJob,
@@ -288,6 +289,7 @@ class EmploymentReferrals {
    dynamic seekerId;
    dynamic jobId;
    String? status;
+   String? fullName;
    String? interviewScheduleTime;
    String? interviewStatus;
    String? referralByJob;
@@ -309,6 +311,7 @@ class EmploymentReferrals {
     seekerId = json['seeker_id'];
     jobId = json['job_id'];
     status = json['status'];
+    fullName = json['fullname'];
     interviewScheduleTime = json['interview_schedule_time'];
     interviewStatus = json['interview_status'];
     referralByJob = json['referral_by_job'];

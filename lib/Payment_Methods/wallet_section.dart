@@ -13,6 +13,7 @@ import '../widgets/app_colors.dart';
 import '../widgets/my_button.dart';
 import 'add_bank_account_details.dart';
 import 'app_referral.dart';
+import 'employement_referral.dart';
 
 class WalletSection extends StatefulWidget {
   const WalletSection({super.key});
@@ -48,11 +49,9 @@ class PieChart2State extends State {
   Map<String, double> dataMap = {};
 
   List<Color> colorList = [
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.purple,
-    Colors.orange,
+    AppColors.appReferralColor,
+    AppColors.employmentReferralColor,
+    AppColors.blueThemeColor,
   ];
 
   void _onLoading() async {
@@ -143,60 +142,114 @@ class PieChart2State extends State {
                             legendOptions: const LegendOptions(showLegends: false,
                               legendPosition: LegendPosition.right,),
                             chartValuesOptions: const ChartValuesOptions(
-                                // showChartValuesInPercentage: true,
-                                showChartValuesOutside: true),
+                                showChartValuesInPercentage: false,
+                                showChartValuesOutside: true,
+
+                            ),
                           )
                         ],
                       ),
                     ),
                     IntrinsicHeight(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            children: [
-                              Text("App Referral",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(color: AppColors.white)),
-                              SizedBox(
-                                height: Get.height * .01,
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        color: AppColors.appReferralColor,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Flexible(  // Use Flexible to handle overflow within Row
+                                        child: Text(
+                                          "App Referral",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: Get.height * 0.01),
+                                  Text(
+                                    "\£ ${seekerEarningController.getEarningDetails.value.appReferralAmount}",
+                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "\£ ${seekerEarningController.getEarningDetails.value.appReferralAmount}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(color: AppColors.blueThemeColor),
-                              ),
-                            ],
+                            ),
                           ),
-                          const VerticalDivider(
-                            width: 40,
-                            thickness: 2,
-                            color: Color(0xffFFFFFF),
+                          const VerticalDivider(width: 20, thickness: 1, color: Color(0xffFFFFFF)),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        color: AppColors.blueThemeColor,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Flexible(
+                                        child: Text(
+                                          "Subscription Referral",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: Get.height * 0.01),
+                                  Text(
+                                    "\£ ${seekerEarningController.getEarningDetails.value.subscriptionReferralAmount.toString()}",
+                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          Column(
-                            children: [
-                              Text("Other",
-                                  style: Theme.of(context).textTheme.bodyLarge
-                                      ?.copyWith(color: AppColors.white)),
-                              SizedBox(
-                                height: Get.height * .01,
+                          const VerticalDivider(width: 20, thickness: 1, color: Color(0xffFFFFFF)),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        color: AppColors.employmentReferralColor,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Flexible(
+                                        child: Text(
+                                          "Employment Referral",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: Get.height * 0.01),
+                                  Text(
+                                    "\£ ${seekerEarningController.getEarningDetails.value.employmentReferralAmount.toString()}",
+                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "\£ ${seekerEarningController.getEarningDetails.value.employmentReferralAmount.toString()}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(color: AppColors.blueThemeColor),
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
                     ),
+
                     SizedBox(
                       height: Get.height * .06,
                     ),
@@ -247,11 +300,7 @@ class PieChart2State extends State {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => const AddBankAccountDetails(
-                                  bankName: '',
-                                  accountHolderName: '',
-                                  branchCode: '',
-                                  accountNumber: '',
+                            Get.to(() =>  const AddBankAccountDetails(
                                 ));
                           },
                           child: Text(
@@ -343,7 +392,13 @@ class PieChart2State extends State {
                         ];
                         return GestureDetector(
                           onTap: () {
-                            Get.to(() => const AppReferral());
+                            if (index == 0) {
+                              Get.to(() => const AppReferral());
+                            } else {
+                              if(index == 2) {
+                                Get.to(() => const EmployementReferral()) ;
+                              }
+                            }
                           },
                           child: Container(
                             height: Get.height * .3,
