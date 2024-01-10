@@ -68,12 +68,12 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                       isExpanded: true,
                       hint:  Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 4,
                           ),
                           Expanded(
                             child: Text(
-                              'Select bank',
+                              SaveBankDetailsControllerInstanse.bankName.value.isEmpty ?'Select bank' : SaveBankDetailsControllerInstanse.bankName.value,
                               style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -88,9 +88,8 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                           style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
-                      ))
-                          .toList(),
-                      value: SaveBankDetailsControllerInstanse.bankName.value,
+                      )).toList(),
+                      // value: SaveBankDetailsControllerInstanse.bankName.value,
                       onChanged: (String? value) {
                         setState(() {
                           SaveBankDetailsControllerInstanse.bankName.value = value ?? "";
@@ -307,7 +306,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                     MyButton(
                       loading: SaveBankDetailsControllerInstanse.loading.value,
                      title: "SUBMIT", onTap1: () {
-                      if(bankName == null) {
+                      if( SaveBankDetailsControllerInstanse.bankName.value.isEmpty) {
                         SaveBankDetailsControllerInstanse.bankErrorMessage.value = "Please select your bank" ;
                       }
                       else if(_formKey.currentState!.validate()){

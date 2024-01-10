@@ -2127,7 +2127,7 @@ class _UserProfileState extends State<UserProfile> {
                                     Container(
                                         padding: const EdgeInsets.all(24),
                                         decoration: const BoxDecoration(
-                                            color: AppColors.black,
+                                            color: AppColors.white,
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(25),
                                                 topRight: Radius.circular(25))
@@ -2146,13 +2146,13 @@ class _UserProfileState extends State<UserProfile> {
                                                       Text(
                                                         "${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}",
                                                         overflow: TextOverflow.ellipsis,
-                                                        style: Theme.of(context).textTheme.displayLarge,
+                                                        style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppColors.black),
                                                         softWrap: true,
                                                       ),
                                                       Text(
                                                           seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "No positions" ,
                                                           style: Theme.of(context).textTheme.bodySmall
-                                                              ?.copyWith(color: const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
+                                                              ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w600)
                                                       ),
                                                       SizedBox(height: Get.height * .003,),
                                                       Text(
@@ -2163,7 +2163,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             .bodyLarge!
                                                             .copyWith(
                                                             color: AppColors
-                                                                .ratingcommenttextcolor),
+                                                                .black),
                                                       ),
                                                     ],
                                                   ),
@@ -2192,7 +2192,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     InkWell(
                                                         child: Image.asset('assets/images/icon_phone_call.png',height: Get.height*.03,)),
                                                     SizedBox(width: Get.width * 0.02,),
-                                                    Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                    Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
 
                                                   ],
                                                 ),
@@ -2215,7 +2215,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     seekerProfileController.viewSeekerData.value.seekerInfo?.phone?.length == 0 ?
                                                 Text("No phone number", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                                 Text(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ??"No Data",style: Theme.of(context).textTheme.bodyLarge!
-                                                    .copyWith(color: AppColors.ratingcommenttextcolor),)
+                                                    .copyWith(color: AppColors.silverColor),)
                                                 // Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
                                               ],
                                             ) ,
@@ -2227,7 +2227,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     InkWell(
                                                         child: Image.asset('assets/images/about.png',height: Get.height*.03,)),
                                                     SizedBox(width: Get.width * 0.02,),
-                                                    Text('About me', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                    Text('About me', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
                                                   ],
                                                 ),
                                                 InkWell(
@@ -2242,14 +2242,14 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.01,),
                                             const Divider(
                                               thickness: 0.2,
-                                              color: AppColors.white,
+                                              color: AppColors.silverColor,
                                             ),
                                             SizedBox(height: Get.height * 0.01,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe == null ||
                                                 CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)?.trim().length == 0 ?
-                                            Text("No about", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No about", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
-                                                .copyWith(color: AppColors.ratingcommenttextcolor),),
+                                                .copyWith(color: AppColors.silverColor),),
                                             SizedBox(height: Get.height * 0.045,),
                                             Row(mainAxisAlignment: MainAxisAlignment
                                                 .spaceBetween,
@@ -2272,7 +2272,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         style: Get.theme.textTheme
                                                             .labelMedium!.copyWith(
                                                             color: AppColors
-                                                                .white),),
+                                                                .black),),
                                                     ),
                                                   ],
                                                 ),
@@ -2287,7 +2287,7 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             const Divider(
                                               thickness: 0.2,
-                                              color: AppColors.white,
+                                              color: AppColors.silverColor,
                                             ),
                                             seekerProfileController.viewSeekerData.value.workExpJob == null ||
                                                 seekerProfileController.viewSeekerData.value.workExpJob?.length == 0 ?
@@ -2323,7 +2323,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         children: [
                                                           Text('${data?.workExpJob}',
                                                            overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                                color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                                color: AppColors.black, fontWeight: FontWeight.w700),),
                                                           Row(
                                                             children: [
                                                               InkWell(
@@ -2346,13 +2346,13 @@ class _UserProfileState extends State<UserProfile> {
                                                         children: [
                                                           Text("${data?.companyName}",
                                                            overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),),
                                                           // data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
                                                           //     ? const SizedBox()
                                                           //     : data?.jobEndDate.toString().toLowerCase() == "present" ?
                                                           Text('$startDate    $endDate',
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
+                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),
                                                           )
                                                           //     :
                                                           // Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
@@ -2384,7 +2384,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       style: Get.theme.textTheme
                                                           .labelMedium!.copyWith(
                                                           color: AppColors
-                                                              .white),),
+                                                              .black),),
 
                                                   ],
                                                 ),
@@ -2396,7 +2396,7 @@ class _UserProfileState extends State<UserProfile> {
                                               ],
                                             ),
                                             SizedBox(height: Get.height * 0.02,),
-                                            const Divider(thickness: 0.2, color: AppColors.white,),
+                                            const Divider(thickness: 0.2, color: AppColors.silverColor,),
                                             seekerProfileController.viewSeekerData.value.educationLevel == null ||
                                                 seekerProfileController.viewSeekerData.value.educationLevel?.length == 0 ?
                                             Text("No education", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
@@ -2431,7 +2431,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         children: [
                                                           Text('${data?.educationLevel}',
                                                             style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                                color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                                color: AppColors.black, fontWeight: FontWeight.w700),),
                                                           Row(
                                                             children: [
                                                               InkWell(
@@ -2456,14 +2456,14 @@ class _UserProfileState extends State<UserProfile> {
                                                         children: [
                                                           Text("${data?.institutionName}",
                                                            overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),),
                                                           // data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
                                                           //     ? const SizedBox()
                                                           //     : data?.educationEndDate.toString().toLowerCase() == "present" ?
                                                           Text('$startDate    $endDate',
                                                             // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),)
+                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),)
                                                           //     :
                                                           // Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}-${data?.educationEndDate?.day}-${data?.educationEndDate?.year}',
                                                           //   // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
@@ -2488,7 +2488,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         child: Image.asset('assets/images/skillsvg.png',height: Get.height*.03,)),
                                                     SizedBox(width: Get.width * 0.02,),
                                                     Text('Skill',
-                                                      style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                      style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
                                                   ],
                                                 ),
                                               ],
@@ -2496,7 +2496,7 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             const Divider(
                                               thickness: 0.2,
-                                              color: AppColors.white,
+                                              color: AppColors.silverColor,
                                             ),
                                             SizedBox(
                                               height: Get.height * 0.015,),
@@ -2522,7 +2522,7 @@ class _UserProfileState extends State<UserProfile> {
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
 
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2539,7 +2539,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius
                                                           .circular(12),
-                                                      color: AppColors.blackdown,
+                                                      color: AppColors.homeGrey,
                                                     ),
                                                     padding: const EdgeInsets.all(
                                                         8),
@@ -2548,7 +2548,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           .ellipsis,
                                                       style: Get.theme.textTheme
                                                           .bodySmall!.copyWith(
-                                                          color: AppColors.white,
+                                                          color: AppColors.black,
                                                           fontWeight: FontWeight
                                                               .w400),),
                                                   );
@@ -2562,7 +2562,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
-                                                          .white),),
+                                                          .black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.map((e) => e.id.toString()).toList() , 2) ;
@@ -2579,7 +2579,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
 
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2595,12 +2595,12 @@ class _UserProfileState extends State<UserProfile> {
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(12),
-                                                      color: AppColors.blackdown,),
+                                                      color: AppColors.homeGrey,),
                                                     padding: const EdgeInsets.all(8),
                                                     child: Text('${data?.passion}',
                                                       overflow: TextOverflow.ellipsis,
                                                       style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                          color: AppColors.white, fontWeight: FontWeight.w400),),
+                                                          color: AppColors.black, fontWeight: FontWeight.w400),),
                                                   );
                                                 }),
                                             //////////passion////////////
@@ -2613,7 +2613,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
-                                                          .white),),
+                                                          .black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.map((e) => e.id.toString()).toList() , 3) ;
@@ -2629,7 +2629,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
 
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.graySilverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2645,12 +2645,12 @@ class _UserProfileState extends State<UserProfile> {
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(12),
-                                                      color: AppColors.blackdown,),
+                                                      color: AppColors.homeGrey,),
                                                     padding: const EdgeInsets.all(8),
                                                     child: Text('${data?.industryPreferences}',
                                                       overflow: TextOverflow.ellipsis,
                                                       style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                          color: AppColors.white, fontWeight: FontWeight.w400),),
+                                                          color: AppColors.black, fontWeight: FontWeight.w400),),
                                                   );
                                                 }),
                                             ////////industry preference////////////
@@ -2663,7 +2663,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
-                                                          .white),),
+                                                          .black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName?.map((e) => e.id.toString()).toList() , 4) ;
@@ -2680,7 +2680,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     .viewSeekerData.value
                                                     .seekerDetails?.strengthsName
                                                     ?.length == 0 ?
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2703,7 +2703,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius
                                                           .circular(12),
-                                                      color: AppColors.blackdown,
+                                                      color: AppColors.homeGrey,
                                                     ),
                                                     padding: const EdgeInsets.all(
                                                         8),
@@ -2712,7 +2712,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           .ellipsis,
                                                       style: Get.theme.textTheme
                                                           .bodySmall!.copyWith(
-                                                          color: AppColors.white,
+                                                          color: AppColors.black,
                                                           fontWeight: FontWeight
                                                               .w400),),
                                                   );
@@ -2724,7 +2724,7 @@ class _UserProfileState extends State<UserProfile> {
                                             Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text('Salary expectation',
-                                                  style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                  style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     salarySection() ;
@@ -2737,18 +2737,18 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary.toString().length == 0 ?
-                                            Text("No salary expectation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No salary expectation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             Container(
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius
                                                     .circular(12),
-                                                color: AppColors.blackdown,
+                                                color: AppColors.homeGrey,
                                               ),
                                               padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
                                               child: Text('${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary} - ${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                    color: AppColors.white,
+                                                    color: AppColors.black,
                                                     fontWeight: FontWeight.w400),),
                                             ),
                                             //////////////Salary expectation////////
@@ -2761,7 +2761,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
-                                                          .white),),
+                                                          .black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.map((e) => e.id.toString()).toList() , 5) ;
@@ -2774,7 +2774,7 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2797,7 +2797,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius
                                                           .circular(12),
-                                                      color: AppColors.blackdown,
+                                                      color: AppColors.homeGrey,
                                                     ),
                                                     padding: const EdgeInsets.all(
                                                         8),
@@ -2806,7 +2806,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           .ellipsis,
                                                       style: Get.theme.textTheme
                                                           .bodySmall!.copyWith(
-                                                          color: AppColors.white,
+                                                          color: AppColors.black,
                                                           fontWeight: FontWeight
                                                               .w400),),
                                                   );
@@ -2822,7 +2822,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
-                                                          .white),),
+                                                          .black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName?.map((e) => e.id.toString()).toList() , 6) ;
@@ -2838,7 +2838,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
                                                     ?.length == 0 ?
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2861,7 +2861,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius
                                                           .circular(12),
-                                                      color: AppColors.blackdown,
+                                                      color: AppColors.homeGrey,
                                                     ),
                                                     padding: const EdgeInsets.all(
                                                         8),
@@ -2870,7 +2870,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           .ellipsis,
                                                       style: Get.theme.textTheme
                                                           .bodySmall!.copyWith(
-                                                          color: AppColors.white,
+                                                          color: AppColors.black,
                                                           fontWeight: FontWeight
                                                               .w400),),
                                                   );
@@ -2895,7 +2895,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         style: Get.theme.textTheme
                                                             .labelMedium!.copyWith(
                                                             color: AppColors
-                                                                .white),),
+                                                                .black),),
                                                     ),
                                                   ],
                                                 ),
@@ -2910,12 +2910,12 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             const Divider(
                                               thickness: 0.2,
-                                              color: AppColors.white,
+                                              color: AppColors.silverColor,
                                             ),
                                             SizedBox(height: Get.height * 0.02,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                            Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2932,11 +2932,11 @@ class _UserProfileState extends State<UserProfile> {
                                                       ?.language?[index];
                                                   return Container( alignment: Alignment.center,
                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
-                                                      color: AppColors.blackdown,),
+                                                      color: AppColors.homeGrey,),
                                                     padding: const EdgeInsets.all(8),
                                                     child: Text('${data?.languages}',
                                                       style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                          color: AppColors.white, fontWeight: FontWeight.w400),),
+                                                          color: AppColors.black, fontWeight: FontWeight.w400),),
                                                   );
                                                 }),
                                             //********************* for appreciation ***************************
@@ -2951,7 +2951,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     Padding(padding: const EdgeInsets.only(top: 6.0),
                                                       child: Text('appreciation',
                                                         style: Get.theme.textTheme.labelMedium!.copyWith(
-                                                            color: AppColors.white),),
+                                                            color: AppColors.black),),
                                                     ),
                                                   ],
                                                 ),
@@ -2965,11 +2965,11 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             const Divider(
                                               thickness: 0.2,
-                                              color: AppColors.white,
+                                              color: AppColors.silverColor,
                                             ),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length == 0 ?
-                                            Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),)
+                                            Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),)
                                                 : ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -2982,7 +2982,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Text('${data?.awardName}', style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                              color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                              color: AppColors.black, fontWeight: FontWeight.w700),),
                                                           Row(
                                                             children: [
                                                               InkWell(
@@ -3203,7 +3203,6 @@ class _UserProfileState extends State<UserProfile> {
                                           ],
                                         )
                                     ),
-
                                   ],
                                 ),
                               );

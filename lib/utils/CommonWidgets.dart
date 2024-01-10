@@ -1,3 +1,4 @@
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -67,7 +68,7 @@ class CommonWidgets {
   static divider () {
  return  const Divider(
       height: 35,
-      color: Color(0xffFFFFFF),
+      color: AppColors.silverColor,
       thickness: 0.1,
       indent: 5,
       endIndent: 5,
