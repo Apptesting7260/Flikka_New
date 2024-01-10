@@ -37,6 +37,7 @@ class ApplyJobController extends GetxController {
         return true ;
       }
       else{
+        Get.back() ;
         errorMessageApplyReferral.value =  value.message.toString();
         Utils.showMessageDialog(context, "${value.message}") ;
         return false ;
@@ -44,6 +45,7 @@ class ApplyJobController extends GetxController {
     }).onError((error, stackTrace){
       debugPrint(error.toString());
       loading.value = false ;
+      Get.back() ;
       Utils.showMessageDialog(context, "Something went wrong") ;
       return false ;
     });

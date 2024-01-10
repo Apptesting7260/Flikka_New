@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
+import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
@@ -65,6 +66,7 @@ class _FilterPageState extends State<FilterPage> {
   String? languageName ;
   dynamic languageId ;
 
+  GetJobsListingController getJobsListingController = Get.put(GetJobsListingController());
   CompaniesListController companiesListController = Get.put(CompaniesListController()) ;
   SeekerChoosePositionGetController positionController = Get.put(SeekerChoosePositionGetController());
   SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
@@ -183,12 +185,8 @@ class _FilterPageState extends State<FilterPage> {
                                 leading: IconButton(onPressed: () {
                                   Get.back();
                                 },
-                                    icon: Image.asset(
-                                      "assets/images/icon_back_blue.png",)),
-                                title: Text("Filter", style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headlineSmall
+                                    icon: Image.asset("assets/images/icon_back_blue.png",)),
+                                title: Text("Filter", style: Theme.of(context).textTheme.headlineSmall
                                     ?.copyWith(fontWeight: FontWeight.w700),),
                                 toolbarHeight: 70,
                               ),
@@ -200,7 +198,6 @@ class _FilterPageState extends State<FilterPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(height: Get.height * 0.03,),
-                                    //*************** category *************
                                     Text('Job Title', style: Get.theme.textTheme
                                         .titleSmall),
                                     SizedBox(height: Get.height * 0.01,),
@@ -209,17 +206,8 @@ class _FilterPageState extends State<FilterPage> {
                                       AutovalidateMode.onUserInteraction,
                                       keyboardType: TextInputType.text,
                                       controller: jobTitleController,
-                                      style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                      // validator: (value) {
-                                      //   if (value == null || value.isEmpty) {
-                                      //     return 'Please Enter your address';
-                                      //   }
-                                      // },
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                       onChanged: (value) {
-                                        print(value);
                                         setState(() {
                                           if (locationController.text.isEmpty) {}
                                         });
@@ -857,18 +845,15 @@ class _FilterPageState extends State<FilterPage> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         MyButton(title: "RESET",
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .bodyLarge
-                                                ?.copyWith(
-                                                fontWeight: FontWeight.w700),
+                                            style: Theme.of(context).textTheme.bodyLarge
+                                                ?.copyWith(fontWeight: FontWeight.w700),
                                             textColor: AppColors.blueThemeColor,
                                             height: Get.height * .07,
                                             width: Get.width * .35,
                                             bgColor: AppColors.white,
                                             onTap1: () {
                                               jobFilterController.reset(true);
+                                              getJobsListingController.seekerGetAllJobsApi();
                                               Get.back();
                                             }),
                                         SizedBox(width: Get.width * .025,),

@@ -75,10 +75,14 @@ class PieChart2State extends State {
         case Status.ERROR:
           if (seekerEarningController.error.value == 'No internet') {
             return InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                seekerEarningController.seekerEarningApi();
+              },
             );
           } else {
-            return GeneralExceptionWidget(onPress: () {});
+            return GeneralExceptionWidget(onPress: () {
+              seekerEarningController.seekerEarningApi();
+            });
           }
         case Status.COMPLETED:
           return Scaffold(

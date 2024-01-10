@@ -1,9 +1,11 @@
+import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/FilteredJobsModel/FilteredJobsModel.dart';
+import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
 
 class SeekerJobFilterController extends GetxController {
 
@@ -12,11 +14,13 @@ class SeekerJobFilterController extends GetxController {
   RxBool loading = false.obs;
   RxBool reset = true.obs ;
   var errorMessage = "".obs ;
-  var jobsData = FilteredJobsListingModel().obs ;
+  var jobsData = GetJobsListingModel().obs ;
 
   RxString lat = ''.obs ;
   RxString long = ''.obs ;
   RxBool fromMapScreen = false.obs ;
+
+  GetJobsListingController jobsListingController = Get.put(GetJobsListingController()) ;
 
   void filterJob( bool? fromMap ,
       BuildContext context,
@@ -55,6 +59,7 @@ class SeekerJobFilterController extends GetxController {
       loading.value = false ;
       if(value.status!){
       jobsData(value) ;
+      jobsListingController.seekerGetJobs(value) ;
       if (kDebugMode) {
         print("this is value ==== $value") ;
         print("this is value list ==== ${value.jobs?.length}") ;

@@ -27,7 +27,6 @@ class GetJobsListingController extends GetxController {
       }
       setRxRequestStatus(Status.COMPLETED);
       seekerGetJobs(value);
-      update() ;
       if (kDebugMode) {
         print("called get jobs list step 3") ;
       }

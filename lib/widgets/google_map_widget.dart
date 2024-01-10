@@ -193,7 +193,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(widget.lat ?? lat, widget.long ?? long),
-                zoom: 5,
+                zoom: 12,
               ),
               markers: <Marker>{
                 Marker(
@@ -207,6 +207,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
               mapType: MapType.normal,
               myLocationEnabled: true,
               compassEnabled: true,
+              zoomControlsEnabled: false,
+              onLongPress: (argument) => Get.to( GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${widget.lat}"),long:  double.tryParse("${widget.long}"))),
               onMapCreated: (GoogleMapController controller) {
                 mapController.complete(controller);
                 if (kDebugMode) {
@@ -228,6 +230,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                    zoom: zoom,
                  ),
                  markers: Set<Marker>.of(markers),
+                 zoomControlsEnabled: false,
                  onMapCreated: (GoogleMapController controller) {
                    filterMapController.complete(controller);
                    controller.setMapStyle(getCustomMapStyle()) ;
@@ -400,6 +403,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                               zoom: zoom,
                             ),
                             markers: Set<Marker>.of(markers),
+                            zoomControlsEnabled: false,
                             onMapCreated: (GoogleMapController controller) {
                               mapController.complete(controller);
                               controller.setMapStyle(getCustomMapStyle()) ;

@@ -1,4 +1,5 @@
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/bottom_navigation_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
@@ -6,6 +7,7 @@ import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../controllers/AvtarImageListController/AvtarImageListController.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
@@ -21,6 +23,7 @@ import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../../main.dart';
+import '../../widgets/app_colors.dart';
 import '../SeekerFilter/filter_page.dart';
 import '../SeekerForum/FriendsFamily/ContactsController.dart';
 import '../SeekerHome/find_job_home_page.dart';
@@ -43,6 +46,7 @@ class _TabScreenState extends State<TabScreen> {
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
   bool loading = false;
+  TabBarController tabBarController = Get.put(TabBarController());
   SeekerChoosePositionGetController seekerChoosePositionGetControllerInstanse = Get.put(SeekerChoosePositionGetController());
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
@@ -86,10 +90,11 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("this is filtered ${widget.filtered}") ;
     return Scaffold(
       key: drawerKey,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
+        bottom: false,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: PageView(
@@ -106,9 +111,38 @@ class _TabScreenState extends State<TabScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Bottom(
-        bottomSelectedIndex: bottomSelectedIndex!,
-        bottomTapped: bottomTapped,
+      bottomNavigationBar: Obx( () => AnimatedOpacity(
+        duration: const Duration(milliseconds: 800),
+        opacity: tabBarController.showBottomBar.value ? 1 : 0,
+        child: tabBarController.showBottomBar.value ? Container(
+          color: Colors.transparent,
+          child: ClipRRect(
+            // borderRadius: const BorderRadius.only(
+            //   topLeft: Radius.circular(25), // Adjust the radius as needed
+            //   topRight: Radius.circular(24), // Adjust the radius as needed
+            // ),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              items: buildBottomNavBarItems,
+              selectedItemColor: const Color(0xff56B8F6),
+              unselectedItemColor: Color(0xffC4C4C4),
+              selectedIconTheme: const IconThemeData(
+                color: const Color(0xff56B8F6),
+              ),
+              unselectedIconTheme: const IconThemeData(
+                color: const Color(0xffC4C4C4),
+              ),
+
+              elevation: 0,
+              backgroundColor: AppColors.homeGrey,
+              currentIndex: bottomSelectedIndex ?? 0,
+              onTap: (index) => bottomTapped(index),
+              selectedFontSize: 1,
+              unselectedFontSize: 1,
+            ),
+          ),
+        ) : null,
+      ),
       ),
     );
   }
@@ -160,4 +194,36 @@ class _TabScreenState extends State<TabScreen> {
     pageController!.animateToPage(1,
         duration: const Duration(microseconds: 1), curve: Curves.ease);
   }
+
+  List<BottomNavigationBarItem> buildBottomNavBarItems = [
+    BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_unselect_home.png",height: Get.height*.035,),
+        activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.035)),
+
+
+    BottomNavigationBarItem(
+      label: "",
+      icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.035,color: AppColors.black,) ,
+      activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.035,) ,
+    ),
+
+
+    BottomNavigationBarItem(
+      label: "",
+      icon: Image.asset("assets/images/icon_search.png",height: Get.height*.045),
+    ),
+
+    BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.035),
+        activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.035,)
+    ),
+
+    BottomNavigationBarItem(
+      label: "",
+      icon: Image.asset("assets/images/icon_unselect_person.png",height: Get.height*.035),
+      activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.035),
+    ),
+  ];
 }
