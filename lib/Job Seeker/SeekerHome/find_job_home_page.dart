@@ -547,7 +547,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),) :
                                                           HtmlWidget(getJobsListingController.getJobsListing.value.jobs?[index].requirements ?? 'No requirements',textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),),
                                                           SizedBox(height: Get.height * 0.025,),
-                                                          Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                          Row(
+                                                            children: [
+                                                              Image.asset("assets/images/icon_location_seeker.png",height: Get.height*.03,),
+                                                              SizedBox(width: Get.width*.02,) ,
+                                                              Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                            ],
+                                                          ),
                                                           SizedBox(height: Get.height * 0.015,),
                                                           Text(getJobsListingController.getJobsListing.value.jobs?[index].jobLocation ?? "No job location",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),),
                                                           SizedBox(height: Get.height * 0.015,),
@@ -557,7 +563,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: SizedBox( height: Get.height * 0.3,
                                                                   child: GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}"),long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}"),))),
                                                           SizedBox(height: Get.height * 0.035,),
-                                                          Text("Information", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                          Row(
+                                                            children: [
+                                                              Image.asset("assets/images/icon_information.png",height: Get.height*.03,),
+                                                              SizedBox(width: Get.width*.02,) ,
+                                                              Text("Information", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                            ],
+                                                          ),
                                                           SizedBox(height: Get.height * 0.015,),
                                                           Text("Position", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
                                                           SizedBox(height: Get.height * 0.015,),
@@ -677,6 +689,14 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),
                                                                   ),),
                                                             ],),
+                                                          SizedBox(height: Get.height * .02,),
+                                                          Row(
+                                                            children: [
+                                                              Image.asset("assets/images/skillsvg.png",height: Get.height*.03,),
+                                                              SizedBox(width: Get.width*.02,) ,
+                                                              Text("Skills", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                            ],
+                                                          ),
                                                           const Divider(
                                                             color: Colors.grey,
                                                             thickness: 0.2,

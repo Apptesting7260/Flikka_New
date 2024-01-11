@@ -391,18 +391,18 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-
+          backgroundColor: AppColors.white,
       // resizeToAvoidBottomInset: true,
 appBar: AppBar(
   centerTitle: true,
-  backgroundColor: Colors.transparent,
+  backgroundColor: Colors.white,
   elevation: 0,
 
   leading: IconButton(
     onPressed: () {
       Get.back();
     },
-    icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+    icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black),
   ),
 
   title: Container(
@@ -423,7 +423,7 @@ appBar: AppBar(
                 // overflow: TextOverflow.ellipsis,
                 softWrap:true,
                 chatname.toString(),
-                style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white,),
+                style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black,),
               ),
             ),
             SizedBox(
@@ -434,7 +434,7 @@ appBar: AppBar(
                 Image.asset('assets/images/liveimage.png'),
                 Text(
                   "Online",
-                  style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white),
+                  style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.black),
                 ),
               ],
             ),
@@ -445,25 +445,11 @@ appBar: AppBar(
   ),
 
   actions: [
-    Row(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 15,
-          child: IconButton(
-            padding: EdgeInsets.only(top: 1),
-            onPressed: () {},
-            icon: Image.asset('assets/images/call.png'),
-          ),
-        ),
-        SizedBox(
-          width: Get.width * 0.018,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Image.asset('assets/images/Options.png', color: AppColors.white),
-        )
-      ],
+    IconButton(
+      icon: Icon(Icons.more_horiz, color: Colors.black), // Change the icon as needed
+      onPressed: () {
+        // Handle settings action
+      },
     ),
   ],
 ),
@@ -473,9 +459,6 @@ appBar: AppBar(
         child: Column(
           children: [
             // SizedBox(height: height*.03),
-        
-           
-        
             SizedBox(
               height: Get.height * 0.02,
             ),
@@ -711,7 +694,7 @@ appBar: AppBar(
           padding:  EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(23),
               border: Border.all(color: Colors.grey, width: 0.5),
             ),
