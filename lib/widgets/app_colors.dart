@@ -22,6 +22,8 @@ class AppColors {
   static const homeGrey = Color(0xffE0E0E0);
   static const employmentReferralColor=Color(0xff33CEFF);
   static const appReferralColor=Color(0xff0F63A4);
+  static const silverColor=Color(0xff777777);
+  static const dividerColor=Color(0xffE0E0E0);
 
 // static const azure=Color(0xff007AFF);
 // static const oldSilver=Color(0xff848282);

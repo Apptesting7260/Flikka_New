@@ -29,7 +29,6 @@ class _VideoAudioCallingPageState extends State<VideoAudioCallingPage> {
      appBar:  AppBar(
        backgroundColor: Colors.transparent, // set the background color as transparent if needed
        elevation: 0, // set elevation to 0 to remove the shadow
-
        title: Row(
          children: [
            IconButton(
