@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
-
-import 'Job Seeker/SeekerChatMessage/chat.dart';
+import 'Job Seeker/AboutUs/about_us_page.dart';
+import 'Job Seeker/chat.dart';
 
 String? fcmToken;
 void main() async {
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Flikka',
         theme: MyTheme.dark,
-        home:  const ChatList()
+        home:  const SplashScreen()
     );
   }
 

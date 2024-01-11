@@ -143,7 +143,7 @@ class _DrawerClassState extends State<DrawerClass> {
                           ),
                           Container(
                             height: Get.height/1.4,
-                            color: const Color(0xff353535),
+                            color: AppColors.homeGrey,
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +175,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Profile",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16,color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -190,7 +190,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Message",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -205,7 +205,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Interviews",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -245,7 +245,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     title: Stack(
                                       children: [
                                         Text("Notifications",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         ),
                                       ],
                                     ),
@@ -275,7 +275,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Job alert",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -290,7 +290,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Save Post",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -305,7 +305,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Applied jobs",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -320,7 +320,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Wallet",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   // ListTile(
@@ -370,7 +370,7 @@ class _DrawerClassState extends State<DrawerClass> {
 
                                     title: Text(
                                       "Setting",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -385,7 +385,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Help",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   ListTile(
@@ -401,7 +401,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     ),
                                     title: Text(
                                       "Logout",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
 
