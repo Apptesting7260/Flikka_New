@@ -131,7 +131,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   var last = false;
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
       switch (getJobsListingController.rxRequestStatus.value) {
         case Status.LOADING:
@@ -520,15 +519,28 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                           Text("${getJobsListingController.getJobsListing.value.jobs?[index].recruiterDetails?.companyName ?? "No company name"}", overflow: TextOverflow.ellipsis,
                                                             style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),),
                                                           SizedBox(height: Get.height * 0.03,),
-                                                          Text("Job Description",
-                                                            style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                             Image.asset("assets/images/icon_job_description.png",height: Get.height*.03,),
+                                                              SizedBox(width: Get.width*.02,) ,
+                                                              Text("Job Description",
+                                                                style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                            ],
+                                                          ),
                                                           SizedBox(height: Get.height * 0.015,),
                                                           getJobsListingController.getJobsListing.value.jobs?[index].description == null || CommonFunctions.parseHTML(getJobsListingController.getJobsListing.value.jobs?[index].description).toString().trim().length == 0 ?
                                                           Text("No job description",style: Theme.of(context).textTheme.labelLarge!
                                                               .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),) :
                                                           HtmlWidget(getJobsListingController.getJobsListing.value.jobs?[index].description ?? 'No job description',textStyle:Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black) ,),
                                                           SizedBox(height: Get.height * 0.03,),
-                                                          Text("Requirements", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                          Row(
+                                                            children: [
+                                                              Image.asset("assets/images/icon_requirment.png",height: Get.height*.03,),
+                                                              SizedBox(width: Get.width*.02,) ,
+                                                              Text("Requirements", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
+                                                            ],
+                                                          ),
                                                           SizedBox(height: Get.height * 0.015,),
                                                           getJobsListingController.getJobsListing.value.jobs?[index].requirements == null || CommonFunctions.parseHTML(getJobsListingController.getJobsListing.value.jobs?[index].requirements).toString().trim().length == 0 ?
                                                           Text("No requirements",style: Theme.of(context).textTheme.labelLarge!
@@ -1287,7 +1299,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             child: Padding(
                                               padding: const EdgeInsets.only(top: 25.0,right: 20),
                                               child: Image.asset(
-                                                'assets/images/inactive.png',
+                                                'assets/images/icon_seeker_drawer.png',
                                                 height: Get.height * .05,
                                               ),
                                             ));

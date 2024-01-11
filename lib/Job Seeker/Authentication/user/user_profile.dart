@@ -3004,7 +3004,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         children: [
                                                           Text( "${data?.achievement}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
+                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),
                                                           ),
                                                         ],
                                                       )
@@ -3027,7 +3027,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       style: Get.theme.textTheme
                                                           .labelMedium!.copyWith(
                                                           color: AppColors
-                                                              .white),),
+                                                              .black),),
                                                   ],
                                                 ),
                                                 InkWell(
@@ -3046,12 +3046,12 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             const Divider(
                                               thickness: 0.2,
-                                              color: AppColors.white,
+                                              color: AppColors.silverColor,
                                             ),
                                             SizedBox(height: Get.height * 0.02,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.resume == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.resume.length == 0 ?
-                                            Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),)
+                                            Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),)
                                                 : ListTile(
                                               leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
                                               SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
@@ -3059,7 +3059,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 'Resume',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                    color: AppColors.white, fontWeight: FontWeight.w500),),
+                                                    color: AppColors.black, fontWeight: FontWeight.w500),),
                                               onTap: () {
                                                 CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
                                                   onTap: () async {
@@ -3079,7 +3079,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   children: [
                                                     Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
                                                     SizedBox(width: Get.width*.02,) ,
-                                                    Text('Document', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                    Text('Document', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
                                                   ],
                                                 ),
                                                 InkWell(
@@ -3096,16 +3096,16 @@ class _UserProfileState extends State<UserProfile> {
                                               ],
                                             ),
                                             SizedBox(height: Get.height*.015,) ,
-                                            const Divider(thickness: 0.2, color: AppColors.white,),
+                                            const Divider(thickness: 0.2, color: AppColors.silverColor,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
-                                            Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
 
                                             ListTile(
                                               title: Text('Document',
                                               overflow: TextOverflow.ellipsis,
                                               style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                  color: AppColors.white, fontWeight: FontWeight.w500),),
+                                                  color: AppColors.black, fontWeight: FontWeight.w500),),
                                                 onTap: () {
                                           CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
                                             onTap: () async {
