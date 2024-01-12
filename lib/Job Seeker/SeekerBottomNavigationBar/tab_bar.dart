@@ -117,10 +117,6 @@ class _TabScreenState extends State<TabScreen> {
         child: tabBarController.showBottomBar.value ? Container(
           color: Colors.transparent,
           child: ClipRRect(
-            // borderRadius: const BorderRadius.only(
-            //   topLeft: Radius.circular(25), // Adjust the radius as needed
-            //   topRight: Radius.circular(24), // Adjust the radius as needed
-            // ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               items: buildBottomNavBarItems,

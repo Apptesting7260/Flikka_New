@@ -141,8 +141,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                               color: AppColors.white),
                           child: Row(
                             children: [
-                              Image.asset(
-                                      'assets/images/icon_msg.png',height: Get.height*.06,),
+                              Image.asset('assets/images/icon_msg.png',height: Get.height*.06,),
                             ],
                           )),
                     ),
@@ -154,30 +153,22 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         ? const SizedBox()
                         : Row(
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                // if (kDebugMode) {
-                                //   print("tapped") ;
-                                // }
-                                // CommonFunctions.launchDialer("${widget.recruiterData?.seeker?.mobile}") ;
-                              },
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: AppColors.white),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (kDebugMode) {
-                                        print("tapped") ;
-                                      }
-                                      CommonFunctions.launchDialer("${widget.recruiterData?.seeker?.mobile}") ;
-                                    },
-                                    child: Image.asset(
-                                          'assets/images/icon_call.png',
-                                          height: Get.height*.06,
-                                        ),
-                                  )),
-                            ),
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: AppColors.white),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (kDebugMode) {
+                                      print("tapped") ;
+                                    }
+                                    CommonFunctions.launchDialer("${widget.recruiterData?.seeker?.mobile}") ;
+                                  },
+                                  child: Image.asset(
+                                        'assets/images/icon_call.png',
+                                        height: Get.height*.06,
+                                      ),
+                                )),
                             SizedBox(
                               width: Get.width * 0.045,
                             ),

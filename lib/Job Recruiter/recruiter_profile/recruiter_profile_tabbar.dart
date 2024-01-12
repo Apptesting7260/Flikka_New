@@ -72,9 +72,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
   @override
   void initState() {
     pageIndex = widget.index ?? 0;
-    if(widget.isSeeker == null || widget.isSeeker == false) {
-      viewRecruiterProfileController.viewRecruiterProfileApi();
-    } else {
+    if(widget.isSeeker == null || widget.isSeeker == false) {} else {
       seekerViewCompanyController.viewCompany(widget.recruiterID) ;
       initializeSeeker() ;
     }
