@@ -2845,17 +2845,11 @@ class _UserProfileState extends State<UserProfile> {
                                                 maxCrossAxisExtent: Get.width * 0.4,
                                                 mainAxisSpacing: 8,
                                                 crossAxisSpacing: 8),
-                                                itemCount: seekerProfileController
-                                                    .viewSeekerData.value
-                                                    .seekerDetails?.availabityName
-                                                    ?.length,
+                                                itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName?.length,
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
                                                 itemBuilder: (context, index) {
-                                                  var data = seekerProfileController
-                                                      .viewSeekerData.value
-                                                      .seekerDetails
-                                                      ?.availabityName?[index];
+                                                  var data = seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName?[index];
                                                   return Container(
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
@@ -2926,10 +2920,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
                                                 itemBuilder: (context, index) {
-                                                  var data = seekerProfileController
-                                                      .viewSeekerData.value
-                                                      .seekerDetails
-                                                      ?.language?[index];
+                                                  var data = seekerProfileController.viewSeekerData.value.seekerDetails?.language?[index];
                                                   return Container( alignment: Alignment.center,
                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
                                                       color: AppColors.homeGrey,),
