@@ -82,6 +82,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: GestureDetector(
                     onTap: () {
+                      seenController.notificationSeen(context, seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
                       Get.back();
                     },
                     child: Image.asset('assets/images/icon_back_blue.png')),
@@ -142,7 +143,8 @@ class _Notification1PageState extends State<SeekerNotification> {
                       ),
                     ),
                     title: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].companyName ?? "",
-                        overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white,fontSize: 15)),
+                        overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white,
+                            fontSize:SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? 15 : 18)),
                     subtitle: Text( SeekerViewNotificationControllerInstanse
                         .viewSeekerNotificationData.value
                         .seekerNotification?[index].description ?? "" ,

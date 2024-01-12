@@ -34,6 +34,7 @@ class SeekerNotification {
      this.jobId,
      this.description,
      this.type,
+     this.seen,
      this.createdAt,
      this.updatedAt,
      this.chat,
@@ -48,6 +49,7 @@ class SeekerNotification {
   dynamic jobId;
   dynamic description;
   dynamic type;
+  dynamic seen;
    String ?createdAt;
    String ?updatedAt;
     bool ?chat;
@@ -61,6 +63,7 @@ class SeekerNotification {
     seekerId = json['seeker_id'];
     recruiterId = json['recruiter_id'];
     jobId = json['job_id'];
+    seen = json['seen'];
     description = json['description'];
     type = json['type'];
     createdAt = json['created_at'];

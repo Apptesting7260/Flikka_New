@@ -20,6 +20,7 @@ class SeekerNotificationSeenController extends GetxController {
     loading(true) ;
     var data = {} ;
     data.addIf(email != null && email.length != 0 , "email" , email ) ;
+    print(data) ;
     setRxRequestStatus(Status.LOADING);
     return await _api.notificationSeen(data).then((value) {
       SeekerViewNotificationControllerInstanse.refreshSeekerNotificationApi() ;

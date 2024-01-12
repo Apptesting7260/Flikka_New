@@ -2507,7 +2507,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
-                                                          .white),),
+                                                          .black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.map((e) => e.id.toString()).toList() , 1) ;
