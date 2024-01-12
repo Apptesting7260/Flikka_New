@@ -344,36 +344,24 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       homeController.homeData.value.Seeker_Details?[index].seeker?.mobile == null ||
                                                           homeController.homeData.value.Seeker_Details?[index].seeker?.mobile.toString().length == 0
                                                           ? const SizedBox()
-                                                          : Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(50),
-                                                              color: AppColors.white),
-                                                          child: GestureDetector(
+                                                          : GestureDetector(
                                                             onTap: () {
-                                                              if (kDebugMode) {
-                                                                print("tapped") ;
-                                                              }
-                                                              CommonFunctions.launchDialer("${homeController.homeData.value.Seeker_Details?[index].seeker?.mobile}") ;
-                                                            },
-                                                            child: Image.asset(
-                                                              'assets/images/icon_call.png',
-                                                              height: Get.height*.06,
+                                                            if (kDebugMode) {
+                                                              print("tapped") ;
+                                                            }
+                                                            CommonFunctions.launchDialer("${homeController.homeData.value.Seeker_Details?[index].seeker?.mobile}") ;
+                                                          },
+                                                            child:Container(
+                                                              alignment: Alignment.center,
+                                                              height: 34,
+                                                              width: 34,
+                                                              decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                                              child: Image.asset(
+                                                                'assets/images/call1.png',
+                                                                height: Get.height * .025,
+                                                              ),
                                                             ),
-                                                          )),
-                                                      // GestureDetector(
-                                                      //     onTap:
-                                                      //         () {
-                                                      //       showPound(
-                                                      //           context,
-                                                      //           homeController.homeData.value.Seeker_Details?[index].recruiterDetails?.companyName,
-                                                      //           "${homeController.homeData.value.Seeker_Details?[index].jobsDetail?.minSalaryExpectation / 20}".split(".")[0]);
-                                                      //     },
-                                                      //     child: Image
-                                                      //         .asset(
-                                                      //       "assets/images/icon_pound.png",
-                                                      //       height: Get.height *
-                                                      //           .043,
-                                                      //     )),
+                                                          ),
                                                     ],
                                                   ),
                                                 ),
