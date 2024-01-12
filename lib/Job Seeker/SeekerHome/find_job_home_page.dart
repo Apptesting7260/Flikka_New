@@ -410,7 +410,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               },
                                                             )
                                                                 : const SizedBox(),
-                                                            SizedBox(height: Get.height * .01,),
+                                                            getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage == 100
+                                                                ? SizedBox(height: Get.height * .01,) : const SizedBox(),
                                                             GestureDetector(
                                                                 onTap:
                                                                     () {

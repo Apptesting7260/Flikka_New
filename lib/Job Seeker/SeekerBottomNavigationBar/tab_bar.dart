@@ -83,7 +83,37 @@ class _TabScreenState extends State<TabScreen> {
     contactController.loadContacts() ;
     SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
     seekerEarningController.seekerEarningApi();
+  buildBottomNavBarItems =  [
+      BottomNavigationBarItem(
+          label: "",
+          icon: Image.asset("assets/images/icon_unselect_home.png",height: Get.height*.035,),
+          activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.035)),
 
+
+      BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.035,) ,
+        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.035,) ,
+      ),
+
+
+      BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_search.png",height: Get.height*.045),
+      ),
+
+      BottomNavigationBarItem(
+          label: "",
+          icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.035 ,),
+          activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.035,)
+      ),
+
+      BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_unselect_person.png",height: Get.height*.035),
+        activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.035),
+      ),
+    ];
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
   }
@@ -130,7 +160,7 @@ class _TabScreenState extends State<TabScreen> {
               ),
 
               elevation: 0,
-              backgroundColor: AppColors.homeGrey,
+              backgroundColor: bottomSelectedIndex == 0 || bottomSelectedIndex == 4 ? AppColors.homeGrey : AppColors.blackdown,
               currentIndex: bottomSelectedIndex ?? 0,
               onTap: (index) => bottomTapped(index),
               selectedFontSize: 1,

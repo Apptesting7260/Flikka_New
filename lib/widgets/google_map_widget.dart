@@ -129,7 +129,7 @@ import '../res/components/request_timeout_widget.dart';
 class GoogleMapIntegration extends StatefulWidget {
   final double? lat; final double? long;
   final bool? jobPageView; final bool? filtered ;
-  const GoogleMapIntegration({Key? key, this.lat, this.long, this.jobPageView, this.filtered}) : super(key: key);
+  const GoogleMapIntegration({super.key, this.lat, this.long, this.jobPageView, this.filtered});
 
   @override
   GoogleMapIntegrationState createState() => GoogleMapIntegrationState();

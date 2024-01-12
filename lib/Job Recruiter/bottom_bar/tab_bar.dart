@@ -119,7 +119,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
                         selectedIconTheme: const IconThemeData(color: Color(0xff56B8F6),),
                         unselectedIconTheme: const IconThemeData(color: Color(0xffC4C4C4),),
                         elevation: 0,
-                        backgroundColor: AppColors.homeGrey,
+                        backgroundColor: bottomSelectedIndex == 0 ?  AppColors.homeGrey : AppColors.blackdown,
                         currentIndex: bottomSelectedIndex ?? 0,
                         onTap: (index) => bottomTapped(index),
                         selectedFontSize: 1,
