@@ -118,7 +118,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
 
                           Container(
                             height: Get.height/1.4,
-                            color: const Color(0xff353535),
+                            color: AppColors.homeGrey,
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +160,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         },
                                         child: Text(
                                           "Profile",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         )),
                                   ),
                                   // ListTile(
@@ -195,7 +195,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         } ,
                                         child: Text(
                                           "Applicant Tracking",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         )),
                                   ),
                                   // ListTile(
@@ -228,7 +228,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         } ,
                                         child: Text(
                                           "Job Post",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         )),
                                   ),
                                   ListTile(
@@ -241,7 +241,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         } ,
                                         child: Text(
                                           "Report",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         )),
                                   ),
                                   // ListTile(
@@ -325,7 +325,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         },
                                         child: Text(
                                           "Setting",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         )),
                                   ),
                                   ListTile(
@@ -339,7 +339,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                    
                                     title: Text(
                                       "Logout",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
                                   SizedBox(height: Get.height*.2,),
@@ -352,7 +352,6 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                     ),
                   ),
                 ],
-
               ),
             ),
           ),

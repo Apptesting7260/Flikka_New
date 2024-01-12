@@ -40,9 +40,12 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
         appBar: AppBar(
-          toolbarHeight: 70,
-          title: Text("Message",style: Get.theme.textTheme.displayLarge),
+          backgroundColor: AppColors.white,
+          centerTitle: true,
+          toolbarHeight: 65,
+          title: Text("Your Chats",style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
           leading: Padding(
             padding: const EdgeInsets.only(left: 15.0),
             child: InkWell(
@@ -92,33 +95,23 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
               //
               //   ),
               // ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.006),
-                decoration: BoxDecoration(
-                  color: Color(0xff373737),
-                  borderRadius: BorderRadius.circular(33.0),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.search, color: AppColors.blueThemeColor,size: 30,),
-                    SizedBox(width: Get.width*.03),
-                    Expanded(
-                      child: TextFormField(
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF),fontSize: 19),
-                        onChanged: (query){
-                          // filterPositionNames(query);
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ],
+              SizedBox(height: Get.height*.02,) ,
+              TextFormField(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontSize: 15),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search,color: AppColors.blueThemeColor,size: 30,),
+                  filled: true,
+                  fillColor: AppColors.homeGrey,
+                  hintText: 'Search',
+                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(33),
+                    borderSide: BorderSide.none,
+                  ),
+
                 ),
               ),
-              SizedBox(height: Get.height*0.03,),
+              SizedBox(height: Get.height*0.02,),
               //save prost first navi
               Expanded(
                   child: StreamBuilder(
@@ -156,12 +149,12 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
                                         backgroundImage:NetworkImage(data![ "RecruiterImage"]),
 
                                       ),
-                                      title: Text(data!['RecruiterName'],style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white)),
+                                      title: Text(data!['RecruiterName'],style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black)),
                                       subtitle:  Text(data![ "lastmsg"],style:Get.theme.textTheme.bodySmall!.copyWith(color: Colors.blue)),
                                       trailing: Column(
                                         children: [
                                           SizedBox(height: Get.height*0.015,),
-                                          Text(   formatTimestamp(timestamp),style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: Color(0xffCFCFCF))),
+                                          Text(   formatTimestamp(timestamp),style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: AppColors.silverColor)),
 
                                           SizedBox(height: Get.height*0.005,),
                                           FutureBuilder<String>(
