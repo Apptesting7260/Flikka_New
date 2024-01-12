@@ -1075,7 +1075,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       children: [
                                                         Image.asset('assets/images/resumeIcon.png', height: Get.height * .03,),
                                                         SizedBox(width: Get.width * 0.02,),
-                                                        Text('Appreciation', style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                                        Text('Resume', style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),),
                                                       ],
                                                     ),
                                                     SizedBox(height: Get.height * 0.02,),
@@ -1101,10 +1101,23 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                           },) ;
                                                       },
                                                     ),
+                                                    SizedBox(height: Get.height * 0.02,),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Image.asset('assets/images/documentIcon.png', height: Get.height * .03,),
+                                                        SizedBox(width: Get.width * 0.02,),
+                                                        Text('Document', style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: Get.height * 0.02,),
+                                                    const Divider(
+                                                      thickness: 0.2,
+                                                      color: AppColors.homeGrey,),
+                                                    SizedBox(height: Get.height * 0.02,),
                                                     homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg?.length == 0 ?
                                                     Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
-
                                                     ListTile(
                                                       title: Text('Document',
                                                         overflow: TextOverflow.ellipsis,
@@ -1122,7 +1135,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                           },) ;
                                                       },
                                                       leading:  "${homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg.toString()}".contains(".pdf" )  ? Image.asset('assets/images/icon_uploaded_docs.png') :
-                                                      Image.network("${homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg}", fit: BoxFit.cover, height: Get.height*.1, width: Get.width *.15, ),
+                                                      CachedNetworkImage(imageUrl: "${homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg}",
+                                                        fit: BoxFit.cover, height: Get.height*.1, width: Get.width *.15, errorWidget: (context, url, error) => const Placeholder(),),
                                                     )   ,
                                                     SizedBox(height: Get.height * 0.05,),
                                                     Center(
@@ -1134,8 +1148,11 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                               height: Get.height * 0.07,
                                                               child: MyButton(
                                                                   onTap1: () {
-                                                                    jobTitleDialog(index) ;
-                                                                  }, title: 'ACCEPT'),
+                                                                    if(homeController.homeData.value.Seeker_Details?[index].isApplied != true) {
+                                                                      jobTitleDialog(index) ;
+                                                                    } else {
+                                                                    }
+                                                                  }, title: homeController.homeData.value.Seeker_Details?[index].isApplied != true ? 'ACCEPT' : 'ACCEPTED'),
                                                             ),
                                                           ),
                                                         ],
@@ -1152,10 +1169,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                   ),
                                   Positioned(
                                     top: 0,
-                                    left: 12,
-                                    right: 20,
                                     child: Container(width: Get.width,
-                                      padding: const EdgeInsets.only(bottom: 10),
+                                      padding: const EdgeInsets.only(bottom: 10, left: 12, right: 20,),
                                       color: Colors.black.withOpacity(_appBarOpacity),
                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -1415,7 +1430,9 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   }
 
   Future<void> onSwipeRight(int index) async {
-    CommonFunctions.confirmationDialog(context, message: "Do you want to select accept this profile", onTap: () async {
+
+    if(homeController.homeData.value.Seeker_Details?[index].isApplied != true) {
+      CommonFunctions.confirmationDialog(context, message: "Do you want to select accept this profile", onTap: () async {
       Get.back() ;
       var result = await jobTitleDialog(index) ;
       // if(result == true) {
@@ -1429,6 +1446,9 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
       //   });
       // }
     }) ;
+    } else {
+      Utils.showMessageDialog(context, "This Profile is already shortlisted") ;
+    }
     if (kDebugMode) {
       print('Swiped to the right');
     }
@@ -1532,6 +1552,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                           _currentPage = 0 ;
                                         }
                                         _pageController.jumpToPage(_currentPage) ;
+                                        homeController.homeData.value.Seeker_Details?[index].isApplied = true ;
                                       }) ;
                                     }
                                     }else {

@@ -37,6 +37,7 @@ class RecruiterHomePageSeekerDetail {
   dynamic maxSalaryExpectation;
   dynamic fresher;
   dynamic video ;
+  bool? isApplied ;
   List<WorkExpJob>? workExpJob;
   List<EducationLevel>? educationLevel;
   List<LanguageModel>? language;
@@ -63,6 +64,7 @@ class RecruiterHomePageSeekerDetail {
     this.maxSalaryExpectation,
     this.fresher,
     this.workExpJob,
+    this.isApplied ,
     this.educationLevel,
     this.language,
     this.appreciation,
@@ -85,6 +87,7 @@ class RecruiterHomePageSeekerDetail {
     seekerId: json["seeker_id"],
     position: json["position"],
     video: json["short_video"],
+    isApplied: json["is_applied"],
     minSalaryExpectation: json["min_salary_expectation"],
     maxSalaryExpectation: json["max_salary_expectation"],
     fresher: json["fresher"],
@@ -112,7 +115,8 @@ class RecruiterHomePageSeekerDetail {
     "position": position,
     "min_salary_expectation": minSalaryExpectation,
     "max_salary_expectation": maxSalaryExpectation,
-    "fresher": fresher,
+    "fresher": fresher ,
+    "is_applied": isApplied ,
     "work_exp_job": List<dynamic>.from(workExpJob!.map((x) => x.toJson())),
     "education_level": List<dynamic>.from(educationLevel!.map((x) => x.toJson())),
     "language": List<dynamic>.from(language!.map((x) => x.toJson())),
