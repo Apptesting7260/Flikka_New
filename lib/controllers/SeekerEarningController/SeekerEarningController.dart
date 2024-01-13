@@ -7,6 +7,7 @@ import '../../repository/SeekerDetailsRepository/SeekerRepository.dart';
 
 class SeekerEarningController extends GetxController {
 
+
   final _api = SeekerRepository();
 
   final rxRequestStatus = Status.LOADING.obs ;
@@ -37,7 +38,7 @@ class SeekerEarningController extends GetxController {
     });
   }
 
-  void refreshApi(){
+  void refreshWalletApi(){
     // setRxRequestStatus(Status.LOADING);
     refreshLoading(true) ;
     _api.getWalletApi().then((value){

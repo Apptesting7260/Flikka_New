@@ -78,6 +78,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   Timer? _scrollTimer;
   double _previousScrollOffset = 0.0;
   double _appBarOpacity = 0.0;
+  var position = 0.0.obs  ;
+  var appBarPosition = 0.0.obs  ;
 
   TabBarController tabBarController = Get.put(TabBarController());
   GetJobsListingController getJobsListingController = Get.put(GetJobsListingController());
@@ -97,9 +99,17 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
 
     _scrollController.addListener(() {
-      setState(() {
-        _appBarOpacity = _scrollController.offset > 150 ? 1.0 : _scrollController.offset / 150;
-      });
+      if(_scrollController.offset < Get.height*.23) {
+        position.value = _scrollController.offset ;
+        setState(() {
+          _appBarOpacity = _scrollController.offset > 35 ? 1.0 : 0;
+        });
+      }
+      if(_scrollController.offset < 1) {
+        print("=============object") ;
+        appBarPosition.value = _scrollController.offset ;
+        print("=============${_scrollController.offset}") ;
+      }
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
         tabBarController.showBottomBar(true);
@@ -107,21 +117,21 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
           ScrollDirection.reverse) {
         tabBarController.showBottomBar(false);
       }
-      if (_scrollTimer != null && _scrollTimer!.isActive) {
-        // If the timer is active, cancel it (user is still scrolling)
-        _scrollTimer!.cancel();
-      }
-      // Start a new timer when scrolling stops
-      _scrollTimer = Timer(Duration(milliseconds: 150), () {
-        if(_scrollController.position.pixels - _previousScrollOffset >= 50 || _previousScrollOffset - _scrollController.position.pixels >= 50  ) {
-          print("scrolled") ;
-        }
-        setState(() {
-          // Update _previousScrollOffset once scrolling stops
-          _previousScrollOffset = _scrollController.position.pixels;
-          print("Scroll Ended. Previous Offset: $_previousScrollOffset");
-        });
-      });
+      // if (_scrollTimer != null && _scrollTimer!.isActive) {
+      //   // If the timer is active, cancel it (user is still scrolling)
+      //   _scrollTimer!.cancel();
+      // }
+      // // Start a new timer when scrolling stops
+      // _scrollTimer = Timer(Duration(milliseconds: 150), () {
+      //   if(_scrollController.position.pixels - _previousScrollOffset >= 50 || _previousScrollOffset - _scrollController.position.pixels >= 50  ) {
+      //     print("scrolled") ;
+      //   }
+      //   setState(() {
+      //     // Update _previousScrollOffset once scrolling stops
+      //     _previousScrollOffset = _scrollController.position.pixels;
+      //     print("Scroll Ended. Previous Offset: $_previousScrollOffset");
+      //   });
+      // });
     });
     super.initState();
   }
@@ -430,76 +440,41 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: Get.height *.15,
+                                                      bottom: Get.height * .25 - position.value ,
                                                       left: 12,
                                                       child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                        Container(
-                                                          padding: const EdgeInsets.all(8),
-                                                          decoration: BoxDecoration(
-                                                            color: const Color(0xff0D5AFE).withOpacity(.2),
-                                                            borderRadius: BorderRadius.circular(10)
-                                                          ),
-                                                          child:  Text(getJobsListingController.getJobsListing.value.jobs?[index].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
-                                                            style: Get.theme.textTheme.displayLarge!.copyWith(color: AppColors.white),),
-                                                        ),
-                                                        const SizedBox(height: 10,) ,
-                                                        Container(
-                                                          padding: const EdgeInsets.all(8),
-                                                          decoration: BoxDecoration(
-                                                            color: const Color(0xff0D5AFE).withOpacity(.2),
-                                                            borderRadius: BorderRadius.circular(10)
-                                                          ),
-                                                          child:  Text(getJobsListingController.getJobsListing.value.jobs?[index].recruiterDetails?.companyName ?? "No company name",overflow: TextOverflow.ellipsis,
-                                                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
-                                                        ),
-                                                        const SizedBox(height: 10,) ,
-                                                        Container(
-                                                          padding: const EdgeInsets.all(8),
-                                                          decoration: BoxDecoration(
-                                                            color: const Color(0xff0D5AFE).withOpacity(.2),
-                                                            borderRadius: BorderRadius.circular(10)
-                                                          ),
-                                                          child:  Text(getJobsListingController.getJobsListing.value.jobs?[index].jobLocation ?? "No job location",overflow: TextOverflow.ellipsis,
-                                                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 12),),
-                                                        ),
-                                                        const SizedBox(height: 10,) ,
-                                                          SizedBox( width: Get.width,
-                                                            child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                GestureDetector(
-                                                                  onTap : () {
-                                                                    onSwipeLeft() ;
-                                                                  },
-                                                                  child: Container(
-                                                                    height: 55,
-                                                                    width: 55,
-                                                                    alignment: Alignment.center,
-                                                                    decoration: const BoxDecoration(
-                                                                      shape: BoxShape.circle ,
-                                                                      color: AppColors.blueThemeColor),
-                                                                    child: const Icon(Icons.close , color: AppColors.white,),
-                                                                  ),
-                                                                ),
-                                                                GestureDetector(
-                                                                  onTap: () {
-                                                                    onSwipeRight() ;
-                                                                  },
-                                                                  child: Container(
-                                                                    height: 55,
-                                                                    width: 55,
-                                                                    margin: const EdgeInsets.only(right: 20),
-                                                                    alignment: Alignment.center,
-                                                                    decoration: const BoxDecoration(
-                                                                      shape: BoxShape.circle ,
-                                                                      color: AppColors.blueThemeColor),
-                                                                    child: const Icon(Icons.done , color: AppColors.white,),
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                          Container(
+                                                            padding: const EdgeInsets.all(8),
+                                                            decoration: BoxDecoration(
+                                                                color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                borderRadius: BorderRadius.circular(10)
                                                             ),
+                                                            child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
+                                                              style: Get.theme.textTheme.displayLarge!.copyWith(color: AppColors.white),),
                                                           ),
-                                                      ],),
+                                                          const SizedBox(height: 10,) ,
+                                                          Container(
+                                                            padding: const EdgeInsets.all(8),
+                                                            decoration: BoxDecoration(
+                                                                color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                borderRadius: BorderRadius.circular(10)
+                                                            ),
+                                                            child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.companyName ?? "No company name",overflow: TextOverflow.ellipsis,
+                                                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
+                                                          ),
+                                                          const SizedBox(height: 10,) ,
+                                                          Container(
+                                                            padding: const EdgeInsets.all(8),
+                                                            decoration: BoxDecoration(
+                                                                color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                borderRadius: BorderRadius.circular(10)
+                                                            ),
+                                                            child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobLocation ?? "No job location",overflow: TextOverflow.ellipsis,
+                                                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 12,fontWeight: FontWeight.w600),),
+                                                          ),
+                                                          const SizedBox(height: 10,) ,
+                                                        ],),
                                                     ),
                                                   ],),
                                                   SizedBox(height: Get.height * 0.025,),
@@ -920,18 +895,18 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         Center(child: Text("THIS JOB IS ABOVE",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),)),
                                                         Center(child: Text("SALARY BENCHMARK", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w800,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationThickness: 2.0),)),
                                                         SizedBox(height: 15,),
-                                                        Center(
-                                                          child: Obx( () => MyButton(
-                                                              title: getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ? "APPLIED" : "APPLY NOW",
-                                                              onTap1: () async {
-                                                                if(getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ){}else{
-                                                                  applyJobController.errorMessageApplyReferral.value = "" ;
-                                                                  showReferralSubmissionDialog(context,index) ;
-                                                                }
-                                                              }
-                                                          ),
-                                                          ),
-                                                        ),
+                                                        // Center(
+                                                        //   child: Obx( () => MyButton(
+                                                        //       title: getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ? "APPLIED" : "APPLY NOW",
+                                                        //       onTap1: () async {
+                                                        //         if(getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ){}else{
+                                                        //           applyJobController.errorMessageApplyReferral.value = "" ;
+                                                        //           showReferralSubmissionDialog(context,index) ;
+                                                        //         }
+                                                        //       }
+                                                        //   ),
+                                                        //   ),
+                                                        // ),
                                                         SizedBox(height: Get.height*.025,),
                                                       ],
                                                     ),
@@ -943,7 +918,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                         ),
                                         ),
                             Positioned(
-                              top: 0,
+                              top: 0 - appBarPosition.value,
                               child: Container(
                                 color: Colors.black.withOpacity(_appBarOpacity),
                                 width: Get.width,
@@ -972,6 +947,48 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+                            Positioned(
+                              bottom: 10 ,
+                              left: 12,
+                              child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox( width: Get.width,
+                                    child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap : () {
+                                            onSwipeLeft() ;
+                                          },
+                                          child: Container(
+                                            height: 55,
+                                            width: 55,
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle ,
+                                                color: AppColors.blueThemeColor),
+                                            child: const Icon(Icons.close , color: AppColors.white,),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            onSwipeRight() ;
+                                          },
+                                          child: Container(
+                                            height: 55,
+                                            width: 55,
+                                            margin: const EdgeInsets.only(right: 20),
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle ,
+                                                color: AppColors.blueThemeColor),
+                                            child: const Icon(Icons.done , color: AppColors.white,),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],),
                             ),
                           ],
                         ),

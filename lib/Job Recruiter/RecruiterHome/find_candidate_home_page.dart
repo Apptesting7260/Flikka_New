@@ -75,6 +75,10 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   Timer? _scrollTimer;
   double _previousScrollOffset = 0.0;
   double _appBarOpacity = 0.0;
+
+  var position = 0.0.obs  ;
+  var appBarPosition = 0.0.obs  ;
+
   Createchatrecruter Ctreatechatinstance = Createchatrecruter();
   TabBarController tabBarController = Get.put(TabBarController());
   @override
@@ -85,9 +89,18 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
       });
     });
     _scrollController.addListener(() {
-      setState(() {
-        _appBarOpacity = _scrollController.offset > 150 ? 1.0 : _scrollController.offset / 150;
-      });
+
+      if(_scrollController.offset < Get.height*.23) {
+        position.value = _scrollController.offset ;
+        setState(() {
+          _appBarOpacity = _scrollController.offset > 35 ? 1.0 : 0;
+        });
+      }
+      if(_scrollController.offset < 1) {
+        print("=============object") ;
+        appBarPosition.value = _scrollController.offset ;
+        print("=============${_scrollController.offset}") ;
+      }
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
         tabBarController.showBottomBarRecruiter(true);
@@ -95,21 +108,21 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
           ScrollDirection.reverse) {
         tabBarController.showBottomBarRecruiter(false);
       }
-      if (_scrollTimer != null && _scrollTimer!.isActive) {
-        // If the timer is active, cancel it (user is still scrolling)
-        _scrollTimer!.cancel();
-      }
-      // Start a new timer when scrolling stops
-      _scrollTimer = Timer(Duration(milliseconds: 150), () {
-        if(_scrollController.position.pixels - _previousScrollOffset >= 50 || _previousScrollOffset - _scrollController.position.pixels >= 50  ) {
-          print("scrolled") ;
-        }
-        setState(() {
-          // Update _previousScrollOffset once scrolling stops
-          _previousScrollOffset = _scrollController.position.pixels;
-          print("Scroll Ended. Previous Offset: $_previousScrollOffset");
-        });
-      });
+      // if (_scrollTimer != null && _scrollTimer!.isActive) {
+      //   // If the timer is active, cancel it (user is still scrolling)
+      //   _scrollTimer!.cancel();
+      // }
+      // // Start a new timer when scrolling stops
+      // _scrollTimer = Timer(Duration(milliseconds: 150), () {
+      //   if(_scrollController.position.pixels - _previousScrollOffset >= 50 || _previousScrollOffset - _scrollController.position.pixels >= 50  ) {
+      //     print("scrolled") ;
+      //   }
+      //   setState(() {
+      //     // Update _previousScrollOffset once scrolling stops
+      //     _previousScrollOffset = _scrollController.position.pixels;
+      //     print("Scroll Ended. Previous Offset: $_previousScrollOffset");
+      //   });
+      // });
     });
     super.initState();
   }
@@ -367,7 +380,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                   ),
                                                 ),
                                                 Positioned(
-                                                  bottom: Get.height *.12,
+                                                  bottom: Get.height * .25 - position.value ,
                                                   left: 12,
                                                   child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
@@ -388,7 +401,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].positions ?? "No Position",overflow: TextOverflow.ellipsis,
-                                                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
+                                                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
                                                       ),
                                                       const SizedBox(height: 10,) ,
                                                       Container(
@@ -398,44 +411,10 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.location ?? "No location",overflow: TextOverflow.ellipsis,
-                                                          style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
+                                                          style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
                                                       ),
                                                       const SizedBox(height: 10,) ,
-                                                      SizedBox( width: Get.width,
-                                                        child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            GestureDetector(
-                                                              onTap : () {
-                                                                onSwipeLeft() ;
-                                                              },
-                                                              child: Container(
-                                                                height: 55,
-                                                                width: 55,
-                                                                alignment: Alignment.center,
-                                                                decoration: const BoxDecoration(
-                                                                    shape: BoxShape.circle ,
-                                                                    color: AppColors.blueThemeColor),
-                                                                child: const Icon(Icons.close , color: AppColors.white,),
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                onSwipeRight(index) ;
-                                                              },
-                                                              child: Container(
-                                                                height: 55,
-                                                                width: 55,
-                                                                margin: const EdgeInsets.only(right: 20),
-                                                                alignment: Alignment.center,
-                                                                decoration: const BoxDecoration(
-                                                                    shape: BoxShape.circle ,
-                                                                    color: AppColors.blueThemeColor),
-                                                                child: const Icon(Icons.done , color: AppColors.white,),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
+
                                                     ],),
                                                 ),
                                               ],
@@ -1162,7 +1141,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                   ),
                                   ),
                                   Positioned(
-                                    top: 0,
+                                    top: 0 - appBarPosition.value,
                                     child: Container(width: Get.width,
                                       padding: const EdgeInsets.only(bottom: 10, left: 12, right: 20,),
                                       color: Colors.black.withOpacity(_appBarOpacity),
@@ -1255,6 +1234,44 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                       ),
                                     ),
                                   ),
+                                  Positioned(
+                                    bottom: 10 ,
+                                    left: 12,
+                                    child:  SizedBox( width: Get.width,
+                                    child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap : () {
+                                            onSwipeLeft() ;
+                                          },
+                                          child: Container(
+                                            height: 55,
+                                            width: 55,
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle ,
+                                                color: AppColors.blueThemeColor),
+                                            child: const Icon(Icons.close , color: AppColors.white,),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            onSwipeRight(_currentPage) ;
+                                          },
+                                          child: Container(
+                                            height: 55,
+                                            width: 55,
+                                            margin: const EdgeInsets.only(right: 20),
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle ,
+                                                color: AppColors.blueThemeColor),
+                                            child: const Icon(Icons.done , color: AppColors.white,),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),)
                                 ]),
                           ),
                         ),

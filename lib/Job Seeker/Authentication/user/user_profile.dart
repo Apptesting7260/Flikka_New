@@ -2163,7 +2163,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             .bodyLarge!
                                                             .copyWith(
                                                             color: AppColors
-                                                                .black),
+                                                                .black,fontWeight: FontWeight.w600),
                                                       ),
                                                     ],
                                                   ),
@@ -2193,7 +2193,6 @@ class _UserProfileState extends State<UserProfile> {
                                                         child: Image.asset('assets/images/icon_phone_call.png',height: Get.height*.03,)),
                                                     SizedBox(width: Get.width * 0.02,),
                                                     Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
-
                                                   ],
                                                 ),
                                                 GestureDetector(
@@ -2213,7 +2212,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.phone == null ||
                                                     seekerProfileController.viewSeekerData.value.seekerInfo?.phone?.length == 0 ?
-                                                Text("No phone number", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                                Text("No phone number", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                                 Text(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ??"No Data",style: Theme.of(context).textTheme.bodyLarge!
                                                     .copyWith(color: AppColors.silverColor),)
                                                 // Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
@@ -2239,15 +2238,16 @@ class _UserProfileState extends State<UserProfile> {
                                                       height: 18,))
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.01,),
-                                            const Divider(
-                                              thickness: 0.2,
-                                              color: AppColors.silverColor,
-                                            ),
-                                            SizedBox(height: Get.height * 0.01,),
+                                            CommonWidgets.divider(),
+                                            // SizedBox(height: Get.height * 0.01,),
+                                            // const Divider(
+                                            //   thickness: 0.2,
+                                            //   color: AppColors.silverColor,
+                                            // ),
+                                            // SizedBox(height: Get.height * 0.01,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe == null ||
                                                 CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)?.trim().length == 0 ?
-                                            Text("No about", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No about", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
                                                 .copyWith(color: AppColors.silverColor),),
                                             SizedBox(height: Get.height * 0.045,),
@@ -2264,16 +2264,11 @@ class _UserProfileState extends State<UserProfile> {
                                                           'assets/images/icon_work_experience_.png',height: Get.height*.03,)),
                                                     SizedBox(
                                                       width: Get.width * 0.02,),
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(
-                                                          top: 4.0),
-                                                      child: Text('Work experience',
-                                                        style: Get.theme.textTheme
-                                                            .labelMedium!.copyWith(
-                                                            color: AppColors
-                                                                .black),),
-                                                    ),
+                                                    Text('Work experience',
+                                                      style: Get.theme.textTheme
+                                                          .labelMedium!.copyWith(
+                                                          color: AppColors
+                                                              .black),),
                                                   ],
                                                 ),
                                                 InkWell(
@@ -2284,14 +2279,15 @@ class _UserProfileState extends State<UserProfile> {
                                                       'assets/images/icon_add_more.png',height: Get.height*.04,))
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.02,),
-                                            const Divider(
-                                              thickness: 0.2,
-                                              color: AppColors.silverColor,
-                                            ),
+                                            // SizedBox(height: Get.height * 0.02,),
+                                            // const Divider(
+                                            //   thickness: 0.2,
+                                            //   color: AppColors.silverColor,
+                                            // ),
+                                            CommonWidgets.divider(),
                                             seekerProfileController.viewSeekerData.value.workExpJob == null ||
                                                 seekerProfileController.viewSeekerData.value.workExpJob?.length == 0 ?
-                                            const Text('Fresher')
+                                            const Text('Fresher',style: TextStyle(color: Colors.black),)
                                                 : ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -2318,7 +2314,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(height: Get.height * 0.02,),
+                                                      // SizedBox(height: Get.height * 0.02,),
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Text('${data?.workExpJob}',
@@ -2395,11 +2391,11 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.02,),
-                                            const Divider(thickness: 0.2, color: AppColors.silverColor,),
+                                            // SizedBox(height: Get.height * 0.02,),
+                                           CommonWidgets.divider(),
                                             seekerProfileController.viewSeekerData.value.educationLevel == null ||
                                                 seekerProfileController.viewSeekerData.value.educationLevel?.length == 0 ?
-                                            Text("No education", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No education", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -2426,7 +2422,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(height: Get.height * 0.02,),
+                                                      // SizedBox(height: Get.height * 0.02,),
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Text('${data?.educationLevel}',
@@ -2493,21 +2489,18 @@ class _UserProfileState extends State<UserProfile> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.02,),
-                                            const Divider(
-                                              thickness: 0.2,
-                                              color: AppColors.silverColor,
-                                            ),
-                                            SizedBox(
-                                              height: Get.height * 0.015,),
+                                            // SizedBox(height: Get.height * 0.02,),
+                                           CommonWidgets.divider(),
+                                            // SizedBox(
+                                            //   height: Get.height * 0.015,),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text('Soft Skill',
                                                   style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
+                                                      .titleSmall!.copyWith(
                                                       color: AppColors
-                                                          .black),),
+                                                          .black,fontSize: 15),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.map((e) => e.id.toString()).toList() , 1) ;
@@ -2522,7 +2515,7 @@ class _UserProfileState extends State<UserProfile> {
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
 
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2560,7 +2553,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 Text('Passion',
                                                   style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
+                                                      .titleSmall!.copyWith(
                                                       color: AppColors
                                                           .black),),
                                                 GestureDetector(
@@ -2579,7 +2572,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
 
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2611,7 +2604,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 Text('Industry Preference',
                                                   style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
+                                                      .titleSmall!.copyWith(
                                                       color: AppColors
                                                           .black),),
                                                 GestureDetector(
@@ -2629,7 +2622,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
 
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.graySilverColor),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2661,7 +2654,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 Text('Strengths',
                                                   style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
+                                                      .titleSmall!.copyWith(
                                                       color: AppColors
                                                           .black),),
                                                 GestureDetector(
@@ -2680,7 +2673,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     .viewSeekerData.value
                                                     .seekerDetails?.strengthsName
                                                     ?.length == 0 ?
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2724,7 +2717,7 @@ class _UserProfileState extends State<UserProfile> {
                                             Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text('Salary expectation',
-                                                  style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.black),),
+                                                  style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black),),
                                                 GestureDetector(
                                                   onTap: () {
                                                     salarySection() ;
@@ -2737,7 +2730,7 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary.toString().length == 0 ?
-                                            Text("No salary expectation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No salary expectation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             Container(
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius
@@ -2759,7 +2752,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 Text('When can i start working?',
                                                   style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
+                                                      .titleSmall!.copyWith(
                                                       color: AppColors
                                                           .black),),
                                                 GestureDetector(
@@ -2774,7 +2767,7 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2820,7 +2813,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 Text('Availability?',
                                                   style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
+                                                      .titleSmall!.copyWith(
                                                       color: AppColors
                                                           .black),),
                                                 GestureDetector(
@@ -2838,7 +2831,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
                                                     ?.length == 0 ?
-                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2901,15 +2894,12 @@ class _UserProfileState extends State<UserProfile> {
                                                       'assets/images/icon_edit.png',height: 18,))
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.02,),
-                                            const Divider(
-                                              thickness: 0.2,
-                                              color: AppColors.silverColor,
-                                            ),
-                                            SizedBox(height: Get.height * 0.02,),
+                                            // SizedBox(height: Get.height * 0.02,),
+                                           CommonWidgets.divider(),
+                                            // SizedBox(height: Get.height * 0.02,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                            Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2940,7 +2930,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         child: Image.asset( 'assets/images/appreciation.png',height: Get.height*.03,)),
                                                     SizedBox(width: Get.width * 0.02,),
                                                     Padding(padding: const EdgeInsets.only(top: 6.0),
-                                                      child: Text('appreciation',
+                                                      child: Text('Appreciation',
                                                         style: Get.theme.textTheme.labelMedium!.copyWith(
                                                             color: AppColors.black),),
                                                     ),
@@ -2953,14 +2943,11 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.02,),
-                                            const Divider(
-                                              thickness: 0.2,
-                                              color: AppColors.silverColor,
-                                            ),
+                                            // SizedBox(height: Get.height * 0.02,),
+                                           CommonWidgets.divider(),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length == 0 ?
-                                            Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),)
+                                            Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),)
                                                 : ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -2969,7 +2956,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   var data = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?[index];
                                                   return Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(height: Get.height * 0.02,),
+                                                      // SizedBox(height: Get.height * 0.02,),
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Text('${data?.awardName}', style: Get.theme.textTheme.bodyMedium!.copyWith(
@@ -3034,15 +3021,12 @@ class _UserProfileState extends State<UserProfile> {
                                                 )
                                               ],
                                             ),
-                                            SizedBox(height: Get.height * 0.02,),
-                                            const Divider(
-                                              thickness: 0.2,
-                                              color: AppColors.silverColor,
-                                            ),
-                                            SizedBox(height: Get.height * 0.02,),
+                                            // SizedBox(height: Get.height * 0.02,),
+                                           CommonWidgets.divider(),
+                                            // SizedBox(height: Get.height * 0.02,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.resume == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.resume.length == 0 ?
-                                            Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),)
+                                            Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),)
                                                 : ListTile(
                                               leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
                                               SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
@@ -3086,11 +3070,11 @@ class _UserProfileState extends State<UserProfile> {
                                                 )
                                               ],
                                             ),
-                                            SizedBox(height: Get.height*.015,) ,
-                                            const Divider(thickness: 0.2, color: AppColors.silverColor,),
+                                            // SizedBox(height: Get.height*.015,) ,
+                                           CommonWidgets.divider(),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
-                                            Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                            Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
 
                                             ListTile(
                                               title: Text('Document',

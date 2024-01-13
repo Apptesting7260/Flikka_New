@@ -5,9 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../PaymentRequestController/PaymentRequestController.dart';
+import '../SeekerEarningController/SeekerEarningController.dart';
 
 class SaveBankDetailsController extends GetxController {
   final _api = AuthRepository();
+
+  SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
 
   RxBool loading = false.obs;
   var bankErrorMessage = ''.obs ;
@@ -43,6 +46,7 @@ class SaveBankDetailsController extends GetxController {
 
       if(value.status==true) {
        Utils.showMessageDialog(context, "Bank Details save successfully") ;
+       seekerEarningController.refreshWalletApi() ;
       }
       // Get.to(AddBankAccountDetails()) ;
 
