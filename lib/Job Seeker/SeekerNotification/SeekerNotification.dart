@@ -142,7 +142,8 @@ class _Notification1PageState extends State<SeekerNotification> {
                                       .viewSeekerNotificationData.value.seekerNotification?[index].seekerId}",
                                 ));
                               },
-                              tileColor: AppColors.textFieldFilledColor,
+                              tileColor: SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.
+                              seekerNotification?[index].seen == 1 ? AppColors.textFieldFilledColor : AppColors.homeGrey,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(17),
                               ),
@@ -173,11 +174,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                                 SeekerViewNotificationControllerInstanse
                                     .viewSeekerNotificationData.value.seekerNotification?[index].companyName ?? "",
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                  color: AppColors.white,
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white,
                                   fontSize: SeekerViewNotificationControllerInstanse
                                       .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? 15 : 18,
                                 ),
@@ -185,10 +182,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                               subtitle: Text(
                                 SeekerViewNotificationControllerInstanse
                                     .viewSeekerNotificationData.value.seekerNotification?[index].description ?? "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(color: AppColors.white),
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),
                               ),
                             ),
                           );
