@@ -68,8 +68,8 @@ class CommonWidgets {
   static divider () {
  return  const Divider(
       height: 35,
-      color: AppColors.silverColor,
-      thickness: 0.1,
+      color: AppColors.dividerColor,
+      thickness: 0.5,
       indent: 5,
       endIndent: 5,
     ) ;

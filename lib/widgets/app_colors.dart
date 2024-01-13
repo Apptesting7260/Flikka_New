@@ -25,6 +25,7 @@ class AppColors {
   static const silverColor=Color(0xff777777);
   static const dividerColor=Color(0xffE0E0E0);
 
+
 // static const azure=Color(0xff007AFF);
 // static const oldSilver=Color(0xff848282);
 // static const graniteGray=Color(0xff636363);
