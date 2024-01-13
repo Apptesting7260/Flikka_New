@@ -387,7 +387,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       Container(
                                                         padding: const EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
-                                                            color: const Color(0xff0D5AFE).withOpacity(.2),
+                                                            color: const Color(0xff0D5AFE).withOpacity(.6),
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.fullname ?? "",overflow: TextOverflow.ellipsis,
@@ -397,7 +397,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       Container(
                                                         padding: const EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
-                                                            color: const Color(0xff0D5AFE).withOpacity(.2),
+                                                            color: const Color(0xff0D5AFE).withOpacity(.6),
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].positions ?? "No Position",overflow: TextOverflow.ellipsis,
@@ -407,7 +407,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       Container(
                                                         padding: const EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
-                                                            color: const Color(0xff0D5AFE).withOpacity(.2),
+                                                            color: const Color(0xff0D5AFE).withOpacity(.6),
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.location ?? "No location",overflow: TextOverflow.ellipsis,
