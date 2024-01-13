@@ -4,6 +4,8 @@ import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../PaymentRequestController/PaymentRequestController.dart';
+
 class SaveBankDetailsController extends GetxController {
   final _api = AuthRepository();
 

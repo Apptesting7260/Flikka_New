@@ -257,9 +257,12 @@ class _RecruiterMessagePageState extends State<RecruiterMessagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         toolbarHeight: 70,
-        title: Text("Message", style: Get.theme!.textTheme!.displayLarge),
+        centerTitle: true,
+        title: Text("Your chats", style: Get.theme!.textTheme!.displayLarge?.copyWith(color: AppColors.black)),
         leading: Padding(
           padding: const EdgeInsets.only(left: 15.0),
           child: InkWell(
@@ -275,38 +278,53 @@ class _RecruiterMessagePageState extends State<RecruiterMessagePage> {
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Get.width*  .05, vertical: Get.height * .006),
-              decoration: BoxDecoration(
-                color: Color(0xff373737),
-                borderRadius: BorderRadius.circular(33.0),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.search,
-                      color: AppColors.blueThemeColor, size: 30),
-                  SizedBox(width: Get.width * .03),
-                  Expanded(
-                    child: TextFormField(
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(color: Color(0xffCFCFCF), fontSize: 19),
-                      onChanged: (query) {
-                        // filterPositionNames(query);
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: Color(0xffCFCFCF)),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
+            // Container(
+            //   padding: EdgeInsets.symmetric(
+            //       horizontal: Get.width*  .05, vertical: Get.height * .006),
+            //   decoration: BoxDecoration(
+            //     color: Color(0xff373737),
+            //     borderRadius: BorderRadius.circular(33.0),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       Icon(Icons.search,
+            //           color: AppColors.blueThemeColor, size: 30),
+            //       SizedBox(width: Get.width * .03),
+            //       Expanded(
+            //         child: TextFormField(
+            //           style: Theme.of(context)
+            //               .textTheme
+            //               .bodyLarge
+            //               ?.copyWith(color: Color(0xffCFCFCF), fontSize: 19),
+            //           onChanged: (query) {
+            //             // filterPositionNames(query);
+            //           },
+            //           decoration: InputDecoration(
+            //             hintText: 'Search',
+            //             hintStyle: Theme.of(context)
+            //                 .textTheme
+            //                 .bodyLarge
+            //                 ?.copyWith(color: Color(0xffCFCFCF)),
+            //             border: InputBorder.none,
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            TextFormField(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontSize: 15),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search,color: AppColors.blueThemeColor,size: 30,),
+                filled: true,
+                fillColor: AppColors.homeGrey,
+                hintText: 'Search',
+                hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(33),
+                  borderSide: BorderSide.none,
+                ),
+
               ),
             ),
             SizedBox(height: Get.height * 0.03),
@@ -349,7 +367,7 @@ class _RecruiterMessagePageState extends State<RecruiterMessagePage> {
                               title: Text(data!['SeekerName'],
                                   style: Get.theme!.textTheme!.titleSmall!
                                       .copyWith(
-                                      color: AppColors.white)),
+                                      color: AppColors.black)),
                               subtitle: Text(data!["lastmsg"],
                                   style: Get.theme!.textTheme!.bodySmall!
                                       .copyWith(color: Colors.blue)),
@@ -361,7 +379,7 @@ class _RecruiterMessagePageState extends State<RecruiterMessagePage> {
                                     style: Get.theme!.textTheme!.bodySmall!
                                         .copyWith(
                                         fontSize: 10,
-                                        color: Color(0xffCFCFCF)),
+                                        color: AppColors.silverColor),
                                   ),
                                   FutureBuilder<String>(
                                     future: MessengeRead(roomid),

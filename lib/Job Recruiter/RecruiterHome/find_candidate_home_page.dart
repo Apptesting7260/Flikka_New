@@ -4,6 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
 import 'package:flikka/controllers/RecruiterHomeController/RecruiterHomeController.dart';
 import 'package:flikka/controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
+import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -289,8 +290,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         child:
                                                         Container(
                                                           alignment: Alignment.center,
-                                                          height: 34,
-                                                          width: 34,
+                                                          height: 40,
+                                                          width: 40,
                                                           decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
                                                               color: AppColors.blueThemeColor),
@@ -308,8 +309,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       InkWell(
                                                         child: Container(
                                                           alignment: Alignment.center,
-                                                          height: 34,
-                                                          width: 34,
+                                                          height: 40,
+                                                          width: 40,
                                                           decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                           child: Image.asset(
                                                             'assets/images/icon_msg_blue.png',
@@ -353,8 +354,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                           },
                                                             child:Container(
                                                               alignment: Alignment.center,
-                                                              height: 34,
-                                                              width: 34,
+                                                              height: 40,
+                                                              width: 40,
                                                               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                               child: Image.asset(
                                                                 'assets/images/call1.png',
@@ -377,7 +378,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.fullname ?? "",overflow: TextOverflow.ellipsis,
-                                                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
+                                                          style: Get.theme.textTheme.displayLarge!.copyWith(color: AppColors.white),),
                                                       ),
                                                       const SizedBox(height: 10,) ,
                                                       Container(
@@ -397,7 +398,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             borderRadius: BorderRadius.circular(10)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.location ?? "No location",overflow: TextOverflow.ellipsis,
-                                                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
+                                                          style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
                                                       ),
                                                       const SizedBox(height: 10,) ,
                                                       SizedBox( width: Get.width,
@@ -408,8 +409,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                                 onSwipeLeft() ;
                                                               },
                                                               child: Container(
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 55,
+                                                                width: 55,
                                                                 alignment: Alignment.center,
                                                                 decoration: const BoxDecoration(
                                                                     shape: BoxShape.circle ,
@@ -422,8 +423,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                                 onSwipeRight(index) ;
                                                               },
                                                               child: Container(
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 55,
+                                                                width: 55,
                                                                 margin: const EdgeInsets.only(right: 20),
                                                                 alignment: Alignment.center,
                                                                 decoration: const BoxDecoration(
@@ -447,21 +448,18 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        Image.asset("assets/images/icon_phone_call.png",height: Get.height*.03,),
+                                                        Image.asset("assets/images/icon_phone_call.png",height: 20,width: 20,),
                                                         SizedBox(
                                                           width: Get.width * 0.02,
                                                         ),
-                                                        Text("Phone Number",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),)
+                                                        Text("Phone Number",style: Theme.of(context).textTheme.labelMedium?.copyWith(color: AppColors.black),)
                                                       ],
                                                     ) ,
-                                                    SizedBox(
-                                                      height: Get.height * 0.015,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    Text(homeController.homeData.value.Seeker_Details?[index].seeker?.mobile ?? "No phone number", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black),) ,
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.015,
+                                                    // ),
+                                                    CommonWidgets.divider(),
+                                                    Text(homeController.homeData.value.Seeker_Details?[index].seeker?.mobile ?? "No phone number", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.silverColor),) ,
                                                     SizedBox(
                                                       height: Get.height * 0.04,
                                                     ),
@@ -471,33 +469,34 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         InkWell(
                                                             child: Image.asset(
                                                               'assets/images/about.png',
-                                                              height: Get.height * .03,
+                                                              height: 20,width: 20,
                                                             )),
                                                         SizedBox(
                                                           width: Get.width * 0.02,
                                                         ),
                                                         Text(
                                                           "About",
-                                                          style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),
+                                                          style: Theme.of(context).textTheme.labelMedium?.copyWith(color: AppColors.black),
                                                           softWrap: true,
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.015,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.015,
+                                                    // ),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,
+                                                    // ),
+                                                    CommonWidgets.divider(),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
                                                     HtmlWidget(
                                                       homeController.homeData.value.Seeker_Details?[index].seeker?.aboutMe ?? "No about",
                                                       textStyle: Theme.of(context)
                                                           .textTheme
-                                                          .bodyLarge?.copyWith(color: AppColors.black),
+                                                          .bodyLarge?.copyWith(color: AppColors.silverColor),
                                                     ),
                                                     SizedBox(
                                                       height: Get.height * 0.025,
@@ -508,7 +507,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         InkWell(
                                                             child: Image.asset(
                                                               'assets/images/icon work experience.png',
-                                                              height: Get.height * .03,
+                                                              height: 20,width: 20,
                                                             )),
                                                         SizedBox(
                                                           width: Get.width * 0.02,
@@ -522,16 +521,17 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,
+                                                    // ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].workExpJob == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].workExpJob?.length == 0
                                                         ?  Text("No work experience",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black))
@@ -558,7 +558,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                               HtmlWidget(
                                                                 data?.workExpJob ?? "",
                                                                 textStyle: Get
-                                                                    .theme.textTheme.bodyMedium!
+                                                                    .theme.textTheme.bodyLarge!
                                                                     .copyWith(
                                                                     color: AppColors.black,
                                                                     fontWeight: FontWeight.w700),
@@ -571,14 +571,14 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                                 data?.companyName ?? "No company name",
                                                                 textStyle: Theme.of(context)
                                                                     .textTheme
-                                                                    .bodyLarge?.copyWith(color: AppColors.black),
+                                                                    .labelLarge?.copyWith(color: AppColors.silverColor),
                                                               ),
                                                               // Text( CommonFunctions.parseHTML(data?.companyName ?? ""),style: Theme.of(context).textTheme.bodySmall!
                                                               //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                                               // ),
                                                               Text("$startDate  -  $endDate",
-                                                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                    color: AppColors.black, fontWeight: FontWeight.w400),
+                                                                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                                                    color: AppColors.silverColor, fontWeight: FontWeight.w400),
                                                               ),
                                                               SizedBox(
                                                                 height: Get.height * .01,
@@ -600,7 +600,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             InkWell(
                                                                 child: Image.asset(
                                                                   'assets/images/icon education.png',
-                                                                  height: Get.height * .037,
+                                                                  height: 25,width: 22,
                                                                 )),
                                                             SizedBox(
                                                               width: Get.width * 0.02,
@@ -609,23 +609,24 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                               padding: const EdgeInsets.only(top: 6.0),
                                                               child: Text(
                                                                 'Education',
-                                                                style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),
+                                                                style: Get.theme.textTheme.labelMedium?.copyWith(color: AppColors.black),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,
+                                                    // ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].educationLevel == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].educationLevel?.length == 0
                                                         ? Text("No Education" ,style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black))
@@ -659,13 +660,13 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                                 data?.institutionName ?? "",
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .bodyLarge?.copyWith(color: AppColors.black),
+                                                                    .labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),
                                                               ),
                                                               Text(
                                                                 "${data?.educationStartDate.month.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.day.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.year.toString().padLeft(4,"0").replaceAll("00:00:00.000", "")}  -  $endDate",
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .bodyLarge?.copyWith(color: AppColors.black),
+                                                                    .labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),
                                                               ),
                                                               SizedBox(
                                                                 height: Get.height * .01,
@@ -676,7 +677,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
 
                                                     //******************** for Skill **************************
                                                     SizedBox(
-                                                      height: Get.height * 0.04,
+                                                      height: Get.height * 0.03,
                                                     ),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -687,7 +688,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             InkWell(
                                                                 child: Image.asset(
                                                                   'assets/images/skillsvg.png',
-                                                                  height: Get.height * .03,
+                                                                  height: 20,width: 20,
                                                                 )),
                                                             SizedBox(
                                                               width: Get.width * 0.02,
@@ -703,19 +704,20 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.03,
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,
+                                                    // ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.03,
+                                                    // ),
+                                                    CommonWidgets.divider(),
                                                     Text("Soft Skills",
                                                       style: Theme.of(context).textTheme
-                                                          .titleSmall?.copyWith(color: AppColors.black),
+                                                          .titleSmall?.copyWith(color: AppColors.black,fontSize: 15),
                                                     ),
                                                     SizedBox(height: Get.height*0.01,),
                                                     /////
@@ -739,7 +741,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].skillName?[i].skills ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -771,7 +773,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].passionName?[i].passion ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -805,7 +807,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].industryPreferenceName?[i].industryPreferences ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -836,7 +838,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].strengthsName?[i].strengths ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -857,7 +859,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
                                                       child: Text('${ homeController.homeData.value.Seeker_Details?[index].minSalaryExpectation ?? ''} - ${ homeController.homeData.value.Seeker_Details?[index].maxSalaryExpectation ?? ''}',
                                                         overflow: TextOverflow.ellipsis,
-                                                        style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),),
+                                                        style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
                                                     ),
                                                     SizedBox(height: Get.height * 0.04,),
                                                     Text("When can i start working?",
@@ -885,7 +887,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].startWorkName?[i].startWork ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -919,7 +921,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].availabityName?[i].availabity ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -935,7 +937,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             InkWell(
                                                                 child: Image.asset(
                                                                   'assets/images/appreciation.png',
-                                                                  height: Get.height * .03,
+                                                                  height: 20,width: 20,
                                                                 )),
                                                             SizedBox(
                                                               width: Get.width * 0.02,
@@ -944,23 +946,24 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                               padding: const EdgeInsets.only(top: 2.0),
                                                               child: Text(
                                                                 'Language',
-                                                                style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),
+                                                                style: Get.theme.textTheme.labelMedium?.copyWith(color: AppColors.black),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,
+                                                    // ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].language == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].language?.length == 0
                                                         ?  Text("No language", style: Get.theme.textTheme.bodyLarge?.copyWith(color: AppColors.black),)
@@ -981,7 +984,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             child: Text(
                                                                 homeController.homeData.value.Seeker_Details?[index].language?[i].languages ?? "",
                                                                 overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black)
+                                                                style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400)
                                                             ),
                                                           );
                                                         },
@@ -999,29 +1002,30 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                             InkWell(
                                                                 child: SvgPicture.asset(
                                                                   'assets/images/language.svg',
-                                                                  height: Get.height * .03,
+                                                                  height: 20,width: 20,
                                                                 )),
                                                             SizedBox(
                                                               width: Get.width * 0.02,
                                                             ),
                                                             Text(
                                                               'Appreciation',
-                                                              style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),
+                                                              style: Get.theme.textTheme.labelMedium?.copyWith(color: AppColors.black),
                                                             ),
                                                           ],
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.02,
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,
+                                                    // ),
+                                                    // SizedBox(
+                                                    //   height: Get.height * 0.02,
+                                                    // ),
+                                                    CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].appreciation == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].appreciation?.length == 0
                                                         ?  Text("No appreciation", style: Get.theme.textTheme.bodyLarge?.copyWith(color: AppColors.black),)
@@ -1049,7 +1053,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                                 data?.awardName ?? "",
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .bodyLarge?.copyWith(color: AppColors.black),
+                                                                    .labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),
                                                               ),
                                                               SizedBox(
                                                                 height: Get.height * 0.01,
@@ -1061,16 +1065,17 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
-                                                        Image.asset('assets/images/resumeIcon.png', height: Get.height * .03,),
+                                                        Image.asset('assets/images/resumeIcon.png' ,height: 20,width: 20,),
                                                         SizedBox(width: Get.width * 0.02,),
-                                                        Text('Resume', style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                                        Text('Resume', style: Get.theme.textTheme.labelMedium?.copyWith(color: AppColors.black),),
                                                       ],
                                                     ),
-                                                    SizedBox(height: Get.height * 0.02,),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,),
-                                                    SizedBox(height: Get.height * 0.02,),
+                                                    // SizedBox(height: Get.height * 0.02,),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,),
+                                                    // SizedBox(height: Get.height * 0.02,),
+                                                    CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].seeker?.resume == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].seeker?.resume?.length == 0 ?
                                                     Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),)
@@ -1089,20 +1094,21 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                           },) ;
                                                       },
                                                     ),
-                                                    SizedBox(height: Get.height * 0.02,),
+                                                    SizedBox(height: Get.height * 0.025,),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
-                                                        Image.asset('assets/images/documentIcon.png', height: Get.height * .03,),
+                                                        Image.asset('assets/images/documentIcon.png',   height: 20,width: 20,),
                                                         SizedBox(width: Get.width * 0.02,),
-                                                        Text('Document', style: Get.theme.textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                                        Text('Document', style: Get.theme.textTheme.labelMedium?.copyWith(color: AppColors.black),),
                                                       ],
                                                     ),
-                                                    SizedBox(height: Get.height * 0.02,),
-                                                    const Divider(
-                                                      thickness: 0.2,
-                                                      color: AppColors.homeGrey,),
-                                                    SizedBox(height: Get.height * 0.02,),
+                                                    // SizedBox(height: Get.height * 0.02,),
+                                                    // const Divider(
+                                                    //   thickness: 0.2,
+                                                    //   color: AppColors.homeGrey,),
+                                                    // SizedBox(height: Get.height * 0.02,),
+                                                    CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg?.length == 0 ?
                                                     Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
@@ -1240,7 +1246,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       padding: EdgeInsets.only(
                                                           top: Get.height * .032),
                                                       child: Image.asset(
-                                                        'assets/images/inactive.png',
+                                                        'assets/images/icon_seeker_drawer.png',
                                                         height: Get.height * .05,),
                                                     ));
                                               }

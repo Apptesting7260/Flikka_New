@@ -4,14 +4,12 @@ import 'package:flikka/Job%20Recruiter/RecruiterHome/find_candidate_home_page.da
 import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' ;
 import '../../Job Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import '../../controllers/RecruiterHomeController/RecruiterHomeController.dart';
 import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
 import '../../controllers/RecruiterReportController/RecruiterReportController.dart';
-import '../../controllers/SeekerViewCompanyController/SeekerViewCompanyController.dart';
 import '../../controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import '../../widgets/app_colors.dart';
 import '../message/message_page.dart';

@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../ApplicantTrackingController/ApplicantTrackingController.dart';
+import '../ScheduledInterviewListController/ScheduledInterviewListController.dart';
 
 class ScheduleInterviewController extends GetxController {
 
   ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
+  ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
   final _api = RecruiterRepository();
   final rxRequestStatus = Status.LOADING.obs ;
   final response = EditAboutModel().obs ;
@@ -37,6 +39,7 @@ class ScheduleInterviewController extends GetxController {
       Get.back() ;
       Get.back() ;
       trackingDataController.applicantTrackingApi("", "") ;
+      interviewListController.refreshInterview();
       Utils.toastMessage("${value.message}") ;
       debugPrint(value.toString());
     }).onError((error, stackTrace){

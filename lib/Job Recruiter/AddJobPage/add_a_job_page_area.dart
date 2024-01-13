@@ -79,7 +79,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: const Color(0xff373737),
-          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),borderSide: BorderSide.none),
           title: Center(
             child: Text(
               'Please choose video',

@@ -28,8 +28,10 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:video_player/video_player.dart';
-String messagetype="text";
- var playerx;
+
+String messagetype = "text";
+var playerx;
+
 class ChatScreenRecruter extends StatefulWidget {
   const ChatScreenRecruter({Key? key}) : super(key: key);
 
@@ -38,12 +40,13 @@ class ChatScreenRecruter extends StatefulWidget {
 }
 
 class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
-   ViewRecruiterProfileGetController viewRecruiterProfileController = Get.put(ViewRecruiterProfileGetController());
+  ViewRecruiterProfileGetController viewRecruiterProfileController =
+      Get.put(ViewRecruiterProfileGetController());
 
-    String ?messageimgurl;
-  String ?textmsg;
-     bool ispageloading=false;
-  String url="";
+  String? messageimgurl;
+  String? textmsg;
+  bool ispageloading = false;
+  String url = "";
   int maxduration = 100;
   int currentpos = 0;
   String currentpostlabel = "00:00";
@@ -57,28 +60,25 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
   TextEditingController messagecontroller = TextEditingController();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
- 
-
 
   String formatTimestamp(Timestamp timestamp) {
     final DateTime dateTime = timestamp.toDate();
     final DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(dateTime);
   }
-final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
-  FocusNode messageFocusNode = FocusNode();
- 
 
+  final MsgFunctionRecruter chatfunctionsinstance = MsgFunctionRecruter();
+  FocusNode messageFocusNode = FocusNode();
 
   @override
   void initState() {
-      _getDir();
+    _getDir();
     _initialiseControllers();
-     MessengeRead();
+    MessengeRead();
 
-  
     super.initState();
   }
+
   final ScrollController _scrollController = ScrollController();
 
   void onSendMessage() async {
@@ -88,30 +88,40 @@ final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
     //           ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.id.toString():ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.id.toString();
     switch (messagetype) {
       case "text":
-      textmsg= messagecontroller.text.toString();
-      setState(() {
-        textmsg;
-      });
-      messagecontroller.clear();
+        textmsg = messagecontroller.text.toString();
+        setState(() {
+          textmsg;
+        });
+        messagecontroller.clear();
         Map<String, dynamic> messages = {
-          "sentby":viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),
-
-               "sendertype":"seeker" ,
-                 "profileimage":viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.profileImg.toString(),
-
+          "sentby": viewRecruiterProfileController
+              .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
+              .toString(),
+          "sendertype": "seeker",
+          "profileimage": viewRecruiterProfileController
+              .viewRecruiterProfile.value.recruiterProfileDetails!.profileImg
+              .toString(),
           "message": textmsg,
-          'isRead':false,
+          'isRead': false,
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
- 
 
-
-          // setState(() {
-          //   anotherseekerid;
-          // });
+        // setState(() {
+        //   anotherseekerid;
+        // });
         print("$SeekerIDchat");
- chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),"GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),messages);
+        chatfunctionsinstance.SendMsgToRecruiter(
+            textmsg.toString(),
+            viewRecruiterProfileController
+                .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
+                .toString(),
+            "GPR" +
+                viewRecruiterProfileController.viewRecruiterProfile.value
+                    .recruiterProfileDetails!.recruiterId
+                    .toString() +
+                SeekerIDchat.toString(),
+            messages);
 //  selfsender(textmsg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
 //           value.ProfileDetail!.id
 //               .toString(), roomid.toString(), messages);
@@ -119,35 +129,45 @@ final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
 
 // chatfunctionsinstance.Makersender(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
 
-        chatfunctionsinstance.sendNotification(textmsg.toString(),viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString());
-             
-          
-            
+        chatfunctionsinstance.sendNotification(
+            textmsg.toString(),
+            viewRecruiterProfileController
+                .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
+                .toString());
+
         print(messages);
 
-  
+        messagecontroller.clear();
+        print("cleared");
 
-   
-   
-          messagecontroller.clear();
-          print("cleared");
-
-     
         break;
       case "img":
-       Map<String, dynamic>   messages = {
-          "sentby": viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),
-             "sendertype":"seeker" ,
-   "profileimage":viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.profileImg.toString(),
+        Map<String, dynamic> messages = {
+          "sentby": viewRecruiterProfileController
+              .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
+              .toString(),
+          "sendertype": "seeker",
+          "profileimage": viewRecruiterProfileController
+              .viewRecruiterProfile.value.recruiterProfileDetails!.profileImg
+              .toString(),
           "message": "",
           "imageurl": messageimgurl,
           "type": "img",
           "time": FieldValue.serverTimestamp(),
         };
-        String latmdg="image";
+        String latmdg = "image";
 
- chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),"GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.id.toString()+SeekerIDchat.toString(),messages);
-
+        chatfunctionsinstance.SendMsgToRecruiter(
+            textmsg.toString(),
+            viewRecruiterProfileController
+                .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
+                .toString(),
+            "GPR" +
+                viewRecruiterProfileController
+                    .viewRecruiterProfile.value.recruiterProfileDetails!.id
+                    .toString() +
+                SeekerIDchat.toString(),
+            messages);
 
 // chatfunctionsinstance.selfsender(latmdg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
 //           value.ProfileDetail!.id
@@ -155,26 +175,26 @@ final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
 //                chatfunctionsinstance.anotherseekersender(latmdg.toString(), anotherseekerid, roomid.toString(), messages);
 
 // chatfunctionsinstance.Makersender(latmdg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
-       setState(() {
-        messagetype="text";
-        print(messagetype);
-      });
-        
-      // Add your logic for handling image messages here
-      break;
-    case "audio":
-  //  Map<String, dynamic>    messages = {
-  //       "sentby": seekerMyProfileController.SeekerMyProfileDetail.
-  //         value.ProfileDetail!.id.toString(),
-  //       "message": messagecontroller.text,
-  //       "audiourl":messagaudiourl,
-  //              "sendertype":"seeker" ,
-  //          "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
-  //         value.ProfileDetail!.imgPath,
-  //       "type": "audio",
-  //       "time": FieldValue.serverTimestamp(),
-  //     };
-// 
+        setState(() {
+          messagetype = "text";
+          print(messagetype);
+        });
+
+        // Add your logic for handling image messages here
+        break;
+      case "audio":
+        //  Map<String, dynamic>    messages = {
+        //       "sentby": seekerMyProfileController.SeekerMyProfileDetail.
+        //         value.ProfileDetail!.id.toString(),
+        //       "message": messagecontroller.text,
+        //       "audiourl":messagaudiourl,
+        //              "sendertype":"seeker" ,
+        //          "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
+        //         value.ProfileDetail!.imgPath,
+        //       "type": "audio",
+        //       "time": FieldValue.serverTimestamp(),
+        //     };
+//
 
 // chatfunctionsinstance.selfsender(textmsg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
 //           value.ProfileDetail!.id
@@ -187,13 +207,13 @@ final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
 //         messagetype="text";
 //         print(messagetype);
 //       });
-      break;
-    case "video":
-      print("Video");
-      // Add your logic for handling video messages here
-      break;
-    default:
-      print("Unknown message type");
+        break;
+      case "video":
+        print("Video");
+        // Add your logic for handling video messages here
+        break;
+      default:
+        print("Unknown message type");
       // Handle the case where the message type is unknown
     }
   }
@@ -223,44 +243,51 @@ final MsgFunctionRecruter chatfunctionsinstance=MsgFunctionRecruter();
             await storageTaskSnapshot.ref.getDownloadURL();
         print(downloadUrl);
 
-setState(() {
-  messageimgurl=downloadUrl;
-  messagetype="img";
-});
-onSendMessage();
-      return downloadUrl;
-
-      
-    } catch (error) {
-      // Handle any errors that occur during the upload process
-      print('Error uploading image: $error');
+        setState(() {
+          messageimgurl = downloadUrl;
+          messagetype = "img";
+        });
+        onSendMessage();
+        return downloadUrl;
+      } catch (error) {
+        // Handle any errors that occur during the upload process
+        print('Error uploading image: $error');
+        return "null";
+      }
+    } else {
+      // User canceled the image selection
       return "null";
     }
-  } else {
-    // User canceled the image selection
-    return "null";
   }
-}
 
-Future<void> showOptionsDialog(BuildContext context) {
+  Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Choose",style: Theme.of(context).textTheme.titleLarge,),
+            title: Text(
+              "Choose",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             //Image Picker
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  child:Icon(Icons.camera_alt,color: Colors.pink,),
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.pink,
+                  ),
                   onTap: () {
                     uploadSelectedImageAndGetUrl(ImageSource.camera);
                     Navigator.of(context).pop();
                   },
                 ),
                 GestureDetector(
-                  child: Icon(Icons.photo_library,color: Colors.pink,),
+                  child: Icon(
+                    Icons.photo_library,
+                    color: Colors.pink,
+                  ),
                   onTap: () {
                     Navigator.of(context).pop();
                     uploadSelectedImageAndGetUrl(ImageSource.gallery);
@@ -287,7 +314,7 @@ Future<void> showOptionsDialog(BuildContext context) {
 
 //       // Get the download URL
 //       final String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
-      
+
 //       // Now you can use downloadURL to store in Firestore as you were doing
 
 //       setState(() {
@@ -304,15 +331,11 @@ Future<void> showOptionsDialog(BuildContext context) {
 //   }
 // }
 
-
-
-
 //   @override
 //   void dispose() {
 //     // _audioRecorder.dispose();
 //     super.dispose();
 //   }
-
 
   late final RecorderController recorderController;
 
@@ -322,8 +345,6 @@ Future<void> showOptionsDialog(BuildContext context) {
   bool isRecordingCompleted = false;
   bool isLoading = true;
   late Directory appDirectory;
-
-
 
   void _getDir() async {
     appDirectory = await getApplicationDocumentsDirectory();
@@ -355,525 +376,563 @@ Future<void> showOptionsDialog(BuildContext context) {
     recorderController.dispose();
     super.dispose();
   }
-Future<String?> uploadVideoToFirebaseStorage(String filePath) async {
-  try {
-    Reference storageReference = FirebaseStorage.instance.ref().child('videos/${DateTime.now()}.mp4');
-    final UploadTask uploadTask = storageReference.putFile(File(filePath));
 
-    final TaskSnapshot downloadUrl = (await uploadTask.whenComplete(() {}));
+  Future<String?> uploadVideoToFirebaseStorage(String filePath) async {
+    try {
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('videos/${DateTime.now()}.mp4');
+      final UploadTask uploadTask = storageReference.putFile(File(filePath));
 
-    final String url = await downloadUrl.ref.getDownloadURL();
-    return url;
-  } catch (e) {
-    print('Error uploading video: $e');
-    return null;
-  }
-}
+      final TaskSnapshot downloadUrl = (await uploadTask.whenComplete(() {}));
 
-Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
-  try {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      // type: FileType.custom,
-      // allowedExtensions: ['mp4', 'mov'],
-    );
-
-    if (result != null) {
-      PlatformFile file = result.files.first;
-      String filePath = file.path.toString();
-
-      String? videoUrl = await uploadVideoToFirebaseStorage(filePath);
-
-      if (videoUrl != null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Video uploaded to Firebase: $videoUrl'),
-        ));
-      }
+      final String url = await downloadUrl.ref.getDownloadURL();
+      return url;
+    } catch (e) {
+      print('Error uploading video: $e');
+      return null;
     }
-  } catch (e) {
-    print('Error picking and uploading video: $e');
   }
-}
+
+  Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+          // type: FileType.custom,
+          // allowedExtensions: ['mp4', 'mov'],
+          );
+
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        String filePath = file.path.toString();
+
+        String? videoUrl = await uploadVideoToFirebaseStorage(filePath);
+
+        if (videoUrl != null) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Video uploaded to Firebase: $videoUrl'),
+          ));
+        }
+      }
+    } catch (e) {
+      print('Error picking and uploading video: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-
-     
+      backgroundColor: AppColors.white,
       resizeToAvoidBottomInset: true,
-appBar: AppBar(
-  centerTitle: true,
-  backgroundColor: Colors.transparent,
-  elevation: 0,
-
-  leading: IconButton(
-    onPressed: () {
-      Get.back();
-    },
-    icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
-  ),
-
-  title: Container(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black),
+        ),
+        title: Container(
 // Adjust the left margin as needed
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(radius: 20,backgroundImage: NetworkImage(Chatimage.toString()),),
-        // Image.asset(
-        //   'assets/images/firstlogomarketing.png',
-        //   scale: 1,
-        // ),
-        SizedBox(
-          width: Get.width * 0.018,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage(Chatimage.toString()),
+              ),
+              // Image.asset(
+              //   'assets/images/firstlogomarketing.png',
+              //   scale: 1,
+              // ),
+              SizedBox(
+                width: Get.width * 0.018,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    chatname.toString(),
+                    style: Get.theme.textTheme.titleSmall!
+                        .copyWith(color: AppColors.black),
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.005,
+                  ),
+                  Row(
+                    children: [
+                      Image.asset('assets/images/liveimage.png'),
+                      Text(
+                        "Online",
+                        style: Get.theme.textTheme.bodySmall!
+                            .copyWith(color: AppColors.black),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              chatname.toString(),
-              style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),
-            ),
-            SizedBox(
-              height: Get.height * 0.005,
-            ),
-            Row(
-              children: [
-                Image.asset('assets/images/liveimage.png'),
-                Text(
-                  "Online",
-                  style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ),
-  ),
-
-  actions: [
-    Row(
-      children: [
-        
-        SizedBox(
-          width: Get.width * 0.018,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Image.asset('assets/images/Options.png', color: AppColors.white),
-        )
-      ],
-    ),
-  ],
-),
-
-
+        actions: [
+          IconButton(
+            icon: Icon(Icons.more_horiz,
+                color: Colors.black), // Change the icon as needed
+            onPressed: () {
+              // Handle settings action
+            },
+          ),
+        ],
+      ),
       body: Container(
         child: Column(
           children: [
             // SizedBox(height: height*.03),
-        
-           
-        
+
             SizedBox(
               height: Get.height * 0.02,
             ),
-         Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
-                                  stream: _firestore
-                                      .collection("Rooms")
-                                      .doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
-                                      .collection('massages')
-                                      .orderBy("time", descending: true)
-                                      .snapshots(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                                        print("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}=======roomid");
-                                    return snapshot.data != null
-                                        ? ListView.builder(
-                          shrinkWrap: true,
-                          reverse: true,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            
-                            final message = snapshot
-                                .data!.docs[index]['message']
-                                .toString();
-                                 final issent = snapshot
-                                .data!.docs[index]['message']
-                                .toString();
-                                print(issent);
-                           
-                            final timestamp = snapshot.data!.docs[index]['time']
-                                as Timestamp?; // Assuming 'time' is the timestamp field
-                            final isSentByCurrentUser = snapshot
-                                    .data!.docs[index]['sentby']
-                                    .toString() ==
-                            viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString();
-        return isSentByCurrentUser?     Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional.bottomEnd,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color:AppColors.blueThemeColor,
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          topLeft: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20),
-                                        ),
-                                      ),
-                                      constraints: BoxConstraints(
-                                        maxWidth: Get.width / 2, // Set maximum width as half of the screen width
-                                      ),
-                                      padding: EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 10), // Adjust padding as needed
-                                      child: Text(
-                                        breakMessage(message),
-                                        style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 13, color: AppColors.white),
-                                      ),
-                                    ),
-                                  ),
-                              
-                              SizedBox(height: Get.height*.01,),
-                             if (timestamp != null)        Align(
-                                      alignment: AlignmentDirectional.bottomEnd,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: _firestore
+                      .collection("Rooms")
+                      .doc(
+                          "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+                      .collection('massages')
+                      .orderBy("time", descending: true)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    print(
+                        "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}=======roomid");
+                    return snapshot.data != null
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            reverse: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              final message = snapshot
+                                  .data!.docs[index]['message']
+                                  .toString();
+                              final issent = snapshot
+                                  .data!.docs[index]['message']
+                                  .toString();
+                              print(issent);
+
+                              final timestamp = snapshot.data!.docs[index]
+                                      ['time']
+                                  as Timestamp?; // Assuming 'time' is the timestamp field
+                              final isSentByCurrentUser = snapshot
+                                      .data!.docs[index]['sentby']
+                                      .toString() ==
+                                  viewRecruiterProfileController
+                                      .viewRecruiterProfile
+                                      .value
+                                      .recruiterProfileDetails!
+                                      .recruiterId
+                                      .toString();
+                              return isSentByCurrentUser
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
                                         children: [
-                                          Text(   formatTimestamp(timestamp),style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: Color(0xffCFCFCF)),),
-                                       SizedBox(width: 10,),   Text( snapshot.data!.docs[index]['isRead']==false?"Sent":"Seen",style: TextStyle(color: Colors.white),)
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional.bottomEnd,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.blueThemeColor,
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(20),
+                                                  topLeft: Radius.circular(20),
+                                                  bottomLeft:
+                                                      Radius.circular(20),
+                                                ),
+                                              ),
+                                              constraints: BoxConstraints(
+                                                maxWidth: Get.width /
+                                                    2, // Set maximum width as half of the screen width
+                                              ),
+                                              padding: EdgeInsets.only(
+                                                  left: 20,
+                                                  top: 20,
+                                                  bottom: 20,
+                                                  right:
+                                                      10), // Adjust padding as needed
+                                              child: Text(
+                                                breakMessage(message),
+                                                style: Get
+                                                    .theme.textTheme.bodySmall!
+                                                    .copyWith(
+                                                        fontSize: 13,
+                                                        color: AppColors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: Get.height * .01,
+                                          ),
+                                          if (timestamp != null)
+                                            Align(
+                                              alignment: AlignmentDirectional
+                                                  .bottomEnd,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    formatTimestamp(timestamp),
+                                                    style: Get.theme.textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                            fontSize: 10,
+                                                            color: Color(
+                                                                0xffCFCFCF)),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    snapshot.data!.docs[index]
+                                                                ['isRead'] ==
+                                                            false
+                                                        ? "Sent"
+                                                        : "Seen",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                         ],
                                       ),
-                                    ),
-                                             
-                                ],
-                              ),
-                            )
-:
-
-
-                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional.bottomStart,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[800],
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          topLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                        ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Align(
+                                            alignment: AlignmentDirectional
+                                                .bottomStart,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[800],
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(20),
+                                                  topLeft: Radius.circular(20),
+                                                  bottomRight:
+                                                      Radius.circular(20),
+                                                ),
+                                              ),
+                                              constraints: BoxConstraints(
+                                                maxWidth: Get.width /
+                                                    2, // Set maximum width as half of the screen width
+                                              ),
+                                              padding: EdgeInsets.only(
+                                                  left: 20,
+                                                  top: 20,
+                                                  bottom: 20,
+                                                  right:
+                                                      10), // Adjust padding as needed
+                                              child: Text(
+                                                breakMessage(message),
+                                                style: Get
+                                                    .theme.textTheme.bodySmall!
+                                                    .copyWith(
+                                                        fontSize: 13,
+                                                        color: AppColors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: Get.height * .01,
+                                          ),
+                                          if (timestamp != null)
+                                            Align(
+                                              alignment: AlignmentDirectional
+                                                  .bottomStart,
+                                              child: Text(
+                                                  formatTimestamp(timestamp),
+                                                  style: Get.theme.textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          fontSize: 10,
+                                                          color: Color(
+                                                              0xffCFCFCF))),
+                                            ),
+                                        ],
                                       ),
-                                      constraints: BoxConstraints(
-                                        maxWidth: Get.width / 2, // Set maximum width as half of the screen width
-                                      ),
-                                      padding: EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 10), // Adjust padding as needed
-                                      child: Text(
-                                        breakMessage(message),
-                                        style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 13, color: AppColors.white),
-                                      ),
-                                    ),
-                                  ),
-                              
-                              SizedBox(height: Get.height*.01,),
-                                 if (timestamp != null)    Align(
-                                      alignment: AlignmentDirectional.bottomStart,
-                                      child: Text(   formatTimestamp(timestamp),style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: Color(0xffCFCFCF))),
-                                    ),
-                          
-                                ],
-                              ),
-                            );
+                                    );
 
-                                  // SizedBox(height: Get.height*.01,),
-                                  // Align(
-                                  //   alignment: AlignmentDirectional.bottomStart,
-                                  //   child: Text("09:30 am",style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: Color(0xffCFCFCF))),
-                                  // );
-                            
-        //                      Align(
-        //                       alignment: isSentByCurrentUser
-        //                           ? Alignment.centerRight
-        //                           : Alignment.centerLeft,
-        //                       child: Row(
-        //                         mainAxisAlignment:isSentByCurrentUser
-        //                           ? MainAxisAlignment.end
-        //                           : MainAxisAlignment.start, 
-        //                         children: [
-        // SizedBox(width: Get.width*0.02,),
-        //                        if(snapshot
-        //                             .data!.docs[index]['sentby']
-        //                             .toString() !=
-        //                          seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString())   CircleAvatar(radius: 10,backgroundImage: NetworkImage(snapshot
-        //                                             .data!.docs[index]['profileimage']
-        //                                             .toString()),), Padding(
-        //                         padding: const EdgeInsets.all(8.0),
-        //                         child: Container(
-        //                           padding: EdgeInsets.all(8.0),
-        //                           decoration: BoxDecoration(
-        //                             color: isSentByCurrentUser
-        //                                 ? AppColors.blueThemeColor
-        //                                 :AppColors.blueThemeColor,
-        //                             borderRadius: isSentByCurrentUser
-        //                                 ? BorderRadius.only(
-        //                                     topLeft: Radius.circular(8),
-        //                                     topRight: Radius.circular(8),
-        //                                     bottomLeft: Radius.circular(8),
-        //                                   )
-        //                                 : BorderRadius.only(
-        //                                     topRight: Radius.circular(8),
-        //                                     bottomRight: Radius.circular(8),
-        //                                     bottomLeft: Radius.circular(8),
-        //                                   ),
-        //                           ),
-        //                           child: Column(
-        //                             crossAxisAlignment: isSentByCurrentUser
-        //                                 ? CrossAxisAlignment.end
-        //                                 : CrossAxisAlignment.start,
-        //                             children: [
-        //                               if (snapshot.data!.docs[index]['type']
-        //                                       .toString() ==
-        //                                   "text")
-        //                                 Container(
+                              // SizedBox(height: Get.height*.01,),
+                              // Align(
+                              //   alignment: AlignmentDirectional.bottomStart,
+                              //   child: Text("09:30 am",style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: Color(0xffCFCFCF))),
+                              // );
 
+                              //                      Align(
+                              //                       alignment: isSentByCurrentUser
+                              //                           ? Alignment.centerRight
+                              //                           : Alignment.centerLeft,
+                              //                       child: Row(
+                              //                         mainAxisAlignment:isSentByCurrentUser
+                              //                           ? MainAxisAlignment.end
+                              //                           : MainAxisAlignment.start,
+                              //                         children: [
+                              // SizedBox(width: Get.width*0.02,),
+                              //                        if(snapshot
+                              //                             .data!.docs[index]['sentby']
+                              //                             .toString() !=
+                              //                          seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString())   CircleAvatar(radius: 10,backgroundImage: NetworkImage(snapshot
+                              //                                             .data!.docs[index]['profileimage']
+                              //                                             .toString()),), Padding(
+                              //                         padding: const EdgeInsets.all(8.0),
+                              //                         child: Container(
+                              //                           padding: EdgeInsets.all(8.0),
+                              //                           decoration: BoxDecoration(
+                              //                             color: isSentByCurrentUser
+                              //                                 ? AppColors.blueThemeColor
+                              //                                 :AppColors.blueThemeColor,
+                              //                             borderRadius: isSentByCurrentUser
+                              //                                 ? BorderRadius.only(
+                              //                                     topLeft: Radius.circular(8),
+                              //                                     topRight: Radius.circular(8),
+                              //                                     bottomLeft: Radius.circular(8),
+                              //                                   )
+                              //                                 : BorderRadius.only(
+                              //                                     topRight: Radius.circular(8),
+                              //                                     bottomRight: Radius.circular(8),
+                              //                                     bottomLeft: Radius.circular(8),
+                              //                                   ),
+                              //                           ),
+                              //                           child: Column(
+                              //                             crossAxisAlignment: isSentByCurrentUser
+                              //                                 ? CrossAxisAlignment.end
+                              //                                 : CrossAxisAlignment.start,
+                              //                             children: [
+                              //                               if (snapshot.data!.docs[index]['type']
+                              //                                       .toString() ==
+                              //                                   "text")
+                              //                                 Container(
 
-        //                                   child: Text(
-        //                                     breakMessage(message),
-        //                                     style: TextStyle(color: Colors.white),
-        //                                     textAlign: TextAlign.start,
-        //                                     softWrap: true,
-        //                                   ),
+                              //                                   child: Text(
+                              //                                     breakMessage(message),
+                              //                                     style: TextStyle(color: Colors.white),
+                              //                                     textAlign: TextAlign.start,
+                              //                                     softWrap: true,
+                              //                                   ),
 
-        //                                 ),
-        //                               if (snapshot.data!.docs[index]['type']
-        //                                       .toString() ==
-        //                                   "img")
-        //                                 Container(
-        //                                   height: 150,
-        //                                   width: 100,
-        //                                   child: CachedNetworkImage(
-        //                                     imageUrl: snapshot
-        //                                         .data!.docs[index]['imageurl']
-        //                                         .toString(),
-        //                                     progressIndicatorBuilder: (context,
-        //                                             url, downloadProgress) =>
-        //                                         Center(
-        //                                             child:
-        //                                                 CircularProgressIndicator(
-        //                                                     value:
-        //                                                         downloadProgress
-        //                                                             .progress)),
-        //                                     errorWidget:
-        //                                         (context, url, error) =>
-        //                                             Icon(Icons.error),
-        //                                   ),
-        //                                 ),
-        
-        //     //  if(snapshot.data!.docs[index]['type'].toString()=="audio") CustomAudioPlayer(audioUrl:snapshot.data!.docs[index]['audiourl'].toString() ,),
-             
-          
-        //       SizedBox(height: 4), // Adjust the spacing as needed
-        //      if (timestamp != null)  Text(
-        //         formatTimestamp(timestamp), // Format timestamp as needed
-        //         style: TextStyle(color: Colors.grey, fontSize: 12),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        //     ),
-        //   ]));
-        },
-        ):Container();
-        
-                    }
-        ),
-        ),
-        
-         
-              SizedBox(height: Get.height*0.02,),
-        
-             
-               
-            ],
-          ),
-        ),
+                              //                                 ),
+                              //                               if (snapshot.data!.docs[index]['type']
+                              //                                       .toString() ==
+                              //                                   "img")
+                              //                                 Container(
+                              //                                   height: 150,
+                              //                                   width: 100,
+                              //                                   child: CachedNetworkImage(
+                              //                                     imageUrl: snapshot
+                              //                                         .data!.docs[index]['imageurl']
+                              //                                         .toString(),
+                              //                                     progressIndicatorBuilder: (context,
+                              //                                             url, downloadProgress) =>
+                              //                                         Center(
+                              //                                             child:
+                              //                                                 CircularProgressIndicator(
+                              //                                                     value:
+                              //                                                         downloadProgress
+                              //                                                             .progress)),
+                              //                                     errorWidget:
+                              //                                         (context, url, error) =>
+                              //                                             Icon(Icons.error),
+                              //                                   ),
+                              //                                 ),
 
-        bottomNavigationBar: TapRegion(
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-       child:Container(
-          padding: MediaQuery.of(context).viewInsets,
-        width: Get.width,
-         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(23),
-              border: Border.all(color: Colors.grey, width: 0.5),
-            ),
-            child: SizedBox(
-              height: Get.height * 0.07,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: messagecontroller,
-                         style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                    
-               
-                        suffixIcon: IconButton(
-                          icon: GestureDetector(
-                            onTap: () {
-                             String userMessage = messagecontroller.text.trim();
-                                        if(userMessage.isNotEmpty){
-                                          onSendMessage();
-                                        }
+                              //     //  if(snapshot.data!.docs[index]['type'].toString()=="audio") CustomAudioPlayer(audioUrl:snapshot.data!.docs[index]['audiourl'].toString() ,),
+
+                              //       SizedBox(height: 4), // Adjust the spacing as needed
+                              //      if (timestamp != null)  Text(
+                              //         formatTimestamp(timestamp), // Format timestamp as needed
+                              //         style: TextStyle(color: Colors.grey, fontSize: 12),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              //     ),
+                              //   ]));
                             },
-                            child: Image.asset('assets/images/sendme.png'),
+                          )
+                        : Container();
+                  }),
+            ),
+
+            SizedBox(
+              height: Get.height * 0.02,
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: TapRegion(
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          child: Container(
+            padding: MediaQuery.of(context).viewInsets,
+            width: Get.width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(23),
+                  border: Border.all(color: Colors.grey, width: 0.5),
+                ),
+                child: SizedBox(
+                  height: Get.height * 0.07,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: messagecontroller,
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: GestureDetector(
+                                onTap: () {
+                                  String userMessage =
+                                      messagecontroller.text.trim();
+                                  if (userMessage.isNotEmpty) {
+                                    onSendMessage();
+                                  }
+                                },
+                                child: Image.asset('assets/images/sendme.png'),
+                              ),
+                              onPressed: () {},
+                            ),
+                            prefixIcon: IconButton(
+                              icon: Image.asset('assets/images/addfile.png'),
+                              onPressed: () {
+                                // Handle add file button tap
+                              },
+                            ),
+                            hintText: 'Type Message',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                           ),
-                        onPressed:(){
-                                       
-                                      } ,
                         ),
-                        prefixIcon: IconButton(
-                          icon: Image.asset('assets/images/addfile.png'),
-                          onPressed: () {
-                            // Handle add file button tap
-                          },
-                        ),
-                        hintText: 'Type Message',
-                         hintStyle: const TextStyle(
-                                                      color: Colors.grey),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
+          )
+          // Container(
+          //  padding: MediaQuery.of(context).viewInsets,
+
+          // width:Get.width,child:  Padding(
+          //   padding: const EdgeInsets.only(bottom: 10),
+          //   child: Row(
+          //                         children: [
+          //                           AnimatedSwitcher(
+          //                             duration: const Duration(milliseconds: 200),
+          //                             child: isRecording
+          //                                 ? AudioWaveforms(
+          //                                     enableGesture: true,
+          //                                     size: Size(
+          //                                         MediaQuery.of(context).size.width / 2,
+          //                                         50),
+          //                                     recorderController: recorderController,
+          //                                     waveStyle: const WaveStyle(
+          //                                       waveColor: Colors.black,
+          //                                       extendWaveform: true,
+          //                                       showMiddleLine: false,
+          //                                     ),
+          //                                     decoration: BoxDecoration(
+          //                                       borderRadius: BorderRadius.circular(12.0),
+          //                                       color:  Colors.white,
+          //                                     ),
+          //                                     padding: const EdgeInsets.only(left: 18),
+          //                                     margin: const EdgeInsets.symmetric(
+          //                                         horizontal: 15),
+          //                                   )
+          //                                 : Container(
+          //                                     width:
+          //                                         MediaQuery.of(context).size.width / 1.7,
+          //                                     height: 50,
+          //                                     decoration: BoxDecoration(
+          //                                       color: Colors.white,
+          //                                       borderRadius: BorderRadius.circular(12.0),
+          //                                       border: Border.all(width: 1,color:Colors.black)
+          //                                     ),
+          //                                     padding: const EdgeInsets.only(left: 18),
+          //                                     margin: const EdgeInsets.symmetric(
+          //                                         horizontal: 15),
+          //                                     child: TextField(
+          //                                       // readOnly: true,
+          //                                       controller: messagecontroller,
+          //                                       style: TextStyle(color: Colors.black),
+          //                                       decoration: InputDecoration(
+          //                                         hintText: "Type Something...",
+          //                                         hintStyle: const TextStyle(
+          //                                             color: Colors.grey),
+          //                                         contentPadding:
+          //                                             const EdgeInsets.only(top: 16),
+          //                                         border: InputBorder.none,
+
+          //                                         suffixIcon: IconButton(
+          //                                           onPressed: (){
+          //                                             showOptionsDialog(context);
+          //                                           },
+          //                                           icon: Icon(Icons.adaptive.share),
+          //                                           color: Colors.grey,
+          //                                         ),
+          //                                       ),
+          //                                     ),
+          //                                   ),
+          //                           ),
+          //                           IconButton(
+          //                             onPressed:(){
+          //                               String userMessage = messagecontroller.text.trim();
+          //                               if(userMessage.isNotEmpty){
+          //                                 onSendMessage();
+          //                               }
+          //                             } ,
+          //                             icon: Icon(
+          //                               isRecording ? Icons.refresh : Icons.send,
+          //                               color: Colors.white,
+          //                             ),
+          //                           ),
+          //                           const SizedBox(width: 16),
+          //                           IconButton(
+          //                             onPressed: _startOrStopRecording,
+          //                             icon: Icon(isRecording ? Icons.send : Icons.mic),
+          //                             color: Colors.black,
+          //                             iconSize: 28,
+          //                           ),
+          //                         ],
+          //                       ),
+          // ),),
           ),
-               ),
-       )
-        // Container(
-        //  padding: MediaQuery.of(context).viewInsets,
-        
-        // width:Get.width,child:  Padding(
-        //   padding: const EdgeInsets.only(bottom: 10),
-        //   child: Row(
-        //                         children: [
-        //                           AnimatedSwitcher(
-        //                             duration: const Duration(milliseconds: 200),
-        //                             child: isRecording
-        //                                 ? AudioWaveforms(
-        //                                     enableGesture: true,
-        //                                     size: Size(
-        //                                         MediaQuery.of(context).size.width / 2,
-        //                                         50),
-        //                                     recorderController: recorderController,
-        //                                     waveStyle: const WaveStyle(
-        //                                       waveColor: Colors.black,
-        //                                       extendWaveform: true,
-        //                                       showMiddleLine: false,
-        //                                     ),
-        //                                     decoration: BoxDecoration(
-        //                                       borderRadius: BorderRadius.circular(12.0),
-        //                                       color:  Colors.white,
-        //                                     ),
-        //                                     padding: const EdgeInsets.only(left: 18),
-        //                                     margin: const EdgeInsets.symmetric(
-        //                                         horizontal: 15),
-        //                                   )
-        //                                 : Container(
-        //                                     width:
-        //                                         MediaQuery.of(context).size.width / 1.7,
-        //                                     height: 50,
-        //                                     decoration: BoxDecoration(
-        //                                       color: Colors.white,
-        //                                       borderRadius: BorderRadius.circular(12.0),
-        //                                       border: Border.all(width: 1,color:Colors.black)
-        //                                     ),
-        //                                     padding: const EdgeInsets.only(left: 18),
-        //                                     margin: const EdgeInsets.symmetric(
-        //                                         horizontal: 15),
-        //                                     child: TextField(
-        //                                       // readOnly: true,
-        //                                       controller: messagecontroller,
-        //                                       style: TextStyle(color: Colors.black),
-        //                                       decoration: InputDecoration(
-        //                                         hintText: "Type Something...",
-        //                                         hintStyle: const TextStyle(
-        //                                             color: Colors.grey),
-        //                                         contentPadding:
-        //                                             const EdgeInsets.only(top: 16),
-        //                                         border: InputBorder.none,
-                                                
-        //                                         suffixIcon: IconButton(
-        //                                           onPressed: (){
-        //                                             showOptionsDialog(context);
-        //                                           },
-        //                                           icon: Icon(Icons.adaptive.share),
-        //                                           color: Colors.grey,
-        //                                         ),
-        //                                       ),
-        //                                     ),
-        //                                   ),
-        //                           ),
-        //                           IconButton(
-        //                             onPressed:(){
-        //                               String userMessage = messagecontroller.text.trim();
-        //                               if(userMessage.isNotEmpty){
-        //                                 onSendMessage();
-        //                               }
-        //                             } ,
-        //                             icon: Icon(
-        //                               isRecording ? Icons.refresh : Icons.send,
-        //                               color: Colors.white,
-        //                             ),
-        //                           ),
-        //                           const SizedBox(width: 16),
-        //                           IconButton(
-        //                             onPressed: _startOrStopRecording,
-        //                             icon: Icon(isRecording ? Icons.send : Icons.mic),
-        //                             color: Colors.black,
-        //                             iconSize: 28,
-        //                           ),
-        //                         ],
-        //                       ),
-        // ),),
-     ), 
-   
     ));
   }
 
-
-
   String breakMessage(String message) {
-
-
     var words = message.length; // Count of characters in the string
     var lines = "";
-    var linesBreak="";// Variable to store the characters in separate lines
+    var linesBreak = ""; // Variable to store the characters in separate lines
 
     for (int i = 0; i < words; i++) {
       // Concatenating characters to create separate lines
       if (linesBreak.length == 30) {
-        linesBreak="";
+        linesBreak = "";
         lines += '\n';
         // print(lines);// Add a line break for each non-space character
       }
 
-        lines += message[i];
+      lines += message[i];
       linesBreak += message[i];
-  
-
     }
     // List<String> words = message.split(' ');
     // var wordLenght=words.where((word) => word.isNotEmpty).length;
@@ -883,12 +942,6 @@ appBar: AppBar(
     // }
     return lines;
   }
-
-
-
-
-
-
 
   void _startOrStopRecording() async {
     try {
@@ -925,46 +978,43 @@ appBar: AppBar(
 //  if(result.then((value) => value.data()!['sentby'])==SeekerIDchat.toString()){
 //  _firestore.collection('Rooms').doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").doc(element.id).update({'isRead':true});
 //  }
-  
-
 
 //                });
-          
+
 //           });
-   
+
 //       }
 
-      Future<void> MessengeRead() async {
-  final querySnapshot = await _firestore
-      .collection('Rooms')
-      .doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
-      .collection("massages")
-      .get();
-
-  for (final element in querySnapshot.docs) {
-    final result = await _firestore
+  Future<void> MessengeRead() async {
+    final querySnapshot = await _firestore
         .collection('Rooms')
-        .doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+        .doc(
+            "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
         .collection("massages")
-        .doc(element.id)
         .get();
 
-    final sentBy = result.data()?['sentby'];
-    print("Sent By: $sentBy");
+    for (final element in querySnapshot.docs) {
+      final result = await _firestore
+          .collection('Rooms')
+          .doc(
+              "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+          .collection("massages")
+          .doc(element.id)
+          .get();
 
-    if (sentBy ==SeekerIDchat ) {
-  DocumentReference roomRef2 = _firestore.collection("Rooms").doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection('massages').doc(element.id);
+      final sentBy = result.data()?['sentby'];
+      print("Sent By: $sentBy");
 
-  await roomRef2.update({
-      'isRead': true
-      
+      if (sentBy == SeekerIDchat) {
+        DocumentReference roomRef2 = _firestore
+            .collection("Rooms")
+            .doc(
+                "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+            .collection('massages')
+            .doc(element.id);
 
-      
-    });
-
-
+        await roomRef2.update({'isRead': true});
+      }
     }
   }
-}
-  
 }

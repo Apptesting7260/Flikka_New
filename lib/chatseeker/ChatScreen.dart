@@ -705,7 +705,7 @@ appBar: AppBar(
                   Expanded(
                     child: TextFormField(
                       controller: messagecontroller,
-                         style: TextStyle(color: Colors.white),
+                         style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                     
                

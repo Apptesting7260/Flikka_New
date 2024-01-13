@@ -363,7 +363,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                             height: Get.height * .066,
                                             title: "CANCEL", onTap1: () {
                                             // cancelId= interviewListController.interviewData.value.seeker;
-                                         if(RecruiterInterviewCancleControllerInstanse.loading.value) {
+                                         if(!RecruiterInterviewCancleControllerInstanse.loading.value) {
                                            RecruiterInterviewCancleControllerInstanse.interviewCancle(context,data?.id) ;
                                          }
                                           },),)
