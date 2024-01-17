@@ -2,25 +2,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
-import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerJobs/AppliedJobs.dart';
-import 'package:flikka/Payment_Methods/wallet.dart';
 import 'package:flikka/Payment_Methods/wallet_section.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
-import '../../controllers/SeenUnSeenPendingInterviewController/SeenUnSeenPendingInterviewController.dart';
-import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
 import '../SeekerNotification/SeekerNotification.dart';
 import '../SeekerNotification/setting_page.dart';
 import '../help section/help.dart';
 import '../saved_post_widget.dart';
-import '../SeekerBottomNavigationBar/tab_bar.dart';
 
 class DrawerClass extends StatefulWidget {
   final String? name ;
@@ -37,6 +32,7 @@ class _DrawerClassState extends State<DrawerClass> {
 
   LogoutController logoutController  = Get.put( LogoutController()) ;
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
+  SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
 
   String homeIcon = 'assets/images/homedrawericon.png' ;
   String profileIcon = 'assets/images/profiledrawericon.png' ;
@@ -209,7 +205,8 @@ class _DrawerClassState extends State<DrawerClass> {
                                           Positioned(
                                               bottom: 9,
                                               child: drawerIcon(interviewIcon)),
-                                          Obx(() => interviewListController.seekerInterViewData.value.unSeenPendingInterview == 0 || interviewListController.seekerInterViewData.value.unSeenPendingInterview == null ?
+                                          Obx(() => interviewListController.seekerInterViewData.value.unSeenPendingInterview == 0
+                                              || interviewListController.seekerInterViewData.value.unSeenPendingInterview == null ?
                                           const SizedBox() :
                                               Positioned(
                                                   top: 0,

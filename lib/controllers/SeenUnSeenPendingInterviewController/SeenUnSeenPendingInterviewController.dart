@@ -1,5 +1,4 @@
 
-import 'package:flikka/controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import 'package:flikka/models/SeenUnseenPendingInterviewModel/SeenUnSeenPendingInterviewModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,6 @@ class SeenUnSeenInterviewPendingController extends GetxController {
   final response = SeenUnseenPendingInterviewModel().obs ;
   RxString error = ''.obs;
   RxBool loading = false.obs ;
-
-   SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
-  // TalentPoolController poolController = Get.put(TalentPoolController()) ;
 
   void seenUnSeenPendingInterviewAPi( BuildContext context, String? email){
     var data = {} ;
