@@ -448,7 +448,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                             padding: const EdgeInsets.all(8),
                                                             decoration: BoxDecoration(
                                                                 color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                                borderRadius: BorderRadius.circular(10)
+                                                                borderRadius: BorderRadius.circular(22)
                                                             ),
                                                             child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
                                                               style: Get.theme.textTheme.displayLarge!.copyWith(color: AppColors.white),),
@@ -458,7 +458,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                             padding: const EdgeInsets.all(8),
                                                             decoration: BoxDecoration(
                                                                 color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                                borderRadius: BorderRadius.circular(10)
+                                                                borderRadius: BorderRadius.circular(22)
                                                             ),
                                                             child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.companyName ?? "No company name",overflow: TextOverflow.ellipsis,
                                                               style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
@@ -468,7 +468,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                             padding: const EdgeInsets.all(8),
                                                             decoration: BoxDecoration(
                                                                 color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                                borderRadius: BorderRadius.circular(10)
+                                                                borderRadius: BorderRadius.circular(22)
                                                             ),
                                                             child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobLocation ?? "No job location",overflow: TextOverflow.ellipsis,
                                                               style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 12,fontWeight: FontWeight.w600),),
@@ -966,7 +966,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,
-                                                color: AppColors.blueThemeColor),
+                                                color: AppColors.red),
                                             child: const Icon(Icons.close , color: AppColors.white,),
                                           ),
                                         ),
@@ -981,7 +981,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,
-                                                color: AppColors.blueThemeColor),
+                                                color: AppColors.green),
                                             child: const Icon(Icons.done , color: AppColors.white,),
                                           ),
                                         ),

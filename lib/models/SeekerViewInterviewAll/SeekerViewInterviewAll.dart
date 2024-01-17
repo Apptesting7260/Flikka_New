@@ -9,15 +9,18 @@ String scheduledInterviewListModelToJson(SeekerViewInterviewModel data) => json.
 class SeekerViewInterviewModel {
   SeekerViewInterviewModel({
      this.status,
+     this.unSeenPendingInterview,
      this.message,
      this.interviewSchedule,
   });
    bool ?status;
+   dynamic unSeenPendingInterview;
    String ?message;
    List<Seeker> ?interviewSchedule;
 
   SeekerViewInterviewModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
+    unSeenPendingInterview = json['unseen_pending_interview'];
     message = json['message'];
     interviewSchedule = json['interview_schedule'] == null ? json['interview_schedule'] : List.from(json['interview_schedule']).map((e)=>Seeker.fromJson(e)).toList();
   }

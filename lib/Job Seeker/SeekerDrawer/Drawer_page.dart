@@ -11,6 +11,8 @@ import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
+import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
+import '../../controllers/SeenUnSeenPendingInterviewController/SeenUnSeenPendingInterviewController.dart';
 import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
 import '../SeekerNotification/SeekerNotification.dart';
@@ -33,6 +35,7 @@ class _DrawerClassState extends State<DrawerClass> {
 
   LogoutController logoutController  = Get.put( LogoutController()) ;
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
+  SeenUnSeenInterviewPendingController seenUnSeenInterviewPendingControllerInstanse = Get.put(SeenUnSeenInterviewPendingController()) ;
 
   String homeIcon = 'assets/images/homedrawericon.png' ;
   String profileIcon = 'assets/images/profiledrawericon.png' ;
@@ -198,10 +201,37 @@ class _DrawerClassState extends State<DrawerClass> {
                                     dense: true,
                                     onTap: () {
                                       Get.to(const MettingListTabbar());
+                                      seenUnSeenInterviewPendingControllerInstanse.seenUnSeenPendingInterviewAPi(
+                                          context,
+                                          seenUnSeenInterviewPendingControllerInstanse.emailController.value.text) ;
                                     },
                                     leading: SizedBox(
-                                      height: 22,
-                                      child: drawerIcon(interviewIcon) ,
+                                      width: 45,
+                                      height: 40,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                              bottom: 9,
+                                              child: drawerIcon(interviewIcon)),
+                                          Obx(() => interviewListController.seekerInterViewData.value.unSeenPendingInterview == 0 || interviewListController.seekerInterViewData.value.unSeenPendingInterview == null ?
+                                          const SizedBox() :
+                                              Positioned(
+                                                  top: 0,
+                                                  right: 13,
+                                                  child: Container(
+                                                    height: 20,
+                                                    width: 20,
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle ,
+                                                        color: AppColors.red,
+                                                    ),
+                                                    child: Obx(() => Text("${interviewListController.seekerInterViewData.value.unSeenPendingInterview}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10))),
+                                                  ))
+                                          )
+                                        ],
+                                      )
+
                                     ),
                                     title: Text(
                                       "Interviews",

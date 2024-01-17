@@ -1,12 +1,9 @@
 import 'package:flikka/controllers/TalentPoolController/TalentPoolController.dart';
-import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/EditAboutModel/EditAboutModel.dart';
 import 'package:flikka/repository/RecruiterRepository/RecruiterRepository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../ApplicantTrackingController/ApplicantTrackingController.dart';
 
 class RemoveFromTalentPoolController extends GetxController {
 

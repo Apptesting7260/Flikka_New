@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../models/SeekerNotificationDataModel/SeekerNotificationDataModel.dart';
 
-
 class SeekerViewNotificationController extends GetxController {
 
   final _api = AuthRepository();
@@ -38,7 +37,6 @@ class SeekerViewNotificationController extends GetxController {
 
     });
   }
-
 
   Future<void> refreshSeekerNotificationApi() async {
     // setRxRequestStatus(Status.LOADING);

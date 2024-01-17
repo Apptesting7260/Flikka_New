@@ -272,8 +272,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                                       child: Column(
                                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                                         children: [
-                                                                          Text('${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
-                                                                          Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
+                                                                          Text('${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600)),
+                                                                          Text('Match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7,fontWeight: FontWeight.w400)),
                                                                         ],
                                                                       ),
                                                                     ))),
@@ -388,7 +388,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         padding: const EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
                                                             color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                            borderRadius: BorderRadius.circular(10)
+                                                            borderRadius: BorderRadius.circular(22)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.fullname ?? "",overflow: TextOverflow.ellipsis,
                                                           style: Get.theme.textTheme.displayLarge!.copyWith(color: AppColors.white),),
@@ -398,7 +398,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         padding: const EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
                                                             color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                            borderRadius: BorderRadius.circular(10)
+                                                            borderRadius: BorderRadius.circular(22)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].positions ?? "No Position",overflow: TextOverflow.ellipsis,
                                                           style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
@@ -408,13 +408,12 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         padding: const EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
                                                             color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                            borderRadius: BorderRadius.circular(10)
+                                                            borderRadius: BorderRadius.circular(22)
                                                         ),
                                                         child:  Text(homeController.homeData.value.Seeker_Details?[index].seeker?.location ?? "No location",overflow: TextOverflow.ellipsis,
                                                           style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),),
                                                       ),
                                                       const SizedBox(height: 10,) ,
-
                                                     ],),
                                                 ),
                                               ],
@@ -438,7 +437,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                     //   height: Get.height * 0.015,
                                                     // ),
                                                     CommonWidgets.divider(),
-                                                    Text(homeController.homeData.value.Seeker_Details?[index].seeker?.mobile ?? "No phone number", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.silverColor),) ,
+                                                    Text(homeController.homeData.value.Seeker_Details?[index].seeker?.mobile ?? "No phone number", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black),) ,
                                                     SizedBox(
                                                       height: Get.height * 0.04,
                                                     ),
@@ -475,10 +474,10 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       homeController.homeData.value.Seeker_Details?[index].seeker?.aboutMe ?? "No about",
                                                       textStyle: Theme.of(context)
                                                           .textTheme
-                                                          .bodyLarge?.copyWith(color: AppColors.silverColor),
+                                                          .bodyLarge?.copyWith(color: AppColors.black),
                                                     ),
                                                     SizedBox(
-                                                      height: Get.height * 0.025,
+                                                      height: Get.height * 0.04,
                                                     ),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -568,7 +567,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
 
                                                     //******************** for Education **************************
                                                     SizedBox(
-                                                      height: Get.height * 0.02,
+                                                      height: Get.height * 0.04,
                                                     ),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -656,7 +655,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
 
                                                     //******************** for Skill **************************
                                                     SizedBox(
-                                                      height: Get.height * 0.03,
+                                                      height: Get.height * 0.04,
                                                     ),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -727,7 +726,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       ),
                                                     ),
                                                     ///
-                                                    SizedBox(height: Get.height*0.04,),
+                                                    SizedBox(height: Get.height*0.027,),
                                                     Text("Passion",
                                                       style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),
                                                     ),
@@ -758,7 +757,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         },
                                                       ),
                                                     ),
-                                                    SizedBox(height: Get.height * 0.04,),
+                                                    SizedBox(height: Get.height * 0.027,),
                                                     Text(
                                                       "industry preference",
                                                       style: Theme.of(context)
@@ -792,7 +791,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         },
                                                       ),
                                                     ),
-                                                    SizedBox(height: Get.height * 0.04,),
+                                                    SizedBox(height: Get.height * 0.027,),
                                                     Text("Strengths",
                                                       style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),
                                                     ),
@@ -824,7 +823,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                      height: Get.height * 0.04,
+                                                      height: Get.height * 0.027,
                                                     ),
                                                     Text("Salary expectation",
                                                       style: Theme.of(context)
@@ -840,7 +839,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         overflow: TextOverflow.ellipsis,
                                                         style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
                                                     ),
-                                                    SizedBox(height: Get.height * 0.04,),
+                                                    SizedBox(height: Get.height * 0.027,),
                                                     Text("When can i start working?",
                                                       style: Theme.of(context).textTheme
                                                           .titleSmall?.copyWith(color: AppColors.black),
@@ -872,7 +871,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         },
                                                       ),
                                                     ),
-                                                    SizedBox(height: Get.height * 0.04,),
+                                                    SizedBox(height: Get.height * 0.027,),
                                                     Text(
                                                       "Availability",
                                                       style: Theme.of(context)
@@ -1057,7 +1056,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                     CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].seeker?.resume == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].seeker?.resume?.length == 0 ?
-                                                    Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),)
+                                                    Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),)
                                                         : ListTile(
                                                       leading: '${homeController.homeData.value.Seeker_Details?[index].seeker?.resume}'.contains(".pdf") ?
                                                       SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
@@ -1090,7 +1089,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                     CommonWidgets.divider(),
                                                     homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg == null ||
                                                         homeController.homeData.value.Seeker_Details?[index].seeker?.documentImg?.length == 0 ?
-                                                    Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.silverColor),) :
+                                                    Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),) :
                                                     ListTile(
                                                       title: Text('Document',
                                                         overflow: TextOverflow.ellipsis,
@@ -1164,7 +1163,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                   hint: Text(
                                                     employmentType ??
                                                         homeController.homeData.value.Seeker_Details?[0].positions ?? "No positions",
-                                                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white, fontSize: 12),
+                                                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white, fontSize: 12,fontWeight: FontWeight.w600),
                                                     overflow: TextOverflow.ellipsis,),
                                                   items: jobsController.getJobsDetails.value.jobPositionList?.map((item) =>
                                                       DropdownMenuItem(value: item.id,
@@ -1643,12 +1642,12 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                 children: [
                                   Text("${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%",
                                       style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(color: AppColors.white)),
-                                  Text('match',
+                                          .copyWith(color: AppColors.white,fontWeight: FontWeight.w600)),
+                                  Text('Match',
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(
                                           color: AppColors.white,
-                                          fontSize: 7)),
+                                          fontSize: 9,fontWeight: FontWeight.w400)),
                                 ],
                               ),
                             ))),

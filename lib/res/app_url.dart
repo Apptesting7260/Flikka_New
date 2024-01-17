@@ -95,5 +95,6 @@ class AppUrl {
   static const String notificationSeen = '$baseUrl/notification-seen-unseen' ;
   static const String onboarding = '$baseUrl/recruiter-onboding-seeker-listing' ;
   static const String selectOrRejectAfterInterview = '$baseUrl/recruiter-select-interview-status' ;
+  static const String seenUnseenPendingInterviewUrl = '$baseUrl/seen-unseen-pending-interview' ;
 
 }

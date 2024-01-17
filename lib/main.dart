@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flikka/Job%20Seeker/help%20section/help.dart';
 import 'package:flikka/Job%20Seeker/splash_screen.dart';
 import 'package:flikka/widgets/my_theme.dart';
 import 'package:flutter/material.dart';

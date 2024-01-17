@@ -68,7 +68,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
 
                   color: const Color(0xff353535),
                 ),
-                elevation: 2,
+                // elevation: 2,
               ),
               dropdownStyleData: DropdownStyleData(
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(25))
