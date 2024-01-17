@@ -148,7 +148,6 @@ class _TabScreenState extends State<TabScreen> {
         duration: const Duration(milliseconds: 800),
         opacity: tabBarController.showBottomBar.value ? 1 : 0,
         child: tabBarController.showBottomBar.value ? Container(
-          height: 50,
           color: Colors.transparent,
           child: ClipRRect(
             child: BottomNavigationBar(
@@ -164,7 +163,7 @@ class _TabScreenState extends State<TabScreen> {
               ),
 
               elevation: 0,
-              backgroundColor: bottomSelectedIndex == 0 || bottomSelectedIndex == 4 ? AppColors.homeGrey : AppColors.blackdown,
+              backgroundColor: AppColors.homeGrey ,
               currentIndex: bottomSelectedIndex ?? 0,
               onTap: (index) => bottomTapped(index),
               selectedFontSize: 1,
