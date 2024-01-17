@@ -173,7 +173,8 @@ class _Notification1PageState extends State<SeekerNotification> {
                                 SeekerViewNotificationControllerInstanse
                                     .viewSeekerNotificationData.value.seekerNotification?[index].companyName ?? "",
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white,
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse
+                                    .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,
                                   fontSize: SeekerViewNotificationControllerInstanse
                                       .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? 15 : 18,
                                 ),
@@ -181,7 +182,8 @@ class _Notification1PageState extends State<SeekerNotification> {
                               subtitle: Text(
                                 SeekerViewNotificationControllerInstanse
                                     .viewSeekerNotificationData.value.seekerNotification?[index].description ?? "",
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse
+                                    .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,),
                               ),
                             ),
                           );
