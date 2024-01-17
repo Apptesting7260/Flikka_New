@@ -60,7 +60,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
 
   @override
   void initState() {
-    interviewListController.seekerInterViewListApi();
+
     super.initState();
   }
 
@@ -278,6 +278,16 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                                   fontWeight: FontWeight.w400,
                                                   color: const Color(0xffCFCFCF)),),
                                             ],
+                                          ),
+                                          trailing: Container(
+                                            alignment: Alignment.center,
+                                            height: 40,
+                                            width: 40,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.red,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Text("New"),
                                           ),
                                         ),
                                         SizedBox(height: Get.height * .025,),

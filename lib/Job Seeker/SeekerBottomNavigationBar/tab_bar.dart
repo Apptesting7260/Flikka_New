@@ -19,6 +19,7 @@ import '../../controllers/SeekerForumController/SeekerForumDataController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../controllers/SeekerMapJobsController/SeekerMapJobsController.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
+import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
@@ -61,6 +62,7 @@ class _TabScreenState extends State<TabScreen> {
   ContactController contactController = Get.put(ContactController()) ;
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
+  SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
@@ -83,6 +85,7 @@ class _TabScreenState extends State<TabScreen> {
     contactController.loadContacts() ;
     SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
     seekerEarningController.seekerEarningApi();
+    interviewListController.seekerInterViewListApi();
   buildBottomNavBarItems =  [
       BottomNavigationBarItem(
           label: "",

@@ -22,7 +22,6 @@ class _HelpSectionState extends State<HelpSection> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: AppColors.black,
-            centerTitle: false,
             toolbarHeight: 45,
             title: Text("Help",style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.white)),
             leading: InkWell(
@@ -175,9 +174,11 @@ class _HelpSectionState extends State<HelpSection> {
                 SizedBox(height: Get.height*.01,) ,
                 Text("No detail is too small - we want to hear everything!",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),),
                 SizedBox(height: Get.height*.05,) ,
-                MyButton(title: "SUBMIT", onTap1: () {
+                Center(
+                  child: MyButton(title: "SUBMIT", onTap1: () {
 
-                },),
+                  },),
+                ),
                 SizedBox(height: Get.height*.05,) ,
               ],
             ),
