@@ -1,13 +1,10 @@
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/bottom_navigation_bar.dart';
-import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../controllers/AvtarImageListController/AvtarImageListController.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
@@ -23,14 +20,9 @@ import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAl
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
-import '../../main.dart';
 import '../../widgets/app_colors.dart';
-import '../SeekerFilter/filter_page.dart';
 import '../SeekerForum/FriendsFamily/ContactsController.dart';
 import '../SeekerHome/find_job_home_page.dart';
-import '../location.dart';
-import '../saved_post_widget.dart';
-import '../search_job.dart';
 
 
 class TabScreen extends StatefulWidget {

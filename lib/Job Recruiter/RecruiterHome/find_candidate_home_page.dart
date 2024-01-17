@@ -303,8 +303,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         child:
                                                         Container(
                                                           alignment: Alignment.center,
-                                                          height: 50,
-                                                          width: 50,
+                                                          height: 45,
+                                                          width: 45,
                                                           decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
                                                               color: AppColors.blueThemeColor),
@@ -322,8 +322,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       InkWell(
                                                         child: Container(
                                                           alignment: Alignment.center,
-                                                          height: 50,
-                                                          width: 50,
+                                                          height: 45,
+                                                          width: 45,
                                                           decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                           child: Image.asset(
                                                             'assets/images/icon_msg_blue.png',
@@ -367,8 +367,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                           },
                                                             child:Container(
                                                               alignment: Alignment.center,
-                                                              height: 50,
-                                                              width: 50,
+                                                              height: 45,
+                                                              width: 45,
                                                               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                               child: Image.asset(
                                                                 'assets/images/call1.png',
@@ -380,7 +380,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                   ),
                                                 ),
                                                 Positioned(
-                                                  bottom: 190 - position.value ,
+                                                  bottom: 200 - position.value ,
                                                   left: 12,
                                                   child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
