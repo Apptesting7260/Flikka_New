@@ -13,7 +13,7 @@ class HelpSection extends StatefulWidget {
 
 class _HelpSectionState extends State<HelpSection> {
   final List<String> bankItems = [
-    'State Bank of India','Bank of Baroda','ICICI Bank Ltd','Union Bank of India'
+    'Epic','Story, Task, Bug','Subtask','Task'
   ];
   String? bankValues;
   @override
@@ -23,16 +23,13 @@ class _HelpSectionState extends State<HelpSection> {
           appBar: AppBar(
             backgroundColor: AppColors.black,
             centerTitle: false,
-            toolbarHeight: 75,
+            toolbarHeight: 45,
             title: Text("Help",style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.white)),
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: InkWell(
-                  onTap: (){
-                    Get.back() ;
-                  },
-                  child: Image.asset('assets/images/icon_back_blue.png')),
-            ),
+            leading: InkWell(
+                onTap: (){
+                  Get.back() ;
+                },
+                child: Image.asset('assets/images/icon_back_blue.png',)),
             elevation: 0,
           ),
           body: SingleChildScrollView(
@@ -40,23 +37,7 @@ class _HelpSectionState extends State<HelpSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: Get.height*.025,) ,
-                TextFormField(
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontSize: 15),
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search,color: AppColors.blueThemeColor,size: 30,),
-                    filled: true,
-                    fillColor: AppColors.textFieldFilledColor,
-                    hintText: 'Search',
-                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff929292)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(33),
-                      borderSide: BorderSide.none,
-                    ),
-
-                  ),
-                ),
-                SizedBox(height: Get.height*.042,) ,
+                SizedBox(height: Get.height*.04,) ,
                 Text("Submit a request",style: Theme.of(context).textTheme.displaySmall,),
                 SizedBox(height: Get.height*.01,) ,
                 Text("Email Address",style: Theme.of(context).textTheme.titleSmall,),

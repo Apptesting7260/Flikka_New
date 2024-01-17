@@ -18,6 +18,7 @@ import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
 import '../SeekerNotification/SeekerNotification.dart';
 import '../SeekerNotification/setting_page.dart';
+import '../help section/help.dart';
 import '../saved_post_widget.dart';
 import '../SeekerBottomNavigationBar/tab_bar.dart';
 
@@ -400,7 +401,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ),
                                   ListTile(
                                     onTap: () {
-
+                                      Get.to(() => const HelpSection()) ;
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
