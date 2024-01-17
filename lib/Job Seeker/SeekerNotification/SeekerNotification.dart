@@ -126,8 +126,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: SeekerViewNotificationControllerInstanse
-                            .viewSeekerNotificationData.value.seekerNotification?.length,
+                        itemCount: SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 12.0),

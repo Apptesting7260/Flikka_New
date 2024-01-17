@@ -11,20 +11,20 @@ class SeenUnSeenInterviewPendingController extends GetxController {
   final response = SeenUnseenPendingInterviewModel().obs ;
   RxString error = ''.obs;
   RxBool loading = false.obs ;
-   Rx<TextEditingController> emailController = TextEditingController().obs ;
+
    SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
   // TalentPoolController poolController = Get.put(TalentPoolController()) ;
 
-  void seenUnSeenPendingInterviewAPi( BuildContext context, String email){
+  void seenUnSeenPendingInterviewAPi( BuildContext context, String? email){
     var data = {} ;
-    data.addIf(emailController != null && emailController.value.text.length != 0, "email", emailController);
+    data.addIf(email != null && email.length != 0, "email", email);
     loading(true) ;
     _api.seenUnseenInterviewApi(data).then((value){
       // interviewListController.seekerInterViewListApi() ;
       // poolController.refreshPool() ;
       loading(false) ;
       response(value) ;
-      Get.back() ;
+      // Get.back() ;
       // Utils.toastMessage("removed from talent pool") ;
       debugPrint(value.toString());
     }).onError((error, stackTrace){

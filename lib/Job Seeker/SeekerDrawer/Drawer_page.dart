@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../controllers/SeenUnSeenPendingInterviewController/SeenUnSeenPendingInterviewController.dart';
+import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
 import '../SeekerNotification/SeekerNotification.dart';
@@ -36,7 +37,6 @@ class _DrawerClassState extends State<DrawerClass> {
 
   LogoutController logoutController  = Get.put( LogoutController()) ;
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
-  SeenUnSeenInterviewPendingController seenUnSeenInterviewPendingControllerInstanse = Get.put(SeenUnSeenInterviewPendingController()) ;
 
   String homeIcon = 'assets/images/homedrawericon.png' ;
   String profileIcon = 'assets/images/profiledrawericon.png' ;
@@ -200,12 +200,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
-                                    onTap: () {
-                                      Get.to(const MettingListTabbar());
-                                      seenUnSeenInterviewPendingControllerInstanse.seenUnSeenPendingInterviewAPi(
-                                          context,
-                                          seenUnSeenInterviewPendingControllerInstanse.emailController.value.text) ;
-                                    },
+                                    onTap: () => Get.to(const MettingListTabbar()) ,
                                     leading: SizedBox(
                                       width: 45,
                                       height: 40,
