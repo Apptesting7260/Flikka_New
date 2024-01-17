@@ -16,8 +16,7 @@ class SeenUnSeenInterviewPendingController extends GetxController {
     data.addIf(email != null && email.length != 0, "email", email);
     loading(true) ;
     _api.seenUnseenInterviewApi(data).then((value){
-      // interviewListController.seekerInterViewListApi() ;
-      // poolController.refreshPool() ;
+
       loading(false) ;
       response(value) ;
       // Get.back() ;

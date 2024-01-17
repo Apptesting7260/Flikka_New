@@ -12,6 +12,7 @@ import 'package:flikka/models/SaveBankDetailsModel/SaveBankDetailsModel.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
 import 'package:flikka/models/SeekerChoosePositionModel/SeekerChoosePositionModel.dart';
 import 'package:flikka/models/SeekerReferalModel/SeekerReferalModel.dart';
+import 'package:flikka/models/SeenUnSeenWalletMessageModel/SeenUnSeenWalletMessageModel.dart';
 import 'package:flikka/models/SeenUnseenPendingInterviewModel/SeenUnSeenPendingInterviewModel.dart';
 import 'package:flikka/models/SelectIndustryModel/SelectIndustryModel.dart';
 import 'package:flikka/models/SetRollModel/SetRollModel.dart';
@@ -274,6 +275,11 @@ class AuthRepository {
   Future<SeenUnseenPendingInterviewModel> seenUnseenInterviewApi(var data) async{
     dynamic response = await _apiService.postApi2(data,AppUrl.seenUnseenPendingInterviewUrl);
     return SeenUnseenPendingInterviewModel.fromJson(response);
+  }
+
+  Future<SeenUnSeenWalletMessageModel> seenUnSeenWalletApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.seenUnSeenWalletMessage);
+    return SeenUnSeenWalletMessageModel.fromJson(response);
   }
 
 }

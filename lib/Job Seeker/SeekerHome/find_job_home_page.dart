@@ -332,13 +332,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: getJobsListingController.getJobsListing.value.jobs?[index].postSaved == false
                                                                   ? Image.asset(
                                                                 "assets/images/icon_unsave_post.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 45,
+                                                                width: 45,
                                                               )
                                                                   : Image.asset(
                                                                 "assets/images/icon_Save_post.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 45,
+                                                                width: 45,
                                                               )),
                                                           SizedBox(
                                                             height: Get.height *
@@ -352,8 +352,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child:
                                                               Image.asset(
                                                                 "assets/images/icon_filter_seeker_home.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 45,
+                                                                width: 45,
                                                               )),
                                                           SizedBox(height: Get.height * .01,),
                                                           GestureDetector(
@@ -373,8 +373,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                             Container(
                                                               alignment:
                                                               Alignment.center,
-                                                              height: 50,
-                                                              width: 50,
+                                                              height: 45,
+                                                              width: 45,
                                                               decoration: const BoxDecoration(
                                                                   shape: BoxShape.circle,
                                                                   color: AppColors.blueThemeColor),
@@ -393,8 +393,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               ? InkWell(
                                                             child: Container(
                                                               alignment: Alignment.center,
-                                                              height: 50,
-                                                              width: 50,
+                                                              height: 45,
+                                                              width: 45,
                                                               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                               child: Image.asset(
                                                                 'assets/images/icon_msg_blue.png',
@@ -433,14 +433,14 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: Image
                                                                   .asset(
                                                                 "assets/images/icon_pound.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 45,
+                                                                width: 45,
                                                               )),
                                                         ],
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: 190 - position.value ,
+                                                      bottom: 200 - position.value ,
                                                       left: 12,
                                                       child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [

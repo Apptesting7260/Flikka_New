@@ -281,13 +281,13 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           ),
                                           trailing: Container(
                                             alignment: Alignment.center,
-                                            height: 40,
-                                            width: 40,
+                                            height: 35,
+                                            width: 35,
                                             decoration: BoxDecoration(
                                               color: AppColors.red,
                                               shape: BoxShape.circle,
                                             ),
-                                            child: const Text("New"),
+                                            child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500),),
                                           ),
                                         ),
                                         SizedBox(height: Get.height * .025,),

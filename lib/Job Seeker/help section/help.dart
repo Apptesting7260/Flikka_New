@@ -13,7 +13,7 @@ class HelpSection extends StatefulWidget {
 
 class _HelpSectionState extends State<HelpSection> {
   final List<String> bankItems = [
-    'Epic','Story, Task, Bug','Subtask','Task'
+    'INDIA','UK', 'USA', 'GERMANY',
   ];
   String? bankValues;
   @override

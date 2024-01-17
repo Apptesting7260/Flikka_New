@@ -8,7 +8,7 @@ class AvtarImageListModel {
 
   AvtarImageListModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    avtarImages = List.from(json['avtar_images']).map((e)=>AvtarImages.fromJson(e)).toList();
+    avtarImages = json['avtar_images'] == null ? json['avtar_images'] : List.from(json['avtar_images']).map((e)=>AvtarImages.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
