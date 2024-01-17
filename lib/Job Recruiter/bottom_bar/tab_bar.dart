@@ -107,6 +107,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
             opacity: tabBarController.showBottomBarRecruiter.value ? 1 : 0,
             child: tabBarController.showBottomBarRecruiter.value
                 ? Container(
+              height: 50,
                     color: Colors.transparent,
                     child: ClipRRect(
                       child: BottomNavigationBar(

@@ -332,13 +332,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: getJobsListingController.getJobsListing.value.jobs?[index].postSaved == false
                                                                   ? Image.asset(
                                                                 "assets/images/icon_unsave_post.png",
-                                                                height: 40,
-                                                                width: 40,
+                                                                height: 50,
+                                                                width: 50,
                                                               )
                                                                   : Image.asset(
                                                                 "assets/images/icon_Save_post.png",
-                                                                height: 40,
-                                                                width: 40,
+                                                                height: 50,
+                                                                width: 50,
                                                               )),
                                                           SizedBox(
                                                             height: Get.height *
@@ -352,8 +352,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child:
                                                               Image.asset(
                                                                 "assets/images/icon_filter_seeker_home.png",
-                                                                height: 40,
-                                                                width: 40,
+                                                                height: 50,
+                                                                width: 50,
                                                               )),
                                                           SizedBox(height: Get.height * .01,),
                                                           GestureDetector(
@@ -373,8 +373,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                             Container(
                                                               alignment:
                                                               Alignment.center,
-                                                              height: 40,
-                                                              width: 40,
+                                                              height: 50,
+                                                              width: 50,
                                                               decoration: const BoxDecoration(
                                                                   shape: BoxShape.circle,
                                                                   color: AppColors.blueThemeColor),
@@ -393,8 +393,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               ? InkWell(
                                                             child: Container(
                                                               alignment: Alignment.center,
-                                                              height: 40,
-                                                              width: 40,
+                                                              height: 50,
+                                                              width: 50,
                                                               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                               child: Image.asset(
                                                                 'assets/images/icon_msg_blue.png',
@@ -433,14 +433,14 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: Image
                                                                   .asset(
                                                                 "assets/images/icon_pound.png",
-                                                                height: 40,
-                                                                width: 40,
+                                                                height: 50,
+                                                                width: 50,
                                                               )),
                                                         ],
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: Get.height * .25 - position.value ,
+                                                      bottom: 190 - position.value ,
                                                       left: 12,
                                                       child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -894,7 +894,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         SizedBox(height: Get.height * 0.055,),
                                                         Center(child: Text("THIS JOB IS ABOVE",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),)),
                                                         Center(child: Text("SALARY BENCHMARK", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w800,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationThickness: 2.0),)),
-                                                        SizedBox(height: 15,),
+                                                        const SizedBox(height: 15,),
                                                         // Center(
                                                         //   child: Obx( () => MyButton(
                                                         //       title: getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ? "APPLIED" : "APPLY NOW",
@@ -949,7 +949,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               ),
                             ),
                             Positioned(
-                              bottom: 10 ,
+                              bottom: 25 ,
                               left: 12,
                               child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -961,8 +961,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             onSwipeLeft() ;
                                           },
                                           child: Container(
-                                            height: 55,
-                                            width: 55,
+                                            height: 70,
+                                            width: 70,
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,
@@ -975,8 +975,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             onSwipeRight() ;
                                           },
                                           child: Container(
-                                            height: 55,
-                                            width: 55,
+                                            height: 70,
+                                            width: 70,
                                             margin: const EdgeInsets.only(right: 20),
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
@@ -1002,39 +1002,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
   }
 
-  bool _onSwipe(
-    int previousIndex,
-    int? currentIndex,
-    CardSwiperDirection direction,
-  ) {
-    if (currentIndex != null) {
-      if (direction.name == "left") {
-        // print("swiped left");
-      } else if (direction.name == "right") {
-        CommonFunctions.confirmationDialog(context,
-            message: "Do you want to Apply for the post", onTap: () {
-              applyJobController.errorMessageApplyReferral.value = "" ;
-          Get.back();
-          showReferralSubmissionDialog(context, previousIndex);
-        });
-      } else if (direction.name == "top") {
-        CommonFunctions.confirmationDialog(context,
-            message: "Do you want to save the post", onTap: () {
-          Get.back();
-          CommonFunctions.showLoadingDialog(context, "Saving");
-          jobFilterController.reset.value
-              ? seekerSaveJobController.saveJobApi(
-                  getJobsListingController
-                      .getJobsListing.value.jobs?[previousIndex].id,
-                  1)
-              : seekerSaveJobController.saveJobApi(
-                  jobFilterController.jobsData.value.jobs?[previousIndex].id,
-                  1);
-        });
-      }
-    }
-    return true;
-  }
 
   void showSeekerHomePagePercentageProfile(BuildContext context, dynamic data) {
     showDialog(

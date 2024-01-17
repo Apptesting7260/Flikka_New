@@ -303,8 +303,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                         child:
                                                         Container(
                                                           alignment: Alignment.center,
-                                                          height: 40,
-                                                          width: 40,
+                                                          height: 50,
+                                                          width: 50,
                                                           decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
                                                               color: AppColors.blueThemeColor),
@@ -322,8 +322,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                       InkWell(
                                                         child: Container(
                                                           alignment: Alignment.center,
-                                                          height: 40,
-                                                          width: 40,
+                                                          height: 50,
+                                                          width: 50,
                                                           decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                           child: Image.asset(
                                                             'assets/images/icon_msg_blue.png',
@@ -367,8 +367,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                           },
                                                             child:Container(
                                                               alignment: Alignment.center,
-                                                              height: 40,
-                                                              width: 40,
+                                                              height: 50,
+                                                              width: 50,
                                                               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                               child: Image.asset(
                                                                 'assets/images/call1.png',
@@ -380,7 +380,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                   ),
                                                 ),
                                                 Positioned(
-                                                  bottom: Get.height * .25 - position.value ,
+                                                  bottom: 190 - position.value ,
                                                   left: 12,
                                                   child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
@@ -1234,7 +1234,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                     ),
                                   ),
                                   Positioned(
-                                    bottom: 10 ,
+                                    bottom: 25 ,
                                     left: 12,
                                     child:  SizedBox( width: Get.width,
                                     child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1244,12 +1244,12 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                             onSwipeLeft() ;
                                           },
                                           child: Container(
-                                            height: 55,
-                                            width: 55,
+                                            height: 70,
+                                            width: 70,
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,
-                                                color: AppColors.blueThemeColor),
+                                                color: AppColors.red),
                                             child: const Icon(Icons.close , color: AppColors.white,),
                                           ),
                                         ),
@@ -1258,13 +1258,13 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                             onSwipeRight(_currentPage) ;
                                           },
                                           child: Container(
-                                            height: 55,
-                                            width: 55,
+                                            height: 70,
+                                            width: 70,
                                             margin: const EdgeInsets.only(right: 20),
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,
-                                                color: AppColors.blueThemeColor),
+                                                color: AppColors.green),
                                             child: const Icon(Icons.done , color: AppColors.white,),
                                           ),
                                         ),

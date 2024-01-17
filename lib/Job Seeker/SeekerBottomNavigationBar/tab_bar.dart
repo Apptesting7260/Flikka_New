@@ -145,6 +145,7 @@ class _TabScreenState extends State<TabScreen> {
         duration: const Duration(milliseconds: 800),
         opacity: tabBarController.showBottomBar.value ? 1 : 0,
         child: tabBarController.showBottomBar.value ? Container(
+          height: 50,
           color: Colors.transparent,
           child: ClipRRect(
             child: BottomNavigationBar(
