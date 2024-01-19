@@ -37,6 +37,7 @@ class Seeker {
   dynamic interviewScheduleTime;
   String? interviewStatus;
   bool? ongoing;
+  bool? isNewInterview;
   DateTime? createdAt;
   DateTime? updatedAt;
   SeekerData? seekerData;
@@ -51,6 +52,7 @@ class Seeker {
     this.interviewScheduleTime,
     this.interviewStatus,
     this.ongoing,
+    this.isNewInterview,
     this.createdAt,
     this.updatedAt,
     this.seekerData,
@@ -66,6 +68,7 @@ class Seeker {
     interviewScheduleTime: json["interview_schedule_time"] == null ? json["interview_schedule_time"] : DateTime.parse(json["interview_schedule_time"]),
     interviewStatus: json["interview_status"],
     ongoing: json["ongoing"],
+    isNewInterview: json["is_new_interview"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     seekerData: json["seekerlist"] == null ? json["seekerlist"] : SeekerData.fromJson(json["seekerlist"]),

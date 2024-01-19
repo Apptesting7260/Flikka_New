@@ -27,6 +27,7 @@ class MettingListTabbar extends StatefulWidget {
   @override
   State<MettingListTabbar> createState() => _MettingListTabbarState();
 }
+
 SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
 
 class _MettingListTabbarState extends State<MettingListTabbar> {
@@ -240,7 +241,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           contentPadding: EdgeInsets.zero,
                                           // minVerticalPadding: 12,
                                           leading: CachedNetworkImage(
-                                              imageUrl: data?.seekerData?.profileImg ?? "",
+                                              imageUrl: data?.seekerlist?.profileImg ?? "",
                                             imageBuilder: (context, imageProvider) => Container(
                                               height: 40,
                                               width: 40,
@@ -251,7 +252,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                             ),
                                             placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
                                           ),
-                                          title: Text( data?.seekerData?.fullname ?? "No data", style: Theme
+                                          title: Text( data?.seekerlist?.fullname ?? "No data", style: Theme
                                               .of(context)
                                               .textTheme
                                               .titleLarge
@@ -260,7 +261,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           subtitle: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text( data?.details?.jobTitle ?? "No job title",
+                                              Text( data?.jobDetails?.jobTitle ?? "No job title",
                                                   style: Theme
                                                       .of(context)
                                                       .textTheme
@@ -270,7 +271,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                                       fontWeight: FontWeight.w600)
                                               ),
                                               SizedBox(height: Get.height * .003,),
-                                              Text( data?.seekerData?.location ?? "No location", style: Theme
+                                              Text( data?.seekerlist?.location ?? "No location", style: Theme
                                                   .of(context)
                                                   .textTheme
                                                   .labelLarge
@@ -279,19 +280,22 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                                   color: const Color(0xffCFCFCF)),),
                                             ],
                                           ),
-                                          // trailing: Container(
-                                          //   alignment: Alignment.center,
-                                          //   height: 35,
-                                          //   width: 35,
-                                          //   decoration: BoxDecoration(
-                                          //     color: AppColors.red,
-                                          //     shape: BoxShape.circle,
-                                          //   ),
-                                          //   child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500),),
-                                          // ),
+                                          trailing: Obx(() =>   interviewListController.seekerInterViewData.value.interviewSchedule?[index].isNewInterview == true ?
+                                             Container(
+                                              height: 25,
+                                              width: 25,
+                                              alignment: Alignment.center,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle ,
+                                                color: AppColors.red,
+                                              ),
+                                              child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,fontWeight: FontWeight.w400,color: AppColors.white),),
+                                            )
+                                           : const SizedBox()
+                                          )
                                         ),
                                         SizedBox(height: Get.height * .025,),
-                                        HtmlWidget(data?.seekerData?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme
+                                        HtmlWidget(data?.seekerlist?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme
                                             .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
                                         SizedBox(height: Get.height * .03,),
                                         Row(
@@ -387,8 +391,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           },),
                                         ),
                                         SizedBox(height: Get.height * .031,),
-                                      ],
-                                    ),
+                                    ]),
                                   ),
                                 ),
                               );

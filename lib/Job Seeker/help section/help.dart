@@ -21,15 +21,18 @@ class _HelpSectionState extends State<HelpSection> {
     return SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: AppColors.black,
-            toolbarHeight: 45,
-            title: Text("Help",style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.white)),
-            leading: InkWell(
-                onTap: (){
-                  Get.back() ;
-                },
-                child: Image.asset('assets/images/icon_back_blue.png',)),
+            toolbarHeight: 75,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Image.asset('assets/images/icon_back_blue.png')),
+            ),
             elevation: 0,
+            title: Text("Help",style: Get.theme.textTheme.displayLarge),
+
           ),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: Get.width*.042),

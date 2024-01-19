@@ -1,6 +1,7 @@
 
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../models/ShowReferralByUserSeeker/ShowReferralByUserSeeker.dart';
 import '../../repository/SeekerDetailsRepository/SeekerRepository.dart';
@@ -31,8 +32,12 @@ class SeekerEarningController extends GetxController {
 
     }).onError((error, stackTrace){
       setError(error.toString());
-      print(error.toString());
-      print(stackTrace) ;
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      if (kDebugMode) {
+        print(stackTrace) ;
+      }
       setRxRequestStatus(Status.ERROR);
 
     });
@@ -40,18 +45,18 @@ class SeekerEarningController extends GetxController {
 
   void refreshWalletApi(){
     // setRxRequestStatus(Status.LOADING);
-    refreshLoading(true) ;
+    // refreshLoading(true) ;
     _api.getWalletApi().then((value){
       // setRxRequestStatus(Status.COMPLETED);
       getEarningDetails( value);
-      refreshLoading(false) ;
+      // refreshLoading(false) ;
       print(value);
 
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());
-      refreshLoading(false) ;
-      setRxRequestStatus(Status.ERROR);
+      // refreshLoading(false) ;
+      // setRxRequestStatus(Status.ERROR);
 
     });
   }

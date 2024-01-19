@@ -207,8 +207,8 @@ class _DrawerClassState extends State<DrawerClass> {
                                           Positioned(
                                               bottom: 9,
                                               child: drawerIcon(interviewIcon)),
-                                          Obx(() => interviewListController.seekerInterViewData.value.unSeenPendingInterview == 0
-                                              || interviewListController.seekerInterViewData.value.unSeenPendingInterview == null ?
+                                          Obx(() => interviewListController.seekerInterViewData.value.unseenPendingInterview == 0
+                                              || interviewListController.seekerInterViewData.value.unseenPendingInterview == null ?
                                           const SizedBox() :
                                               Positioned(
                                                   top: 0,
@@ -221,7 +221,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                                         shape: BoxShape.circle ,
                                                         color: AppColors.red,
                                                     ),
-                                                    child: Obx(() => Text("${interviewListController.seekerInterViewData.value.unSeenPendingInterview}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10))),
+                                                    child: Obx(() => Text("${interviewListController.seekerInterViewData.value.unseenPendingInterview}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10))),
                                                   ))
                                           )
                                         ],
@@ -247,7 +247,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                           Positioned(
                                             bottom: 9,
                                               child: drawerIcon(notificationIcon),) ,
-                                          Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                          Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 || SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ?
                                           const SizedBox() :
                                           Positioned(
                                             top: 0,
@@ -355,7 +355,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                       "Wallet",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
-                                    trailing: seekerEarningController.getEarningDetails.value.newWalletMessage == true ?
+                                    trailing: Obx(() => seekerEarningController.getEarningDetails.value.newWalletMessage == true ?
                                     Container(
                                       height: 20,
                                       width: 20,
@@ -364,8 +364,9 @@ class _DrawerClassState extends State<DrawerClass> {
                                         shape: BoxShape.circle ,
                                         color: AppColors.red,
                                       ),
-                                      child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),
-                                    ) : const SizedBox(),
+                                      child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),)
+                                     : const SizedBox(),
+                                  ),
                                   ),
                                   // ListTile(
                                   //   horizontalTitleGap:0,
@@ -450,7 +451,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ),
 
                                   SizedBox(height: Get.height*.2,),
-                                ],
+                                  ],
                               ),
                             ),
                           )

@@ -448,7 +448,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: Get.height * .25 - position.value ,
+                                                      bottom: Get.height*.3 - position.value ,
                                                       left: 12,
                                                       child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
