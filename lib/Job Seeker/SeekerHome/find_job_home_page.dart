@@ -440,7 +440,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: 200 - position.value ,
+                                                      bottom: Get.height*.3 - position.value ,
                                                       left: 12,
                                                       child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -479,7 +479,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   ],),
                                                   SizedBox(height: Get.height * 0.025,),
                                                   Padding(
-                                                    padding: const EdgeInsets.all(8.0),
+                                                    padding: const EdgeInsets.all(16.0),
                                                     child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         // Text(getJobsListingController.getJobsListing.value.jobs?[index].jobTitle ?? "No job title", overflow: TextOverflow.ellipsis,
@@ -956,19 +956,33 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                   SizedBox( width: Get.width,
                                     child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        GestureDetector(
-                                          onTap : () {
-                                            onSwipeLeft() ;
-                                          },
-                                          child: Container(
-                                            height: 70,
-                                            width: 70,
-                                            alignment: Alignment.center,
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape.circle ,
-                                                color: AppColors.red),
-                                            child: const Icon(Icons.close , color: AppColors.white,),
-                                          ),
+                                        Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap : () {
+                                                onSwipeLeft() ;
+                                              },
+                                              child: Container(
+                                                height: 70,
+                                                width: 70,
+                                                alignment: Alignment.center,
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle ,
+                                                    color: AppColors.red),
+                                                child: const Icon(Icons.close , color: AppColors.white,),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20,) ,
+                                            Container(
+                                              height: 70,
+                                              width: 70,
+                                              alignment: Alignment.center,
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle ,
+                                                  color: AppColors.blueThemeColor),
+                                              child: Image.asset("assets/images/shareIcon.png",height: 30, ) ,
+                                            ),
+                                          ],
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -977,7 +991,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                           child: Container(
                                             height: 70,
                                             width: 70,
-                                            margin: const EdgeInsets.only(right: 20),
+                                            margin: const EdgeInsets.only(right: 30),
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,

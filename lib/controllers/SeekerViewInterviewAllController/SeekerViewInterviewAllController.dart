@@ -30,4 +30,22 @@ class SeekerViewInterviewAllController extends GetxController {
       setRxRequestStatus(Status.ERROR);
     });
   }
+  void refreshSeekerInterviewSeenApi(){
+    var data = {} ;
+    // setRxRequestStatus(Status.LOADING);
+    // refreshLoading(true) ;
+    _api.getInterviewList(data).then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      seekerInterViewData( value);
+      // refreshLoading(false) ;
+      print(value);
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      // refreshLoading(false) ;
+      // setRxRequestStatus(Status.ERROR);
+
+    });
+  }
 }
