@@ -1443,6 +1443,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                   ),
                                                 );
                                               },),
+                                            SizedBox(height: Get.height * .02,),
                                             Text("When Can I Start Working?", style: Theme.of(context).textTheme.displaySmall),
                                             SizedBox(height: Get.height * .02,),
                                             GridView.builder(
