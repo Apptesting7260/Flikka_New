@@ -13,6 +13,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../ChatRecruter/CreateFuction.dart';
@@ -258,37 +259,37 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                     top: Get.height * 0.15,
                                                     child: Stack(
                                                       children: [
-                                                        GestureDetector(
-                                                          onTap:
-                                                              () {
-                                                            showRecruiterHomePagePercentageDialog(context, index);
-                                                          },
-                                                          child:
-                                                          Container(
-                                                            decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(50),
-                                                                border: Border.all(color: AppColors.white, width: 2)),
-                                                            child:
-                                                            Padding(
-                                                              padding:
-                                                              const EdgeInsets.all(3.0),
-                                                              child: Container(
-                                                                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                                                  child: CircleAvatar(
-                                                                      radius: 30,
-                                                                      backgroundColor: Colors.transparent,
-                                                                      child: Center(
-                                                                        child: Column(
-                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text('${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w600)),
-                                                                            Text('Match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7,fontWeight: FontWeight.w400)),
-                                                                          ],
-                                                                        ),
-                                                                      ))),
-                                                            ),
+                                                        Container(
+                                                          padding: const EdgeInsets.all(4),
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.transparent,
+                                                              border: Border.all(color: AppColors.white,width: 2)
                                                           ),
-                                                        )
+                                                          child: CircularPercentIndicator(
+                                                            percent: homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage/100,
+                                                            lineWidth: 15,
+                                                            progressColor:  AppColors.green,
+                                                            center: Container(
+                                                                decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                                                child: CircleAvatar(
+                                                                    radius: 30,
+                                                                    backgroundColor: Colors.transparent,
+                                                                    child: Center(
+                                                                      child: Column(
+                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text('${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
+                                                                          Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                )
+                                                            ),
+                                                            backgroundColor: Colors.white,
+                                                            radius: 40,
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),

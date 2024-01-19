@@ -591,15 +591,25 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                               ),
                             ),
                           ),
+                          Positioned(
+                            bottom: Get.height*.1,
+                              right: 20,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    updateUserLocation();
+                                  },
+                                  child: Image.asset("assets/images/icon_location_update.PNG",height: 50,)),)
                         ],
                       ),
-                      floatingActionButton: FloatingActionButton(
-                        backgroundColor: AppColors.white,
-                        onPressed: () async {
-                          updateUserLocation();
-                        },
-                        child: Image.asset("assets/images/icon_location_update.PNG"),
-                      ),
+                      // floatingActionButton: FloatingActionButton(
+                      //
+                      //   backgroundColor: AppColors.white,
+                      //   onPressed: () async {
+                      //     updateUserLocation();
+                      //   },
+                      //   child: Image.asset("assets/images/icon_location_update.PNG"),
+                      // ),
+
                     );
             }
           });

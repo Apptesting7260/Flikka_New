@@ -372,7 +372,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                     )
                                                                 )
                                                             ),
-                                                            backgroundColor: Colors.black,
+                                                            backgroundColor: Colors.white,
                                                             radius: 40,
                                                           ),
                                                         ),
