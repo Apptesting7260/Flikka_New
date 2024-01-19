@@ -7,6 +7,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Job Seeker/SeekerNotification/setting_page.dart';
+import '../../Job Seeker/help section/help.dart';
 import '../ChartReport/chart_report.dart';
 
 
@@ -327,6 +328,21 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                           "Setting",
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                         )),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Get.to(() => const HelpSection()) ;
+                                    },
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    leading: SizedBox(
+                                      height: 22,
+                                      child:    drawerIcon("assets/images/icon_help.png") ,
+                                    ),
+                                    title: Text(
+                                      "Help",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                    ),
                                   ),
                                   ListTile(
                                     horizontalTitleGap:0,

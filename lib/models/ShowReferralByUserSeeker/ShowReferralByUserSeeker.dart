@@ -7,6 +7,7 @@ class ShowReferralByUserModel {
      this.subscriptionReferralAmount,
      this.totalAmount,
      this.bankAccount,
+     this.newWalletMessage,
      this.appReferrrals,
      this.employmentReferrals,
   });
@@ -17,6 +18,7 @@ class ShowReferralByUserModel {
    dynamic subscriptionReferralAmount;
    dynamic totalAmount;
    bool? bankAccount;
+   bool? newWalletMessage;
    AppReferrrals? appReferrrals;
    List<EmploymentReferrals>? employmentReferrals;
 
@@ -28,6 +30,7 @@ class ShowReferralByUserModel {
     subscriptionReferralAmount = json['subscription_referral_amount'];
     totalAmount = json['total_amount'];
     bankAccount = json['bank_account'];
+    newWalletMessage = json['new_wallet_message'];
     appReferrrals = json['app_referrrals'] == null ? json['app_referrrals'] : AppReferrrals.fromJson(json['app_referrrals']);
     employmentReferrals = json['employment_referrals'] == null ? json['employment_referrals'] : List.from(json['employment_referrals']).map((e)=>EmploymentReferrals.fromJson(e)).toList();
   }

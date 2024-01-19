@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/SeekerEarningController/SeekerEarningController.dart';
+import '../controllers/SeenUnSeenWalletMessageController/SeenUnSeenWalletMessageController.dart';
+import '../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
@@ -23,8 +25,9 @@ class WalletSection extends StatefulWidget {
 }
 
 class PieChart2State extends State {
-  SeekerEarningController seekerEarningController =
-      Get.put(SeekerEarningController());
+  SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
+  ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
+  SeenUnSeenWalletMessageController seenUnSeenWalletMessageControllerInstanse = Get.put(SeenUnSeenWalletMessageController()) ;
 
   int touchedIndex = -1;
   var total = 0.0 ;
@@ -91,6 +94,8 @@ class PieChart2State extends State {
                 child: GestureDetector(
                     onTap: () {
                       Get.back();
+                      seenUnSeenWalletMessageControllerInstanse.seenUnSeenWalletMessage(context,
+                          seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
                     },
                     child: Image.asset('assets/images/icon_back_blue.png')),
               ),
@@ -103,341 +108,350 @@ class PieChart2State extends State {
                     ?.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
-            body: SmartRefresher(
-              controller: _refreshController,
-              onRefresh: _onRefresh,
-              onLoading: _onLoading,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
-                child: Column(
-                  children: [
-                    Text(
-                      "Earnings",
-                      style: Theme.of(context).textTheme.displayLarge,
-                    ),
-                    Text(
-                      "How do I earn",
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: AppColors.blueThemeColor,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline),
-                    ),
-                    SizedBox(height: Get.height*.04,),
-                    AspectRatio(
-                      aspectRatio: 1,
-                      child: Column(
-                        children: <Widget>[
-                          PieChart(
-                            dataMap: {
-                              "Slice 1": seekerEarningController.getEarningDetails.value.appReferralAmount/1 ,
-                              "Slice 2": seekerEarningController.getEarningDetails.value.employmentReferralAmount/1,
-                              "Slice 3": seekerEarningController.getEarningDetails.value.subscriptionReferralAmount/1,
-                            },
-                            centerWidget: Text("\£ ${seekerEarningController.getEarningDetails.value.totalAmount}",
-                              style: Theme.of(context).textTheme.labelMedium,),
-                            emptyColor: AppColors.graySilverColor,
-                            colorList: colorList,
-                            baseChartColor: AppColors.graySilverColor,
-                            totalValue: double.parse("${seekerEarningController.getEarningDetails.value.totalAmount}"),
-                            chartRadius: MediaQuery.of(context).size.width / 1.5, // Adjust as needed
-                            animationDuration: const Duration(milliseconds: 800),
-                            chartType: ChartType.ring, // Optional: Change chart type
-                            ringStrokeWidth: 30, // Optional: Adjust ring stroke width
-                            legendOptions: const LegendOptions(showLegends: false,
-                              legendPosition: LegendPosition.right,),
-                            chartValuesOptions: const ChartValuesOptions(
-                                showChartValuesInPercentage: false,
-                                showChartValuesOutside: true,
-
-                            ),
-                          )
-                        ],
+            body: PopScope(
+              canPop: true,
+              onPopInvoked: (didPop) {
+                if(didPop) {
+                  seenUnSeenWalletMessageControllerInstanse.seenUnSeenWalletMessage(context,
+                      seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
+                }
+              },
+              child: SmartRefresher(
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Earnings",
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
-                    ),
-                    IntrinsicHeight(
-                      child: Row(
+                      Text(
+                        "How do I earn",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.blueThemeColor,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline),
+                      ),
+                      SizedBox(height: Get.height*.04,),
+                      AspectRatio(
+                        aspectRatio: 1,
+                        child: Column(
+                          children: <Widget>[
+                            PieChart(
+                              dataMap: {
+                                "Slice 1": seekerEarningController.getEarningDetails.value.appReferralAmount/1 ,
+                                "Slice 2": seekerEarningController.getEarningDetails.value.employmentReferralAmount/1,
+                                "Slice 3": seekerEarningController.getEarningDetails.value.subscriptionReferralAmount/1,
+                              },
+                              centerWidget: Text("\£ ${seekerEarningController.getEarningDetails.value.totalAmount}",
+                                style: Theme.of(context).textTheme.labelMedium,),
+                              emptyColor: AppColors.graySilverColor,
+                              colorList: colorList,
+                              baseChartColor: AppColors.graySilverColor,
+                              totalValue: double.parse("${seekerEarningController.getEarningDetails.value.totalAmount}"),
+                              chartRadius: MediaQuery.of(context).size.width / 1.5, // Adjust as needed
+                              animationDuration: const Duration(milliseconds: 800),
+                              chartType: ChartType.ring, // Optional: Change chart type
+                              ringStrokeWidth: 30, // Optional: Adjust ring stroke width
+                              legendOptions: const LegendOptions(showLegends: false,
+                                legendPosition: LegendPosition.right,),
+                              chartValuesOptions: const ChartValuesOptions(
+                                  showChartValuesInPercentage: false,
+                                  showChartValuesOutside: true,
+
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      IntrinsicHeight(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 15,
+                                          height: 15,
+                                          color: AppColors.appReferralColor,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Flexible(  // Use Flexible to handle overflow within Row
+                                          child: Text(
+                                            "App Referral",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: Get.height * 0.01),
+                                    Text(
+                                      "\£ ${seekerEarningController.getEarningDetails.value.appReferralAmount}",
+                                      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const VerticalDivider(width: 20, thickness: 1, color: Color(0xffFFFFFF)),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 15,
+                                          height: 15,
+                                          color: AppColors.blueThemeColor,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Flexible(
+                                          child: Text(
+                                            "Subscription Referral",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: Get.height * 0.01),
+                                    Text(
+                                      "\£ ${seekerEarningController.getEarningDetails.value.subscriptionReferralAmount.toString()}",
+                                      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const VerticalDivider(width: 20, thickness: 1, color: Color(0xffFFFFFF)),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 15,
+                                          height: 15,
+                                          color: AppColors.employmentReferralColor,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Flexible(
+                                          child: Text(
+                                            "Employment Referral",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: Get.height * 0.01),
+                                    Text(
+                                      "\£ ${seekerEarningController.getEarningDetails.value.employmentReferralAmount.toString()}",
+                                      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: Get.height * .06,
+                      ),
+                      Center(
+                        child: MyButton(
+                            width: Get.width * .7,
+                            title: "REQUEST WITHDRAW",
+                            onTap1: () {
+                              seekerEarningController.getEarningDetails.value.bankAccount == true
+                                  ? Get.to(() => const RequestWithdraw())
+                                  : Utils.showMessageDialog(
+                                      context, "Please add bank account details");
+                            }),
+                      ),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _dialogBuilder(context);
+                        },
+                        child: Container(
+                          height: Get.height * .075,
+                          width: Get.width * .7,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(60)),
+                          child: Text('See Referral Code',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height * .045,
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 15,
-                                        height: 15,
-                                        color: AppColors.appReferralColor,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Flexible(  // Use Flexible to handle overflow within Row
-                                        child: Text(
-                                          "App Referral",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: Get.height * 0.01),
-                                  Text(
-                                    "\£ ${seekerEarningController.getEarningDetails.value.appReferralAmount}",
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          Text(
+                            "Balance",
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          const VerticalDivider(width: 20, thickness: 1, color: Color(0xffFFFFFF)),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 15,
-                                        height: 15,
-                                        color: AppColors.blueThemeColor,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Flexible(
-                                        child: Text(
-                                          "Subscription Referral",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: Get.height * 0.01),
-                                  Text(
-                                    "\£ ${seekerEarningController.getEarningDetails.value.subscriptionReferralAmount.toString()}",
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const VerticalDivider(width: 20, thickness: 1, color: Color(0xffFFFFFF)),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 15,
-                                        height: 15,
-                                        color: AppColors.employmentReferralColor,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Flexible(
-                                        child: Text(
-                                          "Employment Referral",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: Get.height * 0.01),
-                                  Text(
-                                    "\£ ${seekerEarningController.getEarningDetails.value.employmentReferralAmount.toString()}",
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: Get.height * .06,
-                    ),
-                    Center(
-                      child: MyButton(
-                          width: Get.width * .7,
-                          title: "REQUEST WITHDRAW",
-                          onTap1: () {
-                            seekerEarningController.getEarningDetails.value.bankAccount == true
-                                ? Get.to(() => const RequestWithdraw())
-                                : Utils.showMessageDialog(
-                                    context, "Please add bank account details");
-                          }),
-                    ),
-                    SizedBox(
-                      height: Get.height * .02,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        _dialogBuilder(context);
-                      },
-                      child: Container(
-                        height: Get.height * .075,
-                        width: Get.width * .7,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(60)),
-                        child: Text('See Referral Code',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16,
-                                    color: Colors.black)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height * .045,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Balance",
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() =>  const AddBankAccountDetails(
-                                ));
-                          },
-                          child: Text(
-                            "Add bank account details",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: Get.height * .01,
-                    ),
-                    Container(
-                      height: Get.height * 0.07,
-                      width: Get.width * 0.85,
-                      decoration: BoxDecoration(
-                          color: AppColors.textFieldFilledColor,
-                          borderRadius: BorderRadius.circular(60)),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: Get.width * 0.15,
-                            height: Get.height,
-                            padding: const EdgeInsets.all(13),
-                            decoration: const BoxDecoration(
-                                color: AppColors.blueThemeColor,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(60),
-                                    topLeft: Radius.circular(60))),
-                            child: Image.asset(
-                              'assets/images/icon_wallets.png',
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: Container(
-                              width: Get.width * 0.64,
-                              child: TextFormField(
-                                // controller: amountController,
-                                readOnly: true,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
-                                decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      Icons.arrow_forward_ios_rounded,
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() =>  const AddBankAccountDetails(
+                                  ));
+                            },
+                            child: Text(
+                              "Add bank account details",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
                                       color: AppColors.white,
-                                      size: 20,
-                                    ),
-                                    fillColor: Colors.white,
-                                    border: UnderlineInputBorder(
-                                        borderSide: BorderSide.none),
-                                    hintText:
-                                        "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",
-                                    hintStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium),
-                              ),
+                                      fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: Get.height * .04,
-                    ),
-                    GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 13,
-                              mainAxisSpacing: 13,
-                              childAspectRatio: 1.7),
-                      itemBuilder: (context, index) {
-                        List<String> itemTexts = [
-                          "App \nReferral",
-                          "Subscription Referral",
-                          "Employment Referral",
-                          "Recruitment Referral",
-                        ];
-                        return GestureDetector(
-                          onTap: () {
-                            if (index == 0) {
-                              Get.to(() => const AppReferral());
-                            } else {
-                              if(index == 2) {
-                                Get.to(() => const EmployementReferral()) ;
-                              }
-                            }
-                          },
-                          child: Container(
-                            height: Get.height * .3,
-                            width: Get.width * .2,
-                            decoration: BoxDecoration(
-                                color: AppColors.textFieldFilledColor,
-                                borderRadius: BorderRadius.circular(13)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(
-                                    width: Get.width * .22,
-                                    child: Text(
-                                      itemTexts[index],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                      // textAlign: TextAlign.center,
-                                    )),
-                                const Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  color: AppColors.white,
-                                  size: 20,
-                                ),
-                              ],
+                      SizedBox(
+                        height: Get.height * .01,
+                      ),
+                      Container(
+                        height: Get.height * 0.07,
+                        width: Get.width * 0.85,
+                        decoration: BoxDecoration(
+                            color: AppColors.textFieldFilledColor,
+                            borderRadius: BorderRadius.circular(60)),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: Get.width * 0.15,
+                              height: Get.height,
+                              padding: const EdgeInsets.all(13),
+                              decoration: const BoxDecoration(
+                                  color: AppColors.blueThemeColor,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(60),
+                                      topLeft: Radius.circular(60))),
+                              child: Image.asset(
+                                'assets/images/icon_wallets.png',
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: Get.height * .1,
-                    ),
-                  ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Container(
+                                width: Get.width * 0.64,
+                                child: TextFormField(
+                                  // controller: amountController,
+                                  readOnly: true,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                  decoration: InputDecoration(
+                                      suffixIcon: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: AppColors.white,
+                                        size: 20,
+                                      ),
+                                      fillColor: Colors.white,
+                                      border: UnderlineInputBorder(
+                                          borderSide: BorderSide.none),
+                                      hintText:
+                                          "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",
+                                      hintStyle: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height * .04,
+                      ),
+                      GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 4,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 13,
+                                mainAxisSpacing: 13,
+                                childAspectRatio: 1.7),
+                        itemBuilder: (context, index) {
+                          List<String> itemTexts = [
+                            "App \nReferral",
+                            "Subscription Referral",
+                            "Employment Referral",
+                            "Recruitment Referral",
+                          ];
+                          return GestureDetector(
+                            onTap: () {
+                              if (index == 0) {
+                                Get.to(() => const AppReferral());
+                              } else {
+                                if(index == 2) {
+                                  Get.to(() => const EmployementReferral()) ;
+                                }
+                              }
+                            },
+                            child: Container(
+                              height: Get.height * .3,
+                              width: Get.width * .2,
+                              decoration: BoxDecoration(
+                                  color: AppColors.textFieldFilledColor,
+                                  borderRadius: BorderRadius.circular(13)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                      width: Get.width * .22,
+                                      child: Text(
+                                        itemTexts[index],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                        // textAlign: TextAlign.center,
+                                      )),
+                                  const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: AppColors.white,
+                                    size: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: Get.height * .1,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

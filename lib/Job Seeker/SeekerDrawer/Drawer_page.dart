@@ -8,6 +8,7 @@ import 'package:flikka/Payment_Methods/wallet_section.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controllers/SeekerEarningController/SeekerEarningController.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../widgets/app_colors.dart';
@@ -33,6 +34,7 @@ class _DrawerClassState extends State<DrawerClass> {
   LogoutController logoutController  = Get.put( LogoutController()) ;
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
+  SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
 
   String homeIcon = 'assets/images/homedrawericon.png' ;
   String profileIcon = 'assets/images/profiledrawericon.png' ;
@@ -338,13 +340,32 @@ class _DrawerClassState extends State<DrawerClass> {
                                       Get.to( () => const WalletSection()) ;
                                     },
                                     leading: SizedBox(
-                                      height: 22,
-                                      child:   drawerIcon(walletIcon) ,
+                                      width: 45,
+                                      height: 40,
+                                      child:   Stack(
+                                        children: [
+                                          Positioned(
+                                              bottom: 9,
+                                              child: drawerIcon(walletIcon)),
+                                        ],
+                                      )
+                                      
                                     ),
                                     title: Text(
                                       "Wallet",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
+                                    trailing: seekerEarningController.getEarningDetails.value.newWalletMessage == true ?
+                                    Container(
+                                      height: 20,
+                                      width: 20,
+                                      alignment: Alignment.center,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle ,
+                                        color: AppColors.red,
+                                      ),
+                                      child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),
+                                    ) : const SizedBox(),
                                   ),
                                   // ListTile(
                                   //   horizontalTitleGap:0,
