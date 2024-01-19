@@ -85,7 +85,10 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: drawerKey,
+      extendBody: true,
       body: SafeArea(
+        top: false,
+        bottom: false,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: PageView(
@@ -109,13 +112,17 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
                 ? Container(
                     color: Colors.transparent,
                     child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(25) ,
+                        topRight: Radius.circular(25)
+                      ),
                       child: BottomNavigationBar(
                         type: BottomNavigationBarType.fixed,
                         items: buildBottomNavBarItems,
-                        selectedItemColor: const Color(0xff56B8F6),
-                        unselectedItemColor: const Color(0xffC4C4C4),
-                        selectedIconTheme: const IconThemeData(color: Color(0xff56B8F6),),
-                        unselectedIconTheme: const IconThemeData(color: Color(0xffC4C4C4),),
+                        selectedItemColor: Color(0xff56B8F6),
+                        unselectedItemColor: Color(0xffC4C4C4),
+                        selectedIconTheme: IconThemeData(color: Color(0xff56B8F6),),
+                        unselectedIconTheme: IconThemeData(color: Color(0xffC4C4C4),),
                         elevation: 0,
                         backgroundColor: AppColors.homeGrey,
                         currentIndex: bottomSelectedIndex ?? 0,

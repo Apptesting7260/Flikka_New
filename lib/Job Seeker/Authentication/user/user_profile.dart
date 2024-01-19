@@ -1941,9 +1941,11 @@ class _UserProfileState extends State<UserProfile> {
         case Status.COMPLETED:
           return
             SafeArea(
+              bottom: false,
               child: Obx( () => viewLanguageController.loading.value ?
                  const Center(child: CircularProgressIndicator(),)
               :  Scaffold(
+                backgroundColor: AppColors.white,
                   body: SmartRefresher(
                     controller: _refreshController,
                     onLoading: _onLoading,
@@ -2027,7 +2029,7 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ],
                               ) ,
-                              SizedBox(height: Get.height * .25,),
+                              SizedBox(height: Get.height * .3,),
                               Row(
                                 children: [
                                   GestureDetector(
