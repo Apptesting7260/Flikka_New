@@ -859,7 +859,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
   List _selectedChooseAvailabilitySkills =[];
   RxString error = ''.obs;
   var choose=1;
-  var selectedSalary ;
+
   SeekerGetAllSkillsController seekerGetAllSkillsController = Get.put(SeekerGetAllSkillsController()) ;
   RequiredSkillsController requiredSkillsController = Get.put(RequiredSkillsController()) ;
   ScrollController scrollController = ScrollController() ;
@@ -983,13 +983,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                     horizontal: Get.width * .07),
                                 child: Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text("Required Skills", style: Theme
-                                        .of(context)
-                                        .textTheme
-                                        .displayLarge
-                                        ?.copyWith(
-                                        fontSize: 30, fontWeight: FontWeight.w700),)),
-                              ),
+                                    child: Text("Required Skills", style: Theme.of(context).textTheme.displayLarge?.
+                                    copyWith(fontSize: 30, fontWeight: FontWeight.w700),)),),
                               SizedBox(height: Get.height * .02,),
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -1448,12 +1443,6 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                   ),
                                                 );
                                               },),
-                                            SizedBox(height: Get.height * .02,),
-                                            Text("Salary Expectation", style: Theme.of(context).textTheme.displaySmall),
-                                            // SizedBox(height: Get.height * .02,),
-                                            SizedBox( height: Get.height * 0.1 ,child:
-                                            RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),)) ,
-                                            SizedBox(height: Get.height * .02,),
                                             Text("When Can I Start Working?", style: Theme.of(context).textTheme.displaySmall),
                                             SizedBox(height: Get.height * .02,),
                                             GridView.builder(
@@ -1660,14 +1649,12 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                   title: widget.recruiterJobsData != null ? "Update" : "Post",
                                                   loading: requiredSkillsController.loading.value,
                                                   onTap1: () {
-                                                    selectedSalary = "${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}" ;
-                                                    debugPrint("this is =========== $selectedSalary") ;
+
                                                     requiredSkillsController.errorMessage.value = "" ;
                                                     if(_selectedChooseSkillsIndices.isEmpty ||
                                                         _selectedChoosestrengthsSkills.isEmpty ||
                                                         _selectedChoosePassionSkills.isEmpty ||
                                                         _selectedChoosepreferenceSkills.isEmpty ||
-                                                        selectedSalary == null ||
                                                         _selectedChooseworkingSkills.isEmpty ||
                                                         _selectedChooseAvailabilitySkills.isEmpty
                                                     ) {
@@ -1686,8 +1673,6 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                           _selectedChoosestrengthsSkills,
                                                           _selectedChoosePassionSkills,
                                                           _selectedChoosepreferenceSkills,
-                                                          RangePicker.minValue,
-                                                          RangePicker.maxValue,
                                                           _selectedChooseworkingSkills,
                                                           _selectedChooseAvailabilitySkills);
                                                     }

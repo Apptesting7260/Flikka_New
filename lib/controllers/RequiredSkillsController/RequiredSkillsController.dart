@@ -30,8 +30,6 @@ class RequiredSkillsController extends GetxController {
       List? strengths ,
       List? passion ,
       List? industryPreference ,
-      dynamic minSalaryExpectation  ,
-      dynamic maxSalaryExpectation  ,
       List? startWork ,
       List? availability
       ) {
@@ -43,8 +41,6 @@ class RequiredSkillsController extends GetxController {
       "strength_id" : jsonEncode(strengths),
       "passion_id" : jsonEncode(passion),
       "industry_preference_id" : jsonEncode(industryPreference),
-      "min_salary_expectation" : minSalaryExpectation.toString(),
-      "max_salary_expectation" : maxSalaryExpectation.toString(),
       "start_work_id" : jsonEncode(startWork),
       "availabity_id" : jsonEncode(availability),
 

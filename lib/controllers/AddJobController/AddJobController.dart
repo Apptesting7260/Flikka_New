@@ -36,7 +36,8 @@ class AddJobController extends GetxController {
       var  preferredExperience ,
       var  qualification ,
       var  language ,
-
+      dynamic minSalaryExpectation ,
+      dynamic maxSalaryExpectation ,
    { var jobId,
   RecruiterJobsData? recruiterJobsData
   }) async {
@@ -64,6 +65,8 @@ class AddJobController extends GetxController {
       formData.addIf(qualification != null && qualification.toString().length != 0, "education", qualification) ;
       formData.addIf(language != null && language.toString().length != 0, "language", jsonEncode(language)) ;
       formData.addIf(jobId != null && jobId.toString().length != 0, "job_id", jobId) ;
+      formData.addIf(minSalaryExpectation != null && minSalaryExpectation.toString().length != 0, "min_salary_expectation", minSalaryExpectation) ;
+      formData.addIf(maxSalaryExpectation != null && maxSalaryExpectation.toString().length != 0, "max_salary_expectation", maxSalaryExpectation) ;
 
       formData.forEach((key, value) {
         request.fields[key] = value.toString();

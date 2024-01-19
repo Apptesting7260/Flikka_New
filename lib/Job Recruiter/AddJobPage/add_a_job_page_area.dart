@@ -24,6 +24,7 @@ import '../../res/components/internet_exception_widget.dart';
 import '../../utils/Constants.dart';
 import '../../utils/MultiSelectField.dart';
 import 'package:http/http.dart' as http;
+import '../../utils/RangeSlider.dart';
 import '../RecruiterRequiredSkills/required_skills.dart';
 
 
@@ -66,7 +67,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   List? languageList = [];
   String? yearValue ;
   String? monthsValue ;
-
+  var selectedSalary ;
  AddJobController addJobController = Get.put(AddJobController()) ;
   SeekerChoosePositionGetController seekerChoosePositionGetController = Get.put(SeekerChoosePositionGetController());
 
@@ -681,6 +682,11 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       ),
                     ),
                     SizedBox(height: Get.height*0.03,),
+                    Text("Salary Expectation", style: Theme.of(context).textTheme.displaySmall),
+                    // SizedBox(height: Get.height * .02,),
+                    SizedBox( height: Get.height * 0.1 ,
+                        child: const RangePicker(maxSalary: 100000.0,)) ,
+                    SizedBox(height: Get.height * .03,),
                     Text('Description',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
@@ -1144,11 +1150,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           addJobController.jobPositionErrorMessage.value = "" ;
                           addJobController.qualificationErrorMessage.value = "" ;
                           addJobController.languageErrorMessage.value = "" ;
-                          // if( widget.recruiterJobsData?.featureImg == null && imgFile == null) {
-                          //   addJobController.featureImageError.value = "Please select image" ;
-                          //   scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
-                          // }
-
+                          selectedSalary = "${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}" ;
+                          debugPrint("this is =========== $selectedSalary") ;
                           if(_formKey.currentState!.validate()) {
                             if (jobPosition == null) {
                               addJobController.jobPositionErrorMessage.value = "Please select job position";
@@ -1189,8 +1192,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   yearValue,
                                   monthsValue,
                                   preferredExperienceController.text,
-                                  qualificatonType.toString(),
+                                  qualificatonType,
                                   LanguageSelectorState.languages,
+                                    RangePicker.minValue.toInt(),
+                                    RangePicker.maxValue.toInt(),
                                 recruiterJobsData: widget.recruiterJobsData ,
                                 jobId: widget.recruiterJobsData?.jobsDetail?.jobId
                               );
