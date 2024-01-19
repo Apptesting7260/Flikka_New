@@ -62,6 +62,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flikka',
+        themeMode: ThemeMode.dark,
         theme: MyTheme.dark,
         home:  const SplashScreen()
     );

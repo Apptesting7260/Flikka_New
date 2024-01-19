@@ -63,8 +63,7 @@ class Seeker {
     jobId: json["job_id"],
     status: json["status"],
     interviewLink: json["interview_link"],
-    interviewScheduleTime: json["interview_schedule_time"]
-        == null ? json["interview_schedule_time"] : DateTime.parse(json["interview_schedule_time"]),
+    interviewScheduleTime: json["interview_schedule_time"] == null ? json["interview_schedule_time"] : DateTime.parse(json["interview_schedule_time"]),
     interviewStatus: json["interview_status"],
     ongoing: json["ongoing"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),

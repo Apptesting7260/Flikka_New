@@ -279,16 +279,16 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                                   color: const Color(0xffCFCFCF)),),
                                             ],
                                           ),
-                                          trailing: Container(
-                                            alignment: Alignment.center,
-                                            height: 35,
-                                            width: 35,
-                                            decoration: BoxDecoration(
-                                              color: AppColors.red,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500),),
-                                          ),
+                                          // trailing: Container(
+                                          //   alignment: Alignment.center,
+                                          //   height: 35,
+                                          //   width: 35,
+                                          //   decoration: BoxDecoration(
+                                          //     color: AppColors.red,
+                                          //     shape: BoxShape.circle,
+                                          //   ),
+                                          //   child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500),),
+                                          // ),
                                         ),
                                         SizedBox(height: Get.height * .025,),
                                         HtmlWidget(data?.seekerData?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme

@@ -436,153 +436,157 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                           Positioned(
                             top: 20,
                             left: 15,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 10),
-                              decoration:  BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.grey.withOpacity(.6),
-                              ),
-                              child: Column(
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => const FilterPage(fromMap: true,))?.then((result) {
-                                          if (result != null) {
-                                            setState(() {
-                                              filtered = true ;
-                                              if (kDebugMode) {
-                                                print("result filtered") ;
-                                              }
-                                            });
-                                          }
-                                        });
-                                      },
-                                      child: Image.asset(
-                                        "assets/images/icon_filter_seeker_home.png",
-                                        height: 30,
-                                      )
-                                  ),
-                                  Text("Filter",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
-                               const SizedBox(height: 5,),
-                               GestureDetector(
-                                 onTap: () {
-                                   setState(() {
-                                     remote = true ;
-                                     hybrid = false ;
-                                     all = false ;
-                                       updateMap(selectedRadius) ;
-                                   });
-                                 },
-                                 child: Container(
-                                   height: 30,
-                                   width: 30,
-                                   decoration:  BoxDecoration(
-                                     shape: BoxShape.circle,
-                                     color: remote ?  AppColors.blueThemeColor : AppColors.white
+                            child: SafeArea(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 10),
+                                decoration:  BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.grey.withOpacity(.6),
+                                ),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          Get.to(() => const FilterPage(fromMap: true,))?.then((result) {
+                                            if (result != null) {
+                                              setState(() {
+                                                filtered = true ;
+                                                if (kDebugMode) {
+                                                  print("result filtered") ;
+                                                }
+                                              });
+                                            }
+                                          });
+                                        },
+                                        child: Image.asset(
+                                          "assets/images/icon_filter_seeker_home.png",
+                                          height: 30,
+                                        )
+                                    ),
+                                    Text("Filter",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                 const SizedBox(height: 5,),
+                                 GestureDetector(
+                                   onTap: () {
+                                     setState(() {
+                                       remote = true ;
+                                       hybrid = false ;
+                                       all = false ;
+                                         updateMap(selectedRadius) ;
+                                     });
+                                   },
+                                   child: Container(
+                                     height: 30,
+                                     width: 30,
+                                     decoration:  BoxDecoration(
+                                       shape: BoxShape.circle,
+                                       color: remote ?  AppColors.blueThemeColor : AppColors.white
+                                     ),
                                    ),
                                  ),
-                               ),
-                                   Text("Remote",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
-                                  const SizedBox(height: 5,),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        hybrid = true ;
-                                        remote = false ;
-                                        all = false ;
-                                        updateMap(selectedRadius) ;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration:  BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: hybrid ?  AppColors.blueThemeColor : AppColors.white
+                                     Text("Remote",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                    const SizedBox(height: 5,),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          hybrid = true ;
+                                          remote = false ;
+                                          all = false ;
+                                          updateMap(selectedRadius) ;
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration:  BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: hybrid ?  AppColors.blueThemeColor : AppColors.white
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text("Hybrid",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
-                                  const SizedBox(height: 5,),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        all = true ;
-                                        hybrid = false ;
-                                        remote = false ;
-                                        updateMap(selectedRadius) ;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration:  BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: all ?  AppColors.blueThemeColor : AppColors.white
+                                    Text("Hybrid",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                    const SizedBox(height: 5,),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          all = true ;
+                                          hybrid = false ;
+                                          remote = false ;
+                                          updateMap(selectedRadius) ;
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration:  BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: all ?  AppColors.blueThemeColor : AppColors.white
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text("All",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
-                                ],
+                                    Text("All",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 10,color: AppColors.white),),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                           Positioned(
                             right: 5,
                             top: 5,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8,),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(.6),
-                                borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
-                                  dropdownColor: AppColors.black,
-                                  hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
-                                  value: selectedRadius,
-                                  items: radiusList.map<DropdownMenuItem>((value) {
-                                    return DropdownMenuItem(
-                                      value: value,
-                                      child: Text(
-                                        '$value miles',
-                                        style: Theme.of(context).textTheme.bodySmall
-                                            ?.copyWith(color: AppColors.white),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newValue) async {
-                                      selectedRadius = newValue;
-                                      if(selectedRadius == 10) {
-                                        zoom = 9.8 ;
-                                      }
-                                      if(selectedRadius == 20) {
-                                        zoom = 8.8 ;
-                                      }
-                                      if(selectedRadius == 30) {
-                                        zoom = 8.2 ;
-                                      }
-                                      if(selectedRadius == 40) {
-                                        zoom = 7.8 ;
-                                      }
-                                      if(selectedRadius == 50) {
-                                        zoom = 7.5 ;
-                                      }
-                                      CameraPosition cameraPosition = CameraPosition(
-                                        target: LatLng(lat, long),
-                                        zoom: zoom,
+                            child: SafeArea(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8,),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(.6),
+                                  borderRadius: BorderRadius.circular(20)
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
+                                    dropdownColor: AppColors.black,
+                                    hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
+                                    value: selectedRadius,
+                                    items: radiusList.map<DropdownMenuItem>((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(
+                                          '$value miles',
+                                          style: Theme.of(context).textTheme.bodySmall
+                                              ?.copyWith(color: AppColors.white),
+                                        ),
                                       );
-                                      final GoogleMapController controller = await mapController.future;
-                                      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-                                      updateMap(newValue);
-                                      if (kDebugMode) {
-                                        print("$zoom===========------------=======") ;
-                                      }
-                                    setState(() {
-
-                                    });
-                                  },
+                                    }).toList(),
+                                    onChanged: (newValue) async {
+                                        selectedRadius = newValue;
+                                        if(selectedRadius == 10) {
+                                          zoom = 9.8 ;
+                                        }
+                                        if(selectedRadius == 20) {
+                                          zoom = 8.8 ;
+                                        }
+                                        if(selectedRadius == 30) {
+                                          zoom = 8.2 ;
+                                        }
+                                        if(selectedRadius == 40) {
+                                          zoom = 7.8 ;
+                                        }
+                                        if(selectedRadius == 50) {
+                                          zoom = 7.5 ;
+                                        }
+                                        CameraPosition cameraPosition = CameraPosition(
+                                          target: LatLng(lat, long),
+                                          zoom: zoom,
+                                        );
+                                        final GoogleMapController controller = await mapController.future;
+                                        controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+                                        updateMap(newValue);
+                                        if (kDebugMode) {
+                                          print("$zoom===========------------=======") ;
+                                        }
+                                      setState(() {
+                              
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

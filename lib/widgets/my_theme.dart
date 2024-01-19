@@ -16,12 +16,11 @@ class MyTheme {
     appBarTheme: const AppBarTheme(
         backgroundColor:Colors.black,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
+          statusBarColor: Colors.transparent,
           // <-- SEE HERE
           statusBarIconBrightness: Brightness.dark,
           //<-- For Android SEE HERE (dark icons)
-          statusBarBrightness:
-          Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+          statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
         ),
         iconTheme: IconThemeData(color: AppColors.black),
         actionsIconTheme: IconThemeData(color: AppColors.black),

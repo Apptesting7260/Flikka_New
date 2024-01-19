@@ -192,7 +192,15 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                 }
               case Status.COMPLETED:
                 return Scaffold(
+                  extendBody: true,
                   backgroundColor: AppColors.white,
+                  extendBodyBehindAppBar: true,
+                  appBar: AppBar(
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent,
+                    ),
+                    backgroundColor: Colors.transparent,
+                    toolbarHeight: 0, elevation: 0,) ,
                   endDrawer: DrawerClass(
                     name: '${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}',
                     location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
@@ -255,8 +263,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                           ),),
                                                       ),),
                                                     Positioned(
-                                                      right: 20,
-                                                      top: Get.height * 0.13,
+                                                      right: 10,
+                                                      top: Get.height * 0.15,
                                                       child: Stack(
                                                         children: [
                                                           GestureDetector(
@@ -295,7 +303,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                     ),
                                                     Positioned(
                                                       left: 12,
-                                                      top: Get.height * 0.13,
+                                                      top: Get.height * 0.15,
                                                       child: Column(
                                                         children: [
                                                           GestureDetector(
@@ -440,7 +448,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: 200 - position.value ,
+                                                      bottom: Get.height * .25 - position.value ,
                                                       left: 12,
                                                       child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -479,7 +487,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   ],),
                                                   SizedBox(height: Get.height * 0.025,),
                                                   Padding(
-                                                    padding: const EdgeInsets.all(8.0),
+                                                    padding: const EdgeInsets.all(18.0),
                                                     child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         // Text(getJobsListingController.getJobsListing.value.jobs?[index].jobTitle ?? "No job title", overflow: TextOverflow.ellipsis,
@@ -894,7 +902,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         SizedBox(height: Get.height * 0.055,),
                                                         Center(child: Text("THIS JOB IS ABOVE",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),)),
                                                         Center(child: Text("SALARY BENCHMARK", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w800,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationThickness: 2.0),)),
-                                                        const SizedBox(height: 15,),
+                                                        const SizedBox(height: 50,),
                                                         // Center(
                                                         //   child: Obx( () => MyButton(
                                                         //       title: getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ? "APPLIED" : "APPLY NOW",
@@ -907,7 +915,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         //   ),
                                                         //   ),
                                                         // ),
-                                                        SizedBox(height: Get.height*.025,),
+                                                        SizedBox(height: Get.height*.035,),
                                                       ],
                                                     ),
                                                   ),
@@ -918,11 +926,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                         ),
                                         ),
                             Positioned(
-                              top: 0 - appBarPosition.value,
+                              top: _appBarOpacity == 1 ? 0 : 40 - appBarPosition.value,
                               child: Container(
                                 color: Colors.black.withOpacity(_appBarOpacity),
                                 width: Get.width,
-                                padding: const EdgeInsets.only(bottom: 10),
+                                padding: EdgeInsets.only(bottom: 10 , top: _appBarOpacity == 1 ? 30 :0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -956,19 +964,33 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                   SizedBox( width: Get.width,
                                     child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        GestureDetector(
-                                          onTap : () {
-                                            onSwipeLeft() ;
-                                          },
-                                          child: Container(
-                                            height: 70,
-                                            width: 70,
-                                            alignment: Alignment.center,
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape.circle ,
-                                                color: AppColors.red),
-                                            child: const Icon(Icons.close , color: AppColors.white,),
-                                          ),
+                                        Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap : () {
+                                                onSwipeLeft() ;
+                                              },
+                                              child: Container(
+                                                height: 70,
+                                                width: 70,
+                                                alignment: Alignment.center,
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle ,
+                                                    color: AppColors.red),
+                                                child: const Icon(Icons.close , color: AppColors.white,),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 20,) ,
+                                            Container(
+                                              height: 70,
+                                              width: 70,
+                                              alignment: Alignment.center,
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle ,
+                                                  color: AppColors.blueThemeColor),
+                                              child: Image.asset("assets/images/shareIcon.png",height: 30, ) ,
+                                            ),
+                                          ],
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -977,7 +999,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                           child: Container(
                                             height: 70,
                                             width: 70,
-                                            margin: const EdgeInsets.only(right: 20),
+                                            margin: const EdgeInsets.only(right: 30),
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,

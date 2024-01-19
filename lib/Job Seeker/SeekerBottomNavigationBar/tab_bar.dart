@@ -36,7 +36,7 @@ import '../search_job.dart';
 class TabScreen extends StatefulWidget {
   final int index;
   final bool? filtered ;
-  const TabScreen({Key? key, required this.index, this.filtered}) : super(key: key);
+  const TabScreen({super.key, required this.index, this.filtered});
 
   @override
   _TabScreenState createState() => _TabScreenState();
@@ -128,6 +128,7 @@ class _TabScreenState extends State<TabScreen> {
       backgroundColor: Colors.transparent,
       body: SafeArea(
         bottom: false,
+        top: false,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: PageView(
@@ -154,12 +155,12 @@ class _TabScreenState extends State<TabScreen> {
               type: BottomNavigationBarType.fixed,
               items: buildBottomNavBarItems,
               selectedItemColor: const Color(0xff56B8F6),
-              unselectedItemColor: Color(0xffC4C4C4),
+              unselectedItemColor: const Color(0xffC4C4C4),
               selectedIconTheme: const IconThemeData(
-                color: const Color(0xff56B8F6),
+                color: Color(0xff56B8F6),
               ),
               unselectedIconTheme: const IconThemeData(
-                color: const Color(0xffC4C4C4),
+                color: Color(0xffC4C4C4),
               ),
 
               elevation: 0,
