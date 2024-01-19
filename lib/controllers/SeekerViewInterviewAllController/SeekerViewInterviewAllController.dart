@@ -1,5 +1,6 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
 
@@ -22,7 +23,9 @@ class SeekerViewInterviewAllController extends GetxController {
     _api.getInterviewList(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       seekerInterViewData(value) ;
-      print(value);
+      if (kDebugMode) {
+        print(value);
+      }
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());

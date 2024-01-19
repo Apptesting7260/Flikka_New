@@ -147,7 +147,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   int _selectedValue = 1;
   Set<Marker> markers = Set();
 
-  var selectedRadius = 10; // Default radius
+  var selectedRadius = 5.0; // Default radius
  static double lat = 20.427;
  static double long = 80.885;
 
@@ -165,7 +165,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
  bool filtered = false ;
 
-  var radiusList = [10, 20, 30, 40, 50] ;
+  var radiusList = [0.5, 1.0, 2.0, 5.0, 10.0] ;
 
   final _controller = ValueNotifier<bool>(false);
 
@@ -479,7 +479,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                      width: 30,
                                      decoration:  BoxDecoration(
                                        shape: BoxShape.circle,
-                                       color: remote ?  AppColors.blueThemeColor : AppColors.white
+                                       color: remote ?  AppColors.blueThemeColor : AppColors.red
                                      ),
                                    ),
                                  ),
@@ -499,7 +499,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                         width: 30,
                                         decoration:  BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: hybrid ?  AppColors.blueThemeColor : AppColors.white
+                                            color: hybrid ?  AppColors.blueThemeColor : AppColors.yellowColor
                                         ),
                                       ),
                                     ),
@@ -519,7 +519,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                         width: 30,
                                         decoration:  BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: all ?  AppColors.blueThemeColor : AppColors.white
+                                            color: all ?  AppColors.blueThemeColor : AppColors.green
                                         ),
                                       ),
                                     ),
@@ -594,12 +594,11 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                         ],
                       ),
                       floatingActionButton: FloatingActionButton(
-                        backgroundColor: AppColors.black,
+                        backgroundColor: AppColors.white,
                         onPressed: () async {
                           updateUserLocation();
                         },
-                        child: const Icon(Icons.local_activity,
-                            color: AppColors.white),
+                        child: Image.asset("assets/images/icon_location_update.PNG"),
                       ),
                     );
             }
@@ -607,7 +606,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   }
 
 
-  void updateMap(int radius) async {
+  void updateMap(dynamic radius) async {
  await getUserCurrentLocation() ;
     markers.clear();
     if (kDebugMode) {

@@ -28,12 +28,12 @@ class MettingListTabbar extends StatefulWidget {
   State<MettingListTabbar> createState() => _MettingListTabbarState();
 }
 
-SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
 
 class _MettingListTabbarState extends State<MettingListTabbar> {
 
   //////refresh//////
   RefreshController _refreshController = RefreshController(initialRefresh: false);
+  SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
 
   void _onRefresh() async{
     interviewListController.seekerInterViewListApi();
@@ -280,10 +280,10 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                                   color: const Color(0xffCFCFCF)),),
                                             ],
                                           ),
-                                          trailing: Obx(() =>   interviewListController.seekerInterViewData.value.interviewSchedule?[index].isNewInterview == true ?
+                                          trailing: Obx(() => interviewListController.seekerInterViewData.value.interviewSchedule?[index].isNewInterview == true ?
                                              Container(
-                                              height: 25,
-                                              width: 25,
+                                              height: 23,
+                                              width: 23,
                                               alignment: Alignment.center,
                                               decoration: const BoxDecoration(
                                                 shape: BoxShape.circle ,

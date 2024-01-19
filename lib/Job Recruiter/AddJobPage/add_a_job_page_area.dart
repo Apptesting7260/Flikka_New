@@ -24,7 +24,6 @@ import '../../res/components/internet_exception_widget.dart';
 import '../../utils/Constants.dart';
 import '../../utils/MultiSelectField.dart';
 import 'package:http/http.dart' as http;
-
 import '../RecruiterRequiredSkills/required_skills.dart';
 
 
