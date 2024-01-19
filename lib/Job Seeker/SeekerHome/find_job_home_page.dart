@@ -196,7 +196,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                   backgroundColor: AppColors.white,
                   extendBodyBehindAppBar: true,
                   appBar: AppBar(
-                    systemOverlayStyle: SystemUiOverlayStyle(
+                    systemOverlayStyle: const SystemUiOverlayStyle(
                       statusBarColor: Colors.transparent,
                     ),
                     backgroundColor: Colors.transparent,
@@ -915,7 +915,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         //   ),
                                                         //   ),
                                                         // ),
-                                                        SizedBox(height: Get.height*.035,),
+                                                        SizedBox(height: Get.height*.06,),
                                                       ],
                                                     ),
                                                   ),
@@ -957,7 +957,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               ),
                             ),
                             Positioned(
-                              bottom: 25 ,
+                              bottom: tabBarController.showBottomBar.value ? Get.height *.1 : Get.height *.05 ,
                               left: 12,
                               child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

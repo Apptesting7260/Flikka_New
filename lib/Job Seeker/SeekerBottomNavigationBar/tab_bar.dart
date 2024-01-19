@@ -117,6 +117,7 @@ class _TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: drawerKey,
+      extendBody: true,
       backgroundColor: Colors.transparent,
       body: SafeArea(
         bottom: false,
@@ -143,6 +144,10 @@ class _TabScreenState extends State<TabScreen> {
         child: tabBarController.showBottomBar.value ? Container(
           color: Colors.transparent,
           child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(25) ,
+                topRight: Radius.circular(25)
+            ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               items: buildBottomNavBarItems,

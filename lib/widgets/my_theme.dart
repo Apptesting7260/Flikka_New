@@ -18,7 +18,7 @@ class MyTheme {
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           // <-- SEE HERE
-          statusBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
           //<-- For Android SEE HERE (dark icons)
           statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
         ),
