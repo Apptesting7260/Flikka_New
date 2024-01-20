@@ -83,7 +83,7 @@ dependencies:
   firebase_auth: ^4.15.3
   syncfusion_flutter_pdf: ^24.1.43
   pie_chart: ^5.4.0
-
+  country_flags: ^2.2.0
 
 #  table_calendar: ^2.3.3
 
