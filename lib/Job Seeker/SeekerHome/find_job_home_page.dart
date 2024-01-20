@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
@@ -114,13 +115,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
 
     _scrollController.addListener(() {
-      if (_scrollController.offset < Get.height * .2) {
+      if (_scrollController.offset < Get.height * .2 && _scrollController.offset >= 0 ) {
         position.value = _scrollController.offset;
         // setState(() {
           _appBarOpacity.value = _scrollController.offset > 35 ? 1.0 : 0;
         // });
       }
-      if (_scrollController.offset < 1) {
+      if (_scrollController.offset < 1 && Platform.isIOS) {
         print("=============object");
         appBarPosition.value = _scrollController.offset;
         print("=============${_scrollController.offset}");
@@ -229,80 +230,75 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         '${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}',
                   ),
                   body: Obx(() {
-                    return SmartRefresher(
-                      controller: _refreshController,
-                      onRefresh: _onRefresh,
-                      onLoading: _onLoading,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (Scaffold.of(context).isEndDrawerOpen) {
-                            Navigator.of(context).pop();
-                          }
-                        },
-                        child: Stack(
-                          children: [
-                            getJobsListingController.getJobsListing.value.jobs
-                                            ?.length ==
-                                        0 ||
-                                    getJobsListingController
-                                            .getJobsListing.value.jobs ==
-                                        null
-                                ? const SeekerNoJobAvailable()
-                                : GestureDetector(
-                                    onHorizontalDragEnd: (details) {
-                                      if (details.primaryVelocity! > 0) {
-                                        onSwipeRight();
-                                      } else if (details.primaryVelocity! < 0) {
-                                        onSwipeLeft();
-                                      }
-                                    },
-                                    child: PageView.builder(
-                                      controller: _pageController,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: getJobsListingController
-                                          .getJobsListing.value.jobs?.length,
-                                      itemBuilder: (context, index) {
-                                        if (getJobsListingController
-                                                    .getJobsListing
-                                                    .value
-                                                    .jobs?[index]
-                                                    .workExperience !=
-                                                null &&
-                                            getJobsListingController
-                                                    .getJobsListing
-                                                    .value
-                                                    .jobs?[index]
-                                                    .workExperience
-                                                    .toString()
-                                                    .length !=
-                                                0) {
-                                          var experience =
-                                              getJobsListingController
+                    return GestureDetector(
+                      onTap: () {
+                        if (Scaffold.of(context).isEndDrawerOpen) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: Stack(
+                        children: [
+                          getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
+                                  getJobsListingController.getJobsListing.value.jobs == null
+                              ? const SeekerNoJobAvailable()
+                              : GestureDetector(
+                                  onHorizontalDragEnd: (details) {
+                                    if (details.primaryVelocity! > 0) {
+                                      onSwipeRight();
+                                    } else if (details.primaryVelocity! < 0) {
+                                      onSwipeLeft();
+                                    }
+                                  },
+                                  child: PageView.builder(
+                                    controller: _pageController,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: getJobsListingController.getJobsListing.value.jobs?.length,
+                                    itemBuilder: (context, index) {
+                                      if (getJobsListingController
+                                                  .getJobsListing
+                                                  .value
+                                                  .jobs?[index]
+                                                  .workExperience !=
+                                              null &&
+                                          getJobsListingController
                                                   .getJobsListing
                                                   .value
                                                   .jobs?[index]
                                                   .workExperience
                                                   .toString()
-                                                  .split(".");
-                                          if (experience?.length == 2) {
-                                            if (experience?[0] != null &&
-                                                experience?[0].length != 0 &&
-                                                experience?[0].toString() !=
-                                                    "0") {
-                                              years = "${experience?[0]} year";
-                                            }
-                                            if (experience?[1] != null &&
-                                                experience?[1].length != 0 &&
-                                                experience?[1].toString() !=
-                                                    "00") {
-                                              months =
-                                                  "${experience?[1]} month";
-                                            }
+                                                  .length !=
+                                              0) {
+                                        var experience =
+                                            getJobsListingController
+                                                .getJobsListing
+                                                .value
+                                                .jobs?[index]
+                                                .workExperience
+                                                .toString()
+                                                .split(".");
+                                        if (experience?.length == 2) {
+                                          if (experience?[0] != null &&
+                                              experience?[0].length != 0 &&
+                                              experience?[0].toString() !=
+                                                  "0") {
+                                            years = "${experience?[0]} year";
+                                          }
+                                          if (experience?[1] != null &&
+                                              experience?[1].length != 0 &&
+                                              experience?[1].toString() !=
+                                                  "00") {
+                                            months =
+                                                "${experience?[1]} month";
                                           }
                                         }
-                                        return SingleChildScrollView(
-                                          controller: _scrollController,
+                                      }
+                                      return SmartRefresher(
+                                        scrollController: _scrollController,
+
+                                        controller: _refreshController,
+                                          onRefresh: _onRefresh,
+                                          onLoading: _onLoading,
+                                        child: SingleChildScrollView(
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -740,83 +736,162 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                           const SizedBox(
                                                             height: 10,
                                                           ),
-                                                          Container(
-                                                            padding:
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                constraints: BoxConstraints(
+                                                                  maxWidth: Get.width * .5
+                                                                ),
+                                                                padding: const EdgeInsets.all(8),
+                                                                decoration: BoxDecoration(
+                                                                    color: const Color(
+                                                                            0xff0D5AFE)
+                                                                        .withOpacity(
+                                                                            .6),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                22)),
+                                                                child: Text(
+                                                                 getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.companyName ?? "No company name",
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  softWrap: true,
+                                                                  style: Get
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .bodyLarge!
+                                                                      .copyWith(
+                                                                          color: AppColors
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .w600),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(width: 10,),
+                                                              Container(
+                                                                padding:
                                                                 const EdgeInsets
                                                                     .all(8),
-                                                            decoration: BoxDecoration(
-                                                                color: const Color(
+                                                                decoration: BoxDecoration(
+                                                                    color: const Color(
                                                                         0xff0D5AFE)
-                                                                    .withOpacity(
+                                                                        .withOpacity(
                                                                         .6),
-                                                                borderRadius:
+                                                                    borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            22)),
-                                                            child: Text(
-                                                              getJobsListingController
-                                                                      .getJobsListing
-                                                                      .value
-                                                                      .jobs?[
-                                                                          _currentPage]
-                                                                      .recruiterDetails
-                                                                      ?.companyName ??
-                                                                  "No company name",
-                                                              overflow:
+                                                                        22)),
+                                                                child: Text(
+                                                                  "${
+                                                                      getJobsListingController.getJobsListing.value
+                                                                          .jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
+                                                                      "${getJobsListingController.getJobsListing.value.jobs?[_currentPage]
+                                                                      .jobsDetail?.maxSalaryExpectation}"
+                                                                  ,
+                                                                  overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
-                                                              style: Get
-                                                                  .theme
-                                                                  .textTheme
-                                                                  .bodyLarge!
-                                                                  .copyWith(
+                                                                  style: Get
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .bodyLarge!
+                                                                      .copyWith(
                                                                       color: AppColors
                                                                           .white,
+                                                                      fontSize:
+                                                                      12,
                                                                       fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                            ),
+                                                                      FontWeight
+                                                                          .w600),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                           const SizedBox(
                                                             height: 10,
                                                           ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8),
-                                                            decoration: BoxDecoration(
-                                                                color: const Color(
-                                                                        0xff0D5AFE)
-                                                                    .withOpacity(
-                                                                        .6),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            22)),
-                                                            child: Text(
-                                                              getJobsListingController
-                                                                      .getJobsListing
-                                                                      .value
-                                                                      .jobs?[
-                                                                          _currentPage]
-                                                                      .jobLocation ??
-                                                                  "No job location",
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: Get
-                                                                  .theme
-                                                                  .textTheme
-                                                                  .bodyLarge!
-                                                                  .copyWith(
-                                                                      color: AppColors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                            ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                constraints: BoxConstraints(
+                                                                    maxWidth: Get.width * .5
+                                                                ),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
+                                                                decoration: BoxDecoration(
+                                                                    color: const Color(
+                                                                            0xff0D5AFE)
+                                                                        .withOpacity(
+                                                                            .6),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                22)),
+                                                                child: Text(
+                                                                  getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              _currentPage]
+                                                                          .jobLocation ??
+                                                                      "No job location",
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: Get
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .bodyLarge!
+                                                                      .copyWith(
+                                                                          color: AppColors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .w600),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
+                                                                decoration: BoxDecoration(
+                                                                    color: const Color(
+                                                                            0xff0D5AFE)
+                                                                        .withOpacity(
+                                                                            .6),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                22)),
+                                                                child: Text(
+                                                                  "${
+                                                                    getJobsListingController.getJobsListing.value
+                                                                        .jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
+                                                                      "${getJobsListingController.getJobsListing.value.jobs?[_currentPage]
+                                                                          .jobsDetail?.maxSalaryExpectation}"
+                                                                     ,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: Get
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .bodyLarge!
+                                                                      .copyWith(
+                                                                          color: AppColors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .w600),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                           const SizedBox(
                                                             height: 10,
@@ -2284,129 +2359,129 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                               ),
                                             ],
                                           ),
-                                        );
-                                      },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                          Positioned(
+                            top: _appBarOpacity.value == 1
+                                ? 0
+                                : 40 - appBarPosition.value,
+                            child: Container(
+                              color: Colors.black.withOpacity(_appBarOpacity.value),
+                              width: Get.width,
+                              padding: EdgeInsets.only(
+                                  bottom: 10,
+                                  top: _appBarOpacity.value == 1 ? 30 : 0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 25.0,
+                                      left: 12,
+                                    ),
+                                    child: Image.asset(
+                                      'assets/images/icon_flikka_logo.png',
+                                      height: Get.height * .032,
                                     ),
                                   ),
-                            Positioned(
-                              top: _appBarOpacity.value == 1
-                                  ? 0
-                                  : 40 - appBarPosition.value,
-                              child: Container(
-                                color: Colors.black.withOpacity(_appBarOpacity.value),
-                                width: Get.width,
-                                padding: EdgeInsets.only(
-                                    bottom: 10,
-                                    top: _appBarOpacity.value == 1 ? 30 : 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 25.0,
-                                        left: 12,
-                                      ),
-                                      child: Image.asset(
-                                        'assets/images/icon_flikka_logo.png',
-                                        height: Get.height * .032,
-                                      ),
-                                    ),
-                                    Builder(builder: (context) {
-                                      return InkWell(
-                                          onTap: () => Scaffold.of(context)
-                                              .openEndDrawer(),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 25.0, right: 20),
-                                            child: Image.asset(
-                                              'assets/images/icon_seeker_drawer.png',
-                                              height: Get.height * .05,
-                                            ),
-                                          ));
-                                    }),
-                                  ],
-                                ),
+                                  Builder(builder: (context) {
+                                    return InkWell(
+                                        onTap: () => Scaffold.of(context)
+                                            .openEndDrawer(),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 25.0, right: 20),
+                                          child: Image.asset(
+                                            'assets/images/icon_seeker_drawer.png',
+                                            height: Get.height * .05,
+                                          ),
+                                        ));
+                                  }),
+                                ],
                               ),
                             ),
-                            Positioned(
-                              bottom: tabBarController.showBottomBar.value
-                                  ? Get.height * .12
-                                  : Get.height * .05,
-                              left: 12,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: Get.width,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                onSwipeLeft();
-                                              },
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                alignment: Alignment.center,
-                                                decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: AppColors.red),
-                                                child: const Icon(
-                                                  Icons.close,
-                                                  color: AppColors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Container(
+                          ),
+                          Positioned(
+                            bottom: tabBarController.showBottomBar.value
+                                ? Get.height * .12
+                                : Get.height * .05,
+                            left: 12,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: Get.width,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              onSwipeLeft();
+                                            },
+                                            child: Container(
                                               height: 70,
                                               width: 70,
                                               alignment: Alignment.center,
                                               decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  color:
-                                                      AppColors.blueThemeColor),
-                                              child: Image.asset(
-                                                "assets/images/shareIcon.png",
-                                                height: 30,
+                                                  color: AppColors.red),
+                                              child: const Icon(
+                                                Icons.close,
+                                                color: AppColors.white,
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            onSwipeRight();
-                                          },
-                                          child: Container(
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
                                             height: 70,
                                             width: 70,
-                                            margin: const EdgeInsets.only(
-                                                right: 30),
                                             alignment: Alignment.center,
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
-                                                color: AppColors.green),
-                                            child: const Icon(
-                                              Icons.done,
-                                              color: AppColors.white,
+                                                color:
+                                                    AppColors.blueThemeColor),
+                                            child: Image.asset(
+                                              "assets/images/shareIcon.png",
+                                              height: 30,
                                             ),
                                           ),
+                                        ],
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          onSwipeRight();
+                                        },
+                                        child: Container(
+                                          height: 70,
+                                          width: 70,
+                                          margin: const EdgeInsets.only(
+                                              right: 30),
+                                          alignment: Alignment.center,
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.green),
+                                          child: const Icon(
+                                            Icons.done,
+                                            color: AppColors.white,
+                                          ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   }),
