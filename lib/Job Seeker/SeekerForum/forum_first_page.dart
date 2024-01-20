@@ -136,9 +136,11 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                 }
               case Status.COMPLETED:
                 return SafeArea(
+                  bottom: false,
                   child: Scaffold(
-
+                    backgroundColor: Color(0xffF4F4F4),
                     appBar: AppBar(
+                      backgroundColor: Color(0xffF4F4F4),
                       toolbarHeight: 70,
                       leading: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
@@ -149,7 +151,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                             child: Image.asset('assets/images/icon_back_blue.png')),
                       ),
                       elevation: 0,
-                      // title: Text("Forum", style: Get.theme.textTheme.displayLarge),
+                       title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
                     ),
                     body: SmartRefresher(
                       controller: _refreshController,
@@ -162,7 +164,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                 industryController.industryData.value.industryList?.length == 0 ?
                             const SizedBox() :
                             SizedBox(
-                              height: Get.height * .18,
+                              height: Get.height * .15,
                               child: Row(
                                 children: [
                                   GestureDetector(
@@ -170,30 +172,33 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                         industryID = null ;
                                         forumDataController.forumList?.value = forumDataController.forumData.value.forumData ?? [] ;
                                       },
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(3),
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.black,width: 2)
-                                            ),
-                                            child: Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle ,
-                                                  image: DecorationImage(
-                                                      image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
-                                                  )
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(3),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.black,width: 2)
+                                              ),
+                                              child: Container(
+                                                height: 60,
+                                                width: 60,
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle ,
+                                                    image: DecorationImage(
+                                                        image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
+                                                    )
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(height: Get.height * .01,),
-                                          Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                              color: industryID == null ? AppColors.blueThemeColor : AppColors.black,fontWeight: FontWeight.w700),),
-                                        ],
+                                            SizedBox(height: Get.height * .01,),
+                                            Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                color: industryID == null ? AppColors.blueThemeColor : AppColors.black,fontWeight: FontWeight.w700),),
+                                          ],
+                                        ),
                                       )) ,
                                   SizedBox(width: Get.width*.01,) ,
                                   Flexible(
@@ -206,7 +211,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                             var data = industryController.industryData.value.industryList?[index] ;
                                             return Padding(
                                               padding: const EdgeInsets.all(8.0),
-                                              child: SizedBox( width: Get.width * 0.18,
+                                              child: SizedBox( width: Get.width * 0.17,
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     industryID = data?.id.toString() ;
@@ -227,7 +232,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                             decoration: BoxDecoration(
                                                                 shape: BoxShape.circle,
                                                                 border: Border.all(color: data?.id.toString() == industryID.toString() ?
-                                                                AppColors.blueThemeColor : AppColors.white,width: 2)
+                                                                AppColors.blueThemeColor : AppColors.black,width: 2)
                                                             ),
                                                             child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
                                                               placeholder: (context, url) => const Center(
@@ -251,7 +256,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                         style: Theme.of(context).textTheme.bodyMedium
                                                             ?.copyWith(fontWeight: FontWeight.w700 ,
                                                             color: data?.id.toString() == industryID.toString() ?
-                                                            AppColors.blueThemeColor : AppColors.white),),
+                                                            AppColors.blueThemeColor : AppColors.black),),
                                                     ],
                                                   ),
                                                 ),
@@ -265,60 +270,62 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
 
                             ),
                             SizedBox(height: Get.height * .01,),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width * .05,),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff373737),
-                                      borderRadius: BorderRadius.circular(33.0),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.search, color: AppColors.blueThemeColor,
-                                          size: 30,),
-                                        SizedBox(width: Get.width * .03),
-                                        Expanded(
-                                          child: TextFormField(
-                                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                color: const Color(0xffCFCFCF), fontSize: 19),
-                                            onChanged: (query) {
-                                              forumDataController.filterList(query) ;
-                                            },
-                                            decoration: InputDecoration(
-                                              hintText: 'Search',
-                                              hintStyle: Theme
-                                                  .of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(
-                                                  color: Color(0xffCFCFCF)),
-                                              border: InputBorder.none,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.only(right: Get.width*.04),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: Get.width * .05,),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.circular(33.0),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.search, color: AppColors.blueThemeColor,
+                                            size: 30,),
+                                          SizedBox(width: Get.width * .03),
+                                          Expanded(
+                                            child: TextFormField(
+                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                  color: AppColors.black, fontSize: 15),
+                                              onChanged: (query) {
+                                                forumDataController.filterList(query) ;
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: 'Search',
+                                                hintStyle: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(
+                                                    color: Color(0xffA0A0A0)),
+                                                border: InputBorder.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: Get.width * 0.015,
-                                ),
-                                Container(
-                                    height: Get.height * 0.06,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
-                                        },
-                                        child: Image.asset('assets/images/icon_add_form.png',
-                                          fit: BoxFit.cover,))),
-                              ],
+                                  Container(
+                                    padding: EdgeInsets.only(right: Get.width*.18),
+                                      height: Get.height * 0.06,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
+                                          },
+                                          child: Image.asset('assets/images/icon_add_form.png',
+                                            fit: BoxFit.cover,))),
+                                ],
+                              ),
                             ),
                             SizedBox(
-                              height: Get.height * .02,
+                              height: Get.height * .01,
                             ),
                             //************* list *((((((((((((((((((((((((((((((((
                             Column(
@@ -331,6 +338,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                   ],
                                 ) :
                                 ListView.builder(
+                                  padding: EdgeInsets.symmetric(horizontal:  20),
                                     physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: forumDataController.forumList?.length,
@@ -338,7 +346,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                       var data = forumDataController.forumList?[index];
                                       return Padding(
                                         padding: EdgeInsets.symmetric(
-                                            vertical: Get.height * .02),
+                                            vertical: Get.height * .01),
                                         child: Stack(
                                             children: [
                                               GestureDetector(
@@ -348,7 +356,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                 child: Container(
                                                   padding: const EdgeInsets.only(left: 7.0, top: 15),
                                                   decoration: BoxDecoration(
-                                                    color: const Color(0xff353535),
+                                                    color: AppColors.white,
                                                     borderRadius: BorderRadius.circular(22),
                                                   ),
                                                   child: Row(crossAxisAlignment: CrossAxisAlignment.start,
@@ -375,7 +383,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                               children: [
                                                                 SizedBox( width : Get.width * 0.5,
                                                                   child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
-                                                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.blueThemeColor),
+                                                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.black),
                                                                     softWrap: true,),
                                                                 ),
                                                                 SizedBox(height: Get.height * 0.005,),
@@ -383,18 +391,18 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                   child: Text(
                                                                     data?.title ?? "",
                                                                     overflow: TextOverflow.ellipsis,
-                                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.white),
+                                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.silverColor),
                                                                     softWrap: true,),
                                                                 ),
                                                                 SizedBox(height: Get.height * 0.005,),
                                                                 Text(data?.seekerName ?? "",
                                                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                      color: AppColors.ratingcommenttextcolor),),
+                                                                      color: AppColors.silverColor),),
                                                                 SizedBox(height: Get.height * 0.01,),
                                                                 SizedBox(width: Get.width * 0.60,
                                                                   child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
                                                                       .of(context).textTheme.bodySmall!.copyWith(
-                                                                      color: AppColors.ratingcommenttextcolor, letterSpacing: 0.01),),
+                                                                      color: AppColors.silverColor, letterSpacing: 0.01),),
                                                                 ),
                                                                 SizedBox(height: Get.height * 0.15,),
                                                               ],
@@ -417,7 +425,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                             .circular(25),
                                                         bottomLeft: Radius.circular(
                                                             25)),
-                                                    color: Color(0xff3F3F3F),
+                                                    color: Color(0xffE9E9E9),
                                                   ),
                                                   height: 70,
                                                   child: Center(
@@ -425,11 +433,11 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                       padding: const EdgeInsets.only(left: 18.0),
                                                       child: Row(
                                                         children: [
-                                                          Image.asset('assets/images/viewicon.png', scale: 0.7,),
+                                                          Image.asset('assets/images/viewicon.png', height: 25,),
                                                           SizedBox(width: Get.width * 0.015,),
                                                           Text("${data?.forumViewCount} Views",
                                                             style: Get.theme.textTheme.bodySmall!
-                                                                .copyWith(color: AppColors.white),),
+                                                                .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
                                                           SizedBox(width: Get.width * 0.075,),
                                                           GestureDetector(
                                                             onTap : () {
@@ -440,7 +448,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                 SizedBox(width: Get.width * 0.015,),
                                                                 Text("${data?.forumCommentCount} Comments",
                                                                   style: Get.theme.textTheme.bodySmall!
-                                                                      .copyWith(color: AppColors.white),),
+                                                                      .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
                                                               ],
                                                             ),
                                                           )
@@ -482,322 +490,322 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                       //               Tab(child: Text("MESSAGE"),),
                       //             ],
                       //           ),
-                      //           // SizedBox(
-                      //           //   height: Get.height *.8 ,
-                      //           //   child: TabBarView(
-                      //           //       children: [
-                      //           //         SingleChildScrollView(
-                      //           //           controller: scrollController,
-                      //           //           child: Column(
-                      //           //             children: [
-                      //           //               industryController.industryData.value.industryList == null ||
-                      //           //                   industryController.industryData.value.industryList?.length == 0 ?
-                      //           //               const SizedBox() :
-                      //           //               SizedBox(
-                      //           //                 height: Get.height * .18,
-                      //           //                 child: Row(
-                      //           //                   children: [
-                      //           //                     GestureDetector(
-                      //           //                         onTap: () {
-                      //           //                           industryID = null ;
-                      //           //                           forumDataController.forumList?.value = forumDataController.forumData.value.forumData ?? [] ;
-                      //           //                         },
-                      //           //                         child: Column(
-                      //           //                           mainAxisAlignment: MainAxisAlignment.center,
-                      //           //                           children: [
-                      //           //                             Container(
-                      //           //                               padding: const EdgeInsets.all(3),
-                      //           //                               decoration: BoxDecoration(
-                      //           //                                 shape: BoxShape.circle,
-                      //           //                                 border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.white,width: 2)
-                      //           //                               ),
-                      //           //                               child: Container(
-                      //           //                                 height: 60,
-                      //           //                                 width: 60,
-                      //           //                                 decoration: const BoxDecoration(
-                      //           //                                     shape: BoxShape.circle ,
-                      //           //                                     image: DecorationImage(
-                      //           //                                         image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
-                      //           //                                     )
-                      //           //                                 ),
-                      //           //                               ),
-                      //           //                             ),
-                      //           //                             SizedBox(height: Get.height * .01,),
-                      //           //                             Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      //           //                                 color: industryID == null ? AppColors.blueThemeColor : AppColors.white,fontWeight: FontWeight.w700),),
-                      //           //                           ],
-                      //           //                         )) ,
-                      //           //                     SizedBox(width: Get.width*.01,) ,
-                      //           //                     Flexible(
-                      //           //                       child: SizedBox(
-                      //           //                         width: Get.width *.8,
-                      //           //                         child: ListView.builder(shrinkWrap: true,
-                      //           //                             scrollDirection: Axis.horizontal,
-                      //           //                             itemCount: industryController.industryData.value.industryList?.length,
-                      //           //                             itemBuilder: (BuildContext context, int index) {
-                      //           //                               var data = industryController.industryData.value.industryList?[index] ;
-                      //           //                               return Padding(
-                      //           //                                 padding: const EdgeInsets.all(8.0),
-                      //           //                                 child: SizedBox( width: Get.width * 0.18,
-                      //           //                                   child: GestureDetector(
-                      //           //                                     onTap: () {
-                      //           //                                       industryID = data?.id.toString() ;
-                      //           //                                       // forumDataController.seekerForumListApi(industryID: "$industryID");
-                      //           //                                       if(forumDataController.forumData.value.forumData != null) {
-                      //           //                                         forumDataController.forumList?.value = forumDataController.forumData.value.forumData
-                      //           //                                         !.where((e) {
-                      //           //                                           return  e.industryId.toString() == data?.id.toString(); }).toList();
-                      //           //                                       }
-                      //           //                                     },
-                      //           //                                     child: Column(
-                      //           //                                       mainAxisAlignment: MainAxisAlignment.center,
-                      //           //                                       children: [
-                      //           //                                         Stack(
-                      //           //                                         children: [
-                      //           //                                           Container(
-                      //           //                                             padding: const EdgeInsets.all(3),
-                      //           //                                             decoration: BoxDecoration(
-                      //           //                                               shape: BoxShape.circle,
-                      //           //                                               border: Border.all(color: data?.id.toString() == industryID.toString() ?
-                      //           //                                               AppColors.blueThemeColor : AppColors.white,width: 2)
-                      //           //                                             ),
-                      //           //                                             child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
-                      //           //                                               placeholder: (context, url) => const Center(
-                      //           //                                                 child: CircularProgressIndicator(),),
-                      //           //                                               imageBuilder: (context, imageProvider) => Container(
-                      //           //                                                 height: 60,
-                      //           //                                                 width: 60,
-                      //           //                                                 decoration: BoxDecoration(
-                      //           //                                                     shape: BoxShape.circle ,
-                      //           //                                                     image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
-                      //           //                                                 ),
-                      //           //
-                      //           //                                               ),
-                      //           //                                             ),
-                      //           //                                           ),
-                      //           //
-                      //           //                                         ],
-                      //           //                                         ) ,
-                      //           //                                         SizedBox(height: Get.height * .01,),
-                      //           //                                         Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
-                      //           //                                           style: Theme.of(context).textTheme.bodyMedium
-                      //           //                                               ?.copyWith(fontWeight: FontWeight.w700 ,
-                      //           //                                               color: data?.id.toString() == industryID.toString() ?
-                      //           //                                               AppColors.blueThemeColor : AppColors.white),),
-                      //           //                                       ],
-                      //           //                                     ),
-                      //           //                                   ),
-                      //           //                                 ),
-                      //           //                               );
-                      //           //                             }),
-                      //           //                       ),
-                      //           //                     ),
-                      //           //                   ],
-                      //           //                 ),
-                      //           //
-                      //           //               ),
-                      //           //               SizedBox(height: Get.height * .01,),
-                      //           //               Row(
-                      //           //                 children: [
-                      //           //                   Expanded(
-                      //           //                     child: Container(
-                      //           //                       padding: EdgeInsets.symmetric(
-                      //           //                           horizontal: Get.width * .05,),
-                      //           //                       decoration: BoxDecoration(
-                      //           //                         color: const Color(0xff373737),
-                      //           //                         borderRadius: BorderRadius.circular(33.0),
-                      //           //                       ),
-                      //           //                       child: Row(
-                      //           //                         children: [
-                      //           //                           const Icon(
-                      //           //                             Icons.search, color: AppColors.blueThemeColor,
-                      //           //                             size: 30,),
-                      //           //                           SizedBox(width: Get.width * .03),
-                      //           //                           Expanded(
-                      //           //                             child: TextFormField(
-                      //           //                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      //           //                                   color: const Color(0xffCFCFCF), fontSize: 19),
-                      //           //                               onChanged: (query) {
-                      //           //                                 forumDataController.filterList(query) ;
-                      //           //                               },
-                      //           //                               decoration: InputDecoration(
-                      //           //                                 hintText: 'Search',
-                      //           //                                 hintStyle: Theme
-                      //           //                                     .of(context)
-                      //           //                                     .textTheme
-                      //           //                                     .bodyLarge
-                      //           //                                     ?.copyWith(
-                      //           //                                     color: Color(0xffCFCFCF)),
-                      //           //                                 border: InputBorder.none,
-                      //           //                               ),
-                      //           //                             ),
-                      //           //                           ),
-                      //           //                         ],
-                      //           //                       ),
-                      //           //                     ),
-                      //           //                   ),
-                      //           //                   SizedBox(
-                      //           //                     width: Get.width * 0.015,
-                      //           //                   ),
-                      //           //                   Container(
-                      //           //                       height: Get.height * 0.06,
-                      //           //                       child: GestureDetector(
-                      //           //                           onTap: () {
-                      //           //                             Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
-                      //           //                           },
-                      //           //                           child: Image.asset('assets/images/icon_add_form.png',
-                      //           //                             fit: BoxFit.cover,))),
-                      //           //                 ],
-                      //           //               ),
-                      //           //               SizedBox(
-                      //           //                 height: Get.height * .02,
-                      //           //               ),
-                      //           //               //************* list *((((((((((((((((((((((((((((((((
-                      //           //
-                      //           //               Column(
-                      //           //                 children: [
-                      //           //                   forumDataController.forumList == null || forumDataController.forumList?.length == 0 ?
-                      //           //                   Column(
-                      //           //                     children: [
-                      //           //                       SizedBox(height: Get.height*.2,) ,
-                      //           //                       const Text("No Data"),
-                      //           //                     ],
-                      //           //                   ) :
-                      //           //                   ListView.builder(
-                      //           //                       physics: const NeverScrollableScrollPhysics(),
-                      //           //                       shrinkWrap: true,
-                      //           //                       itemCount: forumDataController.forumList?.length,
-                      //           //                       itemBuilder: (context, index) {
-                      //           //                         var data = forumDataController.forumList?[index];
-                      //           //                         return Padding(
-                      //           //                           padding: EdgeInsets.symmetric(
-                      //           //                               vertical: Get.height * .02),
-                      //           //                           child: Stack(
-                      //           //                               children: [
-                      //           //                                 GestureDetector(
-                      //           //                                   onTap: () {
-                      //           //                                     Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
-                      //           //                                   },
-                      //           //                                   child: Container(
-                      //           //                                     padding: const EdgeInsets.only(left: 7.0, top: 15),
-                      //           //                                     decoration: BoxDecoration(
-                      //           //                                       color: const Color(0xff353535),
-                      //           //                                       borderRadius: BorderRadius.circular(22),
-                      //           //                                     ),
-                      //           //                                     child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-                      //           //                                       mainAxisAlignment: MainAxisAlignment.start,
-                      //           //                                       //crossAxisAlignment: CrossAxisAlignment.end,
-                      //           //                                       children: [
-                      //           //                                         CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
-                      //           //                                           placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                      //           //                                           imageBuilder: (context, imageProvider) => Container(
-                      //           //                                             height: 60,
-                      //           //                                             width: 60,
-                      //           //                                             decoration: BoxDecoration(
-                      //           //                                                 shape: BoxShape.circle,
-                      //           //                                                 image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
-                      //           //                                             ),
-                      //           //                                           ),),
-                      //           //                                         SizedBox(width: Get.width * 0.035,),
-                      //           //                                         Column(
-                      //           //                                           children: [
-                      //           //                                             Padding(
-                      //           //                                               padding: const EdgeInsets.only(top: 8),
-                      //           //                                               child: Column(
-                      //           //                                                 crossAxisAlignment: CrossAxisAlignment.start,
-                      //           //                                                 children: [
-                      //           //                                                   SizedBox( width : Get.width * 0.5,
-                      //           //                                                     child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
-                      //           //                                                       style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.blueThemeColor),
-                      //           //                                                       softWrap: true,),
-                      //           //                                                   ),
-                      //           //                                                   SizedBox(height: Get.height * 0.005,),
-                      //           //                                                   SizedBox( width : Get.width * 0.5,
-                      //           //                                                     child: Text(
-                      //           //                                                       data?.title ?? "",
-                      //           //                                                       overflow: TextOverflow.ellipsis,
-                      //           //                                                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.white),
-                      //           //                                                       softWrap: true,),
-                      //           //                                                   ),
-                      //           //                                                   SizedBox(height: Get.height * 0.005,),
-                      //           //                                                   Text(data?.seekerName ?? "",
-                      //           //                                                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      //           //                                                         color: AppColors.ratingcommenttextcolor),),
-                      //           //                                                   SizedBox(height: Get.height * 0.01,),
-                      //           //                                                   SizedBox(width: Get.width * 0.60,
-                      //           //                                                     child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
-                      //           //                                                         .of(context).textTheme.bodySmall!.copyWith(
-                      //           //                                                         color: AppColors.ratingcommenttextcolor, letterSpacing: 0.01),),
-                      //           //                                                   ),
-                      //           //                                                   SizedBox(height: Get.height * 0.15,),
-                      //           //                                                 ],
-                      //           //                                               ),
-                      //           //                                             ),
-                      //           //                                           ],
-                      //           //                                         )
-                      //           //                                       ],
-                      //           //                                     ),
-                      //           //                                   ),
-                      //           //                                 ),
-                      //           //                                 Positioned(
-                      //           //                                   bottom: 0,
-                      //           //                                   left: 0,
-                      //           //                                   right: 0,
-                      //           //                                   child: Container(
-                      //           //                                     decoration: const BoxDecoration(
-                      //           //                                       borderRadius: BorderRadius.only(
-                      //           //                                           bottomRight: Radius
-                      //           //                                               .circular(25),
-                      //           //                                           bottomLeft: Radius.circular(
-                      //           //                                               25)),
-                      //           //                                       color: Color(0xff3F3F3F),
-                      //           //                                     ),
-                      //           //                                     height: 70,
-                      //           //                                     child: Center(
-                      //           //                                       child: Padding(
-                      //           //                                         padding: const EdgeInsets.only(left: 18.0),
-                      //           //                                         child: Row(
-                      //           //                                           children: [
-                      //           //                                             Image.asset('assets/images/viewicon.png', scale: 0.7,),
-                      //           //                                             SizedBox(width: Get.width * 0.015,),
-                      //           //                                             Text("${data?.forumViewCount} Views",
-                      //           //                                               style: Get.theme.textTheme.bodySmall!
-                      //           //                                                   .copyWith(color: AppColors.white),),
-                      //           //                                             SizedBox(width: Get.width * 0.075,),
-                      //           //                                             GestureDetector(
-                      //           //                                               onTap : () {
-                      //           //                                                 Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
-                      //           //                                               child: Row(
-                      //           //                                                 children: [
-                      //           //                                                   Image.asset('assets/images/commenticons.png'),
-                      //           //                                                   SizedBox(width: Get.width * 0.015,),
-                      //           //                                                   Text("${data?.forumCommentCount} Comments",
-                      //           //                                                     style: Get.theme.textTheme.bodySmall!
-                      //           //                                                         .copyWith(color: AppColors.white),),
-                      //           //                                                 ],
-                      //           //                                               ),
-                      //           //                                             )
-                      //           //                                           ],
-                      //           //                                         ),
-                      //           //                                       ),
-                      //           //                                     ),
-                      //           //                                   ),
-                      //           //                                 ),
-                      //           //                               ]
-                      //           //                           ),
-                      //           //                         );
-                      //           //                       }),
-                      //           //                   Obx( () => forumDataController.loadingPage.value ? const Center(child: CircularProgressIndicator(),) : SizedBox()) ,
-                      //           //                   SizedBox(height: Get.height *.1,)
-                      //           //                 ],
-                      //           //               )
-                      //           //             ],
-                      //           //           ),
-                      //           //         ),
-                      //           //         const FriendsFamily() ,
-                      //           //         const ForumMessagePage() ,
-                      //           //       ]),
-                      //           // )
+                      //           SizedBox(
+                      //             height: Get.height *.8 ,
+                      //             child: TabBarView(
+                      //                 children: [
+                      //                   SingleChildScrollView(
+                      //                     controller: scrollController,
+                      //                     child: Column(
+                      //                       children: [
+                      //                         industryController.industryData.value.industryList == null ||
+                      //                             industryController.industryData.value.industryList?.length == 0 ?
+                      //                         const SizedBox() :
+                      //                         SizedBox(
+                      //                           height: Get.height * .18,
+                      //                           child: Row(
+                      //                             children: [
+                      //                               GestureDetector(
+                      //                                   onTap: () {
+                      //                                     industryID = null ;
+                      //                                     forumDataController.forumList?.value = forumDataController.forumData.value.forumData ?? [] ;
+                      //                                   },
+                      //                                   child: Column(
+                      //                                     mainAxisAlignment: MainAxisAlignment.center,
+                      //                                     children: [
+                      //                                       Container(
+                      //                                         padding: const EdgeInsets.all(3),
+                      //                                         decoration: BoxDecoration(
+                      //                                           shape: BoxShape.circle,
+                      //                                           border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.white,width: 2)
+                      //                                         ),
+                      //                                         child: Container(
+                      //                                           height: 60,
+                      //                                           width: 60,
+                      //                                           decoration: const BoxDecoration(
+                      //                                               shape: BoxShape.circle ,
+                      //                                               image: DecorationImage(
+                      //                                                   image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
+                      //                                               )
+                      //                                           ),
+                      //                                         ),
+                      //                                       ),
+                      //                                       SizedBox(height: Get.height * .01,),
+                      //                                       Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      //                                           color: industryID == null ? AppColors.blueThemeColor : AppColors.white,fontWeight: FontWeight.w700),),
+                      //                                     ],
+                      //                                   )) ,
+                      //                               SizedBox(width: Get.width*.01,) ,
+                      //                               Flexible(
+                      //                                 child: SizedBox(
+                      //                                   width: Get.width *.8,
+                      //                                   child: ListView.builder(shrinkWrap: true,
+                      //                                       scrollDirection: Axis.horizontal,
+                      //                                       itemCount: industryController.industryData.value.industryList?.length,
+                      //                                       itemBuilder: (BuildContext context, int index) {
+                      //                                         var data = industryController.industryData.value.industryList?[index] ;
+                      //                                         return Padding(
+                      //                                           padding: const EdgeInsets.all(8.0),
+                      //                                           child: SizedBox( width: Get.width * 0.18,
+                      //                                             child: GestureDetector(
+                      //                                               onTap: () {
+                      //                                                 industryID = data?.id.toString() ;
+                      //                                                 // forumDataController.seekerForumListApi(industryID: "$industryID");
+                      //                                                 if(forumDataController.forumData.value.forumData != null) {
+                      //                                                   forumDataController.forumList?.value = forumDataController.forumData.value.forumData
+                      //                                                   !.where((e) {
+                      //                                                     return  e.industryId.toString() == data?.id.toString(); }).toList();
+                      //                                                 }
+                      //                                               },
+                      //                                               child: Column(
+                      //                                                 mainAxisAlignment: MainAxisAlignment.center,
+                      //                                                 children: [
+                      //                                                   Stack(
+                      //                                                   children: [
+                      //                                                     Container(
+                      //                                                       padding: const EdgeInsets.all(3),
+                      //                                                       decoration: BoxDecoration(
+                      //                                                         shape: BoxShape.circle,
+                      //                                                         border: Border.all(color: data?.id.toString() == industryID.toString() ?
+                      //                                                         AppColors.blueThemeColor : AppColors.white,width: 2)
+                      //                                                       ),
+                      //                                                       child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
+                      //                                                         placeholder: (context, url) => const Center(
+                      //                                                           child: CircularProgressIndicator(),),
+                      //                                                         imageBuilder: (context, imageProvider) => Container(
+                      //                                                           height: 60,
+                      //                                                           width: 60,
+                      //                                                           decoration: BoxDecoration(
+                      //                                                               shape: BoxShape.circle ,
+                      //                                                               image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                      //                                                           ),
+                      //
+                      //                                                         ),
+                      //                                                       ),
+                      //                                                     ),
+                      //
+                      //                                                   ],
+                      //                                                   ) ,
+                      //                                                   SizedBox(height: Get.height * .01,),
+                      //                                                   Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
+                      //                                                     style: Theme.of(context).textTheme.bodyMedium
+                      //                                                         ?.copyWith(fontWeight: FontWeight.w700 ,
+                      //                                                         color: data?.id.toString() == industryID.toString() ?
+                      //                                                         AppColors.blueThemeColor : AppColors.white),),
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ),
+                      //                                           ),
+                      //                                         );
+                      //                                       }),
+                      //                                 ),
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //
+                      //                         ),
+                      //                         SizedBox(height: Get.height * .01,),
+                      //                         Row(
+                      //                           children: [
+                      //                             Expanded(
+                      //                               child: Container(
+                      //                                 padding: EdgeInsets.symmetric(
+                      //                                     horizontal: Get.width * .05,),
+                      //                                 decoration: BoxDecoration(
+                      //                                   color: const Color(0xff373737),
+                      //                                   borderRadius: BorderRadius.circular(33.0),
+                      //                                 ),
+                      //                                 child: Row(
+                      //                                   children: [
+                      //                                     const Icon(
+                      //                                       Icons.search, color: AppColors.blueThemeColor,
+                      //                                       size: 30,),
+                      //                                     SizedBox(width: Get.width * .03),
+                      //                                     Expanded(
+                      //                                       child: TextFormField(
+                      //                                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      //                                             color: const Color(0xffCFCFCF), fontSize: 19),
+                      //                                         onChanged: (query) {
+                      //                                           forumDataController.filterList(query) ;
+                      //                                         },
+                      //                                         decoration: InputDecoration(
+                      //                                           hintText: 'Search',
+                      //                                           hintStyle: Theme
+                      //                                               .of(context)
+                      //                                               .textTheme
+                      //                                               .bodyLarge
+                      //                                               ?.copyWith(
+                      //                                               color: Color(0xffCFCFCF)),
+                      //                                           border: InputBorder.none,
+                      //                                         ),
+                      //                                       ),
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                               ),
+                      //                             ),
+                      //                             SizedBox(
+                      //                               width: Get.width * 0.015,
+                      //                             ),
+                      //                             Container(
+                      //                                 height: Get.height * 0.06,
+                      //                                 child: GestureDetector(
+                      //                                     onTap: () {
+                      //                                       Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
+                      //                                     },
+                      //                                     child: Image.asset('assets/images/icon_add_form.png',
+                      //                                       fit: BoxFit.cover,))),
+                      //                           ],
+                      //                         ),
+                      //                         SizedBox(
+                      //                           height: Get.height * .02,
+                      //                         ),
+                      //                         //************* list *((((((((((((((((((((((((((((((((
+                      //
+                      //                         Column(
+                      //                           children: [
+                      //                             forumDataController.forumList == null || forumDataController.forumList?.length == 0 ?
+                      //                             Column(
+                      //                               children: [
+                      //                                 SizedBox(height: Get.height*.2,) ,
+                      //                                 const Text("No Data"),
+                      //                               ],
+                      //                             ) :
+                      //                             ListView.builder(
+                      //                                 physics: const NeverScrollableScrollPhysics(),
+                      //                                 shrinkWrap: true,
+                      //                                 itemCount: forumDataController.forumList?.length,
+                      //                                 itemBuilder: (context, index) {
+                      //                                   var data = forumDataController.forumList?[index];
+                      //                                   return Padding(
+                      //                                     padding: EdgeInsets.symmetric(
+                      //                                         vertical: Get.height * .02),
+                      //                                     child: Stack(
+                      //                                         children: [
+                      //                                           GestureDetector(
+                      //                                             onTap: () {
+                      //                                               Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
+                      //                                             },
+                      //                                             child: Container(
+                      //                                               padding: const EdgeInsets.only(left: 7.0, top: 15),
+                      //                                               decoration: BoxDecoration(
+                      //                                                 color: const Color(0xff353535),
+                      //                                                 borderRadius: BorderRadius.circular(22),
+                      //                                               ),
+                      //                                               child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                      //                                                 mainAxisAlignment: MainAxisAlignment.start,
+                      //                                                 //crossAxisAlignment: CrossAxisAlignment.end,
+                      //                                                 children: [
+                      //                                                   CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
+                      //                                                     placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                      //                                                     imageBuilder: (context, imageProvider) => Container(
+                      //                                                       height: 60,
+                      //                                                       width: 60,
+                      //                                                       decoration: BoxDecoration(
+                      //                                                           shape: BoxShape.circle,
+                      //                                                           image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                      //                                                       ),
+                      //                                                     ),),
+                      //                                                   SizedBox(width: Get.width * 0.035,),
+                      //                                                   Column(
+                      //                                                     children: [
+                      //                                                       Padding(
+                      //                                                         padding: const EdgeInsets.only(top: 8),
+                      //                                                         child: Column(
+                      //                                                           crossAxisAlignment: CrossAxisAlignment.start,
+                      //                                                           children: [
+                      //                                                             SizedBox( width : Get.width * 0.5,
+                      //                                                               child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
+                      //                                                                 style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.blueThemeColor),
+                      //                                                                 softWrap: true,),
+                      //                                                             ),
+                      //                                                             SizedBox(height: Get.height * 0.005,),
+                      //                                                             SizedBox( width : Get.width * 0.5,
+                      //                                                               child: Text(
+                      //                                                                 data?.title ?? "",
+                      //                                                                 overflow: TextOverflow.ellipsis,
+                      //                                                                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.white),
+                      //                                                                 softWrap: true,),
+                      //                                                             ),
+                      //                                                             SizedBox(height: Get.height * 0.005,),
+                      //                                                             Text(data?.seekerName ?? "",
+                      //                                                               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      //                                                                   color: AppColors.ratingcommenttextcolor),),
+                      //                                                             SizedBox(height: Get.height * 0.01,),
+                      //                                                             SizedBox(width: Get.width * 0.60,
+                      //                                                               child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
+                      //                                                                   .of(context).textTheme.bodySmall!.copyWith(
+                      //                                                                   color: AppColors.ratingcommenttextcolor, letterSpacing: 0.01),),
+                      //                                                             ),
+                      //                                                             SizedBox(height: Get.height * 0.15,),
+                      //                                                           ],
+                      //                                                         ),
+                      //                                                       ),
+                      //                                                     ],
+                      //                                                   )
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ),
+                      //                                           ),
+                      //                                           Positioned(
+                      //                                             bottom: 0,
+                      //                                             left: 0,
+                      //                                             right: 0,
+                      //                                             child: Container(
+                      //                                               decoration: const BoxDecoration(
+                      //                                                 borderRadius: BorderRadius.only(
+                      //                                                     bottomRight: Radius
+                      //                                                         .circular(25),
+                      //                                                     bottomLeft: Radius.circular(
+                      //                                                         25)),
+                      //                                                 color: Color(0xff3F3F3F),
+                      //                                               ),
+                      //                                               height: 70,
+                      //                                               child: Center(
+                      //                                                 child: Padding(
+                      //                                                   padding: const EdgeInsets.only(left: 18.0),
+                      //                                                   child: Row(
+                      //                                                     children: [
+                      //                                                       Image.asset('assets/images/viewicon.png', scale: 0.7,),
+                      //                                                       SizedBox(width: Get.width * 0.015,),
+                      //                                                       Text("${data?.forumViewCount} Views",
+                      //                                                         style: Get.theme.textTheme.bodySmall!
+                      //                                                             .copyWith(color: AppColors.white),),
+                      //                                                       SizedBox(width: Get.width * 0.075,),
+                      //                                                       GestureDetector(
+                      //                                                         onTap : () {
+                      //                                                           Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
+                      //                                                         child: Row(
+                      //                                                           children: [
+                      //                                                             Image.asset('assets/images/commenticons.png'),
+                      //                                                             SizedBox(width: Get.width * 0.015,),
+                      //                                                             Text("${data?.forumCommentCount} Comments",
+                      //                                                               style: Get.theme.textTheme.bodySmall!
+                      //                                                                   .copyWith(color: AppColors.white),),
+                      //                                                           ],
+                      //                                                         ),
+                      //                                                       )
+                      //                                                     ],
+                      //                                                   ),
+                      //                                                 ),
+                      //                                               ),
+                      //                                             ),
+                      //                                           ),
+                      //                                         ]
+                      //                                     ),
+                      //                                   );
+                      //                                 }),
+                      //                             Obx( () => forumDataController.loadingPage.value ? const Center(child: CircularProgressIndicator(),) : SizedBox()) ,
+                      //                             SizedBox(height: Get.height *.1,)
+                      //                           ],
+                      //                         )
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                   const FriendsFamily() ,
+                      //                   const ForumMessagePage() ,
+                      //                 ]),
+                      //           )
                       //         ],
                       //       ),
                       //     ),
