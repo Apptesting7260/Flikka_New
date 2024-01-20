@@ -15,6 +15,7 @@ class AddJobController extends GetxController {
   RxBool submitted = false.obs;
   var featureImageError = ''.obs ;
   var jobPositionErrorMessage = ''.obs ;
+  var salaryErrorMessage = ''.obs ;
   var jobTypeErrorMessage = ''.obs ;
   var typeOfWorkPlaceErrorMessage = ''.obs ;
   var qualificationErrorMessage = '' .obs ;

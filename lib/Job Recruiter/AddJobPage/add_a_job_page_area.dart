@@ -238,7 +238,11 @@ class _AddAJobPageState extends State<AddAJobPage> {
     seekerChoosePositionGetController.seekerGetPositionApi(false) ;
     viewLanguageController.viewLanguageApi() ;
     LanguageSelectorState.languages = [] ;
+    RangePicker.minValue = 0;
+    RangePicker.maxValue = 0;
     if(widget.recruiterJobsData != null) {
+     RangePicker.minValue = widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation/1 ;
+     RangePicker.maxValue = widget.recruiterJobsData?.jobsDetail?.maxSalaryExpectation/1 ;
       jobTitleController.text = widget.recruiterJobsData?.jobTitle ?? "" ;
       specializationController.text = widget.recruiterJobsData?.specialization ?? "" ;
       jobLocationController.text = widget.recruiterJobsData?.jobLocation ?? "" ;
@@ -568,7 +572,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     const SizedBox() :
                     Align(
                         alignment: Alignment.topLeft,
-                        child: Text(addJobController.jobPositionErrorMessage.value,style: TextStyle(color: Colors.red),))
+                        child: Text(addJobController.jobPositionErrorMessage.value,style: const TextStyle(color: Colors.red),))
                     ) ,
                     SizedBox(height: Get.height*0.03,),
                     Text('Specialization',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
@@ -682,10 +686,17 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       ),
                     ),
                     SizedBox(height: Get.height*0.03,),
-                    Text("Salary Expectation", style: Theme.of(context).textTheme.displaySmall),
+                    Text("Salary Expectation", style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     // SizedBox(height: Get.height * .02,),
                     SizedBox( height: Get.height * 0.1 ,
                         child: const RangePicker(maxSalary: 100000.0,)) ,
+                    Obx(() => addJobController.salaryErrorMessage.value.isEmpty ?
+                    const SizedBox() :
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(addJobController.salaryErrorMessage.value,style: TextStyle(color: Colors.red)),
+                    )
+                    ),
                     SizedBox(height: Get.height * .03,),
                     Text('Description',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -1150,12 +1161,16 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           addJobController.jobPositionErrorMessage.value = "" ;
                           addJobController.qualificationErrorMessage.value = "" ;
                           addJobController.languageErrorMessage.value = "" ;
+                          addJobController.salaryErrorMessage.value = "";
                           selectedSalary = "${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}" ;
                           debugPrint("this is =========== $selectedSalary") ;
                           if(_formKey.currentState!.validate()) {
                             if (jobPosition == null) {
                               addJobController.jobPositionErrorMessage.value = "Please select job position";
                               scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+                            } else if(RangePicker.maxValue.toInt() == 0) {
+                              addJobController.salaryErrorMessage.value = "Please select salary expectation" ;
+                              scrollController.animateTo(Get.height*.5, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
                             }
       // else if (employmentType == null) {
                             //   addJobController.jobTypeErrorMessage.value = "Please select job type";
