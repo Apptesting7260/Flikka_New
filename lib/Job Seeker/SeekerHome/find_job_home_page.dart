@@ -87,7 +87,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   int _currentPage = 0;
   Timer? _scrollTimer;
   double _previousScrollOffset = 0.0;
-  double _appBarOpacity = 0.0;
+  RxDouble _appBarOpacity = 0.0.obs;
   var position = 0.0.obs;
   var appBarPosition = 0.0.obs;
 
@@ -114,11 +114,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
 
     _scrollController.addListener(() {
-      if (_scrollController.offset < Get.height * .23) {
+      if (_scrollController.offset < Get.height * .18) {
         position.value = _scrollController.offset;
-        setState(() {
-          _appBarOpacity = _scrollController.offset > 35 ? 1.0 : 0;
-        });
+        // setState(() {
+          _appBarOpacity.value = _scrollController.offset > 35 ? 1.0 : 0;
+        // });
       }
       if (_scrollController.offset < 1) {
         print("=============object");
@@ -307,497 +307,525 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Stack(
-                                                children: [
-                                                  CachedNetworkImage(
-                                                    imageUrl:
-                                                        getJobsListingController
-                                                                .getJobsListing
-                                                                .value
-                                                                .jobs?[index]
-                                                                .featureImg ??
-                                                            "",
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            SizedBox(
-                                                      height: Get.height,
-                                                      child: const Center(
-                                                          child:
-                                                              CircularProgressIndicator()),
-                                                    ),
-                                                    imageBuilder: (context,
-                                                            imageProvider) =>
-                                                        Container(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                              .size
-                                                              .height,
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                          image: imageProvider,
-                                                          fit: BoxFit.cover,
+                                              Obx( () =>
+                                                 Stack(
+                                                  children: [
+                                                    CachedNetworkImage(
+                                                      imageUrl:
+                                                          getJobsListingController
+                                                                  .getJobsListing
+                                                                  .value
+                                                                  .jobs?[index]
+                                                                  .featureImg ??
+                                                              "",
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              SizedBox(
+                                                        height: Get.height,
+                                                        child: const Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                      ),
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          Container(
+                                                        height:
+                                                            MediaQuery.of(context)
+                                                                .size
+                                                                .height,
+                                                        decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                            image: imageProvider,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 10,
-                                                    top: Get.height * 0.15,
-                                                    child: Column(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            showSeekerHomePagePercentageProfile(context, getJobsListingController.getJobsListing.value.jobs?[index]) ;
-                                                          },
-                                                          child: Container(
-                                                            padding: const EdgeInsets.all(4),
-                                                            decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                              color: Colors.transparent,
-                                                              border: Border.all(color: AppColors.white,width: 2)
-                                                            ),
-                                                            child: CircularPercentIndicator(
-                                                              percent: getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage/100,
-                                                              lineWidth: 15,
-                                                              progressColor:  AppColors.green,
-                                                              center: Container(
-                                                                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                                                  child: CircleAvatar(
-                                                                      radius: 30,
-                                                                      backgroundColor: Colors.transparent,
-                                                                      child: Center(
-                                                                        child: Column(
-                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
-                                                                            Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
-                                                                          ],
-                                                                        ),
-                                                                      )
-                                                                  )
-                                                              ),
-                                                              backgroundColor: Colors.white,
-                                                              radius: 40,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        // SizedBox(height: Get.height*.02,),
-                                                        // Image.asset("assets/images/icon_label.png",height: 80,),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 12,
-                                                    top: Get.height * 0.15,
-                                                    child: Column(
-                                                      children: [
-                                                        GestureDetector(
+                                                    Positioned(
+                                                      right: 10,
+                                                      top: Get.height * 0.15,
+                                                      child: Column(
+                                                        children: [
+                                                          GestureDetector(
                                                             onTap: () {
-                                                              // getJobsListingController.saved.value=true;
-                                                              CommonFunctions.confirmationDialog(
-                                                                  context,
-                                                                  message: getJobsListingController
-                                                                          .getJobsListing
-                                                                          .value
-                                                                          .jobs?[
-                                                                              index]
-                                                                          .postSaved
-                                                                      ? "Do you want to remove the\n post from saved posts"
-                                                                      : "Do you want to save the post",
-                                                                  onTap:
-                                                                      () async {
-                                                                Get.back();
-                                                                if (getJobsListingController
-                                                                        .getJobsListing
-                                                                        .value
-                                                                        .jobs?[
-                                                                            index]
-                                                                        .postSaved ==
-                                                                    true) {
-                                                                  CommonFunctions
-                                                                      .showLoadingDialog(
-                                                                          context,
-                                                                          "removing...");
-                                                                  var result = await unSavePostController.unSavePost(
-                                                                      getJobsListingController
-                                                                          .getJobsListing
-                                                                          .value
-                                                                          .jobs?[
-                                                                              index]
-                                                                          .id
-                                                                          .toString(),
-                                                                      "1",
-                                                                      context,
-                                                                      true);
-                                                                  if (result ==
-                                                                      true) {
-                                                                    if (kDebugMode) {
-                                                                      print(
-                                                                          "inside result");
-                                                                    }
-                                                                    getJobsListingController
-                                                                        .getJobsListing
-                                                                        .value
-                                                                        .jobs?[
-                                                                            index]
-                                                                        .postSaved = false;
-                                                                    setState(
-                                                                        () {});
-                                                                  }
-                                                                } else {
-                                                                  CommonFunctions
-                                                                      .showLoadingDialog(
-                                                                          context,
-                                                                          "Saving");
-                                                                  var result = await seekerSaveJobController.saveJobApi(
-                                                                      getJobsListingController
-                                                                          .getJobsListing
-                                                                          .value
-                                                                          .jobs?[
-                                                                              index]
-                                                                          .id,
-                                                                      1);
-                                                                  if (result ==
-                                                                      true) {
-                                                                    if (kDebugMode) {
-                                                                      print(
-                                                                          "inside result");
-                                                                    }
-                                                                    getJobsListingController
-                                                                        .getJobsListing
-                                                                        .value
-                                                                        .jobs?[
-                                                                            index]
-                                                                        .postSaved = true;
-                                                                    setState(
-                                                                        () {});
-                                                                  }
-                                                                }
-                                                              });
-                                                            },
-                                                            child: getJobsListingController
-                                                                        .getJobsListing
-                                                                        .value
-                                                                        .jobs?[
-                                                                            index]
-                                                                        .postSaved ==
-                                                                    false
-                                                                ? Image.asset(
-                                                                    "assets/images/icon_unsave_post.png",
-                                                                    height: 45,
-                                                                    width: 45,
-                                                                  )
-                                                                : Image.asset(
-                                                                    "assets/images/icon_Save_post.png",
-                                                                    height: 45,
-                                                                    width: 45,
-                                                                  )),
-                                                        SizedBox(
-                                                          height:
-                                                              Get.height * .01,
-                                                        ),
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              Get.to(() =>
-                                                                  const FilterPage());
-                                                            },
-                                                            child: Image.asset(
-                                                              "assets/images/icon_filter_seeker_home.png",
-                                                              height: 45,
-                                                              width: 45,
-                                                            )),
-                                                        SizedBox(
-                                                          height:
-                                                              Get.height * .01,
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            if (getJobsListingController
-                                                                        .getJobsListing
-                                                                        .value
-                                                                        .jobs?[
-                                                                            index]
-                                                                        .video ==
-                                                                    null ||
-                                                                getJobsListingController
-                                                                        .getJobsListing
-                                                                        .value
-                                                                        .jobs?[
-                                                                            index]
-                                                                        .video
-                                                                        ?.length ==
-                                                                    0) {
-                                                              Utils.showMessageDialog(
-                                                                  context,
-                                                                  "video not uploaded yet");
-                                                            } else {
-                                                              Get.back();
-                                                              Get.to(() => VideoPlayerScreen(
-                                                                  videoPath: getJobsListingController
-                                                                          .getJobsListing
-                                                                          .value
-                                                                          .jobs?[
-                                                                              index]
-                                                                          ?.video ??
-                                                                      ""));
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height: 45,
-                                                            width: 45,
-                                                            decoration: const BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                                color: AppColors
-                                                                    .blueThemeColor),
-                                                            child: Image.asset(
-                                                              "assets/images/icon_video.png",
-                                                              height: 18,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height:
-                                                              Get.height * .01,
-                                                        ),
-                                                        getJobsListingController
-                                                                    .getJobsListing
-                                                                    .value
-                                                                    .jobs?[
-                                                                        index]
-                                                                    .jobMatchPercentage ==
-                                                                100
-                                                            ? InkWell(
-                                                                child:
-                                                                    Container(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  height: 45,
-                                                                  width: 45,
-                                                                  decoration: const BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      color: AppColors
-                                                                          .blueThemeColor),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/icon_msg_blue.png',
-                                                                    height:
-                                                                        Get.height *
-                                                                            .06,
-                                                                  ),
-                                                                ),
-                                                                onTap: () {
-                                                                  RecruiterId = getJobsListingController
-                                                                      .getJobsListing
-                                                                      .value
-                                                                      .jobs?[
-                                                                          index]
-                                                                      .recruiterId
-                                                                      .toString();
-                                                                  Recruitername = getJobsListingController
-                                                                      .getJobsListing
-                                                                      .value
-                                                                      .jobs?[
-                                                                          index]
-                                                                      .recruiterDetails
-                                                                      ?.companyName;
-                                                                  Recruiterimg = getJobsListingController
-                                                                      .getJobsListing
-                                                                      .value
-                                                                      .jobs?[
-                                                                          index]
-                                                                      .recruiterDetails
-                                                                      ?.profileImg;
-
-                                                                  setState(() {
-                                                                    RecruiterId;
-                                                                    Recruitername;
-                                                                    Recruiterimg;
-                                                                  });
-                                                                  if (kDebugMode) {
-                                                                    print(
-                                                                        RecruiterId);
-                                                                    print(
-                                                                        Recruitername);
-                                                                    print(
-                                                                        Recruiterimg);
-                                                                  }
-                                                                  Ctreatechatinstance
-                                                                      .CreateChat();
-                                                                },
-                                                              )
-                                                            : const SizedBox(),
-                                                        getJobsListingController
-                                                                    .getJobsListing
-                                                                    .value
-                                                                    .jobs?[
-                                                                        index]
-                                                                    .jobMatchPercentage ==
-                                                                100
-                                                            ? SizedBox(
-                                                                height:
-                                                                    Get.height *
-                                                                        .01,
-                                                              )
-                                                            : const SizedBox(),
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              showPound(
+                                                              showSeekerHomePagePercentageProfile(
                                                                   context,
                                                                   getJobsListingController
                                                                       .getJobsListing
                                                                       .value
-                                                                      .jobs?[
-                                                                          index]
-                                                                      .recruiterDetails
-                                                                      ?.companyName,
-                                                                  "${getJobsListingController.getJobsListing.value.jobs?[index].jobsDetail?.minSalaryExpectation / 20}"
-                                                                      .split(
-                                                                          ".")[0]);
+                                                                      .jobs?[index]);
                                                             },
-                                                            child: Image.asset(
-                                                              "assets/images/icon_pound.png",
+                                                            child: Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(4),
+                                                              decoration: BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  border: Border.all(
+                                                                      color: AppColors
+                                                                          .white,
+                                                                      width: 2)),
+                                                              child:
+                                                                  CircularPercentIndicator(
+                                                                percent: getJobsListingController
+                                                                        .getJobsListing
+                                                                        .value
+                                                                        .jobs?[
+                                                                            index]
+                                                                        .jobMatchPercentage /
+                                                                    100,
+                                                                lineWidth: 15,
+                                                                progressColor:
+                                                                    AppColors
+                                                                        .green,
+                                                                center: Container(
+                                                                    decoration: const BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        color: AppColors
+                                                                            .blueThemeColor),
+                                                                    child: CircleAvatar(
+                                                                        radius: 30,
+                                                                        backgroundColor: Colors.transparent,
+                                                                        child: Center(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%',
+                                                                                  style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
+                                                                              Text('match',
+                                                                                  style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
+                                                                            ],
+                                                                          ),
+                                                                        ))),
+                                                                backgroundColor:
+                                                                    Colors.white,
+                                                                radius: 40,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          // SizedBox(height: Get.height*.02,),
+                                                          // Image.asset("assets/images/icon_label.png",height: 80,),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      left: 12,
+                                                      top: Get.height * 0.15,
+                                                      child: Column(
+                                                        children: [
+                                                          GestureDetector(
+                                                              onTap: () {
+                                                                // getJobsListingController.saved.value=true;
+                                                                CommonFunctions.confirmationDialog(
+                                                                    context,
+                                                                    message: getJobsListingController
+                                                                            .getJobsListing
+                                                                            .value
+                                                                            .jobs?[
+                                                                                index]
+                                                                            .postSaved
+                                                                        ? "Do you want to remove the\n post from saved posts"
+                                                                        : "Do you want to save the post",
+                                                                    onTap:
+                                                                        () async {
+                                                                  Get.back();
+                                                                  if (getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              index]
+                                                                          .postSaved ==
+                                                                      true) {
+                                                                    CommonFunctions
+                                                                        .showLoadingDialog(
+                                                                            context,
+                                                                            "removing...");
+                                                                    var result = await unSavePostController.unSavePost(
+                                                                        getJobsListingController
+                                                                            .getJobsListing
+                                                                            .value
+                                                                            .jobs?[
+                                                                                index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        "1",
+                                                                        context,
+                                                                        true);
+                                                                    if (result ==
+                                                                        true) {
+                                                                      if (kDebugMode) {
+                                                                        print(
+                                                                            "inside result");
+                                                                      }
+                                                                      getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              index]
+                                                                          .postSaved = false;
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                  } else {
+                                                                    CommonFunctions
+                                                                        .showLoadingDialog(
+                                                                            context,
+                                                                            "Saving");
+                                                                    var result = await seekerSaveJobController.saveJobApi(
+                                                                        getJobsListingController
+                                                                            .getJobsListing
+                                                                            .value
+                                                                            .jobs?[
+                                                                                index]
+                                                                            .id,
+                                                                        1);
+                                                                    if (result ==
+                                                                        true) {
+                                                                      if (kDebugMode) {
+                                                                        print(
+                                                                            "inside result");
+                                                                      }
+                                                                      getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              index]
+                                                                          .postSaved = true;
+                                                                      setState(
+                                                                          () {});
+                                                                    }
+                                                                  }
+                                                                });
+                                                              },
+                                                              child: getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              index]
+                                                                          .postSaved ==
+                                                                      false
+                                                                  ? Image.asset(
+                                                                      "assets/images/icon_unsave_post.png",
+                                                                      height: 45,
+                                                                      width: 45,
+                                                                    )
+                                                                  : Image.asset(
+                                                                      "assets/images/icon_Save_post.png",
+                                                                      height: 45,
+                                                                      width: 45,
+                                                                    )),
+                                                          SizedBox(
+                                                            height:
+                                                                Get.height * .01,
+                                                          ),
+                                                          GestureDetector(
+                                                              onTap: () {
+                                                                Get.to(() =>
+                                                                    const FilterPage());
+                                                              },
+                                                              child: Image.asset(
+                                                                "assets/images/icon_filter_seeker_home.png",
+                                                                height: 45,
+                                                                width: 45,
+                                                              )),
+                                                          SizedBox(
+                                                            height:
+                                                                Get.height * .01,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              if (getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              index]
+                                                                          .video ==
+                                                                      null ||
+                                                                  getJobsListingController
+                                                                          .getJobsListing
+                                                                          .value
+                                                                          .jobs?[
+                                                                              index]
+                                                                          .video
+                                                                          ?.length ==
+                                                                      0) {
+                                                                Utils.showMessageDialog(
+                                                                    context,
+                                                                    "video not uploaded yet");
+                                                              } else {
+                                                                Get.back();
+                                                                Get.to(() => VideoPlayerScreen(
+                                                                    videoPath: getJobsListingController
+                                                                            .getJobsListing
+                                                                            .value
+                                                                            .jobs?[
+                                                                                index]
+                                                                            ?.video ??
+                                                                        ""));
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              alignment: Alignment
+                                                                  .center,
                                                               height: 45,
                                                               width: 45,
-                                                            )),
-                                                      ],
+                                                              decoration: const BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: AppColors
+                                                                      .blueThemeColor),
+                                                              child: Image.asset(
+                                                                "assets/images/icon_video.png",
+                                                                height: 18,
+                                                                fit: BoxFit.cover,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height:
+                                                                Get.height * .01,
+                                                          ),
+                                                          getJobsListingController
+                                                                      .getJobsListing
+                                                                      .value
+                                                                      .jobs?[
+                                                                          index]
+                                                                      .jobMatchPercentage ==
+                                                                  100
+                                                              ? InkWell(
+                                                                  child:
+                                                                      Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    height: 45,
+                                                                    width: 45,
+                                                                    decoration: const BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        color: AppColors
+                                                                            .blueThemeColor),
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/icon_msg_blue.png',
+                                                                      height:
+                                                                          Get.height *
+                                                                              .06,
+                                                                    ),
+                                                                  ),
+                                                                  onTap: () {
+                                                                    RecruiterId = getJobsListingController
+                                                                        .getJobsListing
+                                                                        .value
+                                                                        .jobs?[
+                                                                            index]
+                                                                        .recruiterId
+                                                                        .toString();
+                                                                    Recruitername = getJobsListingController
+                                                                        .getJobsListing
+                                                                        .value
+                                                                        .jobs?[
+                                                                            index]
+                                                                        .recruiterDetails
+                                                                        ?.companyName;
+                                                                    Recruiterimg = getJobsListingController
+                                                                        .getJobsListing
+                                                                        .value
+                                                                        .jobs?[
+                                                                            index]
+                                                                        .recruiterDetails
+                                                                        ?.profileImg;
+
+                                                                    setState(() {
+                                                                      RecruiterId;
+                                                                      Recruitername;
+                                                                      Recruiterimg;
+                                                                    });
+                                                                    if (kDebugMode) {
+                                                                      print(
+                                                                          RecruiterId);
+                                                                      print(
+                                                                          Recruitername);
+                                                                      print(
+                                                                          Recruiterimg);
+                                                                    }
+                                                                    Ctreatechatinstance
+                                                                        .CreateChat();
+                                                                  },
+                                                                )
+                                                              : const SizedBox(),
+                                                          getJobsListingController
+                                                                      .getJobsListing
+                                                                      .value
+                                                                      .jobs?[
+                                                                          index]
+                                                                      .jobMatchPercentage ==
+                                                                  100
+                                                              ? SizedBox(
+                                                                  height:
+                                                                      Get.height *
+                                                                          .01,
+                                                                )
+                                                              : const SizedBox(),
+                                                          GestureDetector(
+                                                              onTap: () {
+                                                                showPound(
+                                                                    context,
+                                                                    getJobsListingController
+                                                                        .getJobsListing
+                                                                        .value
+                                                                        .jobs?[
+                                                                            index]
+                                                                        .recruiterDetails
+                                                                        ?.companyName,
+                                                                    "${getJobsListingController.getJobsListing.value.jobs?[index].jobsDetail?.minSalaryExpectation / 20}"
+                                                                        .split(
+                                                                            ".")[0]);
+                                                              },
+                                                              child: Image.asset(
+                                                                "assets/images/icon_pound.png",
+                                                                height: 45,
+                                                                width: 45,
+                                                              )),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Positioned(
-                                                    bottom: Get.height * .25 -
-                                                        position.value,
-                                                    left: 12,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8),
-                                                          decoration: BoxDecoration(
-                                                              color: const Color(
-                                                                      0xff0D5AFE)
-                                                                  .withOpacity(
-                                                                      .6),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          22)),
-                                                          child: Text(
-                                                            getJobsListingController
-                                                                    .getJobsListing
-                                                                    .value
-                                                                    .jobs?[
-                                                                        _currentPage]
-                                                                    .jobPositions ??
-                                                                "No job position",
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: Get
-                                                                .theme
-                                                                .textTheme
-                                                                .displayLarge!
-                                                                .copyWith(
-                                                                    color: AppColors
-                                                                        .white),
+                                                    Positioned(
+                                                      bottom: Get.height * .2 - position.value,
+                                                      left: 12,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration: BoxDecoration(
+                                                                color: const Color(
+                                                                        0xff0D5AFE)
+                                                                    .withOpacity(
+                                                                        .6),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            22)),
+                                                            child: Text(
+                                                              getJobsListingController
+                                                                      .getJobsListing
+                                                                      .value
+                                                                      .jobs?[
+                                                                          _currentPage]
+                                                                      .jobPositions ??
+                                                                  "No job position",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: Get
+                                                                  .theme
+                                                                  .textTheme
+                                                                  .displayLarge!
+                                                                  .copyWith(
+                                                                      color: AppColors
+                                                                          .white),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8),
-                                                          decoration: BoxDecoration(
-                                                              color: const Color(
-                                                                      0xff0D5AFE)
-                                                                  .withOpacity(
-                                                                      .6),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          22)),
-                                                          child: Text(
-                                                            getJobsListingController
-                                                                    .getJobsListing
-                                                                    .value
-                                                                    .jobs?[
-                                                                        _currentPage]
-                                                                    .recruiterDetails
-                                                                    ?.companyName ??
-                                                                "No company name",
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: Get
-                                                                .theme
-                                                                .textTheme
-                                                                .bodyLarge!
-                                                                .copyWith(
-                                                                    color: AppColors
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                          const SizedBox(
+                                                            height: 10,
                                                           ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8),
-                                                          decoration: BoxDecoration(
-                                                              color: const Color(
-                                                                      0xff0D5AFE)
-                                                                  .withOpacity(
-                                                                      .6),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          22)),
-                                                          child: Text(
-                                                            getJobsListingController
-                                                                    .getJobsListing
-                                                                    .value
-                                                                    .jobs?[
-                                                                        _currentPage]
-                                                                    .jobLocation ??
-                                                                "No job location",
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: Get
-                                                                .theme
-                                                                .textTheme
-                                                                .bodyLarge!
-                                                                .copyWith(
-                                                                    color: AppColors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration: BoxDecoration(
+                                                                color: const Color(
+                                                                        0xff0D5AFE)
+                                                                    .withOpacity(
+                                                                        .6),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            22)),
+                                                            child: Text(
+                                                              getJobsListingController
+                                                                      .getJobsListing
+                                                                      .value
+                                                                      .jobs?[
+                                                                          _currentPage]
+                                                                      .recruiterDetails
+                                                                      ?.companyName ??
+                                                                  "No company name",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: Get
+                                                                  .theme
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .copyWith(
+                                                                      color: AppColors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                      ],
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration: BoxDecoration(
+                                                                color: const Color(
+                                                                        0xff0D5AFE)
+                                                                    .withOpacity(
+                                                                        .6),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            22)),
+                                                            child: Text(
+                                                              getJobsListingController
+                                                                      .getJobsListing
+                                                                      .value
+                                                                      .jobs?[
+                                                                          _currentPage]
+                                                                      .jobLocation ??
+                                                                  "No job location",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: Get
+                                                                  .theme
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .copyWith(
+                                                                      color: AppColors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                               SizedBox(
                                                 height: Get.height * 0.025,
@@ -2261,15 +2289,15 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ),
                                   ),
                             Positioned(
-                              top: _appBarOpacity == 1
+                              top: _appBarOpacity.value == 1
                                   ? 0
                                   : 40 - appBarPosition.value,
                               child: Container(
-                                color: Colors.black.withOpacity(_appBarOpacity),
+                                color: Colors.black.withOpacity(_appBarOpacity.value),
                                 width: Get.width,
                                 padding: EdgeInsets.only(
                                     bottom: 10,
-                                    top: _appBarOpacity == 1 ? 30 : 0),
+                                    top: _appBarOpacity.value == 1 ? 30 : 0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -2302,7 +2330,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               ),
                             ),
                             Positioned(
-                              bottom: tabBarController.showBottomBar.value ? Get.height *.14 : Get.height *.05 ,
+                              bottom: tabBarController.showBottomBar.value
+                                  ? Get.height * .1
+                                  : Get.height * .05,
                               left: 12,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
