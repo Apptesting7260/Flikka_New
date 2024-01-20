@@ -136,9 +136,11 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                 }
               case Status.COMPLETED:
                 return SafeArea(
+                  bottom: false,
                   child: Scaffold(
-
+                    backgroundColor: Color(0xffF4F4F4),
                     appBar: AppBar(
+                      backgroundColor: Color(0xffF4F4F4),
                       toolbarHeight: 70,
                       leading: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
@@ -149,7 +151,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                             child: Image.asset('assets/images/icon_back_blue.png')),
                       ),
                       elevation: 0,
-                      // title: Text("Forum", style: Get.theme.textTheme.displayLarge),
+                       title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
                     ),
                     body: SmartRefresher(
                       controller: _refreshController,
@@ -227,7 +229,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                             decoration: BoxDecoration(
                                                                 shape: BoxShape.circle,
                                                                 border: Border.all(color: data?.id.toString() == industryID.toString() ?
-                                                                AppColors.blueThemeColor : AppColors.white,width: 2)
+                                                                AppColors.blueThemeColor : AppColors.black,width: 2)
                                                             ),
                                                             child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
                                                               placeholder: (context, url) => const Center(
@@ -251,7 +253,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                         style: Theme.of(context).textTheme.bodyMedium
                                                             ?.copyWith(fontWeight: FontWeight.w700 ,
                                                             color: data?.id.toString() == industryID.toString() ?
-                                                            AppColors.blueThemeColor : AppColors.white),),
+                                                            AppColors.blueThemeColor : AppColors.black),),
                                                     ],
                                                   ),
                                                 ),
@@ -265,14 +267,16 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
 
                             ),
                             SizedBox(height: Get.height * .01,),
+
                             Row(
                               children: [
                                 Expanded(
                                   child: Container(
+                                    margin: EdgeInsets.only(right: Get.width*.10),
                                     padding: EdgeInsets.symmetric(
                                       horizontal: Get.width * .05,),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xff373737),
+                                      color: AppColors.white,
                                       borderRadius: BorderRadius.circular(33.0),
                                     ),
                                     child: Row(
@@ -284,7 +288,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                         Expanded(
                                           child: TextFormField(
                                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                color: const Color(0xffCFCFCF), fontSize: 19),
+                                                color: AppColors.black, fontSize: 15),
                                             onChanged: (query) {
                                               forumDataController.filterList(query) ;
                                             },
@@ -295,7 +299,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                   .textTheme
                                                   .bodyLarge
                                                   ?.copyWith(
-                                                  color: Color(0xffCFCFCF)),
+                                                  color: Color(0xffA0A0A0)),
                                               border: InputBorder.none,
                                             ),
                                           ),
@@ -304,10 +308,8 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: Get.width * 0.015,
-                                ),
                                 Container(
+                                  padding: EdgeInsets.only(right: Get.width*.18),
                                     height: Get.height * 0.06,
                                     child: GestureDetector(
                                         onTap: () {
@@ -348,7 +350,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                 child: Container(
                                                   padding: const EdgeInsets.only(left: 7.0, top: 15),
                                                   decoration: BoxDecoration(
-                                                    color: const Color(0xff353535),
+                                                    color: AppColors.white,
                                                     borderRadius: BorderRadius.circular(22),
                                                   ),
                                                   child: Row(crossAxisAlignment: CrossAxisAlignment.start,
@@ -375,7 +377,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                               children: [
                                                                 SizedBox( width : Get.width * 0.5,
                                                                   child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
-                                                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.blueThemeColor),
+                                                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.black),
                                                                     softWrap: true,),
                                                                 ),
                                                                 SizedBox(height: Get.height * 0.005,),
@@ -383,7 +385,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                   child: Text(
                                                                     data?.title ?? "",
                                                                     overflow: TextOverflow.ellipsis,
-                                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.white),
+                                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.silverColor),
                                                                     softWrap: true,),
                                                                 ),
                                                                 SizedBox(height: Get.height * 0.005,),
@@ -417,7 +419,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                             .circular(25),
                                                         bottomLeft: Radius.circular(
                                                             25)),
-                                                    color: Color(0xff3F3F3F),
+                                                    color: Color(0xffE9E9E9),
                                                   ),
                                                   height: 70,
                                                   child: Center(
@@ -429,7 +431,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                           SizedBox(width: Get.width * 0.015,),
                                                           Text("${data?.forumViewCount} Views",
                                                             style: Get.theme.textTheme.bodySmall!
-                                                                .copyWith(color: AppColors.white),),
+                                                                .copyWith(color: AppColors.black),),
                                                           SizedBox(width: Get.width * 0.075,),
                                                           GestureDetector(
                                                             onTap : () {
@@ -440,7 +442,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                 SizedBox(width: Get.width * 0.015,),
                                                                 Text("${data?.forumCommentCount} Comments",
                                                                   style: Get.theme.textTheme.bodySmall!
-                                                                      .copyWith(color: AppColors.white),),
+                                                                      .copyWith(color: AppColors.black),),
                                                               ],
                                                             ),
                                                           )

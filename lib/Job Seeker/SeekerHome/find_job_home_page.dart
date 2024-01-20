@@ -114,7 +114,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
 
     _scrollController.addListener(() {
-      if (_scrollController.offset < Get.height * .18) {
+      if (_scrollController.offset < Get.height * .2) {
         position.value = _scrollController.offset;
         // setState(() {
           _appBarOpacity.value = _scrollController.offset > 35 ? 1.0 : 0;
@@ -697,7 +697,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      bottom: Get.height * .2 - position.value,
+                                                      bottom: Get.height * .22 - position.value,
                                                       left: 12,
                                                       child: Column(
                                                         crossAxisAlignment:
@@ -2331,7 +2331,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             ),
                             Positioned(
                               bottom: tabBarController.showBottomBar.value
-                                  ? Get.height * .1
+                                  ? Get.height * .12
                                   : Get.height * .05,
                               left: 12,
                               child: Column(
