@@ -165,7 +165,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
  bool filtered = false ;
 
-  var radiusList = [0.5, 1.0, 2.0, 5.0, 10.0] ;
+  var radiusList = [0.5, 1, 2, 5, 10] ;
 
   final _controller = ValueNotifier<bool>(false);
 
@@ -218,6 +218,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
             ),
           )
         : filtered ? SafeArea(
+      bottom: false,
           child: Scaffold(
                 backgroundColor: Colors.transparent,
                 body: Stack(
@@ -314,21 +315,21 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                            ),
                          );}).toList(),
                        onChanged: (newValue) async {
-                         selectedRadius = newValue;
+                         selectedRadius = newValue/1;
                          if(selectedRadius == 10) {
                            zoom = 9.8 ;
                          }
-                         if(selectedRadius == 20) {
-                           zoom = 8.8 ;
+                         if(selectedRadius == 0.5) {
+                           zoom = 13 ;
                          }
-                         if(selectedRadius == 30) {
-                           zoom = 8.2 ;
+                         if(selectedRadius == 1.0) {
+                           zoom = 12.5 ;
                          }
-                         if(selectedRadius == 40) {
-                           zoom = 7.8 ;
+                         if(selectedRadius == 2.0) {
+                           zoom = 12 ;
                          }
-                         if(selectedRadius == 50) {
-                           zoom = 7.5 ;
+                         if(selectedRadius == 5.0) {
+                           zoom = 11 ;
                          }
                          CameraPosition cameraPosition = CameraPosition(
                            target: LatLng(lat, long),
@@ -348,19 +349,28 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                    ),
                  ),
                ),
+               Positioned(
+                 bottom: Get.height*.14,
+                 right: 20,
+                 child: GestureDetector(
+                     onTap: () {
+                       updateUserLocation();
+                     },
+                     child: Image.asset("assets/images/icon_location_update.PNG",height: 50,)),)
              ],
             ),
           ],
           
                 ),
-                floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColors.black,
-          onPressed: () async {
-            updateUserLocation();
-          },
-          child: const Icon(Icons.local_activity,
-              color: AppColors.white),
-                ),),
+          //       floatingActionButton: FloatingActionButton(
+          // backgroundColor: AppColors.black,
+          // onPressed: () async {
+          //   updateUserLocation();
+          // },
+          // child: const Icon(Icons.local_activity,
+          //     color: AppColors.white),
+          //       ),
+          ),
         )
    : Obx(() {
             switch (jobsController.rxRequestStatus.value) {
@@ -479,7 +489,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                      width: 30,
                                      decoration:  BoxDecoration(
                                        shape: BoxShape.circle,
-                                       color: remote ?  AppColors.blueThemeColor : AppColors.red
+                                       color: remote ?  AppColors.blueThemeColor : AppColors.yellowColor
                                      ),
                                    ),
                                  ),
@@ -499,7 +509,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                         width: 30,
                                         decoration:  BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: hybrid ?  AppColors.blueThemeColor : AppColors.yellowColor
+                                            color: hybrid ?  AppColors.blueThemeColor : AppColors.green
                                         ),
                                       ),
                                     ),
@@ -519,7 +529,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                         width: 30,
                                         decoration:  BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: all ?  AppColors.blueThemeColor : AppColors.green
+                                            color: all ?  AppColors.blueThemeColor : AppColors.white
                                         ),
                                       ),
                                     ),
@@ -556,34 +566,34 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                       );
                                     }).toList(),
                                     onChanged: (newValue) async {
-                                        selectedRadius = newValue;
-                                        if(selectedRadius == 10) {
-                                          zoom = 9.8 ;
-                                        }
-                                        if(selectedRadius == 20) {
-                                          zoom = 8.8 ;
-                                        }
-                                        if(selectedRadius == 30) {
-                                          zoom = 8.2 ;
-                                        }
-                                        if(selectedRadius == 40) {
-                                          zoom = 7.8 ;
-                                        }
-                                        if(selectedRadius == 50) {
-                                          zoom = 7.5 ;
-                                        }
-                                        CameraPosition cameraPosition = CameraPosition(
-                                          target: LatLng(lat, long),
-                                          zoom: zoom,
-                                        );
-                                        final GoogleMapController controller = await mapController.future;
-                                        controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-                                        updateMap(newValue);
-                                        if (kDebugMode) {
-                                          print("$zoom===========------------=======") ;
-                                        }
+                                      selectedRadius = newValue/1;
+                                      if(selectedRadius == 10) {
+                                        zoom = 9.8 ;
+                                      }
+                                      if(selectedRadius == 0.5) {
+                                        zoom = 13 ;
+                                      }
+                                      if(selectedRadius == 1.0) {
+                                        zoom = 12.5 ;
+                                      }
+                                      if(selectedRadius == 2.0) {
+                                        zoom = 12 ;
+                                      }
+                                      if(selectedRadius == 5.0) {
+                                        zoom = 11 ;
+                                      }
+                                      CameraPosition cameraPosition = CameraPosition(
+                                        target: LatLng(lat, long),
+                                        zoom: zoom,
+                                      );
+                                      final GoogleMapController controller = await filterMapController.future;
+                                      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+                                      updateMap(newValue);
+                                      if (kDebugMode) {
+                                        print("$zoom===========------------=======") ;
+                                      }
                                       setState(() {
-                              
+
                                       });
                                     },
                                   ),
@@ -592,7 +602,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                             ),
                           ),
                           Positioned(
-                            bottom: Get.height*.1,
+                            bottom: Get.height*.14,
                               right: 20,
                               child: GestureDetector(
                                   onTap: () {

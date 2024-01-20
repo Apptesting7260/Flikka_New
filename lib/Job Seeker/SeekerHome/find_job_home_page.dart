@@ -345,39 +345,44 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                     top: Get.height * 0.15,
                                                     child: Column(
                                                       children: [
-                                                        Container(
-                                                          padding: const EdgeInsets.all(4),
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            color: Colors.transparent,
-                                                            border: Border.all(color: AppColors.white,width: 2)
-                                                          ),
-                                                          child: CircularPercentIndicator(
-                                                            percent: getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage/100,
-                                                            lineWidth: 15,
-                                                            progressColor:  AppColors.green,
-                                                            center: Container(
-                                                                decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                                                child: CircleAvatar(
-                                                                    radius: 30,
-                                                                    backgroundColor: Colors.transparent,
-                                                                    child: Center(
-                                                                      child: Column(
-                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
-                                                                          Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
-                                                                        ],
-                                                                      ),
-                                                                    )
-                                                                )
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            showSeekerHomePagePercentageProfile(context, getJobsListingController.getJobsListing.value.jobs?[index]) ;
+                                                          },
+                                                          child: Container(
+                                                            padding: const EdgeInsets.all(4),
+                                                            decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.transparent,
+                                                              border: Border.all(color: AppColors.white,width: 2)
                                                             ),
-                                                            backgroundColor: Colors.white,
-                                                            radius: 40,
+                                                            child: CircularPercentIndicator(
+                                                              percent: getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage/100,
+                                                              lineWidth: 15,
+                                                              progressColor:  AppColors.green,
+                                                              center: Container(
+                                                                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                                                  child: CircleAvatar(
+                                                                      radius: 30,
+                                                                      backgroundColor: Colors.transparent,
+                                                                      child: Center(
+                                                                        child: Column(
+                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
+                                                                            Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                  )
+                                                              ),
+                                                              backgroundColor: Colors.white,
+                                                              radius: 40,
+                                                            ),
                                                           ),
                                                         ),
-                                                        SizedBox(height: Get.height*.02,),
-                                                        Image.asset("assets/images/icon_label.png",height: 80,),
+                                                        // SizedBox(height: Get.height*.02,),
+                                                        // Image.asset("assets/images/icon_label.png",height: 80,),
                                                       ],
                                                     ),
                                                   ),
@@ -664,7 +669,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    bottom: Get.height * .3 -
+                                                    bottom: Get.height * .25 -
                                                         position.value,
                                                     left: 12,
                                                     child: Column(
@@ -2297,7 +2302,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               ),
                             ),
                             Positioned(
-                              bottom: tabBarController.showBottomBar.value ? Get.height *.1 : Get.height *.05 ,
+                              bottom: tabBarController.showBottomBar.value ? Get.height *.14 : Get.height *.05 ,
                               left: 12,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -257,39 +257,46 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                                   Positioned(
                                                     right: 20,
                                                     top: Get.height * 0.15,
-                                                    child: Stack(
+                                                    child: Column(
                                                       children: [
-                                                        Container(
-                                                          padding: const EdgeInsets.all(4),
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                              color: Colors.transparent,
-                                                              border: Border.all(color: AppColors.white,width: 2)
-                                                          ),
-                                                          child: CircularPercentIndicator(
-                                                            percent: homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage/100,
-                                                            lineWidth: 15,
-                                                            progressColor:  AppColors.green,
-                                                            center: Container(
-                                                                decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                                                child: CircleAvatar(
-                                                                    radius: 30,
-                                                                    backgroundColor: Colors.transparent,
-                                                                    child: Center(
-                                                                      child: Column(
-                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text('${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
-                                                                          Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
-                                                                        ],
-                                                                      ),
-                                                                    )
-                                                                )
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            showRecruiterHomePagePercentageDialog(context, index) ;
+                                                          },
+                                                          child: Container(
+                                                            padding: const EdgeInsets.all(4),
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                color: Colors.transparent,
+                                                                border: Border.all(color: AppColors.white,width: 2)
                                                             ),
-                                                            backgroundColor: Colors.white,
-                                                            radius: 40,
+                                                            child: CircularPercentIndicator(
+                                                              percent: homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage/100,
+                                                              lineWidth: 15,
+                                                              progressColor:  AppColors.green,
+                                                              center: Container(
+                                                                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                                                  child: CircleAvatar(
+                                                                      radius: 30,
+                                                                      backgroundColor: Colors.transparent,
+                                                                      child: Center(
+                                                                        child: Column(
+                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text('${homeController.homeData.value.Seeker_Details?[index].jobMatchPercentage}%', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white)),
+                                                                            Text('match', style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                  )
+                                                              ),
+                                                              backgroundColor: Colors.white,
+                                                              radius: 40,
+                                                            ),
                                                           ),
                                                         ),
+                                                        SizedBox(height: Get.height*.02,),
+                                                        Image.asset("assets/images/icon_label.png",height: 80,),
                                                       ],
                                                     ),
                                                   ),
@@ -1243,7 +1250,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                       ),
                                     ),
                                     Positioned(
-                                      bottom:  tabBarController.showBottomBarRecruiter.value ? Get.height *.1 : Get.height *.05 ,
+                                      bottom:  tabBarController.showBottomBarRecruiter.value ? Get.height *.14 : Get.height *.05 ,
                                       left: 12,
                                       child:  SizedBox( width: Get.width,
                                       child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
