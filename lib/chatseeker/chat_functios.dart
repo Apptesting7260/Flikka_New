@@ -38,13 +38,12 @@ seekerProfileController.viewSeekerProfileApi();
    print("${seekerProfileControllerr.viewSeekerData.value.seekerInfo!.id.toString()}---------userid");
  Map <String, dynamic> roomdetails = {};
      roomdetails={
-      
-               "SeekerName":seekerProfileControllerr.viewSeekerData.value.seekerInfo!.fullname.toString(),
-          "SeekerId":seekerProfileControllerr.viewSeekerData.value.seekerInfo!.id.toString(),
-          "RoomID": "GPR"+RecruiterId.toString()+sp.getString("seekerID")!,
-          'timestamp': FieldValue.serverTimestamp(),
-          "lastmsg": "",
-          "SeekeronScreen":"false",
+       "SeekerName":seekerProfileControllerr.viewSeekerData.value.seekerInfo!.fullname.toString(),
+       "SeekerId":seekerProfileControllerr.viewSeekerData.value.seekerInfo!.id.toString(),
+       "RoomID": "GRP"+RecruiterId.toString()+sp.getString("seekerID")!,
+       'timestamp': FieldValue.serverTimestamp(),
+       "lastmsg": "",
+       "SeekeronScreen":"false",
         "RecruiterOnScreen": "false",
         "RecruiterId": RecruiterId.toString(),
         "RecruiterName": Recruitername.toString(),
