@@ -198,7 +198,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
               case Status.COMPLETED:
                 return Scaffold(
                   backgroundColor: AppColors.white,
-                  extendBody: true,
+                  // extendBody: true,
                   extendBodyBehindAppBar: true,
                   appBar: AppBar(
                     systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.transparent,),
@@ -270,7 +270,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                     Positioned(
                                                       right: 10,
                                                       top: Get.height * 0.18,
-                                                      child: Stack(
+                                                      child: Column(
                                                         children: [
                                                           GestureDetector(
                                                             onTap:
@@ -317,11 +317,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                                           style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontSize: 7)),
                                                                                     ],
                                                                                   ),
-                                                                  )
+                                                                  ),
+
                                                                 ],
                                                               ),
                                                             ),
-                                                          )
+                                                          ),
                                                         ],
                                                       ),
                                                     ),
@@ -673,9 +674,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         InkWell(
                                                           // onTap: () {
                                                           // Get.to( GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}"),long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}")));},
-                                                            child: SizedBox( height: Get.height * 0.3,
+                                                            child: SizedBox( height: 300,
                                                                 child: GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}"),long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}"),))),
-                                                        SizedBox(height: Get.height * 0.035,),
+                                                        SizedBox(height: 30,),
                                                         Row(
                                                           children: [
                                                             Image.asset("assets/images/icon_information.png",height: 20,width: 20,),
