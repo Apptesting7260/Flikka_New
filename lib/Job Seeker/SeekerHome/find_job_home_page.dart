@@ -290,19 +290,19 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                           color: AppColors.blueThemeColor,
                                                                           border: Border.all(color: AppColors.white, width: 2)),
                                                                       child: SizedBox(
-                                                                        height: 80,
-                                                                        width : 80 ,
+                                                                        height: 70,
+                                                                        width : 70 ,
                                                                         child: CircularProgressIndicator(
                                                                           value: getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage / 100,
                                                                           backgroundColor: AppColors.white,
                                                                           color: AppColors.green,
-                                                                          strokeWidth: 15,
+                                                                          strokeWidth: 12,
                                                                         ),
                                                                       )
                                                                   ),
                                                                   Positioned(
                                                                     top: 30,
-                                                                    left: 35,
+                                                                    left: 27,
                                                                     child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
                                                                                       Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%',
@@ -358,13 +358,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: getJobsListingController.getJobsListing.value.jobs?[index].postSaved == false
                                                                   ? Image.asset(
                                                                 "assets/images/icon_unsave_post.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 40,
+                                                                width: 40,
                                                               )
                                                                   : Image.asset(
                                                                 "assets/images/icon_Save_post.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 40,
+                                                                width: 40,
                                                               )),
                                                           SizedBox(
                                                             height: Get.height *
@@ -378,49 +378,49 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child:
                                                               Image.asset(
                                                                 "assets/images/icon_filter_seeker_home.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 40,
+                                                                width: 40,
                                                               )),
                                                           SizedBox(height: Get.height * .01,),
-                                                          GestureDetector(
-                                                            onTap:
-                                                                () {
-                                                              if (getJobsListingController.getJobsListing.value.jobs?[index].video == null ||
-                                                                  getJobsListingController.getJobsListing.value.jobs?[index].video?.length == 0) {
-                                                                Utils.showMessageDialog(context,
-                                                                    "video not uploaded yet");
-                                                              } else {
-                                                                Get.back();
-                                                                Get.to(() =>
-                                                                    VideoPlayerScreen(videoPath: getJobsListingController.getJobsListing.value.jobs?[index]?.video ?? ""));
-                                                              }
-                                                            },
-                                                            child:
-                                                            Container(
-                                                              alignment:
-                                                              Alignment.center,
-                                                              height: 50,
-                                                              width: 50,
-                                                              decoration: const BoxDecoration(
-                                                                  shape: BoxShape.circle,
-                                                                  color: AppColors.blueThemeColor),
-                                                              child:
-                                                              Image.asset(
-                                                                "assets/images/icon_video.png",
-                                                                height:
-                                                                18,
-                                                                fit:
-                                                                BoxFit.cover,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                          // GestureDetector(
+                                                          //   onTap:
+                                                          //       () {
+                                                          //     if (getJobsListingController.getJobsListing.value.jobs?[index].video == null ||
+                                                          //         getJobsListingController.getJobsListing.value.jobs?[index].video?.length == 0) {
+                                                          //       Utils.showMessageDialog(context,
+                                                          //           "video not uploaded yet");
+                                                          //     } else {
+                                                          //       Get.back();
+                                                          //       Get.to(() =>
+                                                          //           VideoPlayerScreen(videoPath: getJobsListingController.getJobsListing.value.jobs?[index]?.video ?? ""));
+                                                          //     }
+                                                          //   },
+                                                          //   child:
+                                                          //   Container(
+                                                          //     alignment:
+                                                          //     Alignment.center,
+                                                          //     height: 50,
+                                                          //     width: 50,
+                                                          //     decoration: const BoxDecoration(
+                                                          //         shape: BoxShape.circle,
+                                                          //         color: AppColors.blueThemeColor),
+                                                          //     child:
+                                                          //     Image.asset(
+                                                          //       "assets/images/icon_video.png",
+                                                          //       height:
+                                                          //       18,
+                                                          //       fit:
+                                                          //       BoxFit.cover,
+                                                          //     ),
+                                                          //   ),
+                                                          // ),
                                                           SizedBox(height: Get.height * .01,),
                                                           getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage == 100
                                                               ? InkWell(
                                                             child: Container(
                                                               alignment: Alignment.center,
-                                                              height: 50,
-                                                              width: 50,
+                                                              height: 40,
+                                                              width: 40,
                                                               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                                               child: Image.asset(
                                                                 'assets/images/icon_msg_blue.png',
@@ -459,8 +459,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               child: Image
                                                                   .asset(
                                                                 "assets/images/icon_pound.png",
-                                                                height: 50,
-                                                                width: 50,
+                                                                height: 40,
+                                                                width: 40,
                                                               )),
                                                         ],
                                                       ),
@@ -654,6 +654,39 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         // Text("${getJobsListingController.getJobsListing.value.jobs?[index].recruiterDetails?.companyName ?? "No company name"}", overflow: TextOverflow.ellipsis,
                                                         //   style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),),
                                                         // SizedBox(height: Get.height * 0.03,),
+                                                        GestureDetector(
+                                                          onTap:
+                                                              () {
+                                                            if (getJobsListingController.getJobsListing.value.jobs?[index].video == null ||
+                                                                getJobsListingController.getJobsListing.value.jobs?[index].video?.length == 0) {
+                                                              Utils.showMessageDialog(context,
+                                                                  "video not uploaded yet");
+                                                            } else {
+                                                              Get.back();
+                                                              Get.to(() =>
+                                                                  VideoPlayerScreen(videoPath: getJobsListingController.getJobsListing.value.jobs?[index]?.video ?? ""));
+                                                            }
+                                                          },
+                                                          child:
+                                                          Container(
+                                                            alignment:
+                                                            Alignment.center,
+                                                            height: 50,
+                                                            width: 50,
+                                                            decoration: const BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                color: AppColors.blueThemeColor),
+                                                            child:
+                                                            Image.asset(
+                                                              "assets/images/icon_video.png",
+                                                              height:
+                                                              18,
+                                                              fit:
+                                                              BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: Get.height*.03,) ,
                                                         Row(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [

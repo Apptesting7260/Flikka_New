@@ -143,7 +143,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                       statusBarIconBrightness: Brightness.dark,
                     ),
                     backgroundColor: AppColors.lightHomeGrey,
-                    toolbarHeight: 45,
+                    toolbarHeight: 50,
                     leading: Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
