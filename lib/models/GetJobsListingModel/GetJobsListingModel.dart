@@ -49,6 +49,7 @@ class SeekerJobsData {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
+  String? countryCode ;
   dynamic lat ;
   dynamic long ;
   dynamic jobMatchPercentage ;
@@ -81,7 +82,8 @@ class SeekerJobsData {
     this.jobsDetail,
     this.jobMatchPercentage ,
     this.lat ,
-    this.long
+    this.long ,
+    this.countryCode
   });
 
   factory SeekerJobsData.fromJson(Map<String, dynamic> json) => SeekerJobsData(
@@ -99,6 +101,7 @@ class SeekerJobsData {
     employmentType: json["employment_type"],
     typeOfWorkplace: json["type_of_workplace"],
     workExperience: json["work_experience"],
+    countryCode: json["country_code"],
     preferredWorkExperience: json["preferred_work_experience"],
     education: json["education"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),

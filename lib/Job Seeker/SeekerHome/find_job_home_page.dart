@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
@@ -22,7 +23,6 @@ import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
-import '../../models/SeekerNotificationDataModel/SeekerNotificationDataModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../utils/VideoPlayerScreen.dart';
@@ -33,6 +33,8 @@ import '../SeekerFilter/filter_page.dart';
 import '../SeekerDrawer/Drawer_page.dart';
 import '../SeekerJobs/no_job_available.dart';
 import 'package:get/get.dart';
+
+import '../SeekerNotification/SeekerNotification.dart';
 
 String? Recruitername;
 String? Recruiterimg;
@@ -551,13 +553,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                         .circular(
                                                                         22)),
                                                                 child: Text(
-                                                                  getJobsListingController
-                                                                      .getJobsListing
-                                                                      .value
-                                                                      .jobs?[
-                                                                  _currentPage]
-                                                                      .jobLocation ??
-                                                                      "No job location",
+                                                                  getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobLocation ?? "No job location",
                                                                   overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
@@ -576,43 +572,10 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                 ),
                                                               ),
                                                               const SizedBox(width: 10,),
-                                                              Container(
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .all(8),
-                                                                decoration: BoxDecoration(
-                                                                    color: const Color(
-                                                                        0xff0D5AFE)
-                                                                        .withOpacity(
-                                                                        .6),
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        22)),
-                                                                child: Text(
-                                                                  "${
-                                                                      getJobsListingController.getJobsListing.value
-                                                                          .jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
-                                                                      "${getJobsListingController.getJobsListing.value.jobs?[_currentPage]
-                                                                      .jobsDetail?.maxSalaryExpectation}"
-                                                                  ,
-                                                                  overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                                  style: Get
-                                                                      .theme
-                                                                      .textTheme
-                                                                      .bodyLarge!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .white,
-                                                                      fontSize:
-                                                                      12,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                                ),
-                                                              ),
+                                                             CountryFlag.fromCountryCode(  getJobsListingController.getJobsListing.value.jobs?[_currentPage].countryCode ?? "GB",
+                                                             height: 50, width: 50,
+                                                               // borderRadius: 20,
+                                                             )
                                                             ],
                                                           ),
                                                           const SizedBox(height: 10,) ,
@@ -1110,27 +1073,22 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ),
                                     Row(
                                       children: [
-                                        //IconButton(onPressed: () => Get.to(() => SeekerNotification()),icon: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,)),
-
-                                        Builder(
-                                          builder: (context) {
-                                            return GestureDetector(
-                                              onTap: () => SeekerNotification(),
-                                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,));
-                                          }
-                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                           Navigator.of(context).push(
+                                             MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
+                                           ) ;
+                                          } ,
+                                            child: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,)),
                                         const SizedBox(width: 7,),
                                         Builder(builder: (context) {
                                           return InkWell(
-                                              onTap: () => Scaffold.of(context)
-                                                  .openEndDrawer(),
+                                              onTap: () => Scaffold.of(context).openEndDrawer(),
                                               child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 20),
+                                                padding: const EdgeInsets.only(right: 20),
                                                 child: Image.asset(
                                                   'assets/images/icon_seeker_drawer.png',
-                                                  height: Get.height * .05,
-                                                ),
+                                                  height: Get.height * .05,),
                                               ));
                                         }),
                                       ],
