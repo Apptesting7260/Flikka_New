@@ -302,7 +302,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                   ),
                                                                   Positioned(
                                                                     top: 30,
-                                                                    left: 30,
+                                                                    left: 35,
                                                                     child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
                                                                                       Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%',
