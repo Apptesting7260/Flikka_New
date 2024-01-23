@@ -1110,7 +1110,15 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ),
                                     Row(
                                       children: [
-                                        IconButton(onPressed: () => Get.to(() => SeekerNotification()),icon: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,)),
+                                        //IconButton(onPressed: () => Get.to(() => SeekerNotification()),icon: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,)),
+
+                                        Builder(
+                                          builder: (context) {
+                                            return GestureDetector(
+                                              onTap: () => SeekerNotification(),
+                                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,));
+                                          }
+                                        ),
                                         const SizedBox(width: 7,),
                                         Builder(builder: (context) {
                                           return InkWell(
