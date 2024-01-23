@@ -1,4 +1,5 @@
 
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
@@ -74,24 +75,27 @@ class _SetJobAlertState extends State<SetJobAlert> {
                 onPress: () {
                   seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
                 },
-              ) ,)
-              ;
+              ),);
             } else {
               return Scaffold(body: GeneralExceptionWidget(
                   onPress: () {
                     seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
-                  }) ,)
-              ;
+                  }) ,);
             }
           case Status.COMPLETED:
             return Scaffold(
               appBar: AppBar(
                 toolbarHeight: 45,
                 backgroundColor: AppColors.black,
-                leading: Image.asset(
-                    "assets/images/icon_back_blue.png",
-                  ),
-                title: Text("Manage alerts",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+                leading: GestureDetector(
+                  onTap: () {
+                    Get.back() ;
+                  },
+                  child: Image.asset(
+                      "assets/images/icon_back_blue.png",
+                    ),
+                ),
+                title: Text("Manage Alerts",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
               ),
               // resizeToAvoidBottomInset: false,
               body: SmartRefresher(
@@ -130,6 +134,7 @@ class _SetJobAlertState extends State<SetJobAlert> {
                             // print(filteredPositionNames) ;
                           },
                           decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.search,color: AppColors.blueThemeColor,size: 22,),
                             filled: true,
                             fillColor: AppColors.textFieldFilledColor,
 
@@ -191,7 +196,6 @@ class _SetJobAlertState extends State<SetJobAlert> {
                                               color: const Color(0xffFFFFFF)),
                                         ),
                                       ),
-
                                       Stack(
                                         alignment: Alignment.center,
                                         children: [
@@ -244,7 +248,7 @@ class _SetJobAlertState extends State<SetJobAlert> {
                           child: MyButton(
                             width:Get.width*.77,
                             loading: alertController.loading.value,
-                            title: "CONTINUE",
+                            title: "SUBMIT",
                             onTap1: () {
                               if(positions.isEmpty){
                                 Utils.showMessageDialog(context, "Select position to get job alerts") ;

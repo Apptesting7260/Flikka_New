@@ -9,6 +9,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 
+import 'Job Seeker/JobAlert/job_alert_listing.dart';
+
 String? fcmToken;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Flikka',
         themeMode: ThemeMode.dark,
         theme: MyTheme.dark,
-        home:  const SplashScreen()
+        home:   const SplashScreen()
     );
   }
 

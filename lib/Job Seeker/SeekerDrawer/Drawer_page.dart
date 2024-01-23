@@ -13,6 +13,7 @@ import '../../controllers/SeekerNotificationDataViewController/SeekerNotificatio
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
+import '../JobAlert/job_alert_listing.dart';
 import '../SeekerNotification/SeekerNotification.dart';
 import '../SeekerNotification/setting_page.dart';
 import '../help section/help.dart';
@@ -92,25 +93,30 @@ class _DrawerClassState extends State<DrawerClass> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        CircleAvatar(
-                                          radius:42,
-                                          backgroundColor: Colors.transparent,
-                                          child: CachedNetworkImage(
-                                              imageUrl: "${widget.profileImage}",
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            height: 80,
-                                            width: 80,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                  image: imageProvider,
-                                              fit: BoxFit.cover ,
-                                              )
+                                        GestureDetector(
+                                          onTap: () {
+                                           // Get.to((const UserProfile())) ;
+                                          },
+                                          child: CircleAvatar(
+                                            radius:42,
+                                            backgroundColor: Colors.transparent,
+                                            child: CachedNetworkImage(
+                                                imageUrl: "${widget.profileImage}",
+                                            imageBuilder: (context, imageProvider) => Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: imageProvider,
+                                                fit: BoxFit.cover ,
+                                                )
+                                              ),
                                             ),
+                                              placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
+                                            ),
+                                            // backgroundImage: NetworkImage("${widget.profileImage}"),
                                           ),
-                                            placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
-                                          ),
-                                          // backgroundImage: NetworkImage("${widget.profileImage}"),
                                         ),
                                         const SizedBox(
                                           height: 9,
@@ -290,7 +296,8 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                       Get.to(() => const SetJobAlert());
+                                       // Get.to(() => const SetJobAlert());
+                                       Get.to(() => const JobList());
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,

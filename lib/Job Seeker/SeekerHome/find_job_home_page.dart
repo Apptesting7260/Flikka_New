@@ -2388,19 +2388,25 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                       height: Get.height * .032,
                                     ),
                                   ),
-                                  Builder(builder: (context) {
-                                    return InkWell(
-                                        onTap: () => Scaffold.of(context)
-                                            .openEndDrawer(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 25.0, right: 20),
-                                          child: Image.asset(
-                                            'assets/images/icon_seeker_drawer.png',
-                                            height: Get.height * .05,
-                                          ),
-                                        ));
-                                  }),
+                                  Row(
+                                    children: [
+                                      Image.asset("assets/images/icon_notification.png",height: Get.height*.05,),
+                                      Builder(builder: (context) {
+                                        return InkWell(
+                                            onTap: () => Scaffold.of(context)
+                                                .openEndDrawer(),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 20),
+                                              child: Image.asset(
+                                                'assets/images/icon_seeker_drawer.png',
+                                                height: Get.height * .05,
+                                              ),
+                                            ));
+                                      }),
+                                    ],
+                                  ),
+
                                 ],
                               ),
                             ),
@@ -2448,7 +2454,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color:
-                                                    AppColors.blueThemeColor),
+                                                    AppColors.lightblue),
                                             child: Image.asset(
                                               "assets/images/shareIcon.png",
                                               height: 30,

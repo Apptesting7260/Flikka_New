@@ -10,7 +10,6 @@ class SeekerChoosePositionGetController extends GetxController {
 
   final _api = AuthRepository();
 
-
   final rxRequestStatus = Status.LOADING.obs ;
   final seekerChoosePositionGetList =SeekerChoosePositionGetModel().obs ;
   RxList<SeekerPositionData>? positionsList = <SeekerPositionData>[].obs  ;

@@ -97,5 +97,6 @@ class AppUrl {
   static const String selectOrRejectAfterInterview = '$baseUrl/recruiter-select-interview-status' ;
   static const String seenUnseenPendingInterviewUrl = '$baseUrl/seen-unseen-pending-interview' ;
   static const String seenUnSeenWalletMessage = '$baseUrl/seen-unseen-wallet-message' ;
+  static const String jobAlertListUrl = '$baseUrl/seeker-job-alert-list' ;
 
 }

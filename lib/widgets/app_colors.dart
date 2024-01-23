@@ -26,6 +26,7 @@ class AppColors {
   static const dividerColor=Color(0xffE0E0E0);
   static const yellowColor=Color(0xffFFFF00);
   static const lightHomeGrey=Color(0xffF4F4F4);
+  static const lightblue=Color(0xff4286F3);
 
 
 // static const azure=Color(0xff007AFF);

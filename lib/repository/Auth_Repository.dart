@@ -28,6 +28,7 @@ import '../models/OnboardingModel/OnboardingModel.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/RecruiterInboxDataModel/RecruiterInboxDataModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
+import '../models/SeekerJobAlertListModel/SeekerJobAlertListModel.dart';
 import '../models/SeekerNotificationDataModel/SeekerNotificationDataModel.dart';
 import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
 import '../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
@@ -280,6 +281,11 @@ class AuthRepository {
   Future<SeenUnSeenWalletMessageModel> seenUnSeenWalletApi(var data) async{
     dynamic response = await _apiService.postApi2(data,AppUrl.seenUnSeenWalletMessage);
     return SeenUnSeenWalletMessageModel.fromJson(response);
+  }
+
+  Future<SeekerJobAlertListModel> jobAlertListDataApi() async{
+    dynamic response = await _apiService.getApi2(AppUrl.jobAlertListUrl);
+    return SeekerJobAlertListModel.fromJson(response);
   }
 
 }
