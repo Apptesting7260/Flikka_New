@@ -16,11 +16,13 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../Job Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import '../../chatseeker/CreateChat.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
+import '../../models/SeekerNotificationDataModel/SeekerNotificationDataModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../utils/VideoPlayerScreen.dart';
@@ -300,9 +302,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                         ),
                                                                       )
                                                                   ),
-                                                                  Positioned(
-                                                                    top: 30,
-                                                                    left: 27,
+                                                                  Container(
+                                                                    margin: const EdgeInsets.all(4.0),
+                                                                    height: 70,
+                                                                    width : 70 ,
+                                                                    alignment: Alignment.center,
                                                                     child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
                                                                                       Text('${getJobsListingController.getJobsListing.value.jobs?[index].jobMatchPercentage}%',
@@ -482,34 +486,24 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                           const SizedBox(height: 10,) ,
                                                           Row(
                                                             children: [
-                                                              Container(
-                                                                constraints: BoxConstraints(
-                                                                    maxWidth: Get.width * .5
-                                                                ),
-                                                                padding: const EdgeInsets.all(8),
-                                                                decoration: BoxDecoration(
-                                                                    color: const Color(
-                                                                        0xff0D5AFE)
-                                                                        .withOpacity(
-                                                                        .6),
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        22)),
-                                                                child: Text(
-                                                                  getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.companyName ?? "No company name",
-                                                                  overflow: TextOverflow.ellipsis,
-                                                                  softWrap: true,
-                                                                  style: Get
-                                                                      .theme
-                                                                      .textTheme
-                                                                      .bodyLarge!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .white,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Get.to(() =>  RecruiterProfileTabBar(recruiterID: getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.recruiterId.toString(),isSeeker: true,) ,);
+                                                                },
+                                                                child: Container(
+                                                                  constraints: BoxConstraints(
+                                                                      maxWidth: Get.width * .5
+                                                                  ),
+                                                                  padding: const EdgeInsets.all(8),
+                                                                  decoration: BoxDecoration(
+                                                                      color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                      borderRadius: BorderRadius.circular(22)),
+                                                                  child: Text(
+                                                                    getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.companyName ?? "No company name",
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    softWrap: true,
+                                                                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white, fontWeight: FontWeight.w600),
+                                                                  ),
                                                                 ),
                                                               ),
                                                               const SizedBox(width: 10,),
@@ -527,27 +521,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                         .circular(
                                                                         22)),
                                                                 child: Text(
-                                                                  "${
-                                                                      getJobsListingController.getJobsListing.value
-                                                                          .jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
-                                                                      "${getJobsListingController.getJobsListing.value.jobs?[_currentPage]
-                                                                      .jobsDetail?.maxSalaryExpectation}"
-                                                                  ,
-                                                                  overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                                  style: Get
-                                                                      .theme
-                                                                      .textTheme
-                                                                      .bodyLarge!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .white,
-                                                                      fontSize:
-                                                                      12,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
+                                                                  "${getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
+                                                                      "${getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobsDetail?.maxSalaryExpectation}",
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,
+                                                                      fontSize: 12,
+                                                                      fontWeight: FontWeight.w600),
                                                                 ),
                                                               ),
                                                             ],
@@ -1131,7 +1110,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ),
                                     Row(
                                       children: [
-                                        Image.asset("assets/images/icon_notification.png",height: Get.height*.05,),
+                                        IconButton(onPressed: () => Get.to(() => SeekerNotification()),icon: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,)),
                                         const SizedBox(width: 7,),
                                         Builder(builder: (context) {
                                           return InkWell(
