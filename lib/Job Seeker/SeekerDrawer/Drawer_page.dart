@@ -95,7 +95,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                           // Get.to((const UserProfile())) ;
+                                            Get.to((const UserProfile())) ;
                                           },
                                           child: CircleAvatar(
                                             radius:42,

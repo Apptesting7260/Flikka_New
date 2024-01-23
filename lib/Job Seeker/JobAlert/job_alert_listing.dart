@@ -112,7 +112,7 @@ class _JobListState extends State<JobList> {
                             //backgroundImage: AssetImage(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].companeImage ?? "" ,),
                           ),
                           title: Text(
-                            seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions?.toString() ?? "No position",
+                           "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}" ??  "No position",
                           overflow: TextOverflow.ellipsis,  style: Theme.of(context).textTheme.titleSmall,
                           ),
                           subtitle: Column(

@@ -2407,7 +2407,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                       }),
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
