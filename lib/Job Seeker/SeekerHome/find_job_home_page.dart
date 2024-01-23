@@ -387,7 +387,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                 height: 40,
                                                                 width: 40,
                                                               )),
-                                                          SizedBox(height: Get.height * .01,),
+                                                          // SizedBox(height: Get.height * .01,),
                                                           // GestureDetector(
                                                           //   onTap:
                                                           //       () {
