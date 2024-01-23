@@ -2391,6 +2391,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                   Row(
                                     children: [
                                       Image.asset("assets/images/icon_notification.png",height: Get.height*.05,),
+                                      const SizedBox(width: 7,),
                                       Builder(builder: (context) {
                                         return InkWell(
                                             onTap: () => Scaffold.of(context)
