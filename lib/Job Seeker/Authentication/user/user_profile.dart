@@ -40,7 +40,6 @@ import 'package:open_file/open_file.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:video_compress/video_compress.dart';
 import 'package:video_trimmer/video_trimmer.dart';
 import '../../../Payment_Methods/wallet_section.dart';
 import '../../../controllers/AvtarImageController/AvtarImageController.dart';

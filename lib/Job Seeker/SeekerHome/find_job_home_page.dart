@@ -551,7 +551,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               ),
                                                               const SizedBox(width: 10,),
                                                              CountryFlag.fromCountryCode(  getJobsListingController.getJobsListing.value.jobs?[_currentPage].countryCode ?? "GB",
-                                                             height: 50, width: 50,
+                                                             height: 40, width: 40,
                                                                // borderRadius: 20,
                                                              )
                                                             ],
@@ -1145,7 +1145,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   AppColors.lightblue),
                                               child: Image.asset(
                                                 "assets/images/shareIcon.png",
-                                                height: 30,
+                                                height: 45,
                                               ),
                                             ),
                                           ],
