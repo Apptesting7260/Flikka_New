@@ -15,6 +15,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../Job Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
@@ -104,16 +105,20 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
 
     _scrollController.addListener(() {
-      if(_scrollController.offset < Get.height*.2 && _scrollController.offset >= 0) {
+      if(_scrollController.offset < Get.height*.23 && _scrollController.offset >= 0) {
         position.value = _scrollController.offset ;
-        // setState(() {
-          _appBarOpacity.value = _scrollController.offset > 30 ? 1.0 : 0;
-        // });
+        setState(() {
+          _appBarOpacity.value = _scrollController.offset > 35 ? 1.0 : 0;
+        });
       }
       if(_scrollController.offset < 1) {
-        print("=============object") ;
+        if (kDebugMode) {
+          print("=============object") ;
+        }
         appBarPosition.value = _scrollController.offset ;
-        print("=============${_scrollController.offset}") ;
+        if (kDebugMode) {
+          print("=============${_scrollController.offset}") ;
+        }
       }
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
@@ -122,18 +127,18 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
           ScrollDirection.reverse) {
         tabBarController.showBottomBar(false);
       }
-      // if (_scrollTimer != null && _scrollTimer!.isActive) {
+      // if (scrollTimer != null && scrollTimer!.isActive) {
       //   // If the timer is active, cancel it (user is still scrolling)
       //   _scrollTimer!.cancel();
       // }
       // // Start a new timer when scrolling stops
       // _scrollTimer = Timer(Duration(milliseconds: 150), () {
-      //   if(_scrollController.position.pixels - _previousScrollOffset >= 50 || _previousScrollOffset - _scrollController.position.pixels >= 50  ) {
+      //   if(_scrollController.position.pixels - previousScrollOffset >= 50 || previousScrollOffset - _scrollController.position.pixels >= 50  ) {
       //     print("scrolled") ;
       //   }
       //   setState(() {
       //     // Update _previousScrollOffset once scrolling stops
-      //     _previousScrollOffset = _scrollController.position.pixels;
+      //     previousScrollOffset = scrollController.position.pixels;
       //     print("Scroll Ended. Previous Offset: $_previousScrollOffset");
       //   });
       // });
@@ -143,7 +148,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   final PageController _pageController = PageController();
   final ScrollController _scrollController = ScrollController();
 
-
+  Completer<GoogleMapController> mapController = Completer();
   var last = false;
   @override
   Widget build(BuildContext context) {
@@ -269,7 +274,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                       ),),
                                                     Positioned(
                                                       right: 10,
-                                                      top: Get.height * 0.18,
+                                                      top: Get.height * 0.16,
                                                       child: Column(
                                                         children: [
                                                           GestureDetector(
@@ -328,7 +333,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                     ),
                                                     Positioned(
                                                       left: 12,
-                                                      top: Get.height * 0.18,
+                                                      top: Get.height * 0.16,
                                                       child: Column(
                                                         children: [
                                                           GestureDetector(
@@ -671,12 +676,36 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         // SizedBox(height: Get.height * 0.015,),
                                                         Text(getJobsListingController.getJobsListing.value.jobs?[index].jobLocation ?? "No job location",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
                                                         SizedBox(height: Get.height * 0.015,),
-                                                        InkWell(
-                                                          // onTap: () {
-                                                          // Get.to( GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}"),long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}")));},
-                                                            child: SizedBox( height: 300,
-                                                                child: GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}"),long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}"),))),
-                                                        SizedBox(height: 30,),
+                                                        SizedBox( height: 300,
+                                                            child: GoogleMap(
+                                                              initialCameraPosition: CameraPosition(
+                                                                target: LatLng(double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}")!, double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}")!),
+                                                                zoom: 12,
+                                                              ),
+                                                              markers: <Marker>{
+                                                                Marker(
+                                                                  markerId: const MarkerId("1"),
+                                                                  position: LatLng(double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}")!, double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}")!),
+                                                                  infoWindow: const InfoWindow(
+                                                                    title: "Job Location",
+                                                                  ),
+                                                                ),
+                                                              },
+                                                              mapType: MapType.normal,
+                                                              myLocationEnabled: true,
+                                                              compassEnabled: true,
+                                                              zoomControlsEnabled: false,
+                                                              onLongPress: (argument) => Get.to( GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}")!,long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}")!)),
+                                                              onMapCreated: (GoogleMapController controller) {
+                                                                mapController.complete(controller);
+                                                                if (kDebugMode) {
+                                                                  print("inside 1") ;
+                                                                }
+                                                              },
+                                                            ),
+                                                            // GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].lat}"),long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[index].long}"),)
+                                                        ),
+                                                        const SizedBox(height: 30,),
                                                         Row(
                                                           children: [
                                                             Image.asset("assets/images/icon_information.png",height: 20,width: 20,),
