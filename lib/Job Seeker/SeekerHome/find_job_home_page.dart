@@ -16,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../Job Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import '../../chatseeker/CreateChat.dart';
@@ -34,7 +33,6 @@ import '../SeekerFilter/filter_page.dart';
 import '../SeekerDrawer/Drawer_page.dart';
 import '../SeekerJobs/no_job_available.dart';
 import 'package:get/get.dart';
-
 import '../SeekerNotification/SeekerNotification.dart';
 
 String? Recruitername;
@@ -575,37 +573,22 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         //   style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black),),
                                                         // SizedBox(height: Get.height * 0.03,),
                                                         GestureDetector(
-                                                          onTap:
-                                                              () {
+                                                          onTap: () {
                                                             if (getJobsListingController.getJobsListing.value.jobs?[index].video == null ||
                                                                 getJobsListingController.getJobsListing.value.jobs?[index].video?.length == 0) {
-                                                              Utils.showMessageDialog(context,
-                                                                  "video not uploaded yet");
+                                                              Utils.showMessageDialog(context, "video not uploaded yet");
                                                             } else {
                                                               Get.back();
                                                               Get.to(() =>
-                                                                  VideoPlayerScreen(videoPath: getJobsListingController.getJobsListing.value.jobs?[index]?.video ?? ""));
-                                                            }
+                                                                  VideoPlayerScreen(videoPath: getJobsListingController.getJobsListing.value.jobs?[index]?.video ?? ""));}
                                                           },
                                                           child:
-                                                          Container(
-                                                            alignment:
-                                                            Alignment.center,
-                                                            height: 50,
-                                                            width: 50,
-                                                            decoration: const BoxDecoration(
-                                                                shape: BoxShape.circle,
-                                                                color: AppColors.blueThemeColor),
-                                                            child:
-                                                            Image.asset(
-                                                              "assets/images/icon_video.png",
-                                                              height:
-                                                              18,
-                                                              fit:
-                                                              BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        ),
+                                                          Container(alignment: Alignment.center,
+                                                            height: 50, width: 50,
+                                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                                            child: Image.asset("assets/images/icon_video.png",
+                                                              height: 18, fit: BoxFit.cover,),
+                                                          ),),
                                                         SizedBox(height: Get.height*.03,) ,
                                                         Row(
                                                           crossAxisAlignment: CrossAxisAlignment.start,

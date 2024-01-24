@@ -81,20 +81,20 @@ print("userid$SeekerIDchat");
 
 
 // Future<bool> doesDocumentExistSeeker(String collectionPath, String documentPath) async {
-//   final documentReference = FirebaseFirestore.instance.collection("S-ID"+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()).doc("GPR"+RecruiterId.toString()+ sp.getString("seekerID")!);
+//   final documentReference = FirebaseFirestore.instance.collection("S-ID"+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()).doc("GRP"+RecruiterId.toString()+ sp.getString("seekerID")!);
 //   final snapshot = await documentReference.get();
 
 //   return snapshot.exists;
 // }
 
 // Future<bool> doesDocumentExistSeekerRoomId(String collectionPath, String documentPath) async {
-//   final documentReference = FirebaseFirestore.instance.collection("S-ID"+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()).doc("GPR"+RecruiterId.toString()+ sp.getString("seekerID")!);
+//   final documentReference = FirebaseFirestore.instance.collection("S-ID"+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()).doc("GRP"+RecruiterId.toString()+ sp.getString("seekerID")!);
 //   final snapshot = await documentReference.get();
 
 //   return snapshot.exists;
 // }
 // Future<bool> doesDocumentExistRecruter(String collectionPath, String documentPath) async {
-//   final documentReference = FirebaseFirestore.instance.collection("R-ID"+RecruiterId.toString()).doc("GPR"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString());
+//   final documentReference = FirebaseFirestore.instance.collection("R-ID"+RecruiterId.toString()).doc("GRP"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString());
 //   final snapshot = await documentReference.get();
 
 //   return snapshot.exists;
@@ -104,16 +104,16 @@ print("userid$SeekerIDchat");
 
 
 // final SeekercollectionPath = "S-ID"+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString();
-// final SeekerdocumentPath ="GPR"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString();
+// final SeekerdocumentPath ="GRP"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString();
 // final Seekerexists = await doesDocumentExistSeeker(SeekercollectionPath, SeekerdocumentPath);
 
 
 // final RecruitercollectionPath = "R-ID"+RecruiterId.toString();
-// final RecruiterdocumentPath ="GPR"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString();
+// final RecruiterdocumentPath ="GRP"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString();
 // final Recruiterexists = await doesDocumentExistSeeker(RecruitercollectionPath, RecruiterdocumentPath);
 
 if (isCollectionExistSeeker) {
-    bool isDocumentExistRoomid = await doesDocumentExistSeekerRoomID("GPR" + viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString());
+    bool isDocumentExistRoomid = await doesDocumentExistSeekerRoomID("GRP" + viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString());
     if(isDocumentExistRoomid){
   Get.to(ChatScreenRecruter());
 
@@ -121,7 +121,7 @@ if (isCollectionExistSeeker) {
     roomdetails = {
           "SeekerName":SeekerName.toString(),
           "SeekerId": SeekerIDchat.toString(),
-          "RoomID": "GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
+          "RoomID": "GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
           'timestamp': FieldValue.serverTimestamp(),
           "lastmsg": "",
           "SeekeronScreen":"false",
@@ -131,19 +131,19 @@ if (isCollectionExistSeeker) {
         "RecruiterImage":viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.profileImg.toString(),
         "SeekerImage":Seekerimgchat.toString()
        };
-         await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
+         await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
   Get.to(ChatScreenRecruter());
 
 
      }
-  // bool isDocumentExist = await doesDocumentExistRecruiter("GPR" + RecruiterId.toString() + seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString());
+  // bool isDocumentExist = await doesDocumentExistRecruiter("GRP" + RecruiterId.toString() + seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString());
 // print("$isDocumentExist========available");
 
 // if(isDocumentExist==false){
 //   roomdetails = {
 //           "SeekerName":SeekerName.toString(),
 //           "SeekerId": SeekerIDchat.toString(),
-//           "RoomID": "GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
+//           "RoomID": "GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
 //           'timestamp': FieldValue.serverTimestamp(),
 //           "lastmsg": "",
 //           "SeekeronScreen":"false",
@@ -153,7 +153,7 @@ if (isCollectionExistSeeker) {
 //         "RecruiterImage": Recruiterimg.toString(),
 //         "SeekerImage":Seekerimgchat.toString()
 //        };
-//          await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GPR"+RecruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
+//          await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GRP"+RecruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
  
 // }
   print("seeker is is already available");
@@ -162,7 +162,7 @@ if (isCollectionExistSeeker) {
     roomdetails = {
           "SeekerName":SeekerName.toString(),
           "SeekerId": SeekerIDchat.toString(),
-          "RoomID": "GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
+          "RoomID": "GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
           'timestamp': FieldValue.serverTimestamp(),
           "lastmsg": "",
           "SeekeronScreen":"false",
@@ -172,7 +172,7 @@ if (isCollectionExistSeeker) {
         "RecruiterImage": viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.profileImg.toString(),
         "SeekerImage":Seekerimgchat.toString()
        };
-         await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString()).set(roomdetails);
+         await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString()).set(roomdetails);
  
    Get.to(ChatScreenRecruter());
 
@@ -180,14 +180,14 @@ if (isCollectionExistSeeker) {
 }
 
 if (isCollectionExistRecruter) {
-    bool isDocumentExistRoomid = await doesDocumentExistSeekerRoomID("GPR" + RecruiterId.toString() + SeekerIDchat.toString());
+    bool isDocumentExistRoomid = await doesDocumentExistSeekerRoomID("GRP" + RecruiterId.toString() + SeekerIDchat.toString());
 if(isDocumentExistRoomid){
 Get.to(ChatScreenRecruter());
 }else{
   roomdetails = {
           "SeekerName":SeekerName.toString(),
           "SeekerId": SeekerIDchat.toString(),
-          "RoomID": "GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
+          "RoomID": "GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
           'timestamp': FieldValue.serverTimestamp(),
           "lastmsg": "",
           "SeekeronScreen":"false",
@@ -197,7 +197,7 @@ Get.to(ChatScreenRecruter());
         "RecruiterImage": viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.profileImg.toString(),
         "SeekerImage":Seekerimgchat.toString()
        };
-       await firestore.collection("R-ID"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),).doc("GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
+       await firestore.collection("R-ID"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),).doc("GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
   Get.to(ChatScreenRecruter());
 
 }
@@ -206,7 +206,7 @@ Get.to(ChatScreenRecruter());
    roomdetails = {
           "SeekerName":SeekerName.toString(),
           "SeekerId": SeekerIDchat.toString(),
-          "RoomID": "GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
+          "RoomID": "GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),
           'timestamp': FieldValue.serverTimestamp(),
           "lastmsg": "",
           "SeekeronScreen":"false",
@@ -216,7 +216,7 @@ Get.to(ChatScreenRecruter());
         "RecruiterImage": viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.profileImg.toString(),
         "SeekerImage":Seekerimgchat.toString()
        };
-       await firestore.collection("R-ID"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),).doc("GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
+       await firestore.collection("R-ID"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString(),).doc("GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
   Get.to(ChatScreenRecruter());
        
   // Seeker document does not exist
