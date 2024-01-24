@@ -46,7 +46,7 @@ seekerProfileController.viewSeekerProfileApi();
       
                "SeekerName":Seekerimgchat,
           "SeekerId":SeekerIDchat.toString(),
-          "RoomID": "GPR"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.id.toString()+SeekerIDchat.toString(),
+          "RoomID": "GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.id.toString()+SeekerIDchat.toString(),
           'timestamp': FieldValue.serverTimestamp(),
           "lastmsg": "",
           "SeekeronScreen":"false",
@@ -60,15 +60,15 @@ seekerProfileController.viewSeekerProfileApi();
 
     print(roomdetails);
   await _firestore
-            .collection('Rooms')
+            .collection('RoomID')
             .doc(roomid).set(roomdetails);
      await _firestore
-            .collection('Rooms')
+            .collection('RoomID')
             .doc(roomid)
             .collection("massages")
             .add(messages);
             print("mysendersusscess");
-              DocumentReference roomRef1 = _firestore.collection("Rooms").doc(roomid);
+              DocumentReference roomRef1 = _firestore.collection("RoomID").doc(roomid);
   DocumentReference roomRef2 = _firestore.collection("R-ID"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()).doc(roomid);
   DocumentReference roomRef3 = _firestore.collection("S-ID"+SeekerIDchat.toString()).doc(roomid);
 

@@ -54,15 +54,15 @@ seekerProfileController.viewSeekerProfileApi();
 
     print(roomdetails);
   await _firestore
-            .collection('Rooms')
+            .collection('RoomID')
             .doc(roomid).set(roomdetails);
      await _firestore
-            .collection('Rooms')
+            .collection('RoomID')
             .doc(roomid)
             .collection("massages")
             .add(messages);
             print("mysendersusscess");
-              DocumentReference roomRef1 = _firestore.collection("Rooms").doc(roomid);
+              DocumentReference roomRef1 = _firestore.collection("RoomID").doc(roomid);
   DocumentReference roomRef2 = _firestore.collection("R-ID"+RecruiterId.toString()).doc(roomid);
   DocumentReference roomRef3 = _firestore.collection("S-ID"+seekerProfileControllerr.viewSeekerData.value.seekerInfo!.id.toString(),).doc(roomid);
 
