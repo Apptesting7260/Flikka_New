@@ -65,7 +65,7 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                 children: [
                   Row(
                     children: [
-                      Text("Rejected candidate",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF))),
+                      Text("Rejected candidate",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF))),
                     ],
                   ),
                   Row(
@@ -104,21 +104,21 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                             });
                           },
                           buttonStyleData: ButtonStyleData(
-                            height: Get.height*0.060,
+                            height: Get.height*.05,
                             width: Get.width*.26,
-                            padding: const EdgeInsets.only(left: 14, right: 14),
+                             padding: const EdgeInsets.only(left: 5,right: 5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(35),
                                 border: Border.all(color: Color(0xff686868))
                               // color: Color(0xff353535),
                             ),
-                            elevation: 2,
+                            // elevation: 2,
                           ),
-                          iconStyleData:  IconStyleData(
-                            icon: Image.asset('assets/images/arrowdown.png'),
-                            iconSize: 14,
-                            iconEnabledColor: Colors.yellow,
-                            iconDisabledColor: Colors.grey,
+                          iconStyleData:  const IconStyleData(
+                            icon: Icon(Icons.keyboard_arrow_down_outlined,),
+                            iconSize: 16,
+                            iconEnabledColor: Colors.white,
+                            iconDisabledColor: Colors.white,
                           ),
                           dropdownStyleData: DropdownStyleData(
                             maxHeight: Get.height*0.35,
@@ -136,7 +136,6 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                           ),
                           menuItemStyleData: const MenuItemStyleData(
                             height: 40,
-                            padding: EdgeInsets.only(left: 14, right: 14),
                           ),
                         ),
                       ),
@@ -175,9 +174,9 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                             });
                           },
                           buttonStyleData: ButtonStyleData(
-                            height: Get.height*0.060,
+                            height: Get.height*.05,
                             width: Get.width*.26,
-                            padding: const EdgeInsets.only(left: 14, right: 14),
+                            padding: const EdgeInsets.only(left: 5,right: 5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(35),
                                 border: Border.all(color: Color(0xff686868))
@@ -185,11 +184,11 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                             ),
                             elevation: 2,
                           ),
-                          iconStyleData:  IconStyleData(
-                            icon: Image.asset('assets/images/arrowdown.png'),
-                            iconSize: 14,
-                            iconEnabledColor: Colors.yellow,
-                            iconDisabledColor: Colors.grey,
+                          iconStyleData:  const IconStyleData(
+                            icon: Icon(Icons.keyboard_arrow_down_outlined,),
+                            iconSize: 16,
+                            iconEnabledColor: Colors.white,
+                            iconDisabledColor: Colors.white,
                           ),
                           dropdownStyleData: DropdownStyleData(
                             maxHeight: Get.height*0.35,
@@ -235,16 +234,10 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                         child: Column(
                           children: [
                             SizedBox(height: Get.height*.013,),
-                            // Align(
-                            //     alignment: Alignment.topRight,
-                            //     child: Padding(
-                            //       padding:  EdgeInsets.only(right: Get.width*.05),
-                            //       child: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                            //     )),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
                               minVerticalPadding: 18,
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 27,
                                 backgroundImage: AssetImage("assets/images/icon_jesika.png",),
                               ),
@@ -262,10 +255,8 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                                   Text("California, USA",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                                   SizedBox(height: Get.height*.001,),
                                   Text("REJECTED",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xff42D396)),),
-
                                 ],
                               ),
-trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
                             ),
                             SizedBox(height: Get.height*.024,),
                             MyButton(
@@ -286,7 +277,6 @@ trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
                                 child: Text("TALENT POOL",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
                               ),
                             ),
-
                           ],
                         ),
                       ),

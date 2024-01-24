@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 
 import 'Job Seeker/JobAlert/job_alert_listing.dart';
+import 'hiring Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 
 String? fcmToken;
 void main() async {
