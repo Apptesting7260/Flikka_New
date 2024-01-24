@@ -451,13 +451,15 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   ////mobile number////
-  mobileNumberSection(String? mobile) {
+  mobileNumberSection(String mobile, String? code) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         editMobileNumberController.loading.value = false;
         TextEditingController mobileNumberSectionController = TextEditingController();
         var phone = mobile ;
+        mobileNumberSectionController.text = mobile ?? "" ;
+        var countryCode = code ;
         bool validPhone = false ;
         Country? selectedCountry ;
         return Dialog(
@@ -480,7 +482,7 @@ class _UserProfileState extends State<UserProfile> {
                       // autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: myIntlPhoneFieldKey,
                       controller: mobileNumberSectionController,
-                      initialValue: mobile,
+                      initialValue: code,
                       style: Theme.of(context).textTheme.bodyMedium,
                       pickerDialogStyle: PickerDialogStyle(
                         countryNameStyle: Theme.of(context).textTheme.bodyMedium,
@@ -504,31 +506,18 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       languageCode: "en",
                       onChanged: (PhoneNumber value) {
-                        if (value.number.length >= 6 && value.number.length <= 16) {
+                        if (mobileNumberSectionController.text.length > 5 && mobileNumberSectionController.text.length < 17) {
                           validPhone = true;
                         } else {
                           validPhone = false;
                         }
 
                         phone = value.completeNumber;
+                        countryCode = value.countryCode ;
                         debugPrint("this is ========= $validPhone");
 
                         setState(() {});
                       },
-                      // onChanged: (PhoneNumber value) {
-                      //   if(!value.isValidNumber()) {
-                      //     validPhone = false ;
-                      //   } else {
-                      //     validPhone = true ;
-                      //   } if(value.countryCode == "+44") {
-                      //     validPhone = RegExp(r'^\+44\d{10}$').hasMatch(value.completeNumber);
-                      //   }
-                      //
-                      //     phone = value.completeNumber;
-                      //     debugPrint("this is ========= $validPhone");
-                      //
-                      //     setState(() {});
-                      // },
                       onCountryChanged: (country) {
                         setState(() {
                           selectedCountry = country ;
@@ -558,9 +547,12 @@ class _UserProfileState extends State<UserProfile> {
                               height: 40,
                               loading: editMobileNumberController.loading.value,
                               onTap1: () {
+                                if(mobileNumberSectionController.text.length > 5) {
+                                  validPhone = true ;
+                                }
                                 debugPrint("this is on tap ========= $validPhone");
                                 if(validPhone) {
-                                  editMobileNumberController.mobileNumberApi(phone ?? "", context) ;
+                                  editMobileNumberController.mobileNumberApi(phone ?? "", countryCode ?? "",context) ;
                                 } else {
                                   Utils.showMessageDialog(context, "Enter valid number") ;
                                 }
@@ -2199,7 +2191,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    mobileNumberSection(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ?? "") ;
+                                                    mobileNumberSection(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ?? "",seekerProfileController.viewSeekerData.value.seekerInfo?.countryCode ,) ;
                                                   },
                                                   child: Image.asset(
                                                     "assets/images/icon_edit_phone_number.png",

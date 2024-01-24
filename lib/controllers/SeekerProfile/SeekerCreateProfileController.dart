@@ -31,6 +31,7 @@ class SeekerCreateProfileController extends GetxController {
       var  name ,
       var  location ,
       var phone ,
+      String? countryCode,
       var  aboutMe ,
       List?  workExperience ,
       List?  education ,
@@ -60,6 +61,7 @@ class SeekerCreateProfileController extends GetxController {
       formData.addIf(documentType != null && documentPath != null && documentPath.length != 0  && documentType.toString().isNotEmpty, 'document_type', jsonEncode(documentType)) ;
       formData.addIf(fresher != null && fresher.toString().isNotEmpty, 'fresher', jsonEncode(fresher)) ;
       formData.addIf(phone != null && phone.toString().isNotEmpty, 'mobile', phone) ;
+      formData.addIf(countryCode != null && countryCode.toString().isNotEmpty, 'country_code', countryCode) ;
 
       debugPrint("this is formdata ======== $formData") ;
       formData.forEach((key, value) {

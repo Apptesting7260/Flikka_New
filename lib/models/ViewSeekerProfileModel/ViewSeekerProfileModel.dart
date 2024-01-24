@@ -360,6 +360,7 @@ class SeekerInfo {
   var email;
   var password;
   var location;
+  String? countryCode;
   String? phone;
   String? video;
   String? aboutMe;
@@ -387,6 +388,7 @@ class SeekerInfo {
     this.password,
     this.location,
     this.phone,
+    this.countryCode,
     this.video,
     this.aboutMe,
     this.resume,
@@ -413,6 +415,7 @@ class SeekerInfo {
     email: json["email"],
     password: json["password"],
     location: json["location"],
+    countryCode: json["country_code"],
     phone: json["mobile"],
     video: json["short_video"],
     aboutMe: json["about_me"],

@@ -300,7 +300,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                               forumDataController.filterList(query) ;
                                             },
                                             decoration: InputDecoration(
-                                              hintText: 'Search',
+                                              hintText: 'Let’s talk',
                                               hintStyle: Theme
                                                   .of(context)
                                                   .textTheme

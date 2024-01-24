@@ -175,6 +175,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
   String? phoneNumber;
   bool validPhone = false;
+  String? countryCode ;
 
   @override
   void initState() {
@@ -578,6 +579,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                 autovalidateMode: AutovalidateMode.disabled,
                                 key: myIntlPhoneFieldKey,
                                 controller: phoneController,
+                                disableLengthCheck: true,
                                 style: Theme
                                     .of(context)
                                     .textTheme
@@ -625,10 +627,12 @@ class _CreateProfileState extends State<CreateProfile> {
                                 languageCode: "en",
                                 onChanged: (phone) {
                                   phoneNumber = phone.completeNumber;
-                                  if (phone.isValidNumber()) {
+                                  countryCode = phone.countryCode ;
+                                  if (phone.number.length >= 6 && phone.number.length <= 16) {
                                     validPhone = true;
+                                  } else {
+                                    validPhone = false;
                                   }
-                                  debugPrint("this is ========= $phoneNumber");
                                 },
                                 validator: (p0) {
                                   if (p0 != null) {
@@ -643,7 +647,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                       country.dialCode + phoneController.text);
                                 },
                                 inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(16),
+
                                 ],
                               ),
                               Obx(() =>
@@ -2225,6 +2231,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                               nameController.text,
                                               locationController.text,
                                               phoneNumber,
+                                              countryCode,
                                               formattedAboutText,
                                               workExperienceList,
                                               educationList,

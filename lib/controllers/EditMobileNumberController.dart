@@ -16,12 +16,14 @@ class EditMobileNumberControllerSeeker extends GetxController {
   var errorMessage = "".obs ;
   mobileNumberApi(
       String mobile ,
+      String countryCode,
       BuildContext context
       ) async{
     loading.value = true ;
     success(false) ;
     Map data = {
       'mobile' : mobile.toString(),
+      'country_code' : countryCode.toString(),
     };
     print(data);
 
