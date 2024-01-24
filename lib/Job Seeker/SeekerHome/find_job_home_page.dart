@@ -207,10 +207,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                   extendBodyBehindAppBar: true,
                   appBar: AppBar(
                     systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.transparent,),
-                    backgroundColor: Colors.transparent,
-                    toolbarHeight: 0,
-                    elevation: 0,
-                  ),
+                    backgroundColor: Colors.transparent, toolbarHeight: 0, elevation: 0,),
                   endDrawer: DrawerClass(
                     name: '${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}',
                     location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
@@ -543,39 +540,14 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                           Row(
                                                             children: [
                                                               Container(
-                                                                constraints: BoxConstraints(
-                                                                    maxWidth: Get.width * .5
-                                                                ),
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .all(8),
-                                                                decoration: BoxDecoration(
-                                                                    color: const Color(
-                                                                        0xff0D5AFE)
-                                                                        .withOpacity(
-                                                                        .6),
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        22)),
-                                                                child: Text(
-                                                                  getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobLocation ?? "No job location",
-                                                                  overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                                  style: Get
-                                                                      .theme
-                                                                      .textTheme
-                                                                      .bodyLarge!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .white,
-                                                                      fontSize:
-                                                                      12,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                                ),
+                                                                constraints: BoxConstraints(maxWidth: Get.width * .5),
+                                                                padding: const EdgeInsets.all(8),
+                                                                decoration: BoxDecoration(color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                    borderRadius: BorderRadius.circular(22)),
+                                                                child: Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobLocation ?? "No job location",
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  style: Get.theme.textTheme.bodyLarge!.copyWith(
+                                                                      color: AppColors.white, fontSize: 12, fontWeight: FontWeight.w600),),
                                                               ),
                                                               const SizedBox(width: 10,),
                                                              CountryFlag.fromCountryCode(  getJobsListingController.getJobsListing.value.jobs?[_currentPage].countryCode ?? "GB",
