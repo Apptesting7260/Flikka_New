@@ -22,7 +22,7 @@ class _UpcomingInterviewsHiringState extends State<UpcomingInterviewsHiring> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
           child: SingleChildScrollView(
@@ -67,9 +67,9 @@ class _UpcomingInterviewsHiringState extends State<UpcomingInterviewsHiring> {
                           });
                         },
                         buttonStyleData: ButtonStyleData(
-                          height: Get.height*0.060,
+                          height: Get.height*.05,
                           width: Get.width*.26,
-                          padding: const EdgeInsets.only(left: 14, right: 14),
+                          padding: const EdgeInsets.only(left: 5, right: 5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
                               border: Border.all(color: Color(0xff686868))
@@ -77,11 +77,11 @@ class _UpcomingInterviewsHiringState extends State<UpcomingInterviewsHiring> {
                           ),
                           elevation: 2,
                         ),
-                        iconStyleData:  IconStyleData(
-                          icon: Image.asset('assets/images/arrowdown.png'),
-                          iconSize: 14,
-                          iconEnabledColor: Colors.yellow,
-                          iconDisabledColor: Colors.grey,
+                        iconStyleData:  const IconStyleData(
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          iconSize: 16,
+                          iconEnabledColor: Colors.white,
+                          iconDisabledColor: Colors.white,
                         ),
                         dropdownStyleData: DropdownStyleData(
                           maxHeight: Get.height*0.35,

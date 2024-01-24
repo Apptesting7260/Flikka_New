@@ -67,9 +67,9 @@ class _PastInterviewsState extends State<PastInterviews> {
                           });
                         },
                         buttonStyleData: ButtonStyleData(
-                          height: Get.height*0.060,
+                          height: Get.height*.05,
                           width: Get.width*.26,
-                          padding: const EdgeInsets.only(left: 14, right: 14),
+                          padding: const EdgeInsets.only(left: 5, right: 5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
                               border: Border.all(color: Color(0xff686868))
@@ -77,11 +77,11 @@ class _PastInterviewsState extends State<PastInterviews> {
                           ),
                           elevation: 2,
                         ),
-                        iconStyleData:  IconStyleData(
-                          icon: Image.asset('assets/images/arrowdown.png'),
-                          iconSize: 14,
-                          iconEnabledColor: Colors.yellow,
-                          iconDisabledColor: Colors.grey,
+                        iconStyleData:  const IconStyleData(
+                          icon: Icon(Icons.keyboard_arrow_down_sharp),
+                          iconSize: 16,
+                          iconEnabledColor: Colors.white,
+                          iconDisabledColor: Colors.white,
                         ),
                         dropdownStyleData: DropdownStyleData(
                           maxHeight: Get.height*0.35,
@@ -105,18 +105,15 @@ class _PastInterviewsState extends State<PastInterviews> {
                     ),
                   ],
                 ),
-                SizedBox(height: Get.height*.01,),
-
+                SizedBox(height: Get.height*.025,),
                 ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.symmetric(vertical: Get.height*.027),
+                      padding: EdgeInsets.only(bottom: Get.height*.03),
                       child: Container(
-                        height: Get.height*.38,
-                        width: Get.width,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(22),
                             color: Color(0xff353535)
@@ -124,13 +121,12 @@ class _PastInterviewsState extends State<PastInterviews> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: Get.width*.06),
                           child: Column(
-                            // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: Get.height*.013,),
                               ListTile(
                                 contentPadding: EdgeInsets.zero,
                                 minVerticalPadding: 12,
-                                leading: CircleAvatar(
+                                leading: const CircleAvatar(
                                   radius: 28,
                                   backgroundImage: AssetImage("assets/images/icon_jesika.png",),
                                 ),
@@ -148,14 +144,13 @@ class _PastInterviewsState extends State<PastInterviews> {
                                     Text("California, USA",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                                   ],
                                 ),
-                                trailing: Icon(Icons.more_vert,color: Colors.white,size: 30,),
                               ),
                               SizedBox(height: Get.height*.025,),
                               Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                               SizedBox(height: Get.height*.03,),
                               Row(
                                 children: [
-                                  Image.asset("assets/images/icon_calendar.png",height: Get.height*.026,color: Color(0xff56B8F6),),
+                                  Image.asset("assets/images/icon_calendar.png",height: Get.height*.026,color: AppColors.blueThemeColor,),
                                   SizedBox(width: Get.width*.02,),
                                   Text("12, January 2022",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffFFFFFF)),),
                                 ],
@@ -163,40 +158,12 @@ class _PastInterviewsState extends State<PastInterviews> {
                               SizedBox(height: Get.height*.02,),
                               Row(
                                 children: [
-                                  Image.asset("assets/images/icon_watch.png",height: Get.height*.026,color: Color(0xff56B8F6),),
+                                  Image.asset("assets/images/icon_watch.png",height: Get.height*.026,color: AppColors.blueThemeColor,),
                                   SizedBox(width: Get.width*.02,),
                                   Text("11: 30 PM",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                                 ],
                               ),
                               SizedBox(height: Get.height*.031,),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     MyButton(
-                              //       height: Get.height*.066,
-                              //       width: Get.width*.38,
-                              //       title: "JOIN", onTap1: () {
-                              //
-                              //     },),
-                              //     SizedBox(
-                              //       height: Get.height*.066,
-                              //       width: Get.width * 0.38,
-                              //       child: ElevatedButton(
-                              //         style: ElevatedButton.styleFrom(
-                              //           backgroundColor: AppColors.white,
-                              //           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                              //           padding: EdgeInsets.all(0), // Set padding to 0 to allow gradient to cover the entire button
-                              //         ),
-                              //         onPressed: () {},
-                              //         child: Text(
-                              //             "CANCEL",
-                              //             style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.black,fontWeight: FontWeight.bold)
-                              //         ),
-                              //       ),
-                              //     )
-                              //   ],
-                              // ),
-                              // SizedBox(height: Get.height*.031,),
                             ],
                           ),
                         ),

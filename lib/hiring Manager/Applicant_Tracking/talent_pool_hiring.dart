@@ -1,4 +1,5 @@
 
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class _TalentPoolHiringState extends State<TalentPoolHiring> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.black,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
           child: SingleChildScrollView(
@@ -46,7 +47,8 @@ class _TalentPoolHiringState extends State<TalentPoolHiring> {
                               ListTile(
                                 contentPadding: EdgeInsets.zero,
                                 minVerticalPadding: 12,
-                                leading: CircleAvatar(
+                                leading: const CircleAvatar(
+                                  backgroundColor: Colors.transparent,
                                   radius: 28,
                                   backgroundImage: AssetImage("assets/images/icon_jesika.png",),
                                 ),
@@ -72,8 +74,6 @@ class _TalentPoolHiringState extends State<TalentPoolHiring> {
                                     ),
                                   ],
                                 ),
-                                trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
-                                //trailing: Image.asset("assets/images/Edit.png",height: Get.height*.028,),
                               ),
                               SizedBox(height: Get.height*.02,),
                               Center(
