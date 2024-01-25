@@ -21,7 +21,12 @@ class _InboxState extends State<Inbox> {
   @override
   void initState() {
     super.initState();
-    // ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    if(ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData == null ||
+        ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?.length == 0
+    ){
+      ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    }
+
   }
 
   ShowInboxDataController ShowInboxDataControllerInstanse =

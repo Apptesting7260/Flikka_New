@@ -39,7 +39,11 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
 
   @override
   void initState() {
-
+  if(interviewListController.interviewData.value.seeker == null ||
+      interviewListController.interviewData.value.seeker?.length == 0
+  ){
+    interviewListController.interviewListApi();
+  }
     super.initState();
   }
 

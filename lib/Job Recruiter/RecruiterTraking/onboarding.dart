@@ -45,6 +45,17 @@ class _OnboardingState extends State<Onboarding> {
     _refreshController.refreshCompleted();
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    if(onboardingController.getOnboardingDetails.value.appliedSeeker == null ||
+        onboardingController.getOnboardingDetails.value.appliedSeeker?.length == 0
+    ){
+      onboardingController.onboardingApiHit(positionID, context) ;
+    }
+    super.initState();
+  }
+
   void _onLoading() async{
     await onboardingController.onboardingApiHit(positionID, context);
     if(mounted)

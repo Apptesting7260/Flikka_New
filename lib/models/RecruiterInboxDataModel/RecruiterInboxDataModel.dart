@@ -3,15 +3,18 @@ class RecruiterInboxDataModel {
      this.status,
      this.message,
      this.recruiterInboxData,
+     this.unseenCount,
   });
    bool ?status;
    String ?message;
    List<RecruiterInboxData> ?recruiterInboxData;
+  dynamic unseenCount;
 
   RecruiterInboxDataModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
-    recruiterInboxData = List.from(json['recruiter_inbox_data']).map((e)=>RecruiterInboxData.fromJson(e)).toList();
+    unseenCount = json['unseen_notification'];
+    recruiterInboxData  = json['recruiter_inbox_data'] == null ? [] : List.from(json['recruiter_inbox_data']).map((e)=>RecruiterInboxData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {

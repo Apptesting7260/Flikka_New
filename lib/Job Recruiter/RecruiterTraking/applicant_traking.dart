@@ -25,28 +25,28 @@ class ApplicantTracking extends StatefulWidget {
 
 class _ApplicantTrackingState extends State<ApplicantTracking> {
 
-  RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
-  ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
-  CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
-  RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
-  ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
-  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
-  TalentPoolController poolController = Get.put(TalentPoolController()) ;
-  OnboardingController onboardingController = Get.put(OnboardingController()) ;
+  // RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
+  // ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
+  // CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
+  // RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
+  // ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
+  // ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
+  // TalentPoolController poolController = Get.put(TalentPoolController()) ;
+  // OnboardingController onboardingController = Get.put(OnboardingController()) ;
 
   String? positionID ;
 
   @override
   void initState(){
-    Future.delayed(Duration(milliseconds: 100) , () {
-    jobsController.recruiterJobsApi() ;
-    jobTitleController.recruiterJobTitleApi() ;
-    trackingDataController.applicantTrackingApi("" ,"" ) ;
-    interviewListController.interviewListApi() ;
-    ShowInboxDataControllerInstanse.showInboxDataApi() ;
-    poolController.talentPoolApi() ;
-    onboardingController.onboardingApiHit(positionID, context) ;
-    });
+    // Future.delayed(Duration(milliseconds: 100) , () {
+    // jobsController.recruiterJobsApi() ;
+    // jobTitleController.recruiterJobTitleApi() ;
+    // trackingDataController.applicantTrackingApi("" ,"" ) ;
+    // interviewListController.interviewListApi() ;
+    // ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    // poolController.talentPoolApi() ;
+    // onboardingController.onboardingApiHit(positionID, context) ;
+    // });
     super.initState() ;
   }
 

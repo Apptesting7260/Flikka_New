@@ -27,7 +27,12 @@ class _TalentPoolState extends State<TalentPool> {
 
   @override
   void initState() {
-   // poolController.talentPoolApi() ;
+    if(poolController.poolData.value.data == null ||
+        poolController.poolData.value.data?.length == 0
+    ){
+      poolController.talentPoolApi() ;
+    }
+
     super.initState();
   }
 

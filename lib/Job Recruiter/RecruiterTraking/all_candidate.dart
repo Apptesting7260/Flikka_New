@@ -46,6 +46,14 @@ class _AllCandidateState extends State<AllCandidate> {
   void initState() {
   jobTitleValue=null;
 
+  if(jobsController.getJobsDetails.value.jobPositionList == null ||
+      jobsController.getJobsDetails.value.jobPositionList?.length == 0)
+   { jobsController.recruiterJobsApi() ;}
+  if(trackingDataController.applicantTrackingDataModel.value.applicantData == null ||
+      trackingDataController.applicantTrackingDataModel.value.applicantData?.length == 0
+  ){
+    trackingDataController.applicantTrackingApi(positionID, statusValue);
+  }
     super.initState();
   }
 
