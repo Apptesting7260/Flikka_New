@@ -55,9 +55,9 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
   void _onLoading() async{
     await interviewListController.interviewListApi(filter: jobTypeValues);
     if(mounted)
-      setState(() {
-
-      });
+      // setState(() {
+      //
+      // });
     _refreshController.loadComplete();
   }
   /////refresh/////

@@ -38,6 +38,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
 
   @override
   void initState(){
+    Future.delayed(Duration(milliseconds: 100) , () {
     jobsController.recruiterJobsApi() ;
     jobTitleController.recruiterJobTitleApi() ;
     trackingDataController.applicantTrackingApi("" ,"" ) ;
@@ -45,6 +46,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
     ShowInboxDataControllerInstanse.showInboxDataApi() ;
     poolController.talentPoolApi() ;
     onboardingController.onboardingApiHit(positionID, context) ;
+    });
     super.initState() ;
   }
 
@@ -79,12 +81,10 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
                   )),
             ),
             bottom: TabBar(
-              indicatorPadding:
-                  EdgeInsets.symmetric(horizontal: Get.width * .04),
+              indicatorPadding: EdgeInsets.symmetric(horizontal: Get.width * .04),
               isScrollable: true,
               indicator: const UnderlineTabIndicator(
-                borderSide: BorderSide(width: 2.0, color: AppColors.blueThemeColor),
-              ),
+                borderSide: BorderSide(width: 2.0, color: AppColors.blueThemeColor),),
               physics: const AlwaysScrollableScrollPhysics(),
               unselectedLabelColor: AppColors.graySilverColor,
               labelColor: AppColors.blueThemeColor,

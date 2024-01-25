@@ -50,8 +50,7 @@ class _AllCandidateState extends State<AllCandidate> {
   }
 
   //////refresh//////
-  RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
     await trackingDataController.applicantTrackingApi(positionID, statusValue);
@@ -61,9 +60,9 @@ class _AllCandidateState extends State<AllCandidate> {
   void _onLoading() async{
     await trackingDataController.applicantTrackingApi(positionID, statusValue);
     if(mounted)
-      setState(() {
-
-      });
+      // setState(() {
+      //
+      // });
     _refreshController.loadComplete();
   }
   /////refresh/////

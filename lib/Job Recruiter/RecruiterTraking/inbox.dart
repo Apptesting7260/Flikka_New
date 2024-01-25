@@ -39,9 +39,9 @@ class _InboxState extends State<Inbox> {
   void _onLoading() async{
     await ShowInboxDataControllerInstanse.showInboxDataApi() ;
     if(mounted)
-      setState(() {
-
-      });
+      // setState(() {
+      //
+      // });
     _refreshController.loadComplete();
   }
   /////refresh/////

@@ -43,9 +43,9 @@ class _TalentPoolState extends State<TalentPool> {
   void _onLoading() async{
     await poolController.talentPoolApi() ;
     if(mounted)
-      setState(() {
-
-      });
+      // setState(() {
+      //
+      // });
     _refreshController.loadComplete();
   }
   /////refresh/////

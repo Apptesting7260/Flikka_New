@@ -49,10 +49,11 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
     viewRecruiterProfileController.viewRecruiterProfileApi() ;
     reportController.reportApi() ;
     bottomSelectedIndex = widget.index ;
-    pageController = PageController(initialPage: widget.index, keepPage: true);
+    pageController = PageController(initialPage: widget.index, keepPage: false);
 
     super.initState();
   }
+
 
   List<BottomNavigationBarItem> buildBottomNavBarItems = [
     BottomNavigationBarItem(

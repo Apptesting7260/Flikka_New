@@ -48,9 +48,9 @@ class _OnboardingState extends State<Onboarding> {
   void _onLoading() async{
     await onboardingController.onboardingApiHit(positionID, context);
     if(mounted)
-      setState(() {
-
-      });
+      // setState(() {
+      //
+      // });
     _refreshController.loadComplete();
   }
   /////refresh/////
