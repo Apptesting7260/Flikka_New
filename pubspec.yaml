@@ -84,6 +84,7 @@ dependencies:
   syncfusion_flutter_pdf: ^24.1.43
   pie_chart: ^5.4.0
   country_flags: ^2.2.0
+  badges: ^3.1.2
 #  table_calendar: ^2.3.3
 
 dev_dependencies:
