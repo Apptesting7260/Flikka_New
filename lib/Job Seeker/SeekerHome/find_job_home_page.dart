@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flikka/Job%20Seeker/SeekerHome/JobSearchScreen.dart';
+import 'package:flikka/Payment_Methods/wallet_section.dart';
 import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
@@ -494,14 +495,19 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                         left: 12,
                                                         child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Container(
-                                                              padding: const EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(
-                                                                  color: const Color(0xff0D5AFE).withOpacity(.6),
-                                                                  borderRadius: BorderRadius.circular(22)
+                                                            ConstrainedBox(
+                                                              constraints: BoxConstraints(
+                                                                maxWidth: Get.width*.8,
                                                               ),
-                                                              child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
-                                                                style: Get.theme.textTheme.displayLarge!.copyWith(color: AppColors.white),),
+                                                              child: Container(
+                                                                padding: const EdgeInsets.all(8),
+                                                                decoration: BoxDecoration(
+                                                                    color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                    borderRadius: BorderRadius.circular(22)
+                                                                ),
+                                                                child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
+                                                                  style: Get.theme.textTheme.displaySmall!.copyWith(color: AppColors.white),),
+                                                              ),
                                                             ),
                                                             const SizedBox(height: 10,) ,
                                                             Row(
@@ -1078,11 +1084,17 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            Get.to(const WalletSection()) ;
+                                          },
+                                            child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
+                                        const SizedBox(width: 7,),
+                                        GestureDetector(
+                                          onTap: () {
                                            Navigator.of(context).push(
                                              MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
                                            ) ;
                                           } ,
-                                            child: Image.asset("assets/images/icon_notification.png",height: Get.height*.05,)),
+                                            child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,)),
                                         const SizedBox(width: 7,),
                                         Builder(builder: (context) {
                                           return InkWell(

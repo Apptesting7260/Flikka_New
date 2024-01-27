@@ -13,6 +13,7 @@ import '../../controllers/SeekerNotificationDataViewController/SeekerNotificatio
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../widgets/app_colors.dart';
 import '../JobAlert/jobAlert.dart';
+import '../JobAlert/job_alert.dart';
 import '../JobAlert/job_alert_listing.dart';
 import '../SeekerNotification/SeekerNotification.dart';
 import '../SeekerNotification/setting_page.dart';
@@ -296,7 +297,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                       // Get.to(() => const SetJobAlert());
+                                       // Get.to(() =>  const SetJobAlert());
                                        Get.to(() => const JobList());
                                     },
                                     horizontalTitleGap:0,

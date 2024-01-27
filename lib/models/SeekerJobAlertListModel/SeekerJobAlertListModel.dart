@@ -10,6 +10,7 @@ class SeekerJobAlertListModel {
     status = json['status'];
     jobAlertList = json['job_alert_list'] == null ? json['job_alert_list'] : List.from(json['job_alert_list']).map((e)=>JobAlertList.fromJson(e)).toList();
   }
+
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
@@ -21,50 +22,36 @@ class SeekerJobAlertListModel {
 class JobAlertList {
   JobAlertList({
      this.id,
-     this.seekerId,
-     this.positionId,
-    this.companyId,
+     this.positions,
      this.createdAt,
      this.updatedAt,
-    this.companeName,
-    this.companyImage,
-    this.companyLocation,
-     this.positions,
+     this.newAlerts,
+     this.location,
   });
-   dynamic id;
-   dynamic seekerId;
-   List<String>? positionId;
-   dynamic companyId;
+  dynamic id;
+   String? positions;
    String? createdAt;
    String? updatedAt;
-   String? companeName;
-   String? companyImage;
-   String? companyLocation;
-   List<String>? positions;
+   int? newAlerts;
+   String? location;
 
   JobAlertList.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    seekerId = json['seeker_id'];
-    positionId = List.castFrom<dynamic, String>(json['position_id']);
-    companyId = json['company_id'];
+    positions = json['positions'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    companeName = json['compane_name'];
-    companyImage = json['compane_img'];
-    companyLocation = json['company_location'];
-    positions = List.castFrom<dynamic, String>(json['positions']);
+    newAlerts = json['new_alerts'];
+    location = json['location'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
-    _data['seeker_id'] = seekerId;
-    _data['position_id'] = positionId;
-    _data['company_id'] = companyId;
+    _data['positions'] = positions;
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
-    _data['compane_name'] = companeName;
-    _data['positions'] = positions;
+    _data['new_alerts'] = newAlerts;
+    _data['location'] = location;
     return _data;
   }
 }

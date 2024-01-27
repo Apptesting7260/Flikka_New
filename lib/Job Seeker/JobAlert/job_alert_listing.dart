@@ -1,5 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flikka/Job%20Seeker/JobAlert/jobAlert.dart';
+
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +7,7 @@ import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../widgets/app_colors.dart';
+import 'job_alert.dart';
 
 class JobList extends StatefulWidget {
   const JobList({super.key});
@@ -91,37 +91,12 @@ class _JobListState extends State<JobList> {
                        ),
                         child: ListTile(
                           contentPadding: EdgeInsets.symmetric(vertical: Get.height*.02,horizontal: Get.width*.03),
-                          leading: CircleAvatar(
-                            radius: 26,
-                            child: CachedNetworkImage(
-                                imageUrl: seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].companyImage ?? "" ,
-                            imageBuilder: (context, imageProvider) => Container(
-                              width: 55,
-                              height: 55,
-                              decoration:  BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: imageProvider,
-                                fit: BoxFit.cover
-                                )
-                              ),
-                            ),
-                              placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
-                            ),
-
-                            //backgroundImage: AssetImage(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].companeImage ?? "" ,),
-                          ),
                           title: Text(
                            "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}" ??  "No position",
                           overflow: TextOverflow.ellipsis,  style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].companeName ?? "No company name", overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                              Text(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].companyLocation ?? "No location", overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF),fontSize: 10)
-                              )],
-                          ),
+                          subtitle: Text(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].location ?? "No lacation",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),),
+
                         ),
                       ),
                     ) ;

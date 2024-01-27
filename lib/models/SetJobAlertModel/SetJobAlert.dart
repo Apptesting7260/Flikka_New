@@ -1,10 +1,10 @@
 class SetJobAlertModel {
   SetJobAlertModel({
-     this.status,
-     this.message,
+    required this.status,
+    required this.message,
   });
-   bool ?status;
-   String ?message;
+  late final bool status;
+  late final String message;
 
   SetJobAlertModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
