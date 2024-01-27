@@ -8,11 +8,13 @@ import 'package:get/get.dart' ;
 import '../../Job Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import '../../controllers/RecruiterHomeController/RecruiterHomeController.dart';
 import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
+import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
 import '../../controllers/RecruiterReportController/RecruiterReportController.dart';
 import '../../controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import '../../widgets/app_colors.dart';
 import '../message/message_page.dart';
+import 'package:badges/badges.dart' as badges;
 
 class TabScreenEmployer extends StatefulWidget {
   int? profileTabIndex;
@@ -39,7 +41,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
   RecruiterHomeController homeController = Get.put(RecruiterHomeController()) ;
-
+  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
 
   @override
   void initState() {
@@ -50,7 +52,45 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
     reportController.reportApi() ;
     bottomSelectedIndex = widget.index ;
     pageController = PageController(initialPage: widget.index, keepPage: false);
+    ShowInboxDataControllerInstanse.showInboxDataApi();
+    buildBottomNavBarItems = [
+      BottomNavigationBarItem(
+          label: "",
+          icon: Image.asset("assets/images/icon_unselect_home.png",height: Get.height*.035,),
+          activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.035)),
 
+      BottomNavigationBarItem(
+          label: "",
+          icon: Obx(() => ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount == null ||
+    ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount == 0 ?
+    Image.asset("assets/images/icon_unselect_applicant.png", height: Get.height*.035) :
+    badges.Badge(
+    badgeContent: Text(ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount.toString()),
+    child: Image.asset("assets/images/icon_unselect_applicant.png", height: Get.height*.035),),),
+     activeIcon:  Obx(() => ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount == null ||
+         ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount == 0 ? Image.asset("assets/images/icon_select_applicant.png", height: Get.height*.035):
+        badges.Badge( badgeContent: Obx(() => Text(ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount.toString() )),
+           child: Image.asset("assets/images/icon_select_applicant.png", height: Get.height*.035)),
+     )
+      ) ,
+
+
+
+      BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_Add_job.png", height: Get.height*.035),
+        activeIcon: Image.asset("assets/images/icon_Add_job.png", height: Get.height*.035),),
+      BottomNavigationBarItem(
+          label: "",
+          icon: Image.asset("assets/images/icon_unselect_msg.png", height: Get.height*.035),
+          activeIcon: Image.asset("assets/images/icon_select_msg.png", height: Get.height*.035)),
+
+      BottomNavigationBarItem(
+        label: "",
+        icon: Image.asset("assets/images/icon_unselect_person.png",height: Get.height*.035),
+        activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.035),
+      ),
+    ];
     super.initState();
   }
 
@@ -64,6 +104,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
     BottomNavigationBarItem(
         label: "",
         icon: Image.asset("assets/images/icon_unselect_applicant.png", height: Get.height*.035),
+        
         activeIcon: Image.asset("assets/images/icon_select_applicant.png", height: Get.height*.035)),
 
     BottomNavigationBarItem(
