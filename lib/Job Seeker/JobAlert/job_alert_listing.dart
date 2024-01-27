@@ -8,6 +8,7 @@ import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../widgets/app_colors.dart';
 import 'job_alert.dart';
+import 'job_alert_wise_job_listing.dart';
 
 class JobList extends StatefulWidget {
   const JobList({super.key});
@@ -73,34 +74,41 @@ class _JobListState extends State<JobList> {
                 seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?.length == 0 ?
                 Center(
                     child: Text("No data",style: Theme.of(context).textTheme.titleSmall,)) :
-            Container(
-              height: Get.height*.7,
-              child: ListView.builder(
-                shrinkWrap: true,
-                  itemCount: seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?.length,
-                  physics:  const AlwaysScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: Get.height*.02),
-                      child: Container(
-                       decoration:  const BoxDecoration(
-                         color: AppColors.textFieldFilledColor,
-                         borderRadius: BorderRadius.all(
-                             Radius.circular(13)
-                         )
-                       ),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: Get.height*.02,horizontal: Get.width*.03),
-                          title: Text(
-                           "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}" ??  "No position",
-                          overflow: TextOverflow.ellipsis,  style: Theme.of(context).textTheme.titleSmall,
+            GestureDetector(
+              onTap: () {
+                Get.to(() => const JobAlertWiseJobListing()) ;
+              },
+              child: Container(
+                height: Get.height*.7,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                    itemCount: seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?.length,
+                    physics:  const AlwaysScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: Get.height*.02),
+                        child: Container(
+                         decoration:  const BoxDecoration(
+                           color: AppColors.textFieldFilledColor,
+                           borderRadius: BorderRadius.all(
+                               Radius.circular(13)
+                           )
+                         ),
+                          child: ListTile(
+                            contentPadding: EdgeInsets.symmetric(vertical: Get.height*.02,horizontal: Get.width*.03),
+                            title: Text(
+                             "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}" ??  "No data",
+                            overflow: TextOverflow.ellipsis,  style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            subtitle: Text("${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].location}" ?? "No data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),),
+                          trailing: seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts == 0 ?
+                          const SizedBox() :  Text("${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts}" " New" ??  "No data",
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),),
                           ),
-                          subtitle: Text(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].location ?? "No lacation",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),),
-
                         ),
-                      ),
-                    ) ;
-                  },),
+                      ) ;
+                    },),
+              ),
             ),
             SizedBox(height: Get.height*.03,) ,
             MyButton(title: "MANAGE ALERTS", onTap1: () {

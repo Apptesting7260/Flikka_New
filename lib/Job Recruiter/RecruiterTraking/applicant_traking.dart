@@ -1,16 +1,8 @@
 import 'package:flikka/Job%20Recruiter/RecruiterTraking/inbox.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterTraking/talent_pool.dart';
-import 'package:flikka/controllers/ApplicantTrackingController/ApplicantTrackingController.dart';
-import 'package:flikka/controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/CandidateJobStatusController/CandidateJobStatusController.dart';
-import '../../controllers/OnboardingController/OnboardingController.dart';
-import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
-import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
-import '../../controllers/ScheduledInterviewListController/ScheduledInterviewListController.dart';
-import '../../controllers/TalentPoolController/TalentPoolController.dart';
 import '../bottom_bar/tab_bar.dart';
 import 'all_candidate.dart';
 import 'onboarding.dart';

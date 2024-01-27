@@ -26,8 +26,9 @@ class _SetJobAlertState extends State<SetJobAlert> {
   SeekerChoosePositionGetController seekerChoosePositionGetControllerInstanse = Get.put(SeekerChoosePositionGetController());
   SetJobAlertController alertController = Get.put(SetJobAlertController()) ;
 
-    String positions = "";
+    var positionID ;
     String location = "";
+
   TextEditingController locationController = TextEditingController();
 
   var selectedPosition;
@@ -72,6 +73,8 @@ class _SetJobAlertState extends State<SetJobAlert> {
   double? lat;
   double? long;
 
+  var _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,139 +95,148 @@ class _SetJobAlertState extends State<SetJobAlert> {
                 ),
                 title: Text("Create job alert",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: AppColors.black),),
               ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: Get.height*.05,),
-            Text("Job position",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
-            SizedBox(height: Get.height*.01,),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: Get.height*.01),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(33),
-                color: AppColors.homeGrey,
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton2(style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),
-                  // padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.005),
-                  isExpanded: true,
-                  value: selectedPosition,
-                  hint: Text(
-                    positions.length == 0 ? "Select job Position" : positions,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(
-                        color: AppColors.black,fontWeight: FontWeight.w400,fontSize: 16),
-                  ),
-                  items: seekerChoosePositionGetControllerInstanse.seekerChoosePositionGetList.value.data?.map((document) {
-                    return DropdownMenuItem(
-                      value: document.positions,
-                      child: Text("${document.positions}", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black)),
-                      onTap: () {
-                        setState(() {
-                          positions = document.id.toString();
-                          print(positions);
-                          selectedPosition = document.positions!;
-                        });
-                      },
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    // setState(() {
-                    //   selectedPosition = value.toString();
-                    // });
-                  },
-                  dropdownStyleData: DropdownStyleData(
-                    decoration: BoxDecoration(
-                      color: AppColors.homeGrey,
-                        borderRadius: BorderRadius.circular(15),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: Get.height*.05,),
+              Text("Job position",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
+              SizedBox(height: Get.height*.01,),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: Get.height*.01),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(33),
+                  color: AppColors.homeGrey,
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2(style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),
+                    // padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.005),
+                    isExpanded: true,
+                    value: selectedPosition,
+                    hint: Text(
+                       "Select job Position" ,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(
+                          color: AppColors.black,fontWeight: FontWeight.w400,fontSize: 16),
+                    ),
+                    items: seekerChoosePositionGetControllerInstanse.seekerChoosePositionGetList.value.data?.map((document) {
+                      return DropdownMenuItem(
+                        value: document.positions,
+                        child: Text("${document.positions}", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black)),
+                        onTap: () {
+                          setState(() {
+                            positionID = document.id ;
+                            print(positionID);
+                            selectedPosition = document.positions!;
+                          });
+                        },
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      // setState(() {
+                      //   selectedPosition = value.toString();
+                      // });
+                    },
+                    dropdownStyleData: DropdownStyleData(
+                      decoration: BoxDecoration(
+                        color: AppColors.homeGrey,
+                          borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(Icons.arrow_drop_down_outlined,color: Colors.black,size: 25,),
                     ),
                   ),
-                  iconStyleData: const IconStyleData(
-                    icon: Icon(Icons.arrow_drop_down_outlined,color: Colors.black,size: 25,),
-                  ),
                 ),
               ),
-            ),
-            SizedBox(height: Get.height*.03,),
-            Text("City",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
-            SizedBox(height: Get.height*.01,),
-            TextField(
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13,color: AppColors.black),
-              onChanged: (value) {
-                setState(() {
-                  if (locationController.text.isEmpty) {
-                  }
-                });
-                searchAutocomplete(value);
-              },
-              controller: locationController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: AppColors.homeGrey,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(33),
-                    borderSide: BorderSide.none
-                ),
-                hintText: 'Enter location',
-                hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(
-                  color: AppColors.black,fontWeight: FontWeight.w400,fontSize: 16),
-              ),
-            ),
-            Visibility(
-              visible: locationController.text.isNotEmpty,
-              child: SizedBox(
-                width: double.infinity,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: searchPlace.length,
-                    itemBuilder: (context, index) => ListTile(
-                      onTap: () {
-                        setState(() {
-                          locationController.text = searchPlace[index].description ?? "";
-                          _getLatLang();
-                          setState(() {
-                            searchPlace.clear();
-                          });
-                        });
-                      },
-                      horizontalTitleGap: 0,
-                      title: Text(
-                        searchPlace[index].description ?? "",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),
-                      ),
-                    )),
-              ),
-            ),
-            SizedBox(height: Get.height*.03,),
-            Obx(() =>  Center(
-              child: MyButton(
-                width:Get.width*.77,
-                loading: alertController.loading.value,
-                title: "SUBMIT",
-                onTap1: () {
-                  if(positions.isEmpty){
-                    Utils.showMessageDialog(context, "Select position to get job alerts") ;
-                  } else {
-                    if (!alertController.loading.value) {
-                      alertController.setJobAlert(
-                          context, positions,locationController.text);
+              SizedBox(height: Get.height*.03,),
+              Text("City",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
+              SizedBox(height: Get.height*.01,),
+              TextFormField(
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13,color: AppColors.black),
+               validator: (value) {
+                 if(value!.isEmpty){
+                   return "Please enter the location" ;
+                 }
+               },
+                onChanged: (value) {
+                  setState(() {
+                    if (locationController.text.isEmpty) {
                     }
-                  }
+                  });
+                  searchAutocomplete(value);
                 },
+                controller: locationController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColors.homeGrey,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33),
+                      borderSide: BorderSide.none
+                  ),
+                  hintText: 'Enter location',
+                  hintStyle: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(
+                    color: AppColors.black,fontWeight: FontWeight.w400,fontSize: 16),
+                ),
               ),
-            ),) ,
-          ],
+              Visibility(
+                visible: locationController.text.isNotEmpty,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: searchPlace.length,
+                      itemBuilder: (context, index) => ListTile(
+                        onTap: () {
+                          setState(() {
+                            locationController.text = searchPlace[index].description ?? "";
+                            _getLatLang();
+                            setState(() {
+                              searchPlace.clear();
+                            });
+                          });
+                        },
+                        horizontalTitleGap: 0,
+                        title: Text(
+                          searchPlace[index].description ?? "",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),
+                        ),
+                      )),
+                ),
+              ),
+              SizedBox(height: Get.height*.03,),
+              Obx(() =>  Center(
+                child: MyButton(
+                  width:Get.width*.77,
+                  loading: alertController.loading.value,
+                  title: "SUBMIT",
+                  onTap1: () {
+                    if(positionID == null){
+                      Utils.showMessageDialog(context, "Select position to get job alerts") ;
+                    }
+                    if(_formKey.currentState!.validate()) {
+                      if (!alertController.loading.value) {
+                          alertController.setJobAlert(
+                              context, positionID,locationController.text);
+                        }
+                    }
+                  },
+                ),
+              ),) ,
+            ],
+          ),
         ),
       ),
     );

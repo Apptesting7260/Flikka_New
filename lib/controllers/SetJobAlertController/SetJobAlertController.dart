@@ -17,10 +17,10 @@ class SetJobAlertController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void setJobAlert(BuildContext context ,String? positions, String? location){
+  void setJobAlert(BuildContext context ,dynamic positions, String? location){
     var data = {} ;
-    data.addIf(positions != null && positions.length != 0 , "position_id" , jsonEncode(positions) ) ;
-    data.addIf(location != null && location.length != 0 , "location" , jsonEncode(location) ) ;
+    data.addIf(positions != null  , "position_id" , jsonEncode(positions) ) ;
+    data.addIf(location != null && location.length != 0 , "location" ,location ) ;
 
     loading(true);
     _api.setJobAlertApi(data).then((value){
