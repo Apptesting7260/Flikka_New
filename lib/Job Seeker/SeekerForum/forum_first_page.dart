@@ -34,7 +34,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
     _refreshController.refreshCompleted();
   }
 
-  ScrollController scrollController = ScrollController() ;
+  final ScrollController _scrollController = ScrollController() ;
 
   // void _onLoading() async{
   //    forumDataController.seekerForumListApi();
@@ -52,38 +52,62 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   dynamic industryID ;
   int page = 1 ;
 
-  void scrollListener() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent &&
-        !scrollController.position.outOfRange) {
-      if (kDebugMode) {
-        print("step 1") ;
-      }
-      if(!forumDataController.loadingPage.value) {
+  // void scrollListener() {
+  //   if (scrollController.position.pixels ==
+  //       scrollController.position.maxScrollExtent &&
+  //       !scrollController.position.outOfRange) {
+  //     if (kDebugMode) {
+  //       print("step 1") ;
+  //     }
+  //     if(!forumDataController.loadingPage.value) {
+  //       if (kDebugMode) {
+  //         print("step 2") ;
+  //       }
+  //       if (forumDataController.forumData.value.isLast == false) {
+  //         page++;
+  //         if (kDebugMode) {
+  //           print("step 3") ;
+  //         }
+  //         if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //           forumDataController.paginationForumApi(page: "$page");
+  //           if (kDebugMode) {
+  //             print("step 4") ;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  @override
+  void initState() {
+    _scrollController.addListener( () {
+
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent ) {
         if (kDebugMode) {
-          print("step 2") ;
+          print("step 1");
         }
-        if (forumDataController.forumData.value.isLast == false) {
-          page++;
+        if (!forumDataController.loadingPage.value) {
           if (kDebugMode) {
-            print("step 3") ;
+            print("step 2");
           }
-          if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-            forumDataController.paginationForumApi(page: "$page");
+          if (forumDataController.forumData.value.isLast == false) {
+            page++;
             if (kDebugMode) {
-              print("step 4") ;
+              print("step 3");
+            }
+            if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent) {
+              forumDataController.paginationForumApi(page: "$page");
+              if (kDebugMode) {
+                print("step 4");
+              }
             }
           }
         }
       }
     }
-  }
-
-  @override
-  void initState() {
-    // forumDataController.seekerForumListApi() ;
-    // industryController.industryApi() ;
-    scrollController.addListener(scrollListener) ;
+    ) ;
     super.initState();
   }
 
@@ -156,8 +180,9 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                   body: SmartRefresher(
                     controller: _refreshController,
                     onRefresh: _onRefresh,
+                    scrollController: _scrollController,
                     child:  SingleChildScrollView(
-                      controller: scrollController,
+                      // controller: _scrollController,
                       child: Column(
                         children: [
                           industryController.industryData.value.industryList == null ||
@@ -299,14 +324,8 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                             },
                                             decoration: InputDecoration(
                                               hintText: 'Let’s talk',
-                                              hintStyle: Theme
-                                                  .of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(
-                                                  color: Color(0xffA0A0A0)),
-                                              border: InputBorder.none,
-                                            ),
+                                              hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                  color: Color(0xffA0A0A0)), border: InputBorder.none,),
                                           ),
                                         ),
                                       ],
@@ -339,15 +358,13 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                 ],
                               ) :
                               ListView.builder(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: forumDataController.forumList?.length,
                                   itemBuilder: (context, index) {
                                     var data = forumDataController.forumList?[index];
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: Get.height * .01),
+                                    return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * .01),
                                       child: Stack(
                                           children: [
                                             GestureDetector(
@@ -464,7 +481,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                     );
                                   }),
                               Obx( () => forumDataController.loadingPage.value ? const Center(child: CircularProgressIndicator(),) : SizedBox()) ,
-                              SizedBox(height: Get.height *.1,)
+                              SizedBox(height: Get.height *.15,)
                             ],
                           )
                         ],

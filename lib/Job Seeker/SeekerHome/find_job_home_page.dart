@@ -126,6 +126,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
         _scrollTimer!.cancel();
       }
       // Start a new timer when scrolling stops
+      if(_previousScrollOffset < 1) {
+        if (_scrollController.position.pixels < -150) {
+          Get.to( () => const JobSearchScreen()) ;
+        }
+      }
       _scrollTimer = Timer(const Duration(milliseconds: 100), () {
         if(_scrollController.position.pixels - _previousScrollOffset >= 50 || _previousScrollOffset - _scrollController.position.pixels >= 50  ) {
           if (kDebugMode) {
@@ -234,12 +239,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                   if (kDebugMode) {
                                     print("outside");
                                   }
-                                  if (_previousScrollOffset < -100) {
-                                      if (kDebugMode) {
-                                        print("---------inside");
-                                    }
-                                      Get.to(() => const JobSearchScreen()) ;
-                                  }
+                                  // if (_previousScrollOffset < -100) {
+                                  //     if (kDebugMode) {
+                                  //       print("---------inside");
+                                  //   }
+                                  //     Get.to(() => const JobSearchScreen()) ;
+                                  // }
                                 }
                                 return false; // Return false to allow the notification to continue to be dispatched to its descendants.
                               },
@@ -534,29 +539,18 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                 ),
                                                                 const SizedBox(width: 10,),
                                                                 Container(
-                                                                  padding:
-                                                                  const EdgeInsets
-                                                                      .all(8),
+                                                                  padding: const EdgeInsets.all(8),
                                                                   decoration: BoxDecoration(
-                                                                      color: const Color(
-                                                                          0xff0D5AFE)
-                                                                          .withOpacity(
-                                                                          .6),
-                                                                      borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          22)),
+                                                                      color: const Color(0xff0D5AFE).withOpacity(.6),
+                                                                      borderRadius: BorderRadius.circular(22)),
                                                                   child: Text(
                                                                     "${getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
                                                                         "${getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobsDetail?.maxSalaryExpectation}",
                                                                     overflow: TextOverflow.ellipsis,
                                                                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.w600),
-                                                                  ),
+                                                                        fontSize: 12, fontWeight: FontWeight.w600),),
                                                                 ),
-                                                              ],
-                                                            ),
+                                                              ],),
                                                             const SizedBox(height: 10,) ,
                                                             Row(
                                                               children: [
