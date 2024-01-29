@@ -57,7 +57,6 @@ class _TabScreenState extends State<TabScreen> {
   SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
-
   @override
 
   void initState() {
@@ -175,8 +174,10 @@ class _TabScreenState extends State<TabScreen> {
   }
 
   void bottomTapped(int index) {
-    setState(
-          () {
+    if(index == 0) {
+      tabBarController.showListView(true) ;
+    }
+    setState(() {
         bottomSelectedIndex = index;
         pageController!.animateToPage(index,
             duration: const Duration(microseconds: 1), curve: Curves.ease);
