@@ -80,7 +80,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   }
 
  static bool showBottomBar = true;
-  int _currentPage = 0;
+ static int currentPage = 0;
   Timer? _scrollTimer;
   double _previousScrollOffset = 0.0;
   RxDouble _appBarOpacity = 0.0.obs;
@@ -100,11 +100,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   void initState() {
     _pageController.addListener(() {
       setState(() {
-        _currentPage = _pageController.page!.round();
+        currentPage = _pageController.page!.round();
       });
     });
 
-    _scrollController.addListener(() {
+    _scrollController.addListener(() async {
       if(_scrollController.offset < Get.height*.23 && _scrollController.offset >= 0) {
         position.value = _scrollController.offset ;
         setState(() {
@@ -127,8 +127,14 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
       }
       // Start a new timer when scrolling stops
       if(_previousScrollOffset < 1) {
-        if (_scrollController.position.pixels < -150) {
-          Get.to( () => const JobSearchScreen()) ;
+        if (_scrollController.position.pixels < -120) {
+        var result = await Get.to( () => const JobSearchScreen()) ;
+        if(result != null) {
+          if (kDebugMode) {
+            print("not null") ;
+          }
+          _pageController.jumpToPage(currentPage) ;
+        }
         }
       }
       _scrollTimer = Timer(const Duration(milliseconds: 100), () {
@@ -152,7 +158,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   final ScrollController _scrollController = ScrollController();
 
   Completer<GoogleMapController> mapController = Completer();
-  var last = false;
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -274,7 +280,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                               }
                                               return SingleChildScrollView(
                                                 controller: _scrollController,
-                                                physics: BouncingScrollPhysics(),
+                                                physics: const BouncingScrollPhysics(),
                                                 clipBehavior: Clip.hardEdge,
                                                 child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
@@ -481,9 +487,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                             GestureDetector(
                                                                 onTap:
                                                                     () {
-                                                                  showPound(
-                                                                      context,
-                                                                      getJobsListingController.getJobsListing.value.jobs?[index].recruiterDetails?.companyName,
+                                                                  showPound(context,
+                                                                      getJobsListingController.getJobsListing.value.jobs?[index].recruiterDetails?.companyName ?? "",
                                                                       "${getJobsListingController.getJobsListing.value.jobs?[index].jobsDetail?.minSalaryExpectation / 20}".split(".")[0]);
                                                                 },
                                                                 child: Image
@@ -510,7 +515,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                     color: const Color(0xff0D5AFE).withOpacity(.6),
                                                                     borderRadius: BorderRadius.circular(22)
                                                                 ),
-                                                                child:  Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
+                                                                child:  Text(getJobsListingController.getJobsListing.value.jobs?[currentPage].jobPositions ?? "No job position",overflow: TextOverflow.ellipsis,
                                                                   style: Get.theme.textTheme.displaySmall!.copyWith(color: AppColors.white),),
                                                               ),
                                                             ),
@@ -519,7 +524,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                               children: [
                                                                 GestureDetector(
                                                                   onTap: () {
-                                                                    Get.to(() =>  RecruiterProfileTabBar(recruiterID: getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.recruiterId.toString(),isSeeker: true,) ,);
+                                                                    Get.to(() =>  RecruiterProfileTabBar(recruiterID: getJobsListingController.getJobsListing.value.jobs?[currentPage].recruiterDetails?.recruiterId.toString(),isSeeker: true,) ,);
                                                                   },
                                                                   child: Container(
                                                                     constraints: BoxConstraints(
@@ -530,7 +535,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                         color: const Color(0xff0D5AFE).withOpacity(.6),
                                                                         borderRadius: BorderRadius.circular(22)),
                                                                     child: Text(
-                                                                      getJobsListingController.getJobsListing.value.jobs?[_currentPage].recruiterDetails?.companyName ?? "No company name",
+                                                                      getJobsListingController.getJobsListing.value.jobs?[currentPage].recruiterDetails?.companyName ?? "No company name",
                                                                       overflow: TextOverflow.ellipsis,
                                                                       softWrap: true,
                                                                       style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white, fontWeight: FontWeight.w600),
@@ -544,8 +549,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                       color: const Color(0xff0D5AFE).withOpacity(.6),
                                                                       borderRadius: BorderRadius.circular(22)),
                                                                   child: Text(
-                                                                    "${getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobsDetail?.minSalaryExpectation} - "
-                                                                        "${getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobsDetail?.maxSalaryExpectation}",
+                                                                    "${getJobsListingController.getJobsListing.value.jobs?[currentPage].jobsDetail?.minSalaryExpectation} - "
+                                                                        "${getJobsListingController.getJobsListing.value.jobs?[currentPage].jobsDetail?.maxSalaryExpectation}",
                                                                     overflow: TextOverflow.ellipsis,
                                                                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,
                                                                         fontSize: 12, fontWeight: FontWeight.w600),),
@@ -559,13 +564,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                   padding: const EdgeInsets.all(8),
                                                                   decoration: BoxDecoration(color: const Color(0xff0D5AFE).withOpacity(.6),
                                                                       borderRadius: BorderRadius.circular(22)),
-                                                                  child: Text(getJobsListingController.getJobsListing.value.jobs?[_currentPage].jobLocation ?? "No job location",
+                                                                  child: Text(getJobsListingController.getJobsListing.value.jobs?[currentPage].jobLocation ?? "No job location",
                                                                     overflow: TextOverflow.ellipsis,
                                                                     style: Get.theme.textTheme.bodyLarge!.copyWith(
                                                                         color: AppColors.white, fontSize: 12, fontWeight: FontWeight.w600),),
                                                                 ),
                                                                 const SizedBox(width: 10,),
-                                                               CountryFlag.fromCountryCode(  getJobsListingController.getJobsListing.value.jobs?[_currentPage].countryCode ?? "GB",
+                                                               CountryFlag.fromCountryCode(  getJobsListingController.getJobsListing.value.jobs?[currentPage].countryCode ?? "GB",
                                                                height: 40, width: 40,
                                                                  // borderRadius: 20,
                                                                )
@@ -1605,12 +1610,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   void onSwipeLeft() {
     setState(() {
-      if(_currentPage < getJobsListingController.getJobsListing.value.jobs!.length - 1) {
-        _currentPage++;
+      if(currentPage < getJobsListingController.getJobsListing.value.jobs!.length - 1) {
+        currentPage++;
       }else{
-        _currentPage = 0 ;
+        currentPage = 0 ;
       }
-      _pageController.jumpToPage(_currentPage) ;
+      _pageController.jumpToPage(currentPage) ;
     });
     if (kDebugMode) {
       print('Swiped to the left');
@@ -1620,15 +1625,15 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   Future<void> onSwipeRight() async {
     CommonFunctions.confirmationDialog(context, message: "Do you want to apply", onTap: () async {
       Get.back() ;
-      var result = await showReferralSubmissionDialog(context, _currentPage) ;
+      var result = await showReferralSubmissionDialog(context, currentPage) ;
       if(result == true) {
         setState(() {
-          if(_currentPage < getJobsListingController.getJobsListing.value.jobs!.length - 1) {
-            _currentPage++;
+          if(currentPage < getJobsListingController.getJobsListing.value.jobs!.length - 1) {
+            currentPage++;
           }else{
-            _currentPage = 0 ;
+            currentPage = 0 ;
           }
-          _pageController.jumpToPage(_currentPage) ;
+          _pageController.jumpToPage(currentPage) ;
         });
       }
     }) ;

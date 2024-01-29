@@ -321,7 +321,7 @@ class RecruiterDetails {
   var recruiterId;
   dynamic profileImg;
   dynamic coverImg;
-  dynamic companyName;
+  String? companyName;
   dynamic companyLocation;
   dynamic addBio;
   dynamic homeDescription;
