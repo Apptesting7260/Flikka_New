@@ -1,20 +1,70 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../controllers/JobAlertWiseJobListingController/JobAlertWiseJobListingController.dart';
+import '../../data/response/status.dart';
+import '../../res/components/general_expection.dart';
+import '../../res/components/internet_exception_widget.dart';
 
 class JobAlertWiseJobListing extends StatefulWidget {
-  const JobAlertWiseJobListing({super.key});
+ final String positionID;
+  const JobAlertWiseJobListing({super.key, required this.positionID});
 
   @override
   State<JobAlertWiseJobListing> createState() => _JobAlertWiseJobListingState();
 }
 
 class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
+
+  SeekerJobAlertWiseJobListingController seekerJobAlertWiseJobListingControllerInstanse = Get.put(SeekerJobAlertWiseJobListingController()) ;
+
+  //////refresh//////
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    await seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertListApi(widget.positionID) ;
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    await seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertListApi(widget.positionID) ;
+    if(mounted)
+      setState(() {
+
+      });
+    _refreshController.loadComplete();
+  }
+/////refresh/////
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertListApi(widget.positionID) ;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Obx(() {
+      switch (seekerJobAlertWiseJobListingControllerInstanse.rxRequestStatus.value) {
+        case Status.LOADING:
+          return const
+          Scaffold(body: Center(child: CircularProgressIndicator()),);
+        case Status.ERROR:
+          if (seekerJobAlertWiseJobListingControllerInstanse.error.value == 'No internet') {
+            return InterNetExceptionWidget(
+              onPress: () {},
+            );
+          } else {
+            return GeneralExceptionWidget(onPress: () {});
+          }
+        case Status.COMPLETED:
+          return
+      Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
         systemOverlayStyle: const SystemUiOverlayStyle(
@@ -32,80 +82,113 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
         ),
         title: Text("Marketing intern In California",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            SizedBox(height: Get.height*.03,),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-                itemCount: 7,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Container(
-                      height: Get.height*.2,
-                      decoration:  BoxDecoration(
-                        color: AppColors.homeGrey,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            // horizontalTitleGap: 0,
-                            leading: Image.asset("assets/images/icon_job_alert_logo.png",height: Get.height*.07,),
-                            title: Text("Example Company Pvt. Ltd",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),),
-                            subtitle: Row(
-                              children: [
-                                Text("4.0",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.black),),
-                                SizedBox(width: 5,),
-                                RatingBar(
-                                  initialRating: 1.0,
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 1,
-                                  itemSize: 20,
-                                  ratingWidget: RatingWidget(
-                                    full: const Icon(Icons.star, color: Colors.amber),
-                                    half: const Icon(Icons.star_half, color: Colors.amber),
-                                    empty: const Icon(Icons.star_border, color: Colors.amber),
+      body: SmartRefresher(
+        controller: _refreshController,
+        onLoading: _onLoading,
+        onRefresh: _onRefresh,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            children: [
+              seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList == null ||
+                  seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?.length == 0 ?
+              Text("No data",style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.black),):
+              SizedBox(height: Get.height*.03,),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                  itemCount: seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Container(
+                        height: Get.height*.2,
+                        decoration:  BoxDecoration(
+                          color: AppColors.homeGrey,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              // horizontalTitleGap: 0,
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 26,
+                                child: CachedNetworkImage(
+                                  errorWidget: (context, url, error) => const SizedBox(
+                                    height: 50,
+                                      width: 50,
+                                      child: Placeholder()),
+                                    imageUrl: seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].featureImg ?? "" ,height: Get.height*.07,
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                      fit: BoxFit.cover,
+                                      )
+                                    ),
                                   ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
+                                  placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator(color: Colors.white,),
+                                  ),
                                 ),
-                              ],
+                              ),
+                              title: Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiterDetails?.companyName ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),),
+                              subtitle: Row(
+                                children: [
+                                  Text("${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiter?.companyReviews}" ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.yellowColor),),
+                                  SizedBox(width: 5,),
+                                  RatingBar(
+                                    initialRating: 1.0,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 1,
+                                    itemSize: 20,
+                                    ratingWidget: RatingWidget(
+                                      full: const Icon(Icons.star, color: Colors.amber),
+                                      half: const Icon(Icons.star_half, color: Colors.amber),
+                                      empty: const Icon(Icons.star_border, color: Colors.amber),
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("marketing intern",style: Theme.of(context).textTheme.titleLarge,),
-                                Text("California, USA",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400,color: AppColors.silverColor),),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("£60K/yr - £75K/yr",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),),
-                                    Text("1d",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,color: AppColors.black),),
-                                  ],
-                                )
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobTitle ??  "",style: Theme.of(context).textTheme.titleLarge,),
+                                  Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobLocation ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400,color: AppColors.silverColor),),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobsDetail?.minSalaryExpectation ?? ''} - ${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobsDetail?.maxSalaryExpectation ?? 'No salary expectation'}',style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),),
+                                      // Text("1d",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,color: AppColors.black),),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },)
-          ],
+                    );
+                  },)
+            ],
+          ),
         ),
       ),
     );
   }
 }
+);}}

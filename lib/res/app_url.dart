@@ -98,5 +98,6 @@ class AppUrl {
   static const String seenUnseenPendingInterviewUrl = '$baseUrl/seen-unseen-pending-interview' ;
   static const String seenUnSeenWalletMessage = '$baseUrl/seen-unseen-wallet-message' ;
   static const String jobAlertListUrl = '$baseUrl/seeker-job-alert-list' ;
+  static const String jobAlertWiseJobListingUrl = '$baseUrl/job-listing-job-alert' ;
 
 }
