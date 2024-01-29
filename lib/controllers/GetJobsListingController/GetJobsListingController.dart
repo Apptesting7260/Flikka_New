@@ -15,6 +15,7 @@ class GetJobsListingController extends GetxController {
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
   void seekerGetJobs(GetJobsListingModel value) => getJobsListing.value = value ;
   void setError(String value) => error.value = value ;
+  RxList<SeekerJobsData>? filteredList = <SeekerJobsData>[].obs ;
 
   void seekerGetAllJobsApi(){
     if (kDebugMode) {
@@ -58,5 +59,26 @@ class GetJobsListingController extends GetxController {
         print(stackTrace.toString());
       }
     });
+  }
+
+  filterJobs (String query) {
+      if(getJobsListing.value.jobs != null) {
+        filteredList?.value =  getJobsListing.value.jobs!.where((e) {
+          if(e.recruiterDetails != null && e.jobLocation != null) {
+            if(e.jobLocation!.toLowerCase().contains(query.toLowerCase()) ||
+                e.recruiterDetails!.companyName!.toLowerCase().contains(query.toLowerCase())) {
+              if (kDebugMode) {
+                print(filteredList?.length) ;
+              }
+              return true;
+            }else{
+              return false ;
+            }
+          }else{
+            return false ;
+          }
+        }
+   ).toList() ;
+      }
   }
 }
