@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
-import 'package:flikka/Job%20Seeker/SeekerForum/FriendsFamily/FriendsFamily.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
-import 'package:flikka/Job%20Seeker/SeekerForum/seeker_chat_message.dart';
 import 'package:flikka/controllers/SeekerForumController/ForumIndustryListController.dart';
 import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -159,7 +157,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                     controller: _refreshController,
                     onRefresh: _onRefresh,
                     child:  SingleChildScrollView(
-                      // controller: scrollController,
+                      controller: scrollController,
                       child: Column(
                         children: [
                           industryController.industryData.value.industryList == null ||
