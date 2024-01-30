@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/CompaniesListController/CompaniesListController.dart';
 import 'package:flikka/data/response/status.dart';
@@ -41,6 +42,8 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
   }
   /////refresh/////
 
+  TabBarController tabBarController = Get.put(TabBarController()) ;
+
   @override
   void initState() {
     // companiesListController.getCompaniesApi() ;
@@ -74,7 +77,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
               appBar: AppBar(
                 toolbarHeight: 75,
                 leading: IconButton(
-                    onPressed: () { Get.offAll(const TabScreen(index: 0)) ;}, icon:
+                    onPressed: () { tabBarController.bottomTapped(0) ;}, icon:
                 Image.asset("assets/images/icon_back_blue.png",
                 height: Get.height * .06,)) ,
                 title:Text("Companies", style: Get.theme.textTheme

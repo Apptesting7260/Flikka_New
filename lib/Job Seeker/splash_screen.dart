@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             } else if(sp.getInt("step") == 3) {
               Get.offAll(() => const CreateProfile()) ;
             } else {
-            Get.offAll(const TabScreen(index: 0)) ; }
+            Get.offAll(const TabScreen(index: 0 , loadData: true,)) ; }
           } else {
             Get.off(() => const Login());
           }

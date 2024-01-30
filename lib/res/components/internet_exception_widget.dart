@@ -33,29 +33,16 @@ class _InterNetExceptionWidgetState extends State<InterNetExceptionWidget> {
                   child: Text("No Internet",
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white ,fontSize: 18 ),),
                 ),
-                Flexible(child: Center(child: Lottie.asset('assets/images/no_internet.json' ,width: Get.width * .5))),
+                Center(child: Lottie.asset('assets/images/no_internet.json' , height: Get.height *.4,width: Get.width * .5)),
                 SizedBox(height: height * .05 ,),
                 Center(
                   child: MyButton( width: 160,height: 44,
                       title: 'Retry', onTap1:  widget.onPress),
-                ) ,
-                // Center(
-                //   child: InkWell(
-                //     onTap: widget.onPress,
-                //     child: Container(
-                //       height: 44,
-                //       width: 160,
-                //       decoration: BoxDecoration(
-                //           color: AppColor.primaryColor ,
-                //           borderRadius: BorderRadius.circular(50)
-                //       ),
-                //       child: Center(child: Text('Retry' , style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),)),
-                //     ),
-                //   ),
-                // ) ,
+                ),
                 SizedBox(height: height * .05 ,),
               ],
             ),
+
           ],
         ),
       ),

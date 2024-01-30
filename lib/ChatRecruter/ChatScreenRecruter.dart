@@ -1,33 +1,20 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:audio_waveforms/audio_waveforms.dart';
-// import 'package:audioplayers/audioplayers.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flikka/ChatRecruter/CreateFuction.dart';
 import 'package:flikka/ChatRecruter/chatFunnction.dart';
 import 'package:flikka/Job%20Recruiter/message/message_page.dart';
-import 'package:flikka/chatseeker/CreateChat.dart';
-import 'package:flikka/chatseeker/chat_functios.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
-import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
-// import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-// import 'package:kplayer/kplayer.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'package:video_player/video_player.dart';
 
 String messagetype = "text";
 var playerx;
@@ -116,18 +103,12 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
             viewRecruiterProfileController
                 .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
                 .toString(),
-            "GPR" +
+            "GRP" +
                 viewRecruiterProfileController.viewRecruiterProfile.value
                     .recruiterProfileDetails!.recruiterId
                     .toString() +
                 SeekerIDchat.toString(),
             messages);
-//  selfsender(textmsg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
-//           value.ProfileDetail!.id
-//               .toString(), roomid.toString(), messages);
-//                chatfunctionsinstance.anotherseekersender(textmsg.toString(), anotherseekerid, roomid.toString(), messages);
-
-// chatfunctionsinstance.Makersender(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
 
         chatfunctionsinstance.sendNotification(
             textmsg.toString(),
@@ -162,7 +143,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
             viewRecruiterProfileController
                 .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
                 .toString(),
-            "GPR" +
+            "GRP" +
                 viewRecruiterProfileController
                     .viewRecruiterProfile.value.recruiterProfileDetails!.id
                     .toString() +
@@ -442,20 +423,15 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
             children: [
               CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage(Chatimage.toString()),
+                backgroundImage: NetworkImage(Seekerimgchat ?? ""),
               ),
-              // Image.asset(
-              //   'assets/images/firstlogomarketing.png',
-              //   scale: 1,
-              // ),
               SizedBox(
                 width: Get.width * 0.018,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    chatname.toString(),
+                  Text(SeekerName ?? "",
                     style: Get.theme.textTheme.titleSmall!
                         .copyWith(color: AppColors.black),
                   ),
@@ -465,8 +441,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                   Row(
                     children: [
                       Image.asset('assets/images/liveimage.png'),
-                      Text(
-                        "Online",
+                      Text("Online",
                         style: Get.theme.textTheme.bodySmall!
                             .copyWith(color: AppColors.black),
                       ),
@@ -498,16 +473,16 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
-                      .collection("Rooms")
+                      .collection("RoomID")
                       .doc(
-                          "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+                          "GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
                       .collection('massages')
                       .orderBy("time", descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     print(
-                        "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}=======roomid");
+                        "GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}=======roomid");
                     return snapshot.data != null
                         ? ListView.builder(
                             shrinkWrap: true,
@@ -972,11 +947,11 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
     if (isRecording) recorderController.refresh();
   }
 //       MessengeRead(){
-//           _firestore.collection('Rooms').doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").get().then((value) {
+//           _firestore.collection('RoomID').doc("GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").get().then((value) {
 //                value.docs.forEach((element) {
-//  final result= _firestore.collection('Rooms').doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").doc(element.id).get();
+//  final result= _firestore.collection('RoomID').doc("GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").doc(element.id).get();
 //  if(result.then((value) => value.data()!['sentby'])==SeekerIDchat.toString()){
-//  _firestore.collection('Rooms').doc("GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").doc(element.id).update({'isRead':true});
+//  _firestore.collection('RoomID').doc("GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}").collection("massages").doc(element.id).update({'isRead':true});
 //  }
 
 //                });
@@ -987,17 +962,17 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
 
   Future<void> MessengeRead() async {
     final querySnapshot = await _firestore
-        .collection('Rooms')
+        .collection('RoomID')
         .doc(
-            "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+            "GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
         .collection("massages")
         .get();
 
     for (final element in querySnapshot.docs) {
       final result = await _firestore
-          .collection('Rooms')
+          .collection('RoomID')
           .doc(
-              "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+              "GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
           .collection("massages")
           .doc(element.id)
           .get();
@@ -1007,9 +982,9 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
 
       if (sentBy == SeekerIDchat) {
         DocumentReference roomRef2 = _firestore
-            .collection("Rooms")
+            .collection("RoomID")
             .doc(
-                "GPR${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
+                "GRP${viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()}${SeekerIDchat}")
             .collection('massages')
             .doc(element.id);
 

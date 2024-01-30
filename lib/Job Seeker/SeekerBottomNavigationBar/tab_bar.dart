@@ -20,6 +20,9 @@ import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAl
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
+import '../../data/response/status.dart';
+import '../../res/components/general_expection.dart';
+import '../../res/components/internet_exception_widget.dart';
 import '../../widgets/app_colors.dart';
 import '../SeekerForum/FriendsFamily/ContactsController.dart';
 import '../SeekerHome/find_job_home_page.dart';
@@ -28,14 +31,15 @@ import '../SeekerHome/find_job_home_page.dart';
 class TabScreen extends StatefulWidget {
   final int index;
   final bool? filtered ;
-  const TabScreen({super.key, required this.index, this.filtered});
+  final bool? loadData ;
+  const TabScreen({super.key, required this.index, this.filtered, this.loadData});
 
   @override
-  _TabScreenState createState() => _TabScreenState();
+  TabScreenState createState() => TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> {
-  int? bottomSelectedIndex;
+class TabScreenState extends State<TabScreen> {
+ static int? bottomSelectedIndex;
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
   bool loading = false;
@@ -60,23 +64,26 @@ class _TabScreenState extends State<TabScreen> {
   @override
 
   void initState() {
-    getJobsListingController.seekerGetAllJobsApi() ;
-    seekerProfileController.viewSeekerProfileApi() ;
-    seekerProfileControllerr.viewSeekerProfileApi();
-    viewLanguageController.viewLanguageApi() ;
-    skillsController.seekerGetAllSkillsApi() ;
-    forumDataController.seekerForumListApi(page: "1") ;
-    industryController.industryApi() ;
-    companiesListController.getCompaniesApi() ;
-    jobsController.mapJobsApi();
-    seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
-    avtarController.getAvtarListApi() ;
-    bottomSelectedIndex = widget.index;
-    pageController = PageController(initialPage: widget.index, keepPage: true);
-    contactController.loadContacts() ;
-    SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi() ;
-    seekerEarningController.seekerEarningApi();
-    interviewListController.seekerInterViewListApi();
+    if(widget.loadData == true) {
+      getJobsListingController.seekerGetAllJobsApi();
+      seekerProfileController.viewSeekerProfileApi();
+      seekerProfileControllerr.viewSeekerProfileApi();
+      viewLanguageController.viewLanguageApi();
+      skillsController.seekerGetAllSkillsApi();
+      forumDataController.seekerForumListApi(page: "1");
+      industryController.industryApi();
+      companiesListController.getCompaniesApi();
+      jobsController.mapJobsApi();
+      seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
+      avtarController.getAvtarListApi();
+      bottomSelectedIndex = widget.index;
+      contactController.loadContacts();
+      SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi();
+      seekerEarningController.seekerEarningApi();
+      interviewListController.seekerInterViewListApi();
+     tabBarController.pageController = PageController(initialPage: widget.index , keepPage: true);
+    }
+
   buildBottomNavBarItems =  [
       BottomNavigationBarItem(
           label: "",
@@ -118,24 +125,66 @@ class _TabScreenState extends State<TabScreen> {
       key: drawerKey,
       extendBody: true,
       backgroundColor: Colors.transparent,
-      body: SafeArea(
-        bottom: false,
-        top: false,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: PageView(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            onPageChanged: (index) => pageChanged(index),
-            children:  [
-              const FindJobHomeScreen(),
-              GoogleMapIntegration(filtered: widget.filtered,),
-              const  CompanySeekerPage(),
-              const  ForumFirstPage(),
-              const UserProfile(),
-            ],
-          ),
-        ),
+      body: Obx(() {
+        switch (getJobsListingController.rxRequestStatus.value) {
+          case Status.LOADING:
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+
+          case Status.ERROR:
+            if (getJobsListingController.error.value == 'No internet') {
+              return Scaffold(
+                body: InterNetExceptionWidget(
+                  onPress: () {
+                    getJobsListingController.seekerGetAllJobsApi();
+                    seekerProfileController.viewSeekerProfileApi();
+                    seekerProfileControllerr.viewSeekerProfileApi();
+                    viewLanguageController.viewLanguageApi();
+                    skillsController.seekerGetAllSkillsApi();
+                    forumDataController.seekerForumListApi(page: "1");
+                    industryController.industryApi();
+                    companiesListController.getCompaniesApi();
+                    jobsController.mapJobsApi();
+                    seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
+                    avtarController.getAvtarListApi();
+                    bottomSelectedIndex = widget.index;
+                    contactController.loadContacts();
+                    SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi();
+                    seekerEarningController.seekerEarningApi();
+                    interviewListController.seekerInterViewListApi();
+                  },
+                ),
+              );
+            } else {
+              return Scaffold(
+                body: GeneralExceptionWidget(onPress: () {
+                  getJobsListingController.seekerGetAllJobsApi();
+                }),
+              );
+            }
+          case Status.COMPLETED:
+            return SafeArea(
+              bottom: false,
+              top: false,
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                child: PageView(
+                  controller: tabBarController.pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (index) => tabBarController.pageChanged(index),
+                  children: [
+                    const FindJobHomeScreen(),
+                    GoogleMapIntegration(filtered: widget.filtered,),
+                    const CompanySeekerPage(),
+                    const ForumFirstPage(),
+                    const UserProfile(),
+                  ],
+                ),
+              ),
+            );
+        }
+      }
       ),
       bottomNavigationBar: Obx( () => AnimatedOpacity(
         duration: const Duration(milliseconds: 800),
@@ -161,8 +210,8 @@ class _TabScreenState extends State<TabScreen> {
 
               elevation: 0,
               backgroundColor: AppColors.homeGrey ,
-              currentIndex: bottomSelectedIndex ?? 0,
-              onTap: (index) => bottomTapped(index),
+              currentIndex: tabBarController.bottomSelectedIndex?.value ?? 0,
+              onTap: (index) => tabBarController.bottomTapped(index),
               selectedFontSize: 1,
               unselectedFontSize: 1,
             ),

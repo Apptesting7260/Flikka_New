@@ -16,7 +16,6 @@ class _LocationState extends State<Location> {
     return SafeArea(child: Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: (){
-         Get.offAll(TabScreen(index: 0)) ;
         }, icon: Image.asset("assets/images/icon_back_blue.png",)),
         title: Text("Map",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
         toolbarHeight: 90,

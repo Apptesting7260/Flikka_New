@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/controllers/AddInOngoingController/AddInOngoingController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -54,14 +55,13 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
 
   final List<String> jobTypeItems = ['Ongoing','Upcoming','Past','All',];
   String? jobTypeValues;
-
   AddInOngoingController ongoingController = Get.put(AddInOngoingController()) ;
   AddInOngoingController addInOngoingController = Get.put(AddInOngoingController()) ;
   InterViewConfirmationController interviewConfirmationController = Get.put(InterViewConfirmationController()) ;
+  TabBarController tabBarController = Get.put(TabBarController()) ;
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -99,7 +99,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                 toolbarHeight: 75,
                 leading: IconButton(
                     onPressed: () {
-                      Get.offAll(const TabScreen(index: 0)) ;
+                      tabBarController.bottomTapped(0) ;
                       seenUnSeenInterviewPendingControllerInstanse.seenUnSeenPendingInterviewAPi(
                           context,seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
                       }, icon:
