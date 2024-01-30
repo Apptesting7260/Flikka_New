@@ -24,6 +24,7 @@ import '../../Job Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import '../../chatseeker/CreateChat.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
+import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
 import '../../res/components/general_expection.dart';
@@ -32,11 +33,15 @@ import '../../utils/VideoPlayerScreen.dart';
 import '../../widgets/google_map_widget.dart';
 import '../../widgets/my_button.dart';
 import '../SeekerBottomNavigationBar/TabBarController.dart';
+import '../SeekerChatMessage/message_page.dart';
 import '../SeekerFilter/filter_page.dart';
 import '../SeekerDrawer/Drawer_page.dart';
 import '../SeekerJobs/no_job_available.dart';
 import 'package:get/get.dart';
 import '../SeekerNotification/SeekerNotification.dart';
+import 'package:badges/badges.dart' as badges;
+
+
 
 String? Recruitername;
 String? Recruiterimg;
@@ -97,6 +102,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   SeekerUnSavePostController unSavePostController = Get.put(SeekerUnSavePostController());
   GetJobsListingModel jobModel = GetJobsListingModel();
   // final Ctreatechat Ctreatechatinstance = Ctreatechat();
+
+  SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
+
   @override
   void initState() {
     _pageController.addListener(() {
@@ -313,7 +321,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ),
                                     SizedBox( width: Get.width * .1,
                                       child: GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Get.to(() => const SeekerMessagePage()) ;
+                                        },
                                         child: Container(
                                           height: 35,
                                           width: 35,
@@ -329,7 +339,10 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ),
                                   ],) ,
                                 SizedBox(height: Get.height * .02,) ,
-                                Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,) ,
+                                Padding(
+                                  padding:  EdgeInsets.only(left: Get.width*.05),
+                                  child: Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,),
+                                ) ,
                                 getJobsListingController.getJobsListing.value.jobs == null ||
                                     getJobsListingController.getJobsListing.value.jobs?.length == 0 ?
                                 const Center(child: Text("NO JOBS")) :
@@ -1175,15 +1188,23 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                               Get.to(const WalletSection()) ;
                                             },
                                               child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
-                                          const SizedBox(width: 7,),
+                                          const SizedBox(width: 20,),
                                           GestureDetector(
                                             onTap: () {
                                              Navigator.of(context).push(
                                                MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
                                              ) ;
                                             } ,
-                                              child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,)),
-                                          const SizedBox(width: 7,),
+                                              child:  Obx(() =>
+                      SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null || SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                           Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
+                                                 badges.Badge(
+                                                badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
+                                                  child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,),
+                                                 ),
+                                              )
+                                              ),
+                                          const SizedBox(width: 20,),
                                           Builder(builder: (context) {
                                             return InkWell(
                                                 onTap: () => Scaffold.of(context).openEndDrawer(),
