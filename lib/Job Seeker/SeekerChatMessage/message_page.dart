@@ -51,7 +51,7 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
             child: InkWell(
                 onTap: (){
                   Get.back() ;
-                  Get.offAll(const TabScreen(index: 0));
+                  Get.to(const TabScreen(index: 0));
                 },
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),
@@ -119,9 +119,9 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.active) {
 
-                          return snapshot.data!.docs.isEmpty == false
+                          return snapshot.data?.docs.isEmpty == false
                               ?ListView.builder(
-                              itemCount: snapshot.data!.docs.length,
+                              itemCount: snapshot.data?.docs.length,
                               itemBuilder: (context,index){
                                 var data = snapshot.data?.docs[index];
                                 final timestamp = snapshot.data?.docs[index]['timestamp'] as Timestamp;
@@ -149,8 +149,8 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
                                         backgroundImage:NetworkImage(data![ "RecruiterImage"]),
 
                                       ),
-                                      title: Text(data!['RecruiterName'],style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black)),
-                                      subtitle:  Text(data![ "lastmsg"],style:Get.theme.textTheme.bodySmall!.copyWith(color: Colors.blue)),
+                                      title: Text(data['RecruiterName'],style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black)),
+                                      subtitle:  Text(data[ "lastmsg"],style:Get.theme.textTheme.bodySmall!.copyWith(color: Colors.blue)),
                                       trailing: Column(
                                         children: [
                                           SizedBox(height: Get.height*0.015,),

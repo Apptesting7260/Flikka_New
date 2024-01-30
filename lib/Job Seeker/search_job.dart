@@ -19,7 +19,7 @@ class _SearchJobState extends State<SearchJob> {
         appBar: AppBar(
           toolbarHeight: 80,
           leading: IconButton(onPressed: (){
-            Get.offAll(TabScreen(index: 0)) ;
+
           }, icon: Image.asset("assets/images/icon_back_blue.png",)),
           title: Text("Search",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
           actions: [
@@ -27,7 +27,6 @@ class _SearchJobState extends State<SearchJob> {
               padding: EdgeInsets.only(right: 25.0),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => FilterPage()) ;
                 },
                   child: SvgPicture.asset("assets/images/icon_unselect_filter.svg",height: 24,)),
             )

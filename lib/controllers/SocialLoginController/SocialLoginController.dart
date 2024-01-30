@@ -60,7 +60,7 @@ class SocialLoginController extends GetxController {
       ? Get.offAll(() => const ChooseSkills())
           : value.step == 3
       ? Get.offAll(() => const CreateProfile())
-          : Get.offAll(const TabScreen(index: 0)) ;
+          : Get.offAll(const TabScreen(index: 0,loadData: true,)) ;
       sp.setString("loggedIn", "seeker");
       } else if (value.role == 1) {
       value.step == 1 ? Get.offAll( () => const RecruiterProfileEdit()) :

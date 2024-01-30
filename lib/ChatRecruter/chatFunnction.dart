@@ -1,13 +1,8 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikka/ChatRecruter/CreateFuction.dart';
-import 'package:flikka/Job%20Seeker/SeekerHome/home_swiper_find_job_widget.dart';
-import 'package:flikka/chatseeker/CreateChat.dart';
-import 'package:flikka/controllers/SeekerUpdateVideoController/SeekerUpdateVideoController.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
-import 'package:flikka/controllers/ViewSeekerProfileController/viewSeekerProfilecontrollerr.dart';
 import 'package:flikka/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
 import 'package:flikka/controllers/SeekerForumController/ForumIndustryListController.dart';
@@ -111,6 +112,8 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
     super.initState();
   }
 
+  TabBarController tabBarController = Get.put(TabBarController()) ;
+  
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -170,7 +173,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
                           onTap: () {
-                            Get.offAll(const TabScreen(index: 0));
+                           tabBarController.bottomTapped(0);
                           },
                           child: Image.asset('assets/images/icon_back_blue.png')),
                     ),

@@ -11,6 +11,7 @@ import 'package:flikka/chatseeker/chat_functios.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/main.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -100,7 +101,7 @@ print(fcmToken);
           //   anotherseekerid;
           // });
         
- chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),"GPR"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),messages);
+ chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),"GRP"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),messages);
 //  selfsender(textmsg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
 //           value.ProfileDetail!.id
 //               .toString(), roomid.toString(), messages);
@@ -135,7 +136,7 @@ print(fcmToken);
         };
         String latmdg="image";
 
- chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),"GPR"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),messages);
+ chatfunctionsinstance.SendMsgToRecruiter(textmsg.toString(),seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),"GRP"+RecruiterId.toString()+seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString(),messages);
 
 
        setState(() {
@@ -465,14 +466,16 @@ appBar: AppBar(
          Expanded(
                     child: StreamBuilder<QuerySnapshot>(
                                   stream: _firestore
-                                      .collection("Rooms")
-                                      .doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}")
+                                      .collection("RoomID")
+                                      .doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}")
                                       .collection('massages')
                                       .orderBy("time", descending: true)
                                       .snapshots(),
                                   builder: (BuildContext context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {
-                                        print("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}=======roomid");
+                                        if (kDebugMode) {
+                                          print("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}=======roomid");
+                                        }
                                     return snapshot.data != null
                                         ? ListView.builder(
                           shrinkWrap: true,
@@ -873,11 +876,11 @@ appBar: AppBar(
 
 // Call this function where you want to show the BottomSheet
 //  MessengeRead(){
-//           _firestore.collection('Rooms').doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection("massages").get().then((value) {
+//           _firestore.collection('RoomID').doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection("massages").get().then((value) {
 //                value.docs.forEach((element) {
-//  final result= _firestore.collection('Rooms').doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection("massages").doc(element.id).get();
+//  final result= _firestore.collection('RoomID').doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection("massages").doc(element.id).get();
 //  if(result.then((value) => value.data()!['sentby'])==seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString().toString()){
-//  _firestore.collection('Rooms').doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection("massages").doc(element.id).update({'isRead':true});
+//  _firestore.collection('RoomID').doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection("massages").doc(element.id).update({'isRead':true});
 //  }
   
 
@@ -892,15 +895,15 @@ appBar: AppBar(
 
 Future<void> MessengeRead() async {
   final querySnapshot = await _firestore
-      .collection('Rooms')
-      .doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}")
+      .collection('RoomID')
+      .doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}")
       .collection("massages")
       .get();
 
   for (final element in querySnapshot.docs) {
     final result = await _firestore
-        .collection('Rooms')
-        .doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}")
+        .collection('RoomID')
+        .doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}")
         .collection("massages")
         .doc(element.id)
         .get();
@@ -909,16 +912,9 @@ Future<void> MessengeRead() async {
     // print("Sent By: $sentBy");
 
     if (sentBy ==RecruiterId ) {
-  DocumentReference roomRef2 = _firestore.collection("Rooms").doc("GPR${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection('massages').doc(element.id);
+  DocumentReference roomRef2 = _firestore.collection("RoomID").doc("GRP${RecruiterId}${seekerProfileController.viewSeekerData.value.seekerInfo!.id.toString()}").collection('massages').doc(element.id);
 
-  await roomRef2.update({
-      'isRead': true
-      
-
-      
-    });
-
-
+  await roomRef2.update({'isRead': true});
     }
   }
 }

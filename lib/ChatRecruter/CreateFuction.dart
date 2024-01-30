@@ -1,14 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikka/ChatRecruter/ChatScreenRecruter.dart';
-import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
-import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
-import 'package:flikka/Job%20Seeker/SeekerChatMessage/video_calling_and_chatting_page.dart';
-import 'package:flikka/Job%20Seeker/SeekerHome/home_swiper_find_job_widget.dart';
-import 'package:flikka/chatseeker/ChatScreen.dart';
 import 'package:flikka/chatseeker/CreateChat.dart';
 import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
-import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

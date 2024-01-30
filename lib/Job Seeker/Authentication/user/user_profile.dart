@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/EditAboutController/EditAboutController.dart';
 import 'package:flikka/controllers/EditSeekerAppreciationController/EditSeekerAppreciationController.dart';
@@ -1897,11 +1898,9 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
+  TabBarController tabBarController = Get.put(TabBarController()) ;
   @override
   void initState() {
-    // seekerProfileController.viewSeekerProfileApi();
-    // viewLanguageController.viewLanguageApi() ;
-    // skillsController.seekerGetAllSkillsApi() ;
     super.initState();
   }
 
@@ -1975,7 +1974,7 @@ class _UserProfileState extends State<UserProfile> {
                                 children: [
                                   GestureDetector(
                                       onTap: () {
-                                        Get.offAll(const TabScreen(index: 0)) ;
+                                        tabBarController.bottomTapped(0) ;
                                       },
                                       child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
                                   Container(
