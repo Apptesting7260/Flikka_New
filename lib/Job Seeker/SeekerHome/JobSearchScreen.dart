@@ -7,6 +7,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../widgets/app_colors.dart';
+import '../SeekerChatMessage/message_page.dart';
 import '../SeekerDrawer/Drawer_page.dart';
 import '../SeekerJobs/no_job_available.dart';
 import 'find_job_home_page.dart';
@@ -57,7 +58,7 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
                   child: const Icon(Icons.arrow_back_ios,color: AppColors.white,),
                 ),
               ),
-              SizedBox(width: Get.width *.2,),
+              SizedBox(width: Get.width *.04,),
               Text("Jobs",style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black,fontSize: 20,fontWeight: FontWeight.w700),),
             ],),
            const SizedBox(height: 20,),
@@ -69,7 +70,9 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
                     Get.to( () => const FilterPage()) ;
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(4),
+                    height: 35,
+                    width: 35,
+                    padding: const EdgeInsets.all(8),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -99,15 +102,19 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
               ),
               SizedBox( width: Get.width * .1,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => const SeekerMessagePage()) ;
+                  },
                   child: Container(
+                    height: 35,
+                    width: 35,
                     padding: const EdgeInsets.all(4),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.blueThemeColor
                     ),
-                    child: Image.asset("assets/images/icon_forum_select.png"),
+                    child: Image.asset("assets/images/icon_job_search_message.png"),
                   ),
                 ),
               ),
@@ -119,12 +126,14 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
                         Scaffold.of(context).openEndDrawer() ;
                       },
                       child: Container(
+                        height: 35,
+                        width: 35,
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: AppColors.blueThemeColor
                         ),
-                        child: Image.asset("assets/images/drawerIconWhite.png"),
+                        child: Image.asset("assets/images/drawerIconWhite.png",height: 28,width: 20,),
                       ),
                     );
                   }
@@ -132,8 +141,11 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
               ),
             ],) ,
             SizedBox(height: Get.height * .02,) ,
-            Text("Jobs based on your profile" , style: Theme.of(context).textTheme.bodyLarge,) ,
-            SizedBox(height: Get.height * .02,) ,
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,),
+            ) ,
+            SizedBox(height: Get.height * .025,) ,
             getJobsListingController.getJobsListing.value.jobs == null ||
             getJobsListingController.getJobsListing.value.jobs?.length == 0 ?
             const SeekerNoJobAvailable() :
@@ -173,12 +185,12 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
                             child: SizedBox( width: Get.width *.6,
                               child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text( data?.jobPositions ??"" , style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),),
-                                  Text(data?.recruiterDetails?.companyName ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
+                                  Text( data?.jobPositions ??"" , style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                  Text(data?.recruiterDetails?.companyName ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
                                   SizedBox(height: Get.height *.01,) ,
-                                  Text(data?.jobLocation ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
+                                  Text(data?.jobLocation ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
                                   SizedBox(height: Get.height *.01,) ,
-                                  Text( "${data?.jobsDetail?.minSalaryExpectation} - ${data?.jobsDetail?.maxSalaryExpectation}" , style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),),
+                                  Text( "${data?.jobsDetail?.minSalaryExpectation} - ${data?.jobsDetail?.maxSalaryExpectation}" , style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontWeight: FontWeight.w500),),
                                 ],
                               ),
                             ),

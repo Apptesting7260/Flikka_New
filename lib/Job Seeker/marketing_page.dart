@@ -9,10 +9,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../controllers/GetJobsListingController/GetJobsListingController.dart';
-import '../controllers/SeekerReferalController/SeekerReferralController.dart';
 import '../utils/VideoPlayerScreen.dart';
 
 class MarketingIntern extends StatefulWidget {
@@ -94,11 +91,9 @@ class _MarketingInternState extends State<MarketingIntern> {
                           ),
                         ),
                       ),
-
                       Row(
                         children: [
                           SizedBox(width: Get.width*.04,) ,
-
                           GestureDetector(
                             onTap: () {
                               if(  widget.jobData?.video == null ||

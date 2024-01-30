@@ -486,7 +486,7 @@ class RecruiterDetails {
     aboutDescription: json["about_description"],
     industry: json["industry"],
     companySize: json["company_size"],
-    founded: DateTime.parse(json["founded"]),
+    founded: json["founded"] == null ? json["founded"] : DateTime.parse(json["founded"]),
     specialties: json["specialties"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),

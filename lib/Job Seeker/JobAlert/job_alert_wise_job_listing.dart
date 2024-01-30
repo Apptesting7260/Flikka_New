@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Seeker/JobAlert/view_job.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -101,85 +102,90 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
-                      child: Container(
-                        height: Get.height*.2,
-                        decoration:  BoxDecoration(
-                          color: AppColors.homeGrey,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListTile(
-                              // horizontalTitleGap: 0,
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: 26,
-                                child: CachedNetworkImage(
-                                  errorWidget: (context, url, error) => const SizedBox(
-                                    height: 50,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => const JobViewJobAlert()) ;
+                        },
+                        child: Container(
+                          height: Get.height*.2,
+                          decoration:  BoxDecoration(
+                            color: AppColors.homeGrey,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                // horizontalTitleGap: 0,
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: 26,
+                                  child: CachedNetworkImage(
+                                    errorWidget: (context, url, error) => const SizedBox(
+                                      height: 50,
+                                        width: 50,
+                                        child: Placeholder()),
+                                      imageUrl: seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].featureImg ?? "" ,height: Get.height*.07,
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      height: 50,
                                       width: 50,
-                                      child: Placeholder()),
-                                    imageUrl: seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].featureImg ?? "" ,height: Get.height*.07,
-                                  imageBuilder: (context, imageProvider) => Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: imageProvider,
-                                      fit: BoxFit.cover,
-                                      )
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                        fit: BoxFit.cover,
+                                        )
+                                      ),
                                     ),
-                                  ),
-                                  placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(color: Colors.white,),
+                                    placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(color: Colors.white,),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              title: Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiterDetails?.companyName ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),),
-                              subtitle: Row(
-                                children: [
-                                  Text("${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiter?.companyReviews}" ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.yellowColor),),
-                                  SizedBox(width: 5,),
-                                  RatingBar(
-                                    initialRating: 1.0,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 1,
-                                    itemSize: 20,
-                                    ratingWidget: RatingWidget(
-                                      full: const Icon(Icons.star, color: Colors.amber),
-                                      half: const Icon(Icons.star_half, color: Colors.amber),
-                                      empty: const Icon(Icons.star_border, color: Colors.amber),
+                                title: Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiterDetails?.companyName ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),),
+                                subtitle: Row(
+                                  children: [
+                                    Text("${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiter?.companyReviews}" ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.yellowColor),),
+                                    SizedBox(width: 5,),
+                                    RatingBar(
+                                      initialRating: 1.0,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 1,
+                                      itemSize: 20,
+                                      ratingWidget: RatingWidget(
+                                        full: const Icon(Icons.star, color: Colors.amber),
+                                        half: const Icon(Icons.star_half, color: Colors.amber),
+                                        empty: const Icon(Icons.star_border, color: Colors.amber),
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
                                     ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    },
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobTitle ??  "",style: Theme.of(context).textTheme.titleLarge,),
-                                  Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobLocation ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400,color: AppColors.silverColor),),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobsDetail?.minSalaryExpectation ?? ''} - ${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobsDetail?.maxSalaryExpectation ?? 'No salary expectation'}',style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),),
-                                      // Text("1d",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,color: AppColors.black),),
-                                    ],
-                                  )
-                                ],
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobTitle ??  "",style: Theme.of(context).textTheme.titleLarge,),
+                                    Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobLocation ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400,color: AppColors.silverColor),),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobsDetail?.minSalaryExpectation ?? ''} - ${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].jobsDetail?.maxSalaryExpectation ?? 'No salary expectation'}',style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),),
+                                        // Text("1d",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,color: AppColors.black),),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
