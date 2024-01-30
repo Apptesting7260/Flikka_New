@@ -48,6 +48,8 @@ class JobList {
   dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
+  dynamic lat;
+  dynamic long;
   String? jobPositions;
   List<LanguageName>? languageName;
   JobsDetail? jobsDetail;
@@ -74,6 +76,8 @@ class JobList {
      this.deletedAt,
      this.createdAt,
      this.updatedAt,
+     this.lat,
+     this.long,
      this.jobPositions,
      this.languageName,
      this.jobsDetail,
@@ -101,6 +105,8 @@ class JobList {
     deletedAt: json["deleted_at"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    lat: json["lat"],
+    long: json["long"],
     jobPositions: json["job_positions"],
     languageName: json["language_name"] == null ? json["language_name"] : List<LanguageName>.from(json["language_name"].map((x) => LanguageName.fromJson(x))),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : JobsDetail.fromJson(json["jobs_detail"]),

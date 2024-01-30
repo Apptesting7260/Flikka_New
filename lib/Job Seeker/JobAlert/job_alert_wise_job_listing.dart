@@ -1,12 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/JobAlert/view_job.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/JobAlertWiseJobListingController/JobAlertWiseJobListingController.dart';
+import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
+import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -22,6 +27,10 @@ class JobAlertWiseJobListing extends StatefulWidget {
 class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
 
   SeekerJobAlertWiseJobListingController seekerJobAlertWiseJobListingControllerInstanse = Get.put(SeekerJobAlertWiseJobListingController()) ;
+
+  GetJobsListingController getJobsListingController = Get.put(GetJobsListingController());
+  SeekerUnSavePostController unSavePostController = Get.put(SeekerUnSavePostController());
+  SeekerSaveJobController seekerSaveJobController = Get.put(SeekerSaveJobController());
 
   //////refresh//////
   RefreshController _refreshController = RefreshController(initialRefresh: false);
@@ -165,6 +174,47 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
                                       },
                                     ),
                                   ],
+                                ),
+                                trailing: GestureDetector(
+                                  onTap: () {
+                                    CommonFunctions.confirmationDialog(context,
+                                        message: getJobsListingController.getJobsListing.value.jobs?[index].postSaved ?"Do you want to remove the\n post from saved posts" : "Do you want to save the post",
+                                        onTap: () async {
+                                          Get.back();
+                                          if(getJobsListingController.getJobsListing.value.jobs?[index].postSaved == true) {
+                                            CommonFunctions.showLoadingDialog(context, "removing...");
+                                            var result = await unSavePostController.unSavePost(getJobsListingController.getJobsListing.value.jobs?[index].id.toString(), "1", context, true);
+                                            if(result = true) {
+                                              if (kDebugMode) {
+                                                print("inside result");
+                                              }
+                                              getJobsListingController.getJobsListing.value.jobs?[index].postSaved = false;
+                                              setState(() {});
+                                            }
+                                          } else {
+                                            CommonFunctions.showLoadingDialog(context, "Saving") ;
+                                            var result = await seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[index].id, 1);
+                                            if (result == true) {
+                                              if (kDebugMode) {
+                                                print("inside result");
+                                              }
+                                              getJobsListingController.getJobsListing.value.jobs?[index].postSaved = true;
+                                              setState(() {});
+                                            }
+                                          }
+                                        },) ;
+                                  },
+                                  child: getJobsListingController.getJobsListing.value.jobs?[index].postSaved == false
+                                  ? Image.asset(
+                                    "assets/images/icon_unsave_post.png",
+                                    height: 50,
+                                    width: 50,
+                                  ) :
+                                  Image.asset(
+                                    "assets/images/icon_Save_post.png",
+                                    height: 50,
+                                    width: 50,
+                                  ),
                                 ),
                               ),
                               Padding(
