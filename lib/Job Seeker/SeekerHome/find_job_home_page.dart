@@ -213,8 +213,45 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                   // extendBody: true,
                   extendBodyBehindAppBar: true,
                   appBar: AppBar(
+                    title: Image.asset("assets/images/icon_flikka_logo.png",height: 30,),
+                    actions: [
+                      IconButton(
+                          onPressed: () {
+
+                          },
+                          icon: Image.asset("assets/images/icon_wallet_white.png",height: 30,)),
+                      IconButton(
+                        onPressed: () {
+
+                        },
+                        icon: Image.asset("assets/images/icon_notification.png",height: 30,),
+                         ),
+                      Builder(
+                          builder: (context) {
+                            return GestureDetector(
+                              onTap: () {
+                                Scaffold.of(context).openEndDrawer() ;
+                              },
+                              child: Container(
+                                // height: 10,
+                                padding: const EdgeInsets.all(2),
+                                margin: const EdgeInsets.only(bottom: 10,right: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.blueThemeColor
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+
+                                  },
+                                    icon: Image.asset("assets/images/drawerIconWhite.png",height: 25,)),
+                              ),
+                            );
+                          }
+                      ),
+                    ],
                     systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.transparent,),
-                    backgroundColor: Colors.transparent, toolbarHeight: 0, elevation: 0,),
+                    backgroundColor: Colors.black, elevation: 0,),
                   endDrawer: DrawerClass(
                     name: '${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}',
                     location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
@@ -236,25 +273,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         SingleChildScrollView(
                           child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 10,),
-                              Row(children: [
-                                const SizedBox(width: 10,),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.back() ;
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle ,
-                                        color: AppColors.blueThemeColor),
-                                    child: const Icon(Icons.arrow_back_ios,color: AppColors.white,),
-                                  ),
-                                ),
-                                SizedBox(width: Get.width *.2,),
-                                Text("Jobs",style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black,fontSize: 20,fontWeight: FontWeight.w700),),
-                              ],),
-                              const SizedBox(height: 20,),
+                               SizedBox(height: Get.height*.15,),
                               Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox( width: Get.width * .1,
@@ -263,7 +282,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                         Get.to( () => const FilterPage()) ;
                                       },
                                       child: Container(
-                                        padding: const EdgeInsets.all(4),
+                                        height: 35,
+                                        width: 35,
+                                        padding: const EdgeInsets.all(8),
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
@@ -295,39 +316,43 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     child: GestureDetector(
                                       onTap: () {},
                                       child: Container(
+                                        height: 35,
+                                        width: 35,
                                         padding: const EdgeInsets.all(4),
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
                                             color: AppColors.blueThemeColor
                                         ),
-                                        child: Image.asset("assets/images/icon_forum_select.png"),
+                                        child: Image.asset("assets/images/icon_job_search_message.png"),
                                       ),
                                     ),
                                   ),
-                                  SizedBox( width: Get.width * .1,
-                                    child: Builder(
-                                        builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              Scaffold.of(context).openEndDrawer() ;
-                                            },
-                                            child: Container(
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  color: AppColors.blueThemeColor
-                                              ),
-                                              child: Image.asset("assets/images/drawerIconWhite.png"),
-                                            ),
-                                          );
-                                        }
-                                    ),
-                                  ),
+                                  // SizedBox( width: Get.width * .1,
+                                  //   child: Builder(
+                                  //       builder: (context) {
+                                  //         return GestureDetector(
+                                  //           onTap: () {
+                                  //             Scaffold.of(context).openEndDrawer() ;
+                                  //           },
+                                  //           child: Container(
+                                  //             height: 35,
+                                  //             width: 35,
+                                  //             padding: const EdgeInsets.all(4),
+                                  //             decoration: BoxDecoration(
+                                  //                 borderRadius: BorderRadius.circular(10),
+                                  //                 color: AppColors.blueThemeColor
+                                  //             ),
+                                  //             child: Image.asset("assets/images/drawerIconWhite.png"),
+                                  //           ),
+                                  //         );
+                                  //       }
+                                  //   ),
+                                  // ),
                                 ],) ,
                               SizedBox(height: Get.height * .02,) ,
-                              Text("Jobs based on your profile" , style: Theme.of(context).textTheme.bodyLarge,) ,
-                              SizedBox(height: Get.height * .02,) ,
+                              Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,) ,
+                              // SizedBox(height: Get.height * .01,) ,
                               getJobsListingController.getJobsListing.value.jobs == null ||
                                   getJobsListingController.getJobsListing.value.jobs?.length == 0 ?
                               const SeekerNoJobAvailable() :
@@ -369,12 +394,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   child: SizedBox( width: Get.width *.6,
                                                     child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text( data?.jobPositions ??"" , style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),),
-                                                        Text(data?.recruiterDetails?.companyName ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
+                                                        Text( data?.jobPositions ??"" , style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                                        Text(data?.recruiterDetails?.companyName ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
                                                         SizedBox(height: Get.height *.01,) ,
-                                                        Text(data?.jobLocation ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
+                                                        Text(data?.jobLocation ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
                                                         SizedBox(height: Get.height *.01,) ,
-                                                        Text( "${data?.jobsDetail?.minSalaryExpectation} - ${data?.jobsDetail?.maxSalaryExpectation}" , style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),),
+                                                        Text( "${data?.jobsDetail?.minSalaryExpectation} - ${data?.jobsDetail?.maxSalaryExpectation}" , style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontWeight: FontWeight.w500),),
                                                       ],
                                                     ),
                                                   ),
