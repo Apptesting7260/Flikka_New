@@ -1209,18 +1209,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                           Center(child: Text("THIS JOB IS ABOVE",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),)),
                                                           Center(child: Text("SALARY BENCHMARK", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w800,color: AppColors.blueThemeColor,decoration: TextDecoration.underline,decorationThickness: 2.0),)),
                                                           const SizedBox(height: 15,),
-                                                          // Center(
-                                                          //   child: Obx( () => MyButton(
-                                                          //       title: getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ? "APPLIED" : "APPLY NOW",
-                                                          //       onTap1: () async {
-                                                          //         if(getJobsListingController.getJobsListing.value.jobs?[index].postApplied == true ){}else{
-                                                          //           applyJobController.errorMessageApplyReferral.value = "" ;
-                                                          //           showReferralSubmissionDialog(context,index) ;
-                                                          //         }
-                                                          //       }
-                                                          //   ),
-                                                          //   ),
-                                                          // ),
                                                           SizedBox(height: Get.height*.15,),
                                                         ],
                                                       ),
