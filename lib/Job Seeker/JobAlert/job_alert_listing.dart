@@ -124,8 +124,10 @@ class _JobListState extends State<JobList> {
                               ),
                               subtitle: Text("${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].location}" ?? "No data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),),
                             trailing: seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts == 0 ?
-                            const SizedBox() :  Text("${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts}" " New" ??  "No data",
-                              style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),),
+                            const SizedBox() :  Obx(() =>
+                               Text("${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts}" " New" ??  "No data",
+                                style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),),
+                            ),
                             ),
                           ),
                         ),

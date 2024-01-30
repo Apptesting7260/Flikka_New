@@ -2,6 +2,7 @@ import 'package:flikka/data/response/status.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
 import '../../models/JobAlertWiseJobListingModel/JobAlertWiseJobListingModel.dart';
+import '../SeekerJobAlertListController/SeekerJobAlertListController.dart';
 
 class SeekerJobAlertWiseJobListingController extends GetxController {
 

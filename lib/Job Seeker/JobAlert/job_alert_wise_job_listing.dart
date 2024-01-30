@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/JobAlertWiseJobListingController/JobAlertWiseJobListingController.dart';
+import '../../controllers/SeekerJobAlertListController/SeekerJobAlertListController.dart';
 import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../data/response/status.dart';
@@ -113,7 +114,7 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
                       padding: const EdgeInsets.only(bottom: 20),
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() => const JobViewJobAlert()) ;
+                          Get.to(() => JobViewJobAlert(jobID: "${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].id.toString()}",)) ;
                         },
                         child: Container(
                           height: Get.height*.2,
@@ -178,33 +179,33 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
                                 trailing: GestureDetector(
                                   onTap: () {
                                     CommonFunctions.confirmationDialog(context,
-                                        message: getJobsListingController.getJobsListing.value.jobs?[index].postSaved ?"Do you want to remove the\n post from saved posts" : "Do you want to save the post",
+                                        message: seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].postSaved ?"Do you want to remove the\n post from saved posts" : "Do you want to save the post",
                                         onTap: () async {
                                           Get.back();
-                                          if(getJobsListingController.getJobsListing.value.jobs?[index].postSaved == true) {
+                                          if(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].postSaved == true) {
                                             CommonFunctions.showLoadingDialog(context, "removing...");
-                                            var result = await unSavePostController.unSavePost(getJobsListingController.getJobsListing.value.jobs?[index].id.toString(), "1", context, true);
+                                            var result = await unSavePostController.unSavePost(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].id.toString(), "1", context, true);
                                             if(result = true) {
                                               if (kDebugMode) {
                                                 print("inside result");
                                               }
-                                              getJobsListingController.getJobsListing.value.jobs?[index].postSaved = false;
+                                              seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].postSaved = false;
                                               setState(() {});
                                             }
                                           } else {
                                             CommonFunctions.showLoadingDialog(context, "Saving") ;
-                                            var result = await seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[index].id, 1);
+                                            var result = await seekerSaveJobController.saveJobApi(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].id, 1);
                                             if (result == true) {
                                               if (kDebugMode) {
                                                 print("inside result");
                                               }
-                                              getJobsListingController.getJobsListing.value.jobs?[index].postSaved = true;
+                                              seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].postSaved = true;
                                               setState(() {});
                                             }
                                           }
                                         },) ;
                                   },
-                                  child: getJobsListingController.getJobsListing.value.jobs?[index].postSaved == false
+                                  child: seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].postSaved == false
                                   ? Image.asset(
                                     "assets/images/icon_unsave_post.png",
                                     height: 50,

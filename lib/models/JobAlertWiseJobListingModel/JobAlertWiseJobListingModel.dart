@@ -48,6 +48,8 @@ class JobList {
   dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
+  dynamic postSaved ;
+  dynamic postApplied ;
   dynamic lat;
   dynamic long;
   String? jobPositions;
@@ -76,6 +78,8 @@ class JobList {
      this.deletedAt,
      this.createdAt,
      this.updatedAt,
+     this.postSaved,
+     this.postApplied,
      this.lat,
      this.long,
      this.jobPositions,
@@ -105,6 +109,8 @@ class JobList {
     deletedAt: json["deleted_at"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    postSaved: json["post_saved"],
+    postApplied: json["post_applied"],
     lat: json["lat"],
     long: json["long"],
     jobPositions: json["job_positions"],
