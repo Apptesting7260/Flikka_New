@@ -203,6 +203,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     extendBodyBehindAppBar: true,
                     appBar: AppBar(
                       systemOverlayStyle: const SystemUiOverlayStyle(
+                        statusBarIconBrightness: Brightness.light,
                         statusBarColor: Colors.transparent,),
                       backgroundColor: tabBarController.showListView.value ? AppColors.black : Colors.transparent, elevation: 0,toolbarHeight: 0,),
                     endDrawer: DrawerClass(
