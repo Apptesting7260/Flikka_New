@@ -9,6 +9,7 @@ String viewRecruiterProfileModelToJson(ViewRecruiterProfileModel data) => json.e
 class ViewRecruiterProfileModel {
   bool? status;
   String? contactPerson;
+  String ? email;
   RecruiterProfileDetails? recruiterProfileDetails;
   RxList<RecruiterJobsData>? jobs;
   RxList<CompanyReviewsModel>? reviews;
@@ -17,6 +18,7 @@ class ViewRecruiterProfileModel {
   ViewRecruiterProfileModel({
     this.status,
     this.contactPerson,
+    this.email,
     this.recruiterProfileDetails,
     this.jobs,
     this.reviews ,
@@ -26,6 +28,7 @@ class ViewRecruiterProfileModel {
   factory ViewRecruiterProfileModel.fromJson(Map<String, dynamic> json) => ViewRecruiterProfileModel(
     status: json["status"],
     contactPerson: json["contact_person"],
+    email: json["email"],
     recruiterProfileDetails: json["recruiterProfileDetails"] == null ? json["recruiterProfileDetails"] : RecruiterProfileDetails.fromJson(json["recruiterProfileDetails"]),
     jobs: json["jobs"] == null ? json["jobs"] : RxList<RecruiterJobsData>.from(json["jobs"].map((x) => RecruiterJobsData.fromJson(x))),
     reviews: json["company_reviews"] == null ? json["company_reviews"] : RxList<CompanyReviewsModel>.from(json["company_reviews"].map((x) => CompanyReviewsModel.fromJson(x))),
