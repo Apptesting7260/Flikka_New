@@ -18,26 +18,19 @@ class ApplicantTrackingHiringManager extends StatefulWidget {
 class _ApplicantTrackingHiringManagerState extends State<ApplicantTrackingHiringManager> {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
+    return  Scaffold(
+      backgroundColor: AppColors.black,
+      body: DefaultTabController(
         length: 4,
         child: Scaffold(backgroundColor: AppColors.black,
           appBar: AppBar(
             toolbarHeight: 60,
             automaticallyImplyLeading: false,
             backgroundColor: AppColors.black,
+            centerTitle: true,
             title: Text(
               'Applicant Tracking',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
-            ),
-            leading: Padding(
-              padding:  const EdgeInsets.only(left: 15.0),
-              child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.02,)),
             ),
             bottom: TabBar(
               dividerColor: Colors.transparent,
