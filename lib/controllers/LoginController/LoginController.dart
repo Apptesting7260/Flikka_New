@@ -44,6 +44,7 @@ class LoginController extends GetxController {
       loading.value = false;
       sp.setString("BarrierToken", value.token.toString());
       sp.setString("name", value.name.toString());
+      sp.setBool("hiringManager", value.hiringManager ?? false) ;
       if (kDebugMode) {
         print(sp.getString("BarrierToken"));
       }

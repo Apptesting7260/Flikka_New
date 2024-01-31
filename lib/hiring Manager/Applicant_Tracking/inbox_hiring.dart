@@ -1,10 +1,13 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../../widgets/app_colors.dart';
+import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
+import '../../data/response/status.dart';
+import '../../res/components/general_expection.dart';
+import '../../res/components/internet_exception_widget.dart';
 
 class InboxHiring extends StatefulWidget {
   const InboxHiring({super.key});
@@ -15,209 +18,203 @@ class InboxHiring extends StatefulWidget {
 
 class _InboxHiringState extends State<InboxHiring> {
 
+  @override
+  void initState() {
+    super.initState();
+    if(ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData == null ||
+        ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?.length == 0
+    ){
+      ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    }
 
-  bool selectedFav = false;
-  Color buttonColor = AppColors.ratingcommenttextcolor;
+  }
 
-  String text = '';
-  String subject = '';
-  String uri = '';
-  List<String> imageNames = [];
-  List<String> imagePaths = [];
+  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
 
-  void toggleFavorite() {
-    setState(() {
-      selectedFav = !selectedFav;
-      buttonColor = selectedFav ? AppColors.red : AppColors.ratingcommenttextcolor;
-    });
+  //////refresh//////
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    await ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    await ShowInboxDataControllerInstanse.showInboxDataApi() ;
+    if(mounted)
+      _refreshController.loadComplete();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.black,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: Get.height*.04,),
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 2,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:  EdgeInsets.symmetric(vertical: Get.height*.02),
-                    child:   Container(
-                      padding: EdgeInsets.symmetric(vertical: Get.height*.05),
-                      decoration: BoxDecoration(
-                          color: Color(0xff353535),
-                          borderRadius: BorderRadius.circular(24)
-                      ),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-                            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  // minVerticalPadding: 11,
-                                  leading: const CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    radius: 27,
-                                    backgroundImage: AssetImage("assets/images/icon_jesika.png",),
-                                  ),
-                                  title: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Jessica Parker",style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Color(0xffFFFFFF)),),
-                                      Text(
-                                          "Software engineer ",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w600)
-                                      ),
-                                      SizedBox(height: Get.height*.003,),
-                                    ],
-                                  ),
-                                  subtitle: Row(
-                                    children: [
-                                      Text("California, USA",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF),fontSize: 10),),
-                                      Container(margin: EdgeInsets.only(right: 6,left: 6),
-                                        height: 18,width: 1,color: Color(0xffFFFFFF).withOpacity(0.3),),
-                                      SizedBox(height: Get.height*.001,),
-                                      Image.asset("assets/images/icon_watch.png",height: Get.height*.018,),
-                                      SizedBox(width: Get.width*.025,),
-                                      Text("45 minuts ago",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 8,color: Color(0xffCFCFCF)),)
+        backgroundColor: Colors.black,
+        body: Obx(() {
+          switch (ShowInboxDataControllerInstanse.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
 
+            case Status.ERROR:
+              if (ShowInboxDataControllerInstanse.error.value ==
+                  'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {
+                    ShowInboxDataControllerInstanse.showInboxDataApi() ;
+                  },
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {
+                  ShowInboxDataControllerInstanse.showInboxDataApi() ;
+                });
+              }
+            case Status.COMPLETED:
+              return SmartRefresher(
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
+                    child: ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?.length == 0 ||
+                        ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData == null ?
+                    Center(child: const Text("No profiles have been selected for inbox.",textAlign: TextAlign.center,)) :
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            padding: EdgeInsets.symmetric(vertical: Get.height*.03),
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              var data = ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?[index] ;
+                              return Padding(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Container(
+                                  // height: Get.height * .30,
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xff353535),
+                                      borderRadius: BorderRadius.circular(24)),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              ListTile(
+                                                contentPadding: EdgeInsets.zero,
+                                                minVerticalPadding: 11,
+                                                leading: CachedNetworkImage(
+                                                  errorWidget: (context, url, error) => const SizedBox(
+                                                    height: 40, child: Placeholder(),),
+                                                  imageUrl: "${data?.seekerProfile?.profileImg}",
+                                                  imageBuilder: (context, imageProvider) => Container(
+                                                    height: 80,
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
+                                                ),
+                                                title: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${data?.seekerProfile?.fullname ?? "No data"}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleLarge
+                                                          ?.copyWith(
+                                                          color: const Color(
+                                                              0xffFFFFFF)),
+                                                    ),
+                                                    // Text(
+                                                    //     "Software engineer ",
+                                                    //     style: Theme.of(context)
+                                                    //         .textTheme
+                                                    //         .bodySmall
+                                                    //         ?.copyWith(
+                                                    //             color: const Color(
+                                                    //                 0xffCFCFCF),
+                                                    //             fontWeight:
+                                                    //                 FontWeight
+                                                    //                     .w600)),
+                                                    // SizedBox(
+                                                    //   height: Get.height * .003,
+                                                    // ),
+                                                  ],
+                                                ),
+                                                subtitle: Row(
+                                                  children: [
+                                                    Text(
+                                                      "${data?.seekerProfile?.location ?? "No location"}",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                          fontWeight:
+                                                          FontWeight.w400,
+                                                          color:
+                                                          Color(0xffCFCFCF),
+                                                          fontSize: 10),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: Get.height * .02,
+                                              ),
+                                              HtmlWidget(data?.description ?? "No about",textStyle: Theme.of(context).textTheme
+                                                  .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: Get.height*.02,),
-                                Text("Experience when moving to a new job",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
-                                SizedBox(height: Get.height*.02,),
-                                RichText(text: TextSpan(text: "Culture shock when moving to a new job is normal. This is not something wrong and I personally experienced it, when I experienced this when I changed jobs in 2 days...",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
-                                ))
-                              ],
-                            ),
-
+                              );
+                            },
                           ),
-                          // Positioned(
-                          //   bottom: 0,
-                          //   left: 0,
-                          //   right: 0,
-                          //   child: Align(
-                          //     alignment: AlignmentDirectional.bottomCenter,
-                          //     child: Container(
-                          //       height: Get.height*.09,
-                          //       decoration: const BoxDecoration(
-                          //         // color: Colors.grey[900],
-                          //         color: Color(0xff3F3F3F),
-                          //         borderRadius: BorderRadius.only(
-                          //             bottomLeft: Radius.circular(20),
-                          //             bottomRight: Radius.circular(22)),
-                          //       ),
-                          //       child: Row(
-                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //         children: [
-                          //           Row(
-                          //             children: [
-                          //               IconButton(
-                          //                   onPressed: () => toggleFavorite(),
-                          //                   icon: selectedFav == false
-                          //                       ? SvgPicture.asset(
-                          //                     'assets/images/likesvg.svg',width: Get.width*0.027,height: Get.height*0.027,
-                          //                     color: buttonColor,
-                          //                   )
-                          //                       : Icon(
-                          //                     Icons.favorite_rounded,
-                          //                     color: AppColors.red,
-                          //                   )),
-                          //               Text("12",
-                          //                   style: Theme.of(context)
-                          //                       .textTheme
-                          //                       .bodySmall!
-                          //                       .copyWith(
-                          //                       color: AppColors.white, fontSize: 14)),
-                          //               SizedBox(
-                          //                 width: Get.width * 0.04,
-                          //               ),
-                          //
-                          //               //*************************
-                          //
-                          //               IconButton(
-                          //                 onPressed: () {
-                          //                   //showCommentDialog();
-                          //                 },
-                          //                 icon: SvgPicture.asset('assets/images/commentsvg.svg'),
-                          //               ),
-                          //               Text("10",
-                          //                   style: Theme.of(context)
-                          //                       .textTheme
-                          //                       .bodySmall!
-                          //                       .copyWith(
-                          //                       color: AppColors.white, fontSize: 14)),
-                          //             ],
-                          //           ),
-                          //           Padding(
-                          //             padding: const EdgeInsets.only(right: 14.0),
-                          //             child: Row(
-                          //               children: [
-                          //                 IconButton(
-                          //                   onPressed: text.isEmpty &&
-                          //                       imagePaths.isEmpty &&
-                          //                       uri.isEmpty
-                          //                       ? null
-                          //                       : () => _onShare(context),
-                          //                   icon: SvgPicture.asset(
-                          //                     'assets/images/sharesvg.svg',height: Get.height*.035,
-                          //                   ),
-                          //                 ),
-                          //                 Text("2",
-                          //                     style: Theme.of(context)
-                          //                         .textTheme
-                          //                         .bodySmall!
-                          //                         .copyWith(
-                          //                         color: AppColors.white, fontSize: 18)),
-                          //               ],
-                          //             ),
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          SizedBox(
+                            height: Get.height * .07,
+                          ),
                         ],
                       ),
-                    ),
-                  );
-                },),
-              SizedBox(height: Get.height*.07,),
-            ],
-          ),
-        ),
-      ),
-    );
+                    )),
+              );
+          }
+        }));
   }
-  void _onShare(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    if (uri.isNotEmpty) {
-      await Share.shareUri(Uri.parse(uri));
-    } else if (imagePaths.isNotEmpty) {
-      final files = <XFile>[];
-      for (var i = 0; i < imagePaths.length; i++) {
-        files.add(XFile(imagePaths[i], name: imageNames[i]));
-      }
-      await Share.shareXFiles(files,
-          text: text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-    } else {
-      await Share.share(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-    }
-  }
+  // void _onShare(BuildContext context) async {
+  //   final box = context.findRenderObject() as RenderBox?;
+  //   if (uri.isNotEmpty) {
+  //     await Share.shareUri(Uri.parse(uri));
+  //   } else if (imagePaths.isNotEmpty) {
+  //     final files = <XFile>[];
+  //     for (var i = 0; i < imagePaths.length; i++) {
+  //       files.add(XFile(imagePaths[i], name: imageNames[i]));
+  //     }
+  //     await Share.shareXFiles(files,
+  //         text: text,
+  //         subject: subject,
+  //         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  //   } else {
+  //     await Share.share(text,
+  //         subject: subject,
+  //         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  //   }
+  // }
 }

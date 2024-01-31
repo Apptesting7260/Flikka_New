@@ -1,4 +1,5 @@
 
+import 'package:flikka/hiring%20Manager/Applicant_Tracking/OnboardingHiring.dart';
 import 'package:flikka/hiring%20Manager/Applicant_Tracking/inbox_hiring.dart';
 import 'package:flikka/hiring%20Manager/Applicant_Tracking/past_interviews.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -21,7 +22,7 @@ class _ApplicantTrackingHiringManagerState extends State<ApplicantTrackingHiring
     return  Scaffold(
       backgroundColor: AppColors.black,
       body: DefaultTabController(
-        length: 4,
+        length: 5,
         child: Scaffold(backgroundColor: AppColors.black,
           appBar: AppBar(
             toolbarHeight: 60,
@@ -48,6 +49,7 @@ class _ApplicantTrackingHiringManagerState extends State<ApplicantTrackingHiring
                 Tab(text: "INTERVIEWS",),
                 Tab(text: "INBOX",),
                 Tab(text: "TALENT POOL",),
+                Tab(text: "ONBOARDING",),
               ],
             ),
           ),
@@ -57,6 +59,7 @@ class _ApplicantTrackingHiringManagerState extends State<ApplicantTrackingHiring
               PastInterviews(),
               InboxHiring(),
               TalentPoolHiring(),
+              OnboardingHiring()
             ],
           ),
         ),

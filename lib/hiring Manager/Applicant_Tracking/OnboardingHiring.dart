@@ -1,27 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flikka/utils/CommonFunctions.dart';
+import 'package:flikka/Job%20Recruiter/profile/candidate_profile_sehedule_interview_meeting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../controllers/ApplicantTrackingController/ApplicantTrackingController.dart';
+
 import '../../controllers/OnboardingController/OnboardingController.dart';
 import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
 import '../../controllers/SelectOrRejectAfterInterviewController/SelectOrRejectAfterInterviewController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../../utils/CommonFunctions.dart';
 import '../../widgets/app_colors.dart';
 import '../../widgets/my_button.dart';
 
-class Onboarding extends StatefulWidget {
-  const Onboarding({super.key});
+class OnboardingHiring extends StatefulWidget {
+  const OnboardingHiring({super.key});
 
   @override
-  State<Onboarding> createState() => _OnboardingState();
+  State<OnboardingHiring> createState() => _OnboardingHiringState();
 }
 
-class _OnboardingState extends State<Onboarding> {
+class _OnboardingHiringState extends State<OnboardingHiring> {
 
   String? jobTitleValue;
   String? jobPositionValue ;
@@ -37,8 +38,7 @@ class _OnboardingState extends State<Onboarding> {
   RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
 
   //////refresh//////
-  RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
     await onboardingController.onboardingApiHit(positionID, context);
@@ -59,9 +59,10 @@ class _OnboardingState extends State<Onboarding> {
   void _onLoading() async{
     await onboardingController.onboardingApiHit(positionID, context);
     if(mounted)
-    _refreshController.loadComplete();
+      _refreshController.loadComplete();
   }
   /////refresh/////
+
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +238,7 @@ class _OnboardingState extends State<Onboarding> {
                                     itemCount: onboardingController.getOnboardingDetails.value.appliedSeeker?.length,
                                     itemBuilder: (context, index) {
                                       // var candidateStatusData = trackingDataController.applicantList?[index];
-                                        var data = onboardingController.getOnboardingDetails.value.appliedSeeker?[index];
+                                      var data = onboardingController.getOnboardingDetails.value.appliedSeeker?[index];
                                       return Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: Get.width *
@@ -263,6 +264,8 @@ class _OnboardingState extends State<Onboarding> {
                                                 radius: 27,
                                                 // backgroundImage: NetworkImage("${data?.seekerData?.profileImg}"),
                                                 child: CachedNetworkImage(
+                                                  errorWidget: (context, url, error) =>
+                                                  const SizedBox(height: 40, child: Placeholder(),),
                                                   imageUrl: "${data?.seekerlist?.profileImg}",
                                                   imageBuilder: (context, imageProvider) =>
                                                       Container(
@@ -363,24 +366,24 @@ class _OnboardingState extends State<Onboarding> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                   MyButton(
-                                                     width: Get.width*.38 ,
-                                                     height: Get.height * .066,
-                                                     title: "SELECT",
-                                                      onTap1: () {
-                                                       CommonFunctions.confirmationDialog(context, message: "Do you want to select this profile", onTap: () {
-                                                         selectOrRejectAfterInterviewController.selectOrRejectAfterInterviewApiHit("${data?.id.toString()}", "Selected",context) ;
-                                                       },) ;
-                                                      },),
-                                                  MyButton(
-                                                    width: Get.width*.38 ,
-                                                    height: Get.height * .066,
-                                                    title: "REJECT",
-                                                      onTap1: () {
-                                                      CommonFunctions.confirmationDialog(context, message: "Do you want to reject this profile", onTap: () {
-                                                        selectOrRejectAfterInterviewController.selectOrRejectAfterInterviewApiHit("${data?.id.toString()}", "Rejected", context) ;
-                                                      },) ;
-                                                      },),
+                                                MyButton(
+                                                  width: Get.width*.38 ,
+                                                  height: Get.height * .066,
+                                                  title: "SELECT",
+                                                  onTap1: () {
+                                                    CommonFunctions.confirmationDialog(context, message: "Do you want to select this profile", onTap: () {
+                                                      selectOrRejectAfterInterviewController.selectOrRejectAfterInterviewApiHit("${data?.id.toString()}", "Selected",context) ;
+                                                    },) ;
+                                                  },),
+                                                MyButton(
+                                                  width: Get.width*.38 ,
+                                                  height: Get.height * .066,
+                                                  title: "REJECT",
+                                                  onTap1: () {
+                                                    CommonFunctions.confirmationDialog(context, message: "Do you want to reject this profile", onTap: () {
+                                                      selectOrRejectAfterInterviewController.selectOrRejectAfterInterviewApiHit("${data?.id.toString()}", "Rejected", context) ;
+                                                    },) ;
+                                                  },),
                                               ],
                                             ),
                                             SizedBox(
@@ -407,5 +410,4 @@ class _OnboardingState extends State<Onboarding> {
       ),
     );
   }
-
 }

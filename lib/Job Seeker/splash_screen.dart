@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/location_pop_up.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Job Recruiter/bottom_bar/tab_bar.dart';
+import '../hiring Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 import 'Authentication/user/create-profile.dart';
 import 'Role_Choose/choose_position.dart';
 import 'Role_Choose/choose_skills.dart';
@@ -26,8 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer( const Duration(seconds: 5),
         () async {
           SharedPreferences sp = await SharedPreferences.getInstance();
-          print(sp.getInt("step") ) ;
-          print("this is role ${sp.getString("loggedIn")}" ) ;
+          if (kDebugMode) {
+            print(sp.getInt("step") ) ;
+            print("this is role ${sp.getString("loggedIn")}" ) ;
+          }
           if(sp.getString("loggedIn") == "recruiter") {
             if(  sp.getInt("step") == 1) {
               Get.offAll(() => const LocationPopUp(role: 1)) ;
@@ -43,7 +47,11 @@ class _SplashScreenState extends State<SplashScreen> {
             } else {
             Get.offAll(const TabScreen(index: 0 , loadData: true,)) ; }
           } else {
-            Get.off(() => const Login());
+            if(sp.getBool("hiringManager") == true) {
+              Get.offAll( () => const ApplicantTrackingHiringManager() ) ;
+            }else {
+              Get.off(() => const Login());
+            }
           }
         }
     );
