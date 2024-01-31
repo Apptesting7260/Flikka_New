@@ -1,6 +1,7 @@
 class LoginModel {
   LoginModel({this.status, this.message, this.token, this.name , this.role, this.step});
   bool? status;
+  bool? hiringManager;
   String? message;
   String? token;
   String? name;
@@ -9,6 +10,7 @@ class LoginModel {
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
+    hiringManager = json['is_hiringManager'];
     message = json['message'];
     token = json['token'];
     name = json['name'];

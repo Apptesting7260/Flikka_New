@@ -65,7 +65,7 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                 children: [
                   Row(
                     children: [
-                      Text("Rejected candidate",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF))),
+                      Text("Candidates",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF))),
                     ],
                   ),
                   Row(
@@ -73,19 +73,10 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
                           isExpanded: true,
-                          hint: Row(
-                            children: [
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Job Type',
-                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                          hint: Text(
+                            'Job Type',
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           items: jobTypeItems
                               .map((String item) => DropdownMenuItem<String>(
@@ -105,7 +96,7 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                           },
                           buttonStyleData: ButtonStyleData(
                             height: Get.height*.05,
-                            width: Get.width*.26,
+                            width: Get.width*.3,
                              padding: const EdgeInsets.only(left: 5,right: 5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(35),
@@ -122,7 +113,7 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                           ),
                           dropdownStyleData: DropdownStyleData(
                             maxHeight: Get.height*0.35,
-                            width: Get.width*0.902,
+                            width: Get.width*0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               color: Color(0xff353535),
@@ -143,19 +134,10 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
                           isExpanded: true,
-                          hint:  Row(
-                            children: [
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Rejected',
-                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                          hint:  Text(
+                            'Select',
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           items: allTypeItems
                               .map((String item) => DropdownMenuItem<String>(
@@ -175,7 +157,7 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                           },
                           buttonStyleData: ButtonStyleData(
                             height: Get.height*.05,
-                            width: Get.width*.26,
+                            width: Get.width*.3,
                             padding: const EdgeInsets.only(left: 5,right: 5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(35),
@@ -192,7 +174,7 @@ class _RejectedCandidateHiringState extends State<RejectedCandidateHiring> {
                           ),
                           dropdownStyleData: DropdownStyleData(
                             maxHeight: Get.height*0.35,
-                            width: Get.width*0.902,
+                            width: Get.width*0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               color: Color(0xff353535),
