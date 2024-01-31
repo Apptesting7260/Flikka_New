@@ -51,6 +51,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                     },
                   ) ,
                   Positioned(
+
                     right: 0,
                     child: Container(
                       //height: Get.height * 1.43,
@@ -75,6 +76,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        SizedBox(height: Get.height*.015,) ,
                                         CircleAvatar(
                                           radius:45,
                                           backgroundColor: const Color(0xffE94D8A).withOpacity(0.3),

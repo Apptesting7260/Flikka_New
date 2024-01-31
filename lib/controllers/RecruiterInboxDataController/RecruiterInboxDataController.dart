@@ -1,5 +1,6 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../models/RecruiterInboxDataModel/RecruiterInboxDataModel.dart';
 
@@ -35,6 +36,29 @@ class ShowInboxDataController extends GetxController {
       loading(false) ;
       setRxRequestStatus(Status.ERROR);
 
+    });
+  }
+
+  Future<void> refreshInboxDataRecruiternApi() async {
+    // setRxRequestStatus(Status.LOADING);
+    // loading(true) ;
+    _api.viewInboxData().then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      viewInboxData(value);
+      // loading(false) ;
+      if (kDebugMode) {
+        print(value);
+      }
+
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      if (kDebugMode) {
+        print(stackTrace);
+        print(error.toString());
+      }
+      // loading(false) ;
+      // setRxRequestStatus(Status.ERROR);
     });
   }
 

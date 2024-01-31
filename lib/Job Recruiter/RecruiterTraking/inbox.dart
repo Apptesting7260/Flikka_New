@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
+import '../../controllers/NotificationSeenController/NotificationSeenController.dart';
 import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
+import '../../controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
+import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -17,6 +21,9 @@ class Inbox extends StatefulWidget {
 
 class _InboxState extends State<Inbox> {
 
+  SeekerNotificationSeenController seenController = Get.put(SeekerNotificationSeenController()) ;
+  CreateUpdateRecruiterProfileController CreateUpdateRecruiterProfileControllerInstanse = Get.put(CreateUpdateRecruiterProfileController());
+  ViewRecruiterProfileGetController viewRecruiterProfileController = Get.put(ViewRecruiterProfileGetController());
 
   @override
   void initState() {
@@ -26,11 +33,10 @@ class _InboxState extends State<Inbox> {
     ){
       ShowInboxDataControllerInstanse.showInboxDataApi() ;
     }
-
+    seenController.notificationSeenRecruiter(context, viewRecruiterProfileController.viewRecruiterProfile.value.email) ;
   }
 
-  ShowInboxDataController ShowInboxDataControllerInstanse =
-      Get.put(ShowInboxDataController());
+  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
 
   //////refresh//////
   RefreshController _refreshController =
