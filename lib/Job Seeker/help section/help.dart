@@ -1,8 +1,13 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'dart:convert';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import '../../controllers/HelpSectionController/HelpSectionController.dart';
+import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
+import '../../utils/Constants.dart';
 import '../../widgets/app_colors.dart';
+import 'package:http/http.dart' as http;
 
 class HelpSection extends StatefulWidget {
   const HelpSection({super.key});
@@ -12,6 +17,51 @@ class HelpSection extends StatefulWidget {
 }
 
 class _HelpSectionState extends State<HelpSection> {
+
+  HelpSectionControoler helpSectionControolerInstanse = Get.put(HelpSectionControoler()) ;
+
+  TextEditingController locationController = TextEditingController();
+
+  List<Location> locations = [] ;
+
+  List<Predictions> searchPlace = [];
+  void searchAutocomplete(String query) async {
+    print("calling");
+    Uri uri = Uri.https(
+        "maps.googleapis.com",
+        "maps/api/place/autocomplete/json",
+        {"input": query, "key": Constants.googleAPiKey , "types" : "locality"});
+    print(uri);
+    try {
+      final response = await http.get(uri);
+      print(response.statusCode);
+      final parse = jsonDecode(response.body);
+      print(parse);
+      if (parse['status'] == "OK") {
+        setState(() {
+          SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+          searchPlace = searchPlaceModel.predictions!;
+
+          print(searchPlace.length);
+        });
+      }
+    } catch (err) {}
+  }
+
+  Future<void> _getLatLang() async {
+    final query = locationController.text;
+    locations = await locationFromAddress(query);
+
+    setState(() {
+      var first = locations.first;
+      lat = first.latitude;
+      long = first.longitude;
+      print("*****lat ${lat} : ${long}**********long");
+    });
+  }
+  double? lat;
+  double? long;
+
   final List<String> bankItems = [
     'INDIA','UK', 'USA', 'GERMANY',
   ];
@@ -45,6 +95,7 @@ class _HelpSectionState extends State<HelpSection> {
                 Text("Email Address",style: Theme.of(context).textTheme.titleSmall,),
                 SizedBox(height: Get.height*.01,) ,
                 TextFormField(
+                  controller: helpSectionControolerInstanse.emailController.value,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontSize: 15),
                   decoration: InputDecoration(
                     filled: true,
@@ -63,84 +114,156 @@ class _HelpSectionState extends State<HelpSection> {
                 SizedBox(height: Get.height*.04,) ,
                 Text("What country does your question/issue apply to?:",style: Theme.of(context).textTheme.titleSmall,),
                 SizedBox(height: Get.height*.01,) ,
-                Center(
-                  child:
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint:  Row(
-                        children: [
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Expanded(
-                            child: Text(
-                             '----' ,
-                              style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      items: bankItems
-                          .map((String item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )).toList(),
-                      value: bankValues,
-                      // value: SaveBankDetailsControllerInstanse.bankName.value,
-                      onChanged: (String? value) {
-                        setState(() {
-                          bankValues = value ;
-
-                        });
-                      },
-                      buttonStyleData: ButtonStyleData(
-                        height: Get.height*0.078,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(35),
-
-                          color: Color(0xff353535),
-                        ),
-                        elevation: 2,
-                      ),
-                      iconStyleData:  IconStyleData(
-                        icon: Image.asset('assets/images/arrowdown.png'),
-                        iconSize: 14,
-                        iconEnabledColor: Colors.yellow,
-                        iconDisabledColor: Colors.grey,
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                        maxHeight: Get.height*0.35,
-                        width: Get.width*0.902,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: Color(0xff353535),
-                        ),
-                        offset: const Offset(5, 0),
-                        scrollbarTheme: ScrollbarThemeData(
-                          radius:  Radius.circular(40),
-                          thickness: MaterialStateProperty.all<double>(6),
-                          thumbVisibility: MaterialStateProperty.all<bool>(true),
-                        ),
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                        padding: EdgeInsets.only(left: 14, right: 14),
-                      ),
+                TextFormField(
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13,color: AppColors.white),
+                  validator: (value) {
+                    if(value!.isEmpty){
+                      return "Please enter the location" ;
+                    }
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      if (locationController.text.isEmpty) {
+                      }
+                    });
+                    searchAutocomplete(value);
+                  },
+                  controller: locationController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.textFieldFilledColor,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(33),
+                        borderSide: BorderSide.none
                     ),
+                    hintText: 'Enter location',
+                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff929292)),
+                  ),
+                ),
+                Visibility(
+                  visible: locationController.text.isNotEmpty,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: searchPlace.length,
+                        itemBuilder: (context, index) => ListTile(
+                          onTap: () {
+                            setState(() {
+                              locationController.text = searchPlace[index].description ?? "";
+                              _getLatLang();
+                              setState(() {
+                                searchPlace.clear();
+                              });
+                            });
+                          },
+                          horizontalTitleGap: 0,
+                          title: Text(
+                            searchPlace[index].description ?? "",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                          ),
+                        )),
+                  ),
+                ),
+                // Center(
+                //   child:
+                //   DropdownButtonHideUnderline(
+                //     child: DropdownButton2<String>(
+                //       isExpanded: true,
+                //       hint:  Row(
+                //         children: [
+                //           const SizedBox(
+                //             width: 4,
+                //           ),
+                //           Expanded(
+                //             child: Text(
+                //              '----' ,
+                //               style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400),
+                //               overflow: TextOverflow.ellipsis,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //       items: bankItems
+                //           .map((String item) => DropdownMenuItem<String>(
+                //         value: item,
+                //         child: Text(
+                //           item,
+                //           style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
+                //           overflow: TextOverflow.ellipsis,
+                //         ),
+                //       )).toList(),
+                //       value: bankValues,
+                //       // value: SaveBankDetailsControllerInstanse.bankName.value,
+                //       onChanged: (String? value) {
+                //         setState(() {
+                //           bankValues = value ;
+                //
+                //         });
+                //       },
+                //       buttonStyleData: ButtonStyleData(
+                //         height: Get.height*0.078,
+                //         width: double.infinity,
+                //         padding: const EdgeInsets.only(left: 14, right: 14),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(35),
+                //
+                //           color: Color(0xff353535),
+                //         ),
+                //         elevation: 2,
+                //       ),
+                //       iconStyleData:  IconStyleData(
+                //         icon: Image.asset('assets/images/arrowdown.png'),
+                //         iconSize: 14,
+                //         iconEnabledColor: Colors.yellow,
+                //         iconDisabledColor: Colors.grey,
+                //       ),
+                //       dropdownStyleData: DropdownStyleData(
+                //         maxHeight: Get.height*0.35,
+                //         width: Get.width*0.902,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(14),
+                //           color: Color(0xff353535),
+                //         ),
+                //         offset: const Offset(5, 0),
+                //         scrollbarTheme: ScrollbarThemeData(
+                //           radius:  Radius.circular(40),
+                //           thickness: MaterialStateProperty.all<double>(6),
+                //           thumbVisibility: MaterialStateProperty.all<bool>(true),
+                //         ),
+                //       ),
+                //       menuItemStyleData: const MenuItemStyleData(
+                //         height: 40,
+                //         padding: EdgeInsets.only(left: 14, right: 14),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                SizedBox(height: Get.height*.04,) ,
+                Text("Topic",style: Theme.of(context).textTheme.titleSmall,),
+                SizedBox(height: Get.height*.01,) ,
+                TextFormField(
+                  controller: helpSectionControolerInstanse.topicController.value,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontSize: 15),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.textFieldFilledColor,
+                    hintText: 'topic',
+                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff929292)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33),
+                      borderSide: BorderSide.none,
+                    ),
+
                   ),
                 ),
                 SizedBox(height: Get.height*.04,) ,
                 Text("Subject",style: Theme.of(context).textTheme.titleSmall,),
                 SizedBox(height: Get.height*.01,) ,
                 TextFormField(
+                  controller: helpSectionControolerInstanse.subjectController.value,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontSize: 15),
                   decoration: InputDecoration(
                     filled: true,
@@ -160,6 +283,7 @@ class _HelpSectionState extends State<HelpSection> {
                 Text("How can we help?",style: Theme.of(context).textTheme.titleSmall,),
                 SizedBox(height: Get.height*.01,) ,
                 TextFormField(
+                  controller: helpSectionControolerInstanse.questionController.value,
                   maxLines: 5,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontSize: 15),
                   decoration: InputDecoration(
@@ -178,9 +302,19 @@ class _HelpSectionState extends State<HelpSection> {
                 Text("No detail is too small - we want to hear everything!",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),),
                 SizedBox(height: Get.height*.05,) ,
                 Center(
-                  child: MyButton(title: "SUBMIT", onTap1: () {
-
-                  },),
+                  child: Obx(() =>
+                   MyButton(
+                     loading: helpSectionControolerInstanse.loading.value,
+                     title: "SUBMIT", onTap1: () {
+                      helpSectionControolerInstanse.helpSectionApi(
+                          context,
+                          helpSectionControolerInstanse.emailController.value.text,
+                          locationController.text,
+                          helpSectionControolerInstanse.topicController.value.text,
+                          helpSectionControolerInstanse.subjectController.value.text,
+                          helpSectionControolerInstanse.questionController.value.text) ;
+                    },),
+                  ),
                 ),
                 SizedBox(height: Get.height*.05,) ,
               ],

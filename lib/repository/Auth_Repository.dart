@@ -23,6 +23,7 @@ import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart
 import 'package:flikka/res/app_url.dart';
 import 'package:flutter/foundation.dart';
 import '../models/EditMobileNumberModel.dart';
+import '../models/HelpSectionModel/HelpSectionModel.dart';
 import '../models/JobAlertSeenUnseenModel/JobAlertSeenUnseenModel.dart';
 import '../models/JobAlertWiseJobListingModel/JobAlertWiseJobListingModel.dart';
 import '../models/NewProfileModelSeeker/NewProfileModelSeeker.dart';
@@ -298,6 +299,11 @@ class AuthRepository {
   Future<JobAlertSeenUnseenModel> jobAlertSeenUnseenJobApi(var data) async {
     dynamic response = await _apiService.postApi2(data,AppUrl.jobAlertSeenUnseenUrl);
     return JobAlertSeenUnseenModel.fromJson(response);
+  }
+
+  Future<HelpSectionModel> helpApi(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.helpSectionUrl);
+    return HelpSectionModel.fromJson(response);
   }
 
 }
