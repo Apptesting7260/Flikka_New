@@ -92,6 +92,7 @@ class JobViewJobAlertState extends State<JobViewJobAlert> {
         onPopInvoked: (didPop) {
           if(didPop) {
             seekerJobAlertListControllerInstanse.viewSeekerJobAlertListApi() ;
+
           }
         },
         child: Stack(

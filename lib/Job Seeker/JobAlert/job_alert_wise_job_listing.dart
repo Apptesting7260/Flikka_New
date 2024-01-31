@@ -156,8 +156,8 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
                                 title: Text(seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiterDetails?.companyName ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),),
                                 subtitle: Row(
                                   children: [
-                                    Text("${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiter?.companyReviews}" ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: AppColors.yellowColor),),
-                                    SizedBox(width: 5,),
+                                    Text("${seekerJobAlertWiseJobListingControllerInstanse.viewSeekerJobAlertWiseJobListingData.value.jobList?[index].recruiter?.companyReviews}" ?? "",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Colors.amber),),
+                                    const SizedBox(width: 5,),
                                     RatingBar(
                                       initialRating: 1.0,
                                       minRating: 1,
