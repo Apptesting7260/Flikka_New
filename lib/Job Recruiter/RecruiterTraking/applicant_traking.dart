@@ -3,10 +3,12 @@ import 'package:flikka/Job%20Recruiter/RecruiterTraking/talent_pool.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
 import '../bottom_bar/tab_bar.dart';
 import 'all_candidate.dart';
 import 'onboarding.dart';
 import 'upcoming_interviews.dart';
+import 'package:badges/badges.dart' as badges;
 
 class ApplicantTracking extends StatefulWidget {
   const ApplicantTracking({super.key});
@@ -25,6 +27,8 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
   // ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
   // TalentPoolController poolController = Get.put(TalentPoolController()) ;
   // OnboardingController onboardingController = Get.put(OnboardingController()) ;
+
+  ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
 
   String? positionID ;
 
@@ -81,12 +85,21 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
               unselectedLabelColor: AppColors.graySilverColor,
               labelColor: AppColors.blueThemeColor,
               labelStyle: Theme.of(context).textTheme.bodyMedium,
-              tabs: const [
-                Tab(text: "APPLICANT DATA"),
-                Tab(text: "INTERVIEWS"),
-                Tab(text: "INBOX",),
-                Tab(text: "TALENT POOL",),
-                Tab(text: "ONBOARDING",),
+              tabs:   [
+                const Tab(text: "APPLICANT DATA"),
+                const Tab(text: "INTERVIEWS"),
+                Obx(() =>
+                ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount == null ||
+                    ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount == 0 ?
+                const Text("INBOX") :
+                  badges.Badge(
+                    badgeContent: Text(ShowInboxDataControllerInstanse.viewInboxData.value.unseenCount.toString()),
+                    child: const Text("INBOX"),
+                  ),
+                ),
+                // Tab(text: "INBOX",),
+                const Tab(text: "TALENT POOL",),
+                const Tab(text: "ONBOARDING",),
               ],
             ),
           ),
