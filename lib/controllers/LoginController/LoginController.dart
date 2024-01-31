@@ -4,6 +4,7 @@ import 'package:flikka/Job%20Seeker/Authentication/user/create-profile.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_position.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_skills.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flikka/hiring%20Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 import 'package:flikka/main.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,29 +49,35 @@ class LoginController extends GetxController {
       }
 
       if (value.status == true) {
-        sp.setInt("step", value.step) ;
-        if (value.role == 0) {
-          value.step == 1
-              ? Get.offAll(() => const ChoosePosition())
-              : value.step == 2
-                  ? Get.offAll(() => const ChooseSkills())
-                  : value.step == 3
-                      ? Get.offAll(() => const CreateProfile())
-                      : Get.offAll(const TabScreen(index: 0,loadData: true,)) ;
+        if(value.hiringManager == true) {
+          Get.offAll( () => const ApplicantTrackingHiringManager() ) ;
+        } else {
+          sp.setInt("step", value.step) ;
+          if (value.role == 0) {
+            value.step == 1
+                ? Get.offAll(() => const ChoosePosition())
+                : value.step == 2
+                ? Get.offAll(() => const ChooseSkills())
+                : value.step == 3
+                ? Get.offAll(() => const CreateProfile())
+                : Get.offAll(const TabScreen(index: 0, loadData: true,));
             sp.setString("loggedIn", "seeker");
-        } else if (value.role == 1) {
-          value.step == 1 ? Get.offAll( () => const RecruiterProfileEdit()) :
-              Get.offAll( () => TabScreenEmployer(index: 0,)) ;
+          } else if (value.role == 1) {
+            value.step == 1 ? Get.offAll(() => const RecruiterProfileEdit()) :
+            Get.offAll(() => TabScreenEmployer(index: 0,));
             sp.setString("loggedIn", "recruiter");
+          }
         }
       }
       else {
         errorMessage.value = "${value.message}" ;
       }
     }).onError((error, stackTrace) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+        print(stackTrace);
+      }
       loading.value = false;
-      // Utils.snackBar('Failed', error.toString());
       Utils.showApiErrorDialog(context, error.toString()) ;
     });
   }
