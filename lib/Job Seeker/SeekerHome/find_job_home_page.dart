@@ -256,15 +256,24 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                 Get.to(const WalletSection()) ;
                                               },
                                               child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
-                                          const SizedBox(width: 7,),
+                                          const SizedBox(width: 20,),
                                           GestureDetector(
                                               onTap: () {
                                                 Navigator.of(context).push(
                                                     MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
                                                 ) ;
                                               } ,
-                                              child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,)),
-                                          const SizedBox(width: 7,),
+                                              child: Obx(() =>
+                                              SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
+                                                  SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                              Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
+                                              badges.Badge(
+                                                badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
+                                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,),
+                                              ),
+                                              )
+                                          ),
+                                          const SizedBox(width: 20,),
                                           Builder(builder: (context) {
                                             return InkWell(
                                                 onTap: () => Scaffold.of(context).openEndDrawer(),
@@ -676,7 +685,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                                  color: const Color(0xff0D5AFE).withOpacity(.6),
                                                                  borderRadius: BorderRadius.circular(22)),
                                                              child: Text(
-                                                               "${getJobsListingController.getJobsListing.value.jobs?[currentPage].jobsDetail?.minSalaryExpectation} - "
+                                                               "£ ${getJobsListingController.getJobsListing.value.jobs?[currentPage].jobsDetail?.minSalaryExpectation} - "
                                                                    "${getJobsListingController.getJobsListing.value.jobs?[currentPage].jobsDetail?.maxSalaryExpectation}",
                                                                overflow: TextOverflow.ellipsis,
                                                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,
@@ -1196,7 +1205,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                              ) ;
                                             } ,
                                               child:  Obx(() =>
-                      SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null || SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                     SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
+                                     SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
                                            Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
                                                  badges.Badge(
                                                 badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
@@ -1482,7 +1492,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       )),
                       Center(
                         child: Text(
-                          "$minimumSalary £",
+                          "£ $minimumSalary",
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                       )

@@ -40,6 +40,7 @@ class JobViewJobAlertState extends State<JobViewJobAlert> {
 
   var position = 0.0.obs;
 
+
   SeekerJobAlertListController seekerJobAlertListControllerInstanse = Get.put(SeekerJobAlertListController()) ;
 
   JobAlertSeenUnseenJobController jobAlertSeenUnseenJobControllerInstanse = Get.put(JobAlertSeenUnseenJobController()) ;
@@ -126,7 +127,7 @@ class JobViewJobAlertState extends State<JobViewJobAlert> {
                   }
                   return SingleChildScrollView(
                     // controller: _scrollController,
-                    physics: const BouncingScrollPhysics(),
+                    // physics: const BouncingScrollPhysics(),
                     clipBehavior: Clip.hardEdge,
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
