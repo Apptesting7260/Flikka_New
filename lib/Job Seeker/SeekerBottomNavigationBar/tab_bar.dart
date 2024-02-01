@@ -81,40 +81,8 @@ class TabScreenState extends State<TabScreen> {
       SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi();
       seekerEarningController.seekerEarningApi();
       interviewListController.seekerInterViewListApi();
-     tabBarController.pageController = PageController(initialPage: widget.index , keepPage: true);
+     tabBarController.pageController?.value = PageController(initialPage: widget.index , keepPage: true);
     }
-
-  buildBottomNavBarItems =  [
-      BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset("assets/images/icon_unselect_home.png",height: Get.height*.035,),
-          activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.035)),
-
-
-      BottomNavigationBarItem(
-        label: "",
-        icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.035,) ,
-        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.035,) ,
-      ),
-
-
-      BottomNavigationBarItem(
-        label: "",
-        icon: Image.asset("assets/images/icon_search.png",height: Get.height*.045),
-      ),
-
-      BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.035 ,),
-          activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.035,)
-      ),
-
-      BottomNavigationBarItem(
-        label: "",
-        icon: Image.asset("assets/images/icon_unselect_person.png",height: Get.height*.035),
-        activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.035),
-      ),
-    ];
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
   }
@@ -169,17 +137,20 @@ class TabScreenState extends State<TabScreen> {
               top: false,
               child: GestureDetector(
                 onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-                child: PageView(
-                  controller: tabBarController.pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  onPageChanged: (index) => tabBarController.pageChanged(index),
-                  children: [
-                    const FindJobHomeScreen(),
-                    GoogleMapIntegration(filtered: widget.filtered,),
-                    const CompanySeekerPage(),
-                    const ForumFirstPage(),
-                    const UserProfile(),
-                  ],
+                child: Obx( () => PageView(
+                    controller: tabBarController.pageController?.value,
+                    physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: (index) {
+                      tabBarController.pageChanged(index);
+                      } ,
+                    children: [
+                      const FindJobHomeScreen(),
+                      GoogleMapIntegration(filtered: widget.filtered,),
+                      const CompanySeekerPage(),
+                      const ForumFirstPage(),
+                      const UserProfile(),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -196,24 +167,24 @@ class TabScreenState extends State<TabScreen> {
                 topLeft: Radius.circular(25) ,
                 topRight: Radius.circular(25)
             ),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              items: buildBottomNavBarItems,
-              selectedItemColor: const Color(0xff56B8F6),
-              unselectedItemColor: const Color(0xffC4C4C4),
-              selectedIconTheme: const IconThemeData(
-                color: Color(0xff56B8F6),
+            child: Obx( () => BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: buildBottomNavBarItems,
+                selectedItemColor: const Color(0xff56B8F6),
+                unselectedItemColor: const Color(0xffC4C4C4),
+                selectedIconTheme: const IconThemeData(
+                  color: Color(0xff56B8F6),),
+                unselectedIconTheme: const IconThemeData(
+                  color: Color(0xffC4C4C4),),
+                elevation: 0,
+                backgroundColor: AppColors.homeGrey ,
+                currentIndex: tabBarController.bottomSelectedIndex.value ,
+                onTap: (index) {
+                  tabBarController.bottomTapped(index) ;
+                  },
+                selectedFontSize: 1,
+                unselectedFontSize: 1,
               ),
-              unselectedIconTheme: const IconThemeData(
-                color: Color(0xffC4C4C4),
-              ),
-
-              elevation: 0,
-              backgroundColor: AppColors.homeGrey ,
-              currentIndex: tabBarController.bottomSelectedIndex?.value ?? 0,
-              onTap: (index) => tabBarController.bottomTapped(index),
-              selectedFontSize: 1,
-              unselectedFontSize: 1,
             ),
           ),
         ) : null,
@@ -278,13 +249,11 @@ class TabScreenState extends State<TabScreen> {
         icon: Image.asset("assets/images/icon_unselect_home.png",height: Get.height*.035,),
         activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.035)),
 
-
     BottomNavigationBarItem(
       label: "",
       icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.035,color: AppColors.black,) ,
       activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.035,) ,
     ),
-
 
     BottomNavigationBarItem(
       label: "",
