@@ -274,16 +274,16 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                               )
                                           ),
                                           const SizedBox(width: 20,),
-                                          Builder(builder: (context) {
-                                            return InkWell(
-                                                onTap: () => Scaffold.of(context).openEndDrawer(),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(right: 20),
-                                                  child: Image.asset(
-                                                    'assets/images/icon_seeker_drawer.png',
-                                                    height: Get.height * .05,),
-                                                ));
-                                          }),
+                                          // Builder(builder: (context) {
+                                          //   return InkWell(
+                                          //       onTap: () => Scaffold.of(context).openEndDrawer(),
+                                          //       child: Padding(
+                                          //         padding: const EdgeInsets.only(right: 20),
+                                          //         child: Image.asset(
+                                          //           'assets/images/icon_seeker_drawer.png',
+                                          //           height: Get.height * .05,),
+                                          //       ));
+                                          // }),
                                         ],
                                       ),
                                     ],
@@ -346,6 +346,16 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                         ),
                                       ),
                                     ),
+                                    Builder(builder: (context) {
+                                      return InkWell(
+                                          onTap: () => Scaffold.of(context).openEndDrawer(),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 20),
+                                            child: Image.asset(
+                                              'assets/images/icon_drawer_blue.png',
+                                              height: Get.height * .05,),
+                                          ));
+                                    }),
                                   ],) ,
                                 SizedBox(height: Get.height * .02,) ,
                                 Padding(

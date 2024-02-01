@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/JobAlertWiseJobListingController/JobAlertWiseJobListingController.dart';
-import '../../controllers/SeekerJobAlertListController/SeekerJobAlertListController.dart';
 import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../data/response/status.dart';
@@ -19,7 +18,8 @@ import '../../res/components/internet_exception_widget.dart';
 
 class JobAlertWiseJobListing extends StatefulWidget {
  final String positionID;
-  const JobAlertWiseJobListing({super.key, required this.positionID});
+ final String position;
+  const JobAlertWiseJobListing({super.key, required this.positionID, required this.position});
 
   @override
   State<JobAlertWiseJobListing> createState() => _JobAlertWiseJobListingState();
@@ -91,7 +91,7 @@ class _JobAlertWiseJobListingState extends State<JobAlertWiseJobListing> {
             "assets/images/icon_back_blue.png",
           ),
         ),
-        title: Text("Marketing intern In California",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),),
+        title: Text(widget.position,style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),),
       ),
       body: SmartRefresher(
         controller: _refreshController,

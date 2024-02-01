@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
 import 'package:flikka/controllers/SeekerForumController/ForumIndustryListController.dart';
 import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
@@ -15,6 +14,7 @@ import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
+import '../SeekerChatMessage/message_page.dart';
 import 'forum_only_comment_page.dart';
 
 class ForumFirstPage extends StatefulWidget {
@@ -295,13 +295,12 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                 ),
                               ],
                             ),
-
                           ),
                           SizedBox(height: Get.height * .001,),
-
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: Container(
@@ -336,7 +335,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.only(right: Get.width*.18),
+                                  padding: EdgeInsets.only(right: Get.width*.11),
                                     height: Get.height * 0.06,
                                     child: GestureDetector(
                                         onTap: () {
@@ -344,6 +343,12 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                         },
                                         child: Image.asset('assets/images/icon_add_form.png',
                                           fit: BoxFit.cover,))),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() =>const SeekerMessagePage());
+                                },
+                                  child: Image.asset("assets/images/icon_msg_blue.png",height: Get.height*.06,)),
+
                               ],
                             ),
                           ),

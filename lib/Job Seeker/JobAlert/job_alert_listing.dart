@@ -107,7 +107,7 @@ class _JobListState extends State<JobList> {
                         padding: EdgeInsets.only(bottom: Get.height*.02),
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(() =>  JobAlertWiseJobListing(positionID: "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].id.toString()}",)) ;
+                            Get.to(() =>  JobAlertWiseJobListing(positionID: "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].id.toString()}", position:"${ seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}",)) ;
                           },
                           child: Container(
                            decoration:  const BoxDecoration(
