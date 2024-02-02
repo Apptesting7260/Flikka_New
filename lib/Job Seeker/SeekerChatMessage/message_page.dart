@@ -3,6 +3,7 @@ import 'package:flikka/Job%20Recruiter/message/message_page.dart';
 import 'package:flikka/chatseeker/ChatScreen.dart';
 import 'package:flikka/chatseeker/CreateChat.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +23,9 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   Stream<QuerySnapshot> getMessagesStream() {
-    print("S-ID${seekerProfileControllerr.viewSeekerData.value.seekerInfo!.id.toString()}");
+    if (kDebugMode) {
+      print("S-ID${seekerProfileControllerr.viewSeekerData.value.seekerInfo!.id.toString()}");
+    }
     
     return firestore
         .collection("S-ID${seekerProfileControllerr.viewSeekerData.value.seekerInfo?.id.toString()}")
@@ -139,7 +142,9 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
                                         RecruiterId;
                                         Chatimage;
                                       });
-                                      print(RecruiterId);
+                                      if (kDebugMode) {
+                                        print(RecruiterId);
+                                      }
                                       Get.to(ChatPage());
 
                                     },
