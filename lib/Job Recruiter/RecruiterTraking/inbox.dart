@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/ApplicantTrackingController/ApplicantTrackingController.dart';
 import '../../controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
@@ -62,6 +63,7 @@ class _InboxState extends State<Inbox> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime createdAt = DateTime.now();
     return Scaffold(
         backgroundColor: Colors.black,
         body: Obx(() {
@@ -103,6 +105,7 @@ class _InboxState extends State<Inbox> {
                             itemCount: ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
+                              createdAt = DateTime.parse(ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?[index].createdAt ?? "") ;
                               var data = ShowInboxDataControllerInstanse.viewInboxData.value.recruiterInboxData?[index] ;
                               return Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -154,20 +157,6 @@ class _InboxState extends State<Inbox> {
                                                             color: const Color(
                                                                 0xffFFFFFF)),
                                                   ),
-                                                  // Text(
-                                                  //     "Software engineer ",
-                                                  //     style: Theme.of(context)
-                                                  //         .textTheme
-                                                  //         .bodySmall
-                                                  //         ?.copyWith(
-                                                  //             color: const Color(
-                                                  //                 0xffCFCFCF),
-                                                  //             fontWeight:
-                                                  //                 FontWeight
-                                                  //                     .w600)),
-                                                  // SizedBox(
-                                                  //   height: Get.height * .003,
-                                                  // ),
                                                 ],
                                               ),
                                               subtitle: Row(
@@ -217,49 +206,15 @@ class _InboxState extends State<Inbox> {
                                                 ],
                                               ),
                                             ),
-                                            // SizedBox(
-                                            //   height: Get.height * .01,
-                                            // ),
-                                            // Text(
-                                            //   "Experience when moving to a new job",
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .labelLarge
-                                            //       ?.copyWith(
-                                            //           fontWeight:
-                                            //               FontWeight.w700,
-                                            //           color: Color(0xffFFFFFF)),
-                                            // ),
                                             SizedBox(
                                               height: Get.height * .02,
                                             ),
                                             HtmlWidget(data?.description ?? "No about",textStyle: Theme.of(context).textTheme
                                                 .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
-                                            // RichText(
-                                            //     text: TextSpan(
-                                            //         text:
-                                            //             "Culture shock when moving to a new job is normal. This is not something wrong and I personally experienced it, when I experienced this when I changed jobs in 2 days...",
-                                            //         style: Theme.of(context)
-                                            //             .textTheme
-                                            //             .labelLarge
-                                            //             ?.copyWith(
-                                            //                 fontWeight:
-                                            //                     FontWeight.w400,
-                                            //                 color: Color(
-                                            //                     0xffCFCFCF)),
-                                            //         children: [
-                                            //       // TextSpan(
-                                            //       //     text: "Read more",
-                                            //       //     style: Theme.of(context)
-                                            //       //         .textTheme
-                                            //       //         .labelLarge
-                                            //       //         ?.copyWith(
-                                            //       //             fontWeight:
-                                            //       //                 FontWeight
-                                            //       //                     .w400,
-                                            //       //             color: Color(
-                                            //       //                 0xff56B8F6)))
-                                            //     ]))
+                                           SizedBox(height: 4,),
+                                            Text(
+                                              DateFormat('MMMM dd yyyy, hh:mm a').format(createdAt),
+                                            )
                                           ],
                                         ),
                                       ),
