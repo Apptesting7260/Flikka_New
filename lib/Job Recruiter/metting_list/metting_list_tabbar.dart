@@ -99,7 +99,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                 toolbarHeight: 75,
                 leading: IconButton(
                     onPressed: () {
-                      tabBarController.bottomTapped(0) ;
+                     Get.back() ;
                       seenUnSeenInterviewPendingControllerInstanse.seenUnSeenPendingInterviewAPi(
                           context,seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
                       }, icon:

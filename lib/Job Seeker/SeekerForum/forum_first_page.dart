@@ -201,7 +201,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                       forumDataController.forumList?.value = forumDataController.forumData.value.forumData ?? [] ;
                                     },
                                     child: Padding(
-                                      padding: EdgeInsets.only(left: 20),
+                                      padding: const EdgeInsets.only(left: 20),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [

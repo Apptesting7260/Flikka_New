@@ -59,10 +59,9 @@ class _AddAJobPageState extends State<AddAJobPage> {
     'bachelor degree','master degree','12th pass', 'diploma', 'doctoral degree', '10th pass', 'm. phil'
   ];
   String? qualificatonType;
-  List<String> years = ["1","2","3","4","5","6","7","8","9","10",
-    "11","12","13","14","15","16","17","18","19","20"] ;
+  List<String> years = ["0","1","2","3","4","5","6","7","8","9","10"] ;
 
-  List<String> months = ["01","02","03","04","05","06","07","08","09","10", "11"] ;
+  List<String> months = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"] ;
 
   List? languageList = [];
   String? yearValue ;
@@ -686,7 +685,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       ),
                     ),
                     SizedBox(height: Get.height*0.03,),
-                    Text("Salary Expectation", style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
+                    Text("Salary Offer", style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     // SizedBox(height: Get.height * .02,),
                     SizedBox( height: Get.height * 0.1 ,
                         child: const RangePicker(maxSalary: 100000.0,)) ,
@@ -916,126 +915,140 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     ),
                     SizedBox(height: Get.height*0.042,),
                     Text('Work experience',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
-                    SizedBox(height: Get.height*0.01,),
+                    SizedBox(height: Get.height*0.02,),
                     Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
-                            isExpanded: true,
-                            hint:  Text(
-                              'years',
-                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            items: years.map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )).toList(),
-                            value: yearValue,
-                            onChanged: (String? value) {
-                              setState(() {
-                                yearValue = value;
-                              });
-                            },
-                            buttonStyleData: ButtonStyleData(
-                              height: Get.height*0.08,
-                              width: Get.width*0.4,
-                              padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Minimum',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
+                            SizedBox(height: Get.height*0.01,),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                hint:  Text(
+                                  'year',
+                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                items: years.map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )).toList(),
+                                value: yearValue,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    yearValue = value;
+                                  });
+                                },
+                                buttonStyleData: ButtonStyleData(
+                                  height: Get.height*0.08,
+                                  width: Get.width*0.4,
+                                  padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
 
-                                color: const Color(0xff353535),
+                                    color: const Color(0xff353535),
+                                  ),
+                                  elevation: 2,
+                                ),
+                                iconStyleData:  IconStyleData(
+                                  icon: Image.asset('assets/images/arrowdown.png'),
+                                  iconSize: 14,
+                                  iconEnabledColor: Colors.yellow,
+                                  iconDisabledColor: Colors.grey,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: Get.height*0.35,
+                                  width: Get.width*0.35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: const Color(0xff353535),
+                                  ),
+                                  offset: const Offset(5, 0),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius:  const Radius.circular(40),
+                                    thickness: MaterialStateProperty.all<double>(6),
+                                    thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                  ),
+                                ),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 14, right: 14),
+                                ),
                               ),
-                              elevation: 2,
                             ),
-                            iconStyleData:  IconStyleData(
-                              icon: Image.asset('assets/images/arrowdown.png'),
-                              iconSize: 14,
-                              iconEnabledColor: Colors.yellow,
-                              iconDisabledColor: Colors.grey,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              maxHeight: Get.height*0.35,
-                              width: Get.width*0.35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: const Color(0xff353535),
-                              ),
-                              offset: const Offset(5, 0),
-                              scrollbarTheme: ScrollbarThemeData(
-                                radius:  const Radius.circular(40),
-                                thickness: MaterialStateProperty.all<double>(6),
-                                thumbVisibility: MaterialStateProperty.all<bool>(true),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 14, right: 14),
-                            ),
-                          ),
+                          ],
                         ),
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
-                            isExpanded: true,
-                            hint:  Text(
-                              'months',
-                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            items: months.map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )).toList(),
-                            value: monthsValue,
-                            onChanged: (String? value) {
-                              setState(() {
-                                monthsValue = value;
-                              });
-                            },
-                            buttonStyleData: ButtonStyleData(
-                              height: Get.height*0.08,
-                              width: Get.width*0.4,
-                              padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Maximum',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
+                            SizedBox(height: Get.height*0.01,),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                hint:  Text(
+                                  'year',
+                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                items: months.map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )).toList(),
+                                value: monthsValue,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    monthsValue = value;
+                                  });
+                                },
+                                buttonStyleData: ButtonStyleData(
+                                  height: Get.height*0.08,
+                                  width: Get.width*0.4,
+                                  padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
 
-                                color: const Color(0xff353535),
+                                    color: const Color(0xff353535),
+                                  ),
+                                  elevation: 2,
+                                ),
+                                iconStyleData:  IconStyleData(
+                                  icon: Image.asset('assets/images/arrowdown.png'),
+                                  iconSize: 14,
+                                  iconEnabledColor: Colors.yellow,
+                                  iconDisabledColor: Colors.grey,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: Get.height*0.35,
+                                  width: Get.width*0.35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: const Color(0xff353535),
+                                  ),
+                                  offset: const Offset(5, 0),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius:  const Radius.circular(40),
+                                    thickness: MaterialStateProperty.all<double>(6),
+                                    thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                  ),
+                                ),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 14, right: 14),
+                                ),
                               ),
-                              elevation: 2,
                             ),
-                            iconStyleData:  IconStyleData(
-                              icon: Image.asset('assets/images/arrowdown.png'),
-                              iconSize: 14,
-                              iconEnabledColor: Colors.yellow,
-                              iconDisabledColor: Colors.grey,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              maxHeight: Get.height*0.35,
-                              width: Get.width*0.35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: const Color(0xff353535),
-                              ),
-                              offset: const Offset(5, 0),
-                              scrollbarTheme: ScrollbarThemeData(
-                                radius:  const Radius.circular(40),
-                                thickness: MaterialStateProperty.all<double>(6),
-                                thumbVisibility: MaterialStateProperty.all<bool>(true),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 14, right: 14),
-                            ),
-                          ),
+                          ],
                         ),
                       ],
                     ),

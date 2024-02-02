@@ -142,7 +142,6 @@ class _DrawerClassState extends State<DrawerClass> {
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                                           textAlign: TextAlign.center,
                                         ),
-
                                       ],
                                     ),
                                   )
@@ -224,7 +223,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                                     height: 20,
                                                     width: 20,
                                                     alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                         shape: BoxShape.circle ,
                                                         color: AppColors.red,
                                                     ),
@@ -457,7 +456,6 @@ class _DrawerClassState extends State<DrawerClass> {
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
                                   ),
-
                                   SizedBox(height: Get.height*.2,),
                                   ],
                               ),

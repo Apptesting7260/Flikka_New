@@ -1,4 +1,5 @@
 
+import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -107,7 +108,14 @@ class _JobListState extends State<JobList> {
                         padding: EdgeInsets.only(bottom: Get.height*.02),
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(() =>  JobAlertWiseJobListing(positionID: "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].id.toString()}", position:"${ seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}",)) ;
+                            if(seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts == 0) {
+                              Utils.showMessageDialog(context, "No Job Found") ;
+                            } else {
+                              Get.to(() =>  JobAlertWiseJobListing(
+                                positionID: "${seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].id.toString()}",
+                                position:"${ seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].positions}",)) ;
+                            }
+
                           },
                           child: Container(
                            decoration:  const BoxDecoration(

@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/EditAboutController/EditAboutController.dart';
 import 'package:flikka/controllers/EditSeekerAppreciationController/EditSeekerAppreciationController.dart';
 import 'package:flikka/controllers/EditSeekerLanguageController/EditSeekerLanguageController.dart';
@@ -2329,7 +2328,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           )
                                                         ],
                                                       ),
-                                                      SizedBox(height: Get.height * 0.01,),
+                                                      // SizedBox(height: Get.height * 0.01,),
                                                       Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text("${data?.companyName}",
@@ -2341,7 +2340,8 @@ class _UserProfileState extends State<UserProfile> {
                                                           Text('$startDate    $endDate',
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.silverColor, fontWeight: FontWeight.w400),
-                                                          )
+                                                          ),
+                                                          SizedBox(height: Get.height * 0.01,),
                                                           //     :
                                                           // Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
                                                           //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -2373,7 +2373,6 @@ class _UserProfileState extends State<UserProfile> {
                                                           .labelMedium!.copyWith(
                                                           color: AppColors
                                                               .black),),
-
                                                   ],
                                                 ),
                                                 InkWell(
@@ -2438,8 +2437,8 @@ class _UserProfileState extends State<UserProfile> {
                                                           )
                                                         ],
                                                       ),
-                                                      SizedBox(
-                                                        height: Get.height * 0.01,),
+                                                      // SizedBox(
+                                                      //   height: Get.height * 0.01,),
                                                       Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text("${data?.institutionName}",
@@ -2451,7 +2450,9 @@ class _UserProfileState extends State<UserProfile> {
                                                           Text('$startDate    $endDate',
                                                             // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),)
+                                                                color: AppColors.silverColor, fontWeight: FontWeight.w400),),
+                                                          SizedBox(
+                                                            height: Get.height * 0.01,),
                                                           //     :
                                                           // Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}-${data?.educationEndDate?.day}-${data?.educationEndDate?.year}',
                                                           //   // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
