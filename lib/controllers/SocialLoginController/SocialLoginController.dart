@@ -49,6 +49,7 @@ class SocialLoginController extends GetxController {
         print(value);
       }
       if(value.emailRegistered == false){
+        Get.back() ;
        Get.to( () => ChooseRole(user: user,)) ;
        loading(false) ;
         return true ;

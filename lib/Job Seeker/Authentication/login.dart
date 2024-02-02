@@ -268,9 +268,9 @@ void initState() {
         CommonFunctions.showLoadingDialog(context, "Loading...") ;
       var result = await  socialLoginController.socialLoginApi("${user.email}", "${user.displayName}",
             fcmToken, "", "${user.uid}", context,user: user) ;
-      if(result != null){
-        Get.back() ;
-      }
+      // if(result != null){
+      //   Get.back() ;
+      // }
       }
 
       if (kDebugMode) {

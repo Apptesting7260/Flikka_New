@@ -438,6 +438,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                       "Setting",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
                                     ),
+                                    // trailing: Obx(() => seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts == true ),
                                   ),
                                   ListTile(
                                     onTap: () {

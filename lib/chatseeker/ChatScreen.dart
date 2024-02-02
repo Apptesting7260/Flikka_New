@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -190,13 +191,18 @@ class _ChatPageState extends State<ChatPage> {
       // Handle the case where the message type is unknown
     }
   }
-
+  
+  bool fileUploaded = true ;
   String customPath = '/flutter_audio_recorder_';
   Future<String> uploadSelectedImageAndGetUrl(ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
 
     if (pickedFile != null) {
+      setState(() {
+        filePath = pickedFile.path ;
+        fileUploaded = false ;
+      });
       try {
         // Check if the picked file is an image
         if (await File(pickedFile.path).exists()) {
@@ -227,6 +233,7 @@ class _ChatPageState extends State<ChatPage> {
           setState(() {
             messageimgurl = downloadUrl;
             messagetype = "img";
+            fileUploaded = true ;
           });
           onSendMessage();
           if (kDebugMode) {
@@ -519,6 +526,20 @@ class _ChatPageState extends State<ChatPage> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
                                         children: [
+                                          snapshot.data!.docs[index]["type"] == "img" ?
+                                              Align( alignment: Alignment.bottomRight,
+                                                child: CachedNetworkImage(
+                                                  imageBuilder:  (context, imageProvider) => Container(
+                                                    height: Get.height * .3 ,
+                                                    width: Get.width * .5,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(20) ,
+                                                      image: DecorationImage(image: imageProvider , fit: BoxFit.cover)
+                                                    ),
+                                                  ),
+                                                  imageUrl:snapshot.data!.docs[index]["imageurl"] ,
+                                                ),
+                                              ) :
                                           Align(
                                             alignment:
                                                 AlignmentDirectional.bottomEnd,
@@ -545,7 +566,6 @@ class _ChatPageState extends State<ChatPage> {
                                               ),
                                             ),
                                           ),
-
                                           SizedBox(
                                             height: Get.height * .01,
                                           ),
@@ -928,6 +948,8 @@ class _ChatPageState extends State<ChatPage> {
 
 // }
 
+  String filePath = "" ;
+  
   Future<void> MessengeRead() async {
     final querySnapshot = await _firestore
         .collection('RoomID')
@@ -975,28 +997,34 @@ class _ChatPageState extends State<ChatPage> {
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: AppColors.blueThemeColor,
-                      radius: 30,
-                      child: Center(
-                          child: Image.asset(
-                        'assets/images/docs.png',
-                        height: 30,
-                        width: 30,
-                        color: Colors.white,
-                      )),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Documents",
-                      style: TextStyle(
-                          color: AppColors.blueThemeColor, fontSize: 15),
-                    )
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Get.back() ;
+                    uploadSelectedImageAndGetUrl(ImageSource.gallery);
+                  },
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: AppColors.blueThemeColor,
+                        radius: 30,
+                        child: Center(
+                            child: Image.asset(
+                          'assets/images/docs.png',
+                          height: 30,
+                          width: 30,
+                          color: Colors.white,
+                        )),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Documents",
+                        style: TextStyle(
+                            color: AppColors.blueThemeColor, fontSize: 15),
+                      )
+                    ],
+                  ),
                 ),
                 InkWell(
                   child: Column(
@@ -1023,7 +1051,8 @@ class _ChatPageState extends State<ChatPage> {
                     ],
                   ),
                   onTap: () {
-                    uploadSelectedImageAndGetUrl(ImageSource.gallery);
+                    Get.back() ;
+                    uploadSelectedImageAndGetUrl(ImageSource.camera);
                   },
                 ),
                 // Column(

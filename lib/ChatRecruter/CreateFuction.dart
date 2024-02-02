@@ -64,13 +64,6 @@ bool isCollectionExistSeeker = await doesCollectionExistSeeker();
 print("userid$SeekerIDchat");
 
 
-
-
-
-
-
-
-
       // print(_firestore.collection(value.data!.getseeker!.id.toString()).doc(value.data!.roomid.toString()).get().toString());
 
 

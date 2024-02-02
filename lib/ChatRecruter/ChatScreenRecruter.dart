@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -103,8 +104,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
             viewRecruiterProfileController
                 .viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId
                 .toString(),
-            "GRP" +
-                viewRecruiterProfileController.viewRecruiterProfile.value
+            "GRP" + viewRecruiterProfileController.viewRecruiterProfile.value
                     .recruiterProfileDetails!.recruiterId
                     .toString() +
                 SeekerIDchat.toString(),
@@ -589,6 +589,20 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
                                         children: [
+                                          snapshot.data!.docs[index]["type"] == "img" ?
+                                          Align( alignment: Alignment.bottomLeft,
+                                            child: CachedNetworkImage(
+                                              imageBuilder:  (context, imageProvider) => Container(
+                                                height: Get.height * .3 ,
+                                                width: Get.width * .5,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20) ,
+                                                    image: DecorationImage(image: imageProvider , fit: BoxFit.cover)
+                                                ),
+                                              ),
+                                              imageUrl:snapshot.data!.docs[index]["imageurl"] ,
+                                            ),
+                                          ) :
                                           Align(
                                             alignment: AlignmentDirectional
                                                 .bottomStart,
@@ -771,6 +785,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                           controller: messagecontroller,
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
+
                             suffixIcon: IconButton(
                               icon: GestureDetector(
                                 onTap: () {
@@ -784,12 +799,12 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                               ),
                               onPressed: () {},
                             ),
-                            prefixIcon: IconButton(
-                              icon: Image.asset('assets/images/addfile.png'),
-                              onPressed: () {
-                                // Handle add file button tap
-                              },
-                            ),
+                            // prefixIcon: IconButton(
+                            //   icon: Image.asset('assets/images/addfile.png'),
+                            //   onPressed: () {
+                            //     // Handle add file button tap
+                            //   },
+                            // ),
                             hintText: 'Type Message',
                             hintStyle: const TextStyle(color: Colors.grey),
                             enabledBorder: InputBorder.none,

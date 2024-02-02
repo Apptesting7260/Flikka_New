@@ -105,7 +105,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
 
-  RxBool jobSearchAppBar = false.obs ;
+  RxBool jobSearchAppBar = true.obs ;
 
   @override
   void initState() {
@@ -116,6 +116,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     });
 
     _scrollController.addListener(() async {
+      if(tabBarController.showListView.value) {
+        print("listview") ;
+        print(_scrollController.position.pixels) ;
+      }
+
       if(_scrollController.offset < Get.height*.23 && _scrollController.offset >= 0) {
         position.value = _scrollController.offset ;
         setState(() {
@@ -152,7 +157,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
     jobScrollController.addListener(() {
       print("this is position ${jobScrollController.position.pixels}") ;
-      if(jobScrollController.position.pixels < 50 ){
+      if(jobScrollController.offset < 50 ){
         jobSearchAppBar(true) ;
       }else{
         jobSearchAppBar(false) ;
@@ -164,7 +169,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   final ScrollController _scrollController = ScrollController();
   TextEditingController searchController = TextEditingController() ;
   Completer<GoogleMapController> mapController = Completer();
-  final jobScrollController = ScrollController() ;
+  final ScrollController jobScrollController = ScrollController() ;
 
   @override
   Widget build(BuildContext context) {
@@ -225,9 +230,10 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       systemOverlayStyle: const SystemUiOverlayStyle(
                         statusBarIconBrightness: Brightness.light,
                         statusBarColor: Colors.transparent,),
-                      backgroundColor: tabBarController.showListView.value ? AppColors.black : Colors.transparent,
+                      backgroundColor: tabBarController.showListView.value ? jobSearchAppBar.value ?
+                      Colors.transparent : AppColors.black : Colors.transparent,
                       title: tabBarController.showListView.value ? Container(
-                        color: jobSearchAppBar.value ? Colors.transparent : AppColors.red ,
+                        color: Colors.transparent ,
                         width: Get.width,
                         // padding: const EdgeInsets.only(bottom: 10 ,top: 40),
                         child: Row(
@@ -294,6 +300,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         controller: _refreshController,
                         onRefresh: _onRefresh,
                         onLoading: _onLoading,
+                        scrollController: jobScrollController,
                         child: GestureDetector(
                           onTap: () {
                             if (Scaffold.of(context).isEndDrawerOpen) {
@@ -303,7 +310,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                           child: tabBarController.showListView.value ?
                           SafeArea(
                             child: SingleChildScrollView(
-                              controller: jobScrollController,
                               child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // Container(

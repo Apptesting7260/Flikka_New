@@ -219,8 +219,7 @@ class _ChooseRoleState extends State<ChooseRole> {
                                             socialLoginController.socialLoginApi("${widget.user?.email}", "${widget.user?.displayName}", fcmToken,
                                                 "$role", "${widget.user?.uid}", context) ;
                                           }else {
-                                            signUpController.signUpApiHit(
-                                                role, context);
+                                            signUpController.signUpApiHit(role, context);
                                           }
                                         }
                                       }
