@@ -9,6 +9,7 @@ import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/SeekerEarningController/SeekerEarningController.dart';
+import '../../controllers/SeekerJobAlertListController/SeekerJobAlertListController.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
 import '../../widgets/app_colors.dart';
@@ -37,6 +38,7 @@ class _DrawerClassState extends State<DrawerClass> {
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
   SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
+  SeekerJobAlertListController seekerJobAlertListControllerInstanse = Get.put(SeekerJobAlertListController()) ;
 
   String homeIcon = 'assets/images/homedrawericon.png' ;
   String profileIcon = 'assets/images/profiledrawericon.png' ;
@@ -308,6 +310,18 @@ class _DrawerClassState extends State<DrawerClass> {
                                     title: Text(
                                       "Job alert",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                    ),
+                                    trailing: Obx(() => seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.newAlert == true ?
+                                    Container(
+                                      height: 20,
+                                      width: 20,
+                                      alignment: Alignment.center,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle ,
+                                        color: AppColors.red,
+                                      ),
+                                      child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),)
+                                        : const SizedBox(),
                                     ),
                                   ),
                                   ListTile(

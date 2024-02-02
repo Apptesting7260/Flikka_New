@@ -105,6 +105,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
 
+  RxBool jobSearchAppBar = false.obs ;
+
   @override
   void initState() {
     _pageController.addListener(() {
@@ -147,12 +149,22 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
           }
       });
     });
+
+    jobScrollController.addListener(() {
+      print("this is position ${jobScrollController.position.pixels}") ;
+      if(jobScrollController.position.pixels < 50 ){
+        jobSearchAppBar(true) ;
+      }else{
+        jobSearchAppBar(false) ;
+      }
+    }) ;
     super.initState();
   }
   final PageController _pageController = PageController(initialPage: currentPage);
   final ScrollController _scrollController = ScrollController();
   TextEditingController searchController = TextEditingController() ;
   Completer<GoogleMapController> mapController = Completer();
+  final jobScrollController = ScrollController() ;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +225,64 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       systemOverlayStyle: const SystemUiOverlayStyle(
                         statusBarIconBrightness: Brightness.light,
                         statusBarColor: Colors.transparent,),
-                      backgroundColor: tabBarController.showListView.value ? AppColors.black : Colors.transparent, elevation: 0,toolbarHeight: 0,),
+                      backgroundColor: tabBarController.showListView.value ? AppColors.black : Colors.transparent,
+                      title: tabBarController.showListView.value ? Container(
+                        color: jobSearchAppBar.value ? Colors.transparent : AppColors.red ,
+                        width: Get.width,
+                        // padding: const EdgeInsets.only(bottom: 10 ,top: 40),
+                        child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset(
+                              'assets/images/icon_flikka_logo.png',
+                              height: Get.height * .032,
+                            ),
+
+                          ],
+                        ),
+                      ) : const SizedBox(),
+                      elevation: 0,toolbarHeight: tabBarController.showListView.value ? null : 0,
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Get.to(const WalletSection()) ;
+                              },
+                              child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
+                          const SizedBox(width: 20,),
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
+                                ) ;
+                              } ,
+                              child: Obx(() =>
+                              SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
+                                  SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                              Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
+                              badges.Badge(
+                                badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
+                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,),
+                              ),
+                              )
+                          ),
+                          SizedBox(width: Get.width*.04,),
+                          // Builder(builder: (context) {
+                          //   return InkWell(
+                          //       onTap: () => Scaffold.of(context).openEndDrawer(),
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.only(right: 20),
+                          //         child: Image.asset(
+                          //           'assets/images/icon_seeker_drawer.png',
+                          //           height: Get.height * .05,),
+                          //       ));
+                          // }),
+                        ],
+                      ),
+                    ],
+                    ),
                     endDrawer: DrawerClass(
                       name: '${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}',
                       location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
@@ -232,207 +301,210 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             }
                           },
                           child: tabBarController.showListView.value ?
-                          SingleChildScrollView(
-                            child: Column( crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  color: Colors.black ,
-                                  width: Get.width,
-                                  padding: const EdgeInsets.only(bottom: 10 ,top: 40),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          SafeArea(
+                            child: SingleChildScrollView(
+                              controller: jobScrollController,
+                              child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Container(
+                                  //   color: Colors.black ,
+                                  //   width: Get.width,
+                                  //   padding: const EdgeInsets.only(bottom: 10 ,top: 40),
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       Padding(
+                                  //         padding: const EdgeInsets.only(left: 12,),
+                                  //         child: Image.asset(
+                                  //           'assets/images/icon_flikka_logo.png',
+                                  //           height: Get.height * .032,
+                                  //         ),
+                                  //       ),
+                                  //       Row(
+                                  //         children: [
+                                  //           GestureDetector(
+                                  //               onTap: () {
+                                  //                 Get.to(const WalletSection()) ;
+                                  //               },
+                                  //               child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
+                                  //           const SizedBox(width: 20,),
+                                  //           GestureDetector(
+                                  //               onTap: () {
+                                  //                 Navigator.of(context).push(
+                                  //                     MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
+                                  //                 ) ;
+                                  //               } ,
+                                  //               child: Obx(() =>
+                                  //               SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
+                                  //                   SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                  //               Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
+                                  //               badges.Badge(
+                                  //                 badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
+                                  //                 child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,),
+                                  //               ),
+                                  //               )
+                                  //           ),
+                                  //           const SizedBox(width: 20,),
+                                  //           // Builder(builder: (context) {
+                                  //           //   return InkWell(
+                                  //           //       onTap: () => Scaffold.of(context).openEndDrawer(),
+                                  //           //       child: Padding(
+                                  //           //         padding: const EdgeInsets.only(right: 20),
+                                  //           //         child: Image.asset(
+                                  //           //           'assets/images/icon_seeker_drawer.png',
+                                  //           //           height: Get.height * .05,),
+                                  //           //       ));
+                                  //           // }),
+                                  //         ],
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  SizedBox(height: Get.height *.02,),
+                                  Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 12,),
-                                        child: Image.asset(
-                                          'assets/images/icon_flikka_logo.png',
-                                          height: Get.height * .032,
+                                      SizedBox( width: Get.width * .1,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.to( () => const FilterPage()) ;
+                                          },
+                                          child: Container(
+                                            height: 35,
+                                            width: 35,
+                                            padding: const EdgeInsets.all(8),
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: AppColors.blueThemeColor),
+                                            child: Image.asset("assets/images/filterIcon.png"),
+                                          ),
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          GestureDetector(
+                                      SizedBox(
+                                        width: Get.width * .5,
+                                        child: TextFormField(
+                                          controller: searchController,
+                                          onChanged: (query) {
+                                            getJobsListingController.filterJobs(query) ;
+                                          },
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(10)
+                                              ),
+                                              hintText: "Start a job search" ,
+                                              hintStyle: const TextStyle(color: AppColors.black),
+                                              filled: true,
+                                              fillColor: AppColors.homeGrey ,
+                                              prefixIcon: const Icon(Icons.search , color: AppColors.blueThemeColor,)
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox( width: Get.width * .1,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(() => const SeekerMessagePage()) ;
+                                          },
+                                          child: Container(
+                                            height: 35,
+                                            width: 35,
+                                            padding: const EdgeInsets.all(4),
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: AppColors.blueThemeColor
+                                            ),
+                                            child: Image.asset("assets/images/icon_job_search_message.png"),
+                                          ),
+                                        ),
+                                      ),
+                                      Builder(builder: (context) {
+                                        return InkWell(
+                                            onTap: () => Scaffold.of(context).openEndDrawer(),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 20),
+                                              child: Image.asset(
+                                                'assets/images/icon_drawer_blue.png',
+                                                height: Get.height * .05,),
+                                            ));
+                                      }),
+                                    ],) ,
+                                  SizedBox(height: Get.height * .02,) ,
+                                  Padding(
+                                    padding:  EdgeInsets.only(left: Get.width*.05),
+                                    child: Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,),
+                                  ) ,
+                                  getJobsListingController.getJobsListing.value.jobs == null ||
+                                      getJobsListingController.getJobsListing.value.jobs?.length == 0 ?
+                                  const Center(child: Text("NO JOBS")) :
+                                  ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: getJobsListingController.getJobsListing.value.jobs?.length,
+                                      itemBuilder: (context , index) {
+                                        var data = getJobsListingController.getJobsListing.value.jobs?[index] ;
+                                        return Column(
+                                          children: [
+                                            GestureDetector(
                                               onTap: () {
-                                                Get.to(const WalletSection()) ;
+                                                currentPage = index ;
+                                                tabBarController.showListView(false) ;
                                               },
-                                              child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
-                                          const SizedBox(width: 20,),
-                                          GestureDetector(
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
-                                                ) ;
-                                              } ,
-                                              child: Obx(() =>
-                                              SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
-                                                  SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
-                                              Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
-                                              badges.Badge(
-                                                badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
-                                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,),
-                                              ),
-                                              )
-                                          ),
-                                          const SizedBox(width: 20,),
-                                          // Builder(builder: (context) {
-                                          //   return InkWell(
-                                          //       onTap: () => Scaffold.of(context).openEndDrawer(),
-                                          //       child: Padding(
-                                          //         padding: const EdgeInsets.only(right: 20),
-                                          //         child: Image.asset(
-                                          //           'assets/images/icon_seeker_drawer.png',
-                                          //           height: Get.height * .05,),
-                                          //       ));
-                                          // }),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: Get.height *.02,),
-                                Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox( width: Get.width * .1,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.to( () => const FilterPage()) ;
-                                        },
-                                        child: Container(
-                                          height: 35,
-                                          width: 35,
-                                          padding: const EdgeInsets.all(8),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: AppColors.blueThemeColor),
-                                          child: Image.asset("assets/images/filterIcon.png"),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: Get.width * .5,
-                                      child: TextFormField(
-                                        controller: searchController,
-                                        onChanged: (query) {
-                                          getJobsListingController.filterJobs(query) ;
-                                        },
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(10)
-                                            ),
-                                            hintText: "Start a job search" ,
-                                            hintStyle: const TextStyle(color: AppColors.black),
-                                            filled: true,
-                                            fillColor: AppColors.homeGrey ,
-                                            prefixIcon: const Icon(Icons.search , color: AppColors.blueThemeColor,)
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox( width: Get.width * .1,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.to(() => const SeekerMessagePage()) ;
-                                        },
-                                        child: Container(
-                                          height: 35,
-                                          width: 35,
-                                          padding: const EdgeInsets.all(4),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: AppColors.blueThemeColor
-                                          ),
-                                          child: Image.asset("assets/images/icon_job_search_message.png"),
-                                        ),
-                                      ),
-                                    ),
-                                    Builder(builder: (context) {
-                                      return InkWell(
-                                          onTap: () => Scaffold.of(context).openEndDrawer(),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: 20),
-                                            child: Image.asset(
-                                              'assets/images/icon_drawer_blue.png',
-                                              height: Get.height * .05,),
-                                          ));
-                                    }),
-                                  ],) ,
-                                SizedBox(height: Get.height * .02,) ,
-                                Padding(
-                                  padding:  EdgeInsets.only(left: Get.width*.05),
-                                  child: Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,),
-                                ) ,
-                                getJobsListingController.getJobsListing.value.jobs == null ||
-                                    getJobsListingController.getJobsListing.value.jobs?.length == 0 ?
-                                const Center(child: Text("NO JOBS")) :
-                                ListView.builder(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: getJobsListingController.getJobsListing.value.jobs?.length,
-                                    itemBuilder: (context , index) {
-                                      var data = getJobsListingController.getJobsListing.value.jobs?[index] ;
-                                      return Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              currentPage = index ;
-                                              tabBarController.showListView(false) ;
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.02),
-                                              color: AppColors.homeGrey,
-                                              child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  CachedNetworkImage(
-                                                    imageUrl: data?.featureImg ?? "" ,
-                                                    placeholder:(context, url) => const Center(child: CircularProgressIndicator(),),
-                                                    errorWidget: (context, url, error) =>
-                                                    const SizedBox( height: 40, child: Placeholder()),
-                                                    imageBuilder:(context, imageProvider) =>  Container(
-                                                      height: 80, width: 80,
-                                                      decoration: BoxDecoration(
-                                                          shape: BoxShape.circle ,
-                                                          image: DecorationImage(image: imageProvider , fit: BoxFit.cover)
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.02),
+                                                color: AppColors.homeGrey,
+                                                child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    CachedNetworkImage(
+                                                      imageUrl: data?.featureImg ?? "" ,
+                                                      placeholder:(context, url) => const Center(child: CircularProgressIndicator(),),
+                                                      errorWidget: (context, url, error) =>
+                                                      const SizedBox( height: 40, child: Placeholder()),
+                                                      imageBuilder:(context, imageProvider) =>  Container(
+                                                        height: 80, width: 80,
+                                                        decoration: BoxDecoration(
+                                                            shape: BoxShape.circle ,
+                                                            image: DecorationImage(image: imageProvider , fit: BoxFit.cover)
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  SizedBox(width: Get.width*.04,),
-                                                  Flexible(
-                                                    child: SizedBox( width: Get.width *.6,
-                                                      child: Column( crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text( data?.jobPositions ??"" , style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
-                                                          Text(data?.recruiterDetails?.companyName ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
-                                                          SizedBox(height: Get.height *.01,) ,
-                                                          Text(data?.jobLocation ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
-                                                          SizedBox(height: Get.height *.01,) ,
-                                                          Text( "${data?.jobsDetail?.minSalaryExpectation} - ${data?.jobsDetail?.maxSalaryExpectation}" , style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontWeight: FontWeight.w500),),
-                                                        ],
+                                                    SizedBox(width: Get.width*.04,),
+                                                    Flexible(
+                                                      child: SizedBox( width: Get.width *.6,
+                                                        child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text( data?.jobPositions ??"" , style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
+                                                            Text(data?.recruiterDetails?.companyName ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
+                                                            SizedBox(height: Get.height *.01,) ,
+                                                            Text(data?.jobLocation ?? "" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
+                                                            SizedBox(height: Get.height *.01,) ,
+                                                            Text( "${data?.jobsDetail?.minSalaryExpectation} - ${data?.jobsDetail?.maxSalaryExpectation}" , style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontWeight: FontWeight.w500),),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  CircularPercentIndicator(
-                                                      percent: data?.jobMatchPercentage/100,
-                                                      progressColor: AppColors.green,
-                                                      backgroundColor: AppColors.white,
-                                                      center: Column( mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Text("${data?.jobMatchPercentage}%" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
-                                                          Text("match" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
-                                                        ],
-                                                      ),
-                                                      lineWidth: 12,
-                                                      radius: 40),
-                                                ],
+                                                    CircularPercentIndicator(
+                                                        percent: data?.jobMatchPercentage/100,
+                                                        progressColor: AppColors.green,
+                                                        backgroundColor: AppColors.white,
+                                                        center: Column( mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text("${data?.jobMatchPercentage}%" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
+                                                            Text("match" , style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.black),),
+                                                          ],
+                                                        ),
+                                                        lineWidth: 12,
+                                                        radius: 40),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ) ,
-                                          SizedBox(height: Get.height * .02,)
-                                        ],
-                                      ) ;
-                                    }) ,
-
-                              ],
+                                            ) ,
+                                            SizedBox(height: Get.height * .02,)
+                                          ],
+                                        ) ;
+                                      }) ,
+                            
+                                ],
+                              ),
                             ),
                           ) :
                           Stack(

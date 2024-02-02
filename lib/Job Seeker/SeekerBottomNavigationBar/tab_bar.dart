@@ -14,6 +14,7 @@ import '../../controllers/SeekerEarningController/SeekerEarningController.dart';
 import '../../controllers/SeekerForumController/ForumIndustryListController.dart';
 import '../../controllers/SeekerForumController/SeekerForumDataController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
+import '../../controllers/SeekerJobAlertListController/SeekerJobAlertListController.dart';
 import '../../controllers/SeekerMapJobsController/SeekerMapJobsController.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/SeekerViewInterviewAllController/SeekerViewInterviewAllController.dart';
@@ -59,6 +60,7 @@ class TabScreenState extends State<TabScreen> {
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
   SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
+ SeekerJobAlertListController seekerJobAlertListControllerInstanse = Get.put(SeekerJobAlertListController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
   @override
@@ -81,6 +83,7 @@ class TabScreenState extends State<TabScreen> {
       SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi();
       seekerEarningController.seekerEarningApi();
       interviewListController.seekerInterViewListApi();
+      seekerJobAlertListControllerInstanse.viewSeekerJobAlertListApi() ;
      tabBarController.pageController?.value = PageController(initialPage: widget.index , keepPage: true);
     }
     super.initState();

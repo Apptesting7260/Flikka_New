@@ -2,12 +2,15 @@ class SeekerJobAlertListModel {
   SeekerJobAlertListModel({
      this.status,
      this.jobAlertList,
+     this.newAlert,
   });
    bool? status;
    List<JobAlertList>? jobAlertList;
+   bool? newAlert;
 
   SeekerJobAlertListModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
+    newAlert = json['newKeyword'];
     jobAlertList = json['job_alert_list'] == null ? json['job_alert_list'] : List.from(json['job_alert_list']).map((e)=>JobAlertList.fromJson(e)).toList();
   }
 
