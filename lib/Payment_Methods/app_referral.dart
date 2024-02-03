@@ -191,7 +191,7 @@ class _AppReferralState extends State<AppReferral> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text(data?.companyName ?? "No data",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),),
+                                                  // Text(data?.companyName ?? "No data",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),),
                                                   // Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w600),),
                                                 ],
                                               ),
@@ -203,7 +203,6 @@ class _AppReferralState extends State<AppReferral> {
                                                   color: Color(0xffCFCFCF),
                                                 ),
                                               )
-
                                             ],
                                           ),
                                         ),

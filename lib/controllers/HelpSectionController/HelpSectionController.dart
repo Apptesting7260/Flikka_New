@@ -44,7 +44,9 @@ class HelpSectionControoler extends GetxController {
       // if(value.status!){
       //   Get.back() ;
       //   Get.back() ;
-      //   Utils.toastMessage("Job alerts have been added successfully") ;
+      //   // Utils.toastMessage("data add success",) ;
+      // }else{
+      //   Utils.showMessageDialog(context, error.value) ;
       // }
     }).onError((error, stackTrace){
       setError(error.toString());

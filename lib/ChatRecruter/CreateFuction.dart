@@ -17,7 +17,7 @@ final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   GetJobsListingController getJobsListingController = GetJobsListingController() ;
 
-CreateChat()async{
+CreateChat({bool? acceptedProfile})async{
   print(viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString());
  Map <String, dynamic> roomdetails = {};
       Map <String, dynamic> roomdetailsmaker = {};
@@ -119,7 +119,7 @@ if (isCollectionExistSeeker) {
         "SeekerImage":Seekerimgchat.toString()
        };
          await firestore.collection("S-ID"+SeekerIDchat.toString(),).doc("GRP"+viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails!.recruiterId.toString()+SeekerIDchat.toString(),).set(roomdetails);
-  Get.to(ChatScreenRecruter());
+  Get.to(ChatScreenRecruter(acceptedProfile: true,));
 
 
      }

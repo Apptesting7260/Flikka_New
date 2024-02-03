@@ -161,17 +161,20 @@ class _InboxState extends State<Inbox> {
                                               ),
                                               subtitle: Row(
                                                 children: [
-                                                  Text(
-                                                    "${data?.seekerProfile?.location ?? "No location"}",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .labelLarge
-                                                        ?.copyWith(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color:
-                                                                Color(0xffCFCFCF),
-                                                            fontSize: 10),
+                                                  SizedBox(
+                                                    width: Get.width*.55,
+                                                    child: Text(
+                                                      "${data?.seekerProfile?.location ?? "No location"}",
+                                                     overflow: TextOverflow.ellipsis, style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight.w400,
+                                                              color:
+                                                                  Color(0xffCFCFCF),
+                                                              fontSize: 10),
+                                                    ),
                                                   ),
                                                   // Container(
                                                   //   margin: const EdgeInsets.only(

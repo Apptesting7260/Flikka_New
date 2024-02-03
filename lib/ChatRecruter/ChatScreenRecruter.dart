@@ -7,7 +7,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flikka/ChatRecruter/CreateFuction.dart';
 import 'package:flikka/ChatRecruter/chatFunnction.dart';
-import 'package:flikka/Job%20Recruiter/message/message_page.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,8 @@ String messagetype = "text";
 var playerx;
 
 class ChatScreenRecruter extends StatefulWidget {
-  const ChatScreenRecruter({Key? key}) : super(key: key);
+  final bool? acceptedProfile ;
+  const ChatScreenRecruter({Key? key, this.acceptedProfile}) : super(key: key);
 
   @override
   State<ChatScreenRecruter> createState() => _ChatScreenRecruterState();
@@ -63,6 +63,10 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
     _getDir();
     _initialiseControllers();
     MessengeRead();
+    if(widget.acceptedProfile == true) {
+      messagecontroller.text = "Hi, $SeekerName your profile has been accepted" ;
+      onSendMessage() ;
+    }
 
     super.initState();
   }
