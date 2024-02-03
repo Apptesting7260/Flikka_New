@@ -140,7 +140,7 @@ class _ChatPageState extends State<ChatPage> {
         String latmdg = "image";
 
         chatfunctionsinstance.SendMsgToRecruiter(
-            textmsg.toString(),
+            "file",
             seekerProfileController.viewSeekerData.value.seekerInfo!.id
                 .toString(),
             "GRP" +
@@ -556,8 +556,7 @@ class _ChatPageState extends State<ChatPage> {
                                                     2, // Set maximum width as half of the screen width
                                               ),
                                               padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 10), // Adjust padding as needed
-                                              child: Text(
-                                                breakMessage(message),
+                                              child: Text(message,
                                                 style: Get
                                                     .theme.textTheme.bodySmall!
                                                     .copyWith(
@@ -608,25 +607,14 @@ class _ChatPageState extends State<ChatPage> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color: Colors.grey[800],
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius: const BorderRadius.only(
                                                   topRight: Radius.circular(20),
                                                   topLeft: Radius.circular(20),
-                                                  bottomRight:
-                                                      Radius.circular(20),
-                                                ),
-                                              ),
+                                                  bottomRight: Radius.circular(20),),),
                                               constraints: BoxConstraints(
-                                                maxWidth: Get.width /
-                                                    2, // Set maximum width as half of the screen width
-                                              ),
-                                              padding: EdgeInsets.only(
-                                                  left: 20,
-                                                  top: 20,
-                                                  bottom: 20,
-                                                  right:
-                                                      10), // Adjust padding as needed
-                                              child: Text(
-                                                breakMessage(message),
+                                                maxWidth: Get.width / 2,),
+                                              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 10), // Adjust padding as needed
+                                              child: Text(message ,
                                                 style: Get
                                                     .theme.textTheme.bodySmall!
                                                     .copyWith(
@@ -776,44 +764,43 @@ class _ChatPageState extends State<ChatPage> {
                   borderRadius: BorderRadius.circular(23),
                   border: Border.all(color: Colors.grey, width: 0.5),
                 ),
-                child: SizedBox(
-                  height: Get.height * 0.07,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: messagecontroller,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: GestureDetector(
-                                onTap: () {
-                                  String userMessage =
-                                      messagecontroller.text.trim();
-                                  if (userMessage.isNotEmpty) {
-                                    onSendMessage();
-                                  }
-                                },
-                                child: Image.asset('assets/images/sendme.png'),
-                              ),
-                              onPressed: () {},
-                            ),
-                            prefixIcon: IconButton(
-                              icon: Image.asset('assets/images/addfile.png'),
-                              onPressed: () {
-                                showPopup(context);
-                                // Handle add file button tap
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        maxLines: 5,
+                        minLines: 1,
+                        controller: messagecontroller,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: GestureDetector(
+                              onTap: () {
+                                String userMessage =
+                                    messagecontroller.text.trim();
+                                if (userMessage.isNotEmpty) {
+                                  onSendMessage();
+                                }
                               },
+                              child: Image.asset('assets/images/sendme.png'),
                             ),
-                            hintText: 'Type Message',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
+                            onPressed: () {},
                           ),
+                          prefixIcon: IconButton(
+                            icon: Image.asset('assets/images/addfile.png'),
+                            onPressed: () {
+                              showPopup(context);
+                              // Handle add file button tap
+                            },
+                          ),
+                          hintText: 'Type Message',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

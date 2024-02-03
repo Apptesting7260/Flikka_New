@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_flags/country_flags.dart';
-import 'package:flikka/Job%20Seeker/SeekerHome/JobSearchScreen.dart';
 import 'package:flikka/Payment_Methods/wallet_section.dart';
 import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
@@ -231,7 +230,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         statusBarIconBrightness: Brightness.light,
                         statusBarColor: Colors.transparent,),
                       backgroundColor: tabBarController.showListView.value ? jobSearchAppBar.value ?
-                      Colors.transparent : AppColors.black : Colors.transparent,
+                      AppColors.black : AppColors.black : Colors.transparent,
                       title: tabBarController.showListView.value ? Container(
                         color: Colors.transparent ,
                         width: Get.width,
@@ -1267,12 +1266,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                 child: Container(
                                   color: Colors.black.withOpacity(_appBarOpacity.value),
                                   width: Get.width,
-                                  padding: EdgeInsets.only(bottom: 10 , top: _appBarOpacity.value == 1 ? 30 :0),
+                                  padding: EdgeInsets.only(bottom: 10 , top: _appBarOpacity.value == 1 ? 55 :20),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 25.0,left: 12,),
+                                        padding: const EdgeInsets.only(top: 10.0,left: 12,),
                                         child: Image.asset(
                                           'assets/images/icon_flikka_logo.png',
                                           height: Get.height * .032,

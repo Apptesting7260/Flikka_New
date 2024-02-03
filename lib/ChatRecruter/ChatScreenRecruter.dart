@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +10,14 @@ import 'package:flikka/ChatRecruter/CreateFuction.dart';
 import 'package:flikka/ChatRecruter/chatFunnction.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 String messagetype = "text";
@@ -373,7 +377,9 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
       final String url = await downloadUrl.ref.getDownloadURL();
       return url;
     } catch (e) {
-      print('Error uploading video: $e');
+      if (kDebugMode) {
+        print('Error uploading video: $e');
+      }
       return null;
     }
   }
@@ -442,15 +448,15 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                   SizedBox(
                     height: Get.height * 0.005,
                   ),
-                  Row(
-                    children: [
-                      Image.asset('assets/images/liveimage.png'),
-                      Text("Online",
-                        style: Get.theme.textTheme.bodySmall!
-                            .copyWith(color: AppColors.black),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Image.asset('assets/images/liveimage.png'),
+                  //     Text("Online",
+                  //       style: Get.theme.textTheme.bodySmall!
+                  //           .copyWith(color: AppColors.black),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ],
@@ -522,66 +528,30 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                                             alignment:
                                                 AlignmentDirectional.bottomEnd,
                                             child: Container(
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 color: AppColors.blueThemeColor,
                                                 borderRadius: BorderRadius.only(
                                                   topRight: Radius.circular(20),
                                                   topLeft: Radius.circular(20),
-                                                  bottomLeft:
-                                                      Radius.circular(20),
-                                                ),
-                                              ),
-                                              constraints: BoxConstraints(
-                                                maxWidth: Get.width /
-                                                    2, // Set maximum width as half of the screen width
-                                              ),
-                                              padding: EdgeInsets.only(
-                                                  left: 20,
-                                                  top: 20,
-                                                  bottom: 20,
-                                                  right:
-                                                      10), // Adjust padding as needed
-                                              child: Text(
-                                                breakMessage(message),
-                                                style: Get
-                                                    .theme.textTheme.bodySmall!
-                                                    .copyWith(
-                                                        fontSize: 13,
-                                                        color: AppColors.white),
-                                              ),
+                                                  bottomLeft: Radius.circular(20),
+                                                ),),
+                                              constraints: BoxConstraints(maxWidth: Get.width / 2, ),
+                                              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 10), // Adjust padding as needed
+                                              child: Text(message, style: Get.theme.textTheme.bodySmall!
+                                                  .copyWith(fontSize: 13, color: AppColors.white),),
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: Get.height * .01,
-                                          ),
+                                          SizedBox(height: Get.height * .01,),
                                           if (timestamp != null)
-                                            Align(
-                                              alignment: AlignmentDirectional
-                                                  .bottomEnd,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                            Align(alignment: AlignmentDirectional.bottomEnd,
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.end,
                                                 children: [
-                                                  Text(
-                                                    formatTimestamp(timestamp),
-                                                    style: Get.theme.textTheme
-                                                        .bodySmall!
-                                                        .copyWith(
-                                                            fontSize: 10,
-                                                            color: Color(
-                                                                0xffCFCFCF)),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    snapshot.data!.docs[index]
-                                                                ['isRead'] ==
-                                                            false
-                                                        ? "Sent"
-                                                        : "Seen",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
+                                                  Text(formatTimestamp(timestamp),
+                                                    style: Get.theme.textTheme.bodySmall!
+                                                        .copyWith(fontSize: 10, color: const Color(0xffCFCFCF)),),
+                                                  const SizedBox(width: 10,),
+                                                  Text(snapshot.data!.docs[index]['isRead'] == false ? "Sent" : "Seen",
+                                                    style: const TextStyle(color: AppColors.white),
                                                   )
                                                 ],
                                               ),
@@ -595,16 +565,21 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                                         children: [
                                           snapshot.data!.docs[index]["type"] == "img" ?
                                           Align( alignment: Alignment.bottomLeft,
-                                            child: CachedNetworkImage(
-                                              imageBuilder:  (context, imageProvider) => Container(
-                                                height: Get.height * .3 ,
-                                                width: Get.width * .5,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(20) ,
-                                                    image: DecorationImage(image: imageProvider , fit: BoxFit.cover)
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                _downloadImage(snapshot.data!.docs[index]["imageurl"]) ;
+                                              },
+                                              child: CachedNetworkImage(
+                                                imageBuilder:  (context, imageProvider) => Container(
+                                                  height: Get.height * .3 ,
+                                                  width: Get.width * .5,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(20) ,
+                                                      image: DecorationImage(image: imageProvider , fit: BoxFit.cover)
+                                                  ),
                                                 ),
+                                                imageUrl:snapshot.data!.docs[index]["imageurl"] ,
                                               ),
-                                              imageUrl:snapshot.data!.docs[index]["imageurl"] ,
                                             ),
                                           ) :
                                           Align(
@@ -630,8 +605,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                                                   bottom: 20,
                                                   right:
                                                       10), // Adjust padding as needed
-                                              child: Text(
-                                                breakMessage(message),
+                                              child: Text(message,
                                                 style: Get
                                                     .theme.textTheme.bodySmall!
                                                     .copyWith(
@@ -1010,5 +984,27 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
         await roomRef2.update({'isRead': true});
       }
     }
+  }
+
+  late ui.Image _image;
+  Future<void> _downloadImage(imageUrl) async {
+    http.Response response = await http.get(Uri.parse(imageUrl));
+    Uint8List bytes = response.bodyBytes;
+    ui.Codec codec = await ui.instantiateImageCodec(bytes);
+    ui.FrameInfo frameInfo = await codec.getNextFrame();
+    _image = frameInfo.image;
+    _saveImage() ;
+  }
+
+  Future<void> _saveImage() async {
+    ByteData? byteData = await _image.toByteData(format: ui.ImageByteFormat.png);
+    List<int> pngBytes = byteData!.buffer.asUint8List();
+
+    // Save the image to the device
+    final directory = await getTemporaryDirectory();
+    final file = File('${directory.path}/image.png');
+    await file.writeAsBytes(pngBytes);
+
+    Fluttertoast.showToast(msg: 'saved to ${file.path}');
   }
 }
