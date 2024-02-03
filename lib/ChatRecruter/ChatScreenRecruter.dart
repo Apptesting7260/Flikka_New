@@ -567,7 +567,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                                           Align( alignment: Alignment.bottomLeft,
                                             child: GestureDetector(
                                               onTap: () {
-                                                _downloadImage(snapshot.data!.docs[index]["imageurl"]) ;
+                                                // _downloadImage(snapshot.data!.docs[index]["imageurl"]) ;
                                               },
                                               child: CachedNetworkImage(
                                                 imageBuilder:  (context, imageProvider) => Container(
@@ -993,7 +993,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
     ui.Codec codec = await ui.instantiateImageCodec(bytes);
     ui.FrameInfo frameInfo = await codec.getNextFrame();
     _image = frameInfo.image;
-    _saveImage() ;
+   await _saveImage() ;
   }
 
   Future<void> _saveImage() async {
@@ -1004,7 +1004,9 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
     final directory = await getTemporaryDirectory();
     final file = File('${directory.path}/image.png');
     await file.writeAsBytes(pngBytes);
-
+    if (kDebugMode) {
+      print(file.path) ;
+    }
     Fluttertoast.showToast(msg: 'saved to ${file.path}');
   }
 }
