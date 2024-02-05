@@ -23,7 +23,6 @@ import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -2970,13 +2969,14 @@ class _UserProfileState extends State<UserProfile> {
                                                           )
                                                         ],
                                                       ),
-                                                      SizedBox(height: Get.height * 0.01,),
+                                                      // SizedBox(height: Get.height * 0.01,),
                                                       Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text( "${data?.achievement}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.silverColor, fontWeight: FontWeight.w400),
                                                           ),
+                                                          SizedBox(height: Get.height * 0.01,),
                                                         ],
                                                       )
                                                     ],

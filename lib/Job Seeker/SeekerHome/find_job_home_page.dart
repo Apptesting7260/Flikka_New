@@ -228,9 +228,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     appBar: AppBar(
                       systemOverlayStyle: const SystemUiOverlayStyle(
                         statusBarIconBrightness: Brightness.light,
-                        statusBarColor: Colors.transparent,),
+                        statusBarColor: Colors.black,),
                       backgroundColor: tabBarController.showListView.value ? jobSearchAppBar.value ?
-                      AppColors.black : AppColors.black : Colors.transparent,
+                      Colors.transparent : Colors.black : Colors.black,
                       title: tabBarController.showListView.value ? Container(
                         color: Colors.transparent ,
                         width: Get.width,
@@ -239,7 +239,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.asset(
-                              'assets/images/icon_flikka_logo.png',
+                              'assets/images/Flikka_Logo.PNG',
                               height: Get.height * .032,
                             ),
                           ],
@@ -254,7 +254,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               onTap: () {
                                 Get.to(const WalletSection()) ;
                               },
-                              child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,)),
+                              child: Image.asset("assets/images/icon_wallet_white.png",height: Get.height*.04,color: AppColors.blueThemeColor)),
                           const SizedBox(width: 20,),
                           GestureDetector(
                               onTap: () {
@@ -265,24 +265,24 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               child: Obx(() =>
                               SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
                                   SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
-                              Image.asset("assets/images/icon_notification.png",height: Get.height*.04,) :
+                              Image.asset("assets/images/icon_notification.png",height: Get.height*.04,color: AppColors.blueThemeColor,) :
                               badges.Badge(
                                 badgeContent: Text(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification.toString()),
-                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,),
+                                child: Image.asset("assets/images/icon_notification.png",height: Get.height*.04,color: AppColors.blueThemeColor),
                               ),
                               )
                           ),
-                          SizedBox(width: Get.width*.04,),
-                          // Builder(builder: (context) {
-                          //   return InkWell(
-                          //       onTap: () => Scaffold.of(context).openEndDrawer(),
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.only(right: 20),
-                          //         child: Image.asset(
-                          //           'assets/images/icon_seeker_drawer.png',
-                          //           height: Get.height * .05,),
-                          //       ));
-                          // }),
+                          const SizedBox(width: 20,),
+                          Builder(builder: (context) {
+                            return InkWell(
+                                onTap: () => Scaffold.of(context).openEndDrawer(),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Image.asset(
+                                    'assets/images/icon_drawer_blue.png',
+                                    height: Get.height * .045,),
+                                ));
+                          }),
                         ],
                       ),
                     ],
@@ -434,7 +434,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                     ],) ,
                                   SizedBox(height: Get.height * .02,) ,
                                   Padding(
-                                    padding:  EdgeInsets.only(left: Get.width*.05),
+                                    padding:  EdgeInsets.only(left: Get.width*.05,bottom: 7),
                                     child: Text("Jobs based on your profile" , style: Theme.of(context).textTheme.headlineMedium,),
                                   ) ,
                                   getJobsListingController.getJobsListing.value.jobs == null ||
@@ -1272,7 +1272,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 10.0,left: 12,),
                                         child: Image.asset(
-                                          'assets/images/icon_flikka_logo.png',
+                                          'assets/images/Flikka_Logo.PNG',
                                           height: Get.height * .032,
                                         ),
                                       ),

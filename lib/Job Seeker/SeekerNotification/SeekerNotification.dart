@@ -4,6 +4,7 @@ import 'package:flikka/controllers/NotificationSeenController/NotificationSeenCo
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
@@ -51,6 +52,7 @@ class _Notification1PageState extends State<SeekerNotification> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime createdAt = DateTime.now();
     return Obx(() {
       switch (SeekerViewNotificationControllerInstanse.rxRequestStatus.value) {
         case Status.LOADING:
@@ -128,6 +130,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                         shrinkWrap: true,
                         itemCount: SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?.length,
                         itemBuilder: (BuildContext context, int index) {
+                          createdAt = DateTime.parse(SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].createdAt ?? "") ;
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 12.0),
                             child: ListTile(
@@ -179,11 +182,17 @@ class _Notification1PageState extends State<SeekerNotification> {
                                       .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? 15 : 18,
                                 ),
                               ),
-                              subtitle: Text(
-                                SeekerViewNotificationControllerInstanse
-                                    .viewSeekerNotificationData.value.seekerNotification?[index].description ?? "",
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse
-                                    .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    SeekerViewNotificationControllerInstanse
+                                        .viewSeekerNotificationData.value.seekerNotification?[index].description ?? "",
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse
+                                        .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,),
+                                  ),
+                                  Text(DateFormat('MMMM dd yyyy, hh:mm a').format(createdAt),style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),)
+                                ],
                               ),
                             ),
                           );

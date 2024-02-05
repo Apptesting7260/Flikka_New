@@ -761,9 +761,8 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                       Expanded(
                         child: TextFormField(
                           controller: messagecontroller,
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
-
                             suffixIcon: IconButton(
                               icon: GestureDetector(
                                 onTap: () {
@@ -784,6 +783,7 @@ class _ChatScreenRecruterState extends State<ChatScreenRecruter> {
                             //   },
                             // ),
                             hintText: 'Type Message',
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                             hintStyle: const TextStyle(color: Colors.grey),
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
