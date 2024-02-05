@@ -84,7 +84,7 @@ class _AppReferralState extends State<AppReferral> {
                         height: Get.height * .01,
                       ),
                       Text(
-                        "5",
+                        "${seekerEarningController.getEarningDetails.value.totalAppReferrals ?? 0}",
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall

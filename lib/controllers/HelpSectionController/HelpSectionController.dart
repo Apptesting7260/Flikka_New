@@ -41,13 +41,11 @@ class HelpSectionControoler extends GetxController {
     loading(true);
     _api.helpApi(data).then((value){
       loading(false);
-      // if(value.status!){
-      //   Get.back() ;
-      //   Get.back() ;
-      //   // Utils.toastMessage("data add success",) ;
-      // }else{
-      //   Utils.showMessageDialog(context, error.value) ;
-      // }
+      if(value.status!){
+        Get.back() ;
+        // Get.back() ;
+        //  Utils.showMessageDialog(context, "Help data add successfully") ;
+      }
     }).onError((error, stackTrace){
       setError(error.toString());
       loading(false);

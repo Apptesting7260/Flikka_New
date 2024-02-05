@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
@@ -158,17 +157,20 @@ class _InboxHiringState extends State<InboxHiring> {
                                                 ),
                                                 subtitle: Row(
                                                   children: [
-                                                    Text(
-                                                      "${data?.seekerProfile?.location ?? "No location"}",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelLarge
-                                                          ?.copyWith(
-                                                          fontWeight:
-                                                          FontWeight.w400,
-                                                          color:
-                                                          Color(0xffCFCFCF),
-                                                          fontSize: 10),
+                                                    SizedBox(
+                                                      width: Get.width*.55,
+                                                      child: Text(
+                                                        "${data?.seekerProfile?.location ?? "No location"}",
+                                                       overflow: TextOverflow.ellipsis, style: Theme.of(context)
+                                                            .textTheme
+                                                            .labelLarge
+                                                            ?.copyWith(
+                                                            fontWeight:
+                                                            FontWeight.w400,
+                                                            color:
+                                                            Color(0xffCFCFCF),
+                                                            fontSize: 10),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

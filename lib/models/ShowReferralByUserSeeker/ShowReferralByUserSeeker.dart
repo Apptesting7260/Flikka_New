@@ -6,6 +6,8 @@ class ShowReferralByUserModel {
      this.employmentReferralAmount,
      this.subscriptionReferralAmount,
      this.totalAmount,
+     this.totalAppReferrals,
+     this.totalEmployementReferral,
      this.bankAccount,
      this.newWalletMessage,
      this.appReferrrals,
@@ -17,6 +19,8 @@ class ShowReferralByUserModel {
    dynamic employmentReferralAmount;
    dynamic subscriptionReferralAmount;
    dynamic totalAmount;
+   dynamic totalAppReferrals;
+   dynamic totalEmployementReferral;
    bool? bankAccount;
    bool? newWalletMessage;
    AppReferrrals? appReferrrals;
@@ -29,6 +33,8 @@ class ShowReferralByUserModel {
     employmentReferralAmount = json['employment_referral_amount'];
     subscriptionReferralAmount = json['subscription_referral_amount'];
     totalAmount = json['total_amount'];
+    totalAppReferrals =  json['total_app_referrals'];
+    totalEmployementReferral =  json['total_employment_referrals'];
     bankAccount = json['bank_account'];
     newWalletMessage = json['new_wallet_message'];
     appReferrrals = json['app_referrrals'] == null ? json['app_referrrals'] : AppReferrrals.fromJson(json['app_referrrals']);

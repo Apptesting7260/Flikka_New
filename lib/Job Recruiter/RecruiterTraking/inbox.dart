@@ -145,8 +145,7 @@ class _InboxState extends State<Inbox> {
                                                 placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
                                               ),
                                               title: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     "${data?.seekerProfile?.fullname ?? "No data"}",
@@ -214,7 +213,7 @@ class _InboxState extends State<Inbox> {
                                             ),
                                             HtmlWidget(data?.description ?? "No about",textStyle: Theme.of(context).textTheme
                                                 .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
-                                           SizedBox(height: 4,),
+                                           const SizedBox(height: 4,),
                                             Text(
                                               DateFormat('MMMM dd yyyy, hh:mm a').format(createdAt),
                                             )

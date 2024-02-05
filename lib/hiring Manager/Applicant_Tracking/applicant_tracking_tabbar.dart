@@ -5,7 +5,7 @@ import 'package:flikka/hiring%20Manager/Applicant_Tracking/past_interviews.dart'
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'auth/view_profile.dart';
 import 'rejected_candidate_hiring.dart';
 import 'talent_pool_hiring.dart';
 
@@ -25,14 +25,28 @@ class _ApplicantTrackingHiringManagerState extends State<ApplicantTrackingHiring
         length: 5,
         child: Scaffold(backgroundColor: AppColors.black,
           appBar: AppBar(
-            toolbarHeight: 60,
+            toolbarHeight: 40,
             automaticallyImplyLeading: false,
-            backgroundColor: AppColors.black,
-            centerTitle: true,
+            centerTitle: false,
             title: Text(
               'Applicant Tracking',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.titleSmall,
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: GestureDetector(
+                  onTap: () {
+                   Get.to(() => const ViewProfile()) ;
+                  },
+                  child: const CircleAvatar(
+                    radius: 28,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: AssetImage("assets/images/icon_about_ue_user.png"),
+                  ),
+                ),
+              )
+            ],
             bottom: TabBar(
               dividerColor: Colors.transparent,
               indicatorPadding: EdgeInsets.symmetric(horizontal: Get.width*.01),

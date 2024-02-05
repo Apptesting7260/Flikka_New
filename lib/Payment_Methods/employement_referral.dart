@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-
 import '../controllers/SeekerEarningController/SeekerEarningController.dart';
 import '../widgets/app_colors.dart';
 
@@ -48,6 +46,60 @@ class _EmployementReferralState extends State<EmployementReferral> {
               seekerEarningController.getEarningDetails.value.employmentReferrals?.length == 0 ||
                   seekerEarningController.getEarningDetails.value.employmentReferrals == null ?
               Center(child: Text("No data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),) :
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Total Earning",
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.none),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Text(
+                          "\£ ${seekerEarningController.getEarningDetails.value.employmentReferralAmount ?? 0}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(
+                              fontSize: 12, color: AppColors.blueThemeColor),
+                        )
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Total Referral",
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.none),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Text(
+                          "${seekerEarningController.getEarningDetails.value.totalEmployementReferral ?? 0}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(
+                              fontSize: 12, color: AppColors.blueThemeColor),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
                   physics: const NeverScrollableScrollPhysics(),

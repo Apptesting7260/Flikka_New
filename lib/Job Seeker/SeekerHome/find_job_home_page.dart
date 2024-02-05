@@ -242,7 +242,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               'assets/images/icon_flikka_logo.png',
                               height: Get.height * .032,
                             ),
-
                           ],
                         ),
                       ) : const SizedBox(),

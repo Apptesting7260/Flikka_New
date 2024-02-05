@@ -48,10 +48,6 @@ class _HelpSectionState extends State<HelpSection> {
     } catch (err) {}
   }
 
-
-
-
-
   Future<void> _getLatLang() async {
     final query = locationController.text;
     locations = await locationFromAddress(query);
