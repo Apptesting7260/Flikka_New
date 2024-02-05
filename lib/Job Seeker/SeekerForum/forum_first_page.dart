@@ -54,9 +54,9 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   int page = 1 ;
 
   // void scrollListener() {
-  //   if (scrollController.position.pixels ==
-  //       scrollController.position.maxScrollExtent &&
-  //       !scrollController.position.outOfRange) {
+  //   if (_scrollController.position.pixels ==
+  //       _scrollController.position.maxScrollExtent &&
+  //       !_scrollController.position.outOfRange) {
   //     if (kDebugMode) {
   //       print("step 1") ;
   //     }
@@ -69,7 +69,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   //         if (kDebugMode) {
   //           print("step 3") ;
   //         }
-  //         if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  //         if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
   //           forumDataController.paginationForumApi(page: "$page");
   //           if (kDebugMode) {
   //             print("step 4") ;
@@ -78,7 +78,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   //       }
   //     }
   //   }
-  // }
+  // // }
 
   @override
   void initState() {
@@ -183,7 +183,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                   body: SmartRefresher(
                     controller: _refreshController,
                     onRefresh: _onRefresh,
-                    scrollController: _scrollController,
+                    // scrollController: _scrollController,
                     child:   DefaultTabController(
                   length: 2,
             child: SingleChildScrollView(
@@ -191,7 +191,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
             child: Column(
             children: [
               const TabBar(
-            isScrollable: true,
+                        isScrollable: true,
                         labelColor: AppColors.blueThemeColor,
                         unselectedLabelColor: AppColors.black,
                         indicatorColor: AppColors.blueThemeColor,
@@ -206,7 +206,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
             child: TabBarView(
             children: [
               SingleChildScrollView(
-                // controller: _scrollController,
+                controller: _scrollController,
                 child: Column(
                   children: [
                     industryController.industryData.value.industryList == null ||
