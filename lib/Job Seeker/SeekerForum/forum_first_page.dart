@@ -178,7 +178,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                           child: Image.asset('assets/images/icon_back_blue.png')),
                     ),
                     elevation: 0,
-                     title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
+                     // title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
                   ),
                   body: SmartRefresher(
                     controller: _refreshController,

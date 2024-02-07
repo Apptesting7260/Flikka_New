@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Seeker/SeekerJobs/progress_tracker.dart';
 import 'package:flikka/controllers/SeekerAppliedJobsController/SeekerAppliedJobsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,9 @@ import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../widgets/app_colors.dart';
 import '../marketing_page.dart';
+
+var stepCount;
+final int currentStep = 1;
 
 class SeekerAppliedJobs extends StatefulWidget {
   const SeekerAppliedJobs({super.key});
@@ -121,7 +125,21 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(() => MarketingIntern(jobData: jobsController.appliedJobs?[index], appliedJobScreen: true,)) ;
+                                        stepCount=jobsController.appliedJobs?[index]!.progressStep ;
+                                        setState(() {
+                                          stepCount;
+                                          print(index);
+                                          print("This is step ${jobsController.appliedJobs?[index]!.progressStep}") ;
+                                          print("This is ID ${jobsController.appliedJobs?[index]!.id}") ;
+                                          print("This is recruiter ID ${jobsController.appliedJobs?[index]!.recruiterId}") ;
+                                          print("This is jobTitle ${jobsController.appliedJobs?[index]!.jobTitle}") ;
+                                          print("This is jobPositions ${jobsController.appliedJobs?[index]!.jobPositions}") ;
+                                          print("This is jobLocation ${jobsController.appliedJobs?[index]!.jobLocation}") ;
+                                          print("This is companyName ${jobsController.appliedJobs?[index]!.recruiterDetails!.companyName!}") ;
+
+                                        });
+                                        Get.to(() => ProgressTracker(jobData: jobsController.appliedJobs?[index] ,index: index,) ,) ;
+                                        // Get.to(() => MarketingIntern(jobData: jobsController.appliedJobs?[index], appliedJobScreen: true,)) ;
                                       },
                                       child: ListTile(
                                         leading: CachedNetworkImage(

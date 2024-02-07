@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Seeker/SeekerJobs/AppliedJobs.dart';
 import 'package:flikka/Job%20Seeker/SeekerNotification/viewJobFromNotification.dart';
 import 'package:flikka/controllers/NotificationSeenController/NotificationSeenController.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -11,6 +12,8 @@ import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControlle
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../SeekerJobs/progress_tracker.dart';
+import 'notification_progress_tracker.dart';
 
 class SeekerNotification extends StatefulWidget {
   const SeekerNotification({super.key});
@@ -135,14 +138,19 @@ class _Notification1PageState extends State<SeekerNotification> {
                             padding: const EdgeInsets.only(bottom: 12.0),
                             child: ListTile(
                               onTap: () {
-                                Get.to(() => ViewNotificationJob(
-                                  companyName: "${SeekerViewNotificationControllerInstanse
-                                      .viewSeekerNotificationData.value.seekerNotification?[index].companyName}",
-                                  jobId: "${SeekerViewNotificationControllerInstanse
-                                      .viewSeekerNotificationData.value.seekerNotification?[index].jobId}",
-                                  seekerId: "${SeekerViewNotificationControllerInstanse
-                                      .viewSeekerNotificationData.value.seekerNotification?[index].seekerId}",
-                                ));
+
+                              Get.to(() => NotificationProgressTracker(companyName: "${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].companyName}",
+                              jobId: "${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].jobId}",
+                                seekerId: "${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].seekerId}",
+                              )) ;
+                                // Get.to(() => ViewNotificationJob(
+                                //   companyName: "${SeekerViewNotificationControllerInstanse
+                                //       .viewSeekerNotificationData.value.seekerNotification?[index].companyName}",
+                                //   jobId: "${SeekerViewNotificationControllerInstanse
+                                //       .viewSeekerNotificationData.value.seekerNotification?[index].jobId}",
+                                //   seekerId: "${SeekerViewNotificationControllerInstanse
+                                //       .viewSeekerNotificationData.value.seekerNotification?[index].seekerId}",
+                                // ));
                               },
                               tileColor: SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.
                               seekerNotification?[index].seen == 1 ? AppColors.textFieldFilledColor : AppColors.homeGrey,

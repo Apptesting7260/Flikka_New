@@ -73,8 +73,10 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
           }
         case Status.COMPLETED:
           return SafeArea(
+            top: false,
             child: Scaffold(
               appBar: AppBar(
+
                 toolbarHeight: 75,
                 leading: IconButton(
                     onPressed: () { tabBarController.bottomTapped(0) ;}, icon:

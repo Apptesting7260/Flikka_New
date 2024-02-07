@@ -225,27 +225,29 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     backgroundColor: AppColors.white,
                     // extendBody: true,
                     extendBodyBehindAppBar: true,
-                    appBar: AppBar(
-                      systemOverlayStyle: const SystemUiOverlayStyle(
-                        statusBarIconBrightness: Brightness.light,
-                        statusBarColor: Colors.black,),
-                      backgroundColor: tabBarController.showListView.value ? jobSearchAppBar.value ?
-                      Colors.transparent : Colors.black : Colors.black,
-                      title: tabBarController.showListView.value ? Container(
-                        color: Colors.transparent ,
-                        width: Get.width,
-                        // padding: const EdgeInsets.only(bottom: 10 ,top: 40),
-                        child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(
-                              'assets/images/Flikka_Logo.PNG',
-                              height: Get.height * .032,
-                            ),
-                          ],
-                        ),
-                      ) : const SizedBox(),
-                      elevation: 0,toolbarHeight: tabBarController.showListView.value ? null : 0,
+                  appBar: AppBar(
+                    systemOverlayStyle: const SystemUiOverlayStyle(
+                      statusBarIconBrightness: Brightness.dark,
+                      statusBarColor: Colors.transparent,
+                    ),
+                    backgroundColor:
+                    tabBarController.showListView.value ? jobSearchAppBar.value ?
+                    Colors.transparent : Colors.black : Colors.transparent,
+                    title: tabBarController.showListView.value ? Container(
+                      color: Colors.transparent ,
+                      width: Get.width,
+                      // padding: const EdgeInsets.only(bottom: 10 ,top: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            'assets/images/Flikka_Logo.PNG',
+                            height: Get.height * .032,
+                          ),
+                        ],
+                      ),
+                    ) : const SizedBox(),
+                    elevation: 0,toolbarHeight: tabBarController.showListView.value ? null : 0,
                     actions: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -286,7 +288,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         ],
                       ),
                     ],
-                    ),
+                  ),
                     endDrawer: DrawerClass(
                       name: '${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}',
                       location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
@@ -364,7 +366,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                   //     ],
                                   //   ),
                                   // ),
-                                  SizedBox(height: Get.height *.02,),
+                                  SizedBox(height: Get.height *.025,),
                                   Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       SizedBox( width: Get.width * .1,
@@ -421,16 +423,16 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                           ),
                                         ),
                                       ),
-                                      Builder(builder: (context) {
-                                        return InkWell(
-                                            onTap: () => Scaffold.of(context).openEndDrawer(),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(right: 20),
-                                              child: Image.asset(
-                                                'assets/images/icon_drawer_blue.png',
-                                                height: Get.height * .05,),
-                                            ));
-                                      }),
+                                      // Builder(builder: (context) {
+                                      //   return InkWell(
+                                      //       onTap: () => Scaffold.of(context).openEndDrawer(),
+                                      //       child: Padding(
+                                      //         padding: const EdgeInsets.only(right: 20),
+                                      //         child: Image.asset(
+                                      //           'assets/images/icon_drawer_blue.png',
+                                      //           height: Get.height * .05,),
+                                      //       ));
+                                      // }),
                                     ],) ,
                                   SizedBox(height: Get.height * .02,) ,
                                   Padding(
@@ -1265,7 +1267,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                 child: Container(
                                   color: Colors.black.withOpacity(_appBarOpacity.value),
                                   width: Get.width,
-                                  padding: EdgeInsets.only(bottom: 10 , top: _appBarOpacity.value == 1 ? 55 :20),
+                                  padding: EdgeInsets.only(bottom: 15 , top: _appBarOpacity.value == 1 ? 30 :5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [

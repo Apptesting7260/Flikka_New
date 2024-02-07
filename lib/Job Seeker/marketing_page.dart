@@ -10,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import '../controllers/GetJobsListingController/GetJobsListingController.dart';
+import '../controllers/SeekerAppliedJobsController/SeekerAppliedJobsController.dart';
 import '../utils/VideoPlayerScreen.dart';
+import 'SeekerJobs/AppliedJobs.dart';
+import 'SeekerJobs/progress_tracker.dart';
 
 class MarketingIntern extends StatefulWidget {
    final dynamic jobData ;
@@ -24,6 +27,7 @@ class MarketingIntern extends StatefulWidget {
 
 class _MarketingInternState extends State<MarketingIntern> {
 
+  SeekerAppliedJobsController jobsController = Get.put(SeekerAppliedJobsController()) ;
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
   SeekerUpdateRequestedJobStatusController jobStatusController = Get.put(SeekerUpdateRequestedJobStatusController()) ;
   GetJobsListingController getJobsListingController = GetJobsListingController() ;
@@ -53,7 +57,7 @@ class _MarketingInternState extends State<MarketingIntern> {
               },
               child: Image.asset('assets/images/icon_back_blue.png',scale: 4,)),
           elevation: 0,
-          title: Text("${widget.jobData?.jobPositions ?? " Title"}",overflow: TextOverflow.ellipsis,style: Get.theme.textTheme.displayLarge),
+          title: Text("${widget.jobData?.jobTitle ?? ""}",overflow: TextOverflow.ellipsis,style: Get.theme.textTheme.displayLarge),
 
         ),
         body: Padding(
@@ -93,6 +97,20 @@ class _MarketingInternState extends State<MarketingIntern> {
                       ),
                       Row(
                         children: [
+                          // Container(
+                          //   alignment: Alignment.center,
+                          //   height: 42,
+                          //   width: 42,
+                          //   decoration: const BoxDecoration(
+                          //       shape: BoxShape.circle,
+                          //       color: AppColors.blueThemeColor
+                          //   ),
+                          // ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Get.to(() => const ProgressTracker()) ;
+                          //   },
+                          //     child: Image.asset("assets/images/icon_progress_tracker.png",height: 45,)) ,
                           SizedBox(width: Get.width*.04,) ,
                           GestureDetector(
                             onTap: () {
@@ -601,6 +619,124 @@ class _MarketingInternState extends State<MarketingIntern> {
                     }
                   ),
                   SizedBox(height: Get.height*.025,),
+                  //  Column(
+                  //    mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Container(
+                  //       padding:  const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //         shape: BoxShape.circle,
+                  //         border: Border.all(color: Colors.white,width: 2)
+                  //       ),
+                  //       child: Container(
+                  //         height: 70,
+                  //         width: 70,
+                  //         decoration: const BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //               color: Colors.white
+                  //         ),
+                  //         child: IconButton(
+                  //             onPressed: () {
+                  //
+                  //             }, icon: Image.asset("assets/images/icon_applied_step.png",height: Get.height*.04,)),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 15,),
+                  //     Text("APPLIED",style: Theme.of(context).textTheme.titleSmall,),
+                  //     const SizedBox(height: 25,),
+                  //     Container(
+                  //       padding: const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           border: Border.all(color: Colors.white,width: 2)
+                  //       ),
+                  //       child: Container(
+                  //         height: 70,
+                  //         width: 70,
+                  //         decoration: const BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           color: Colors.white
+                  //         ),
+                  //         child: IconButton(
+                  //             onPressed: () {
+                  //
+                  //             }, icon: Image.asset("assets/images/icon_assessed_step.png",height: Get.height*.04,)),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 15,),
+                  //     Text("ASSESSED",style: Theme.of(context).textTheme.titleSmall,),
+                  //     const SizedBox(height: 25,),
+                  //     Container(
+                  //       padding: const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           border: Border.all(color: Colors.white,width: 2)
+                  //       ),
+                  //       child: Container(
+                  //         height: 70,
+                  //         width: 70,
+                  //         decoration: const BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           color: Colors.white
+                  //         ),
+                  //         child: IconButton(
+                  //             onPressed: () {
+                  //
+                  //             }, icon: Image.asset("assets/images/icon_interview_step.png",height: Get.height*.04,)),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 15,),
+                  //     Text("INTERVIEW",style: Theme.of(context).textTheme.titleSmall,),
+                  //     const SizedBox(height: 25,),
+                  //     Container(
+                  //       padding: const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           border: Border.all(color: Colors.white,width: 2)
+                  //       ),
+                  //       child: Container(
+                  //         height: 70,
+                  //         width: 70,
+                  //         decoration: const BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           color: Colors.white
+                  //         ),
+                  //         child: IconButton(
+                  //             onPressed: () {
+                  //
+                  //             }, icon: Image.asset("assets/images/icon_present_Step.png",height: Get.height*.04,)),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 15,),
+                  //     Text("PRESENT",style: Theme.of(context).textTheme.titleSmall,),
+                  //     const SizedBox(height: 25,),
+                  //     Container(
+                  //       padding: const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           border: Border.all(color: Colors.white,width: 2)
+                  //       ),
+                  //       child: Container(
+                  //         height: 70,
+                  //         width: 70,
+                  //         decoration: const BoxDecoration(
+                  //           shape: BoxShape.circle,
+                  //           color: Colors.white
+                  //         ),
+                  //         child: IconButton(
+                  //             onPressed: () {
+                  //
+                  //             }, icon: Image.asset("assets/images/icon_offer_step.png",height: Get.height*.04,)),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 15,),
+                  //     Image.asset("assets/images/icon_step_person.png",height: Get.height*.1,) ,
+                  //     const SizedBox(height: 10,),
+                  //     Text("OFFER",style: Theme.of(context).textTheme.titleSmall,),
+                  //     const SizedBox(height: 25,),
+                  //   ],
+                  // ),
+                  // SizedBox(height: Get.height*.025,),
                 ],
               ),
             ),

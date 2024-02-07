@@ -1929,6 +1929,7 @@ class _UserProfileState extends State<UserProfile> {
         case Status.COMPLETED:
           return
             SafeArea(
+              top: false,
               bottom: false,
               child: Obx( () => viewLanguageController.loading.value ?
                  const Center(child: CircularProgressIndicator(),)
@@ -1972,7 +1973,10 @@ class _UserProfileState extends State<UserProfile> {
                                 children: [
                                   GestureDetector(
                                       onTap: () {
+                                        print("Same page") ;
                                         tabBarController.bottomTapped(0) ;
+                                        Get.back() ;
+                                        Get.back() ;
                                       },
                                       child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
                                   Container(

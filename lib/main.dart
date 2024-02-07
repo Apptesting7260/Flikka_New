@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 
 import 'Job Seeker/JobAlert/job_alert_listing.dart';
+import 'controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
 import 'hiring Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 
 String? fcmToken;
@@ -94,6 +95,10 @@ class _MyAppState extends State<MyApp> {
         showNotification(message.notification);
         print('android not null notification==${message.notification}');
         FirebaseMessaging.instance.getInitialMessage().then((message) {
+
+          SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
+          SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi();
+
           if (message != null) {
             print("abc525");
           } else {

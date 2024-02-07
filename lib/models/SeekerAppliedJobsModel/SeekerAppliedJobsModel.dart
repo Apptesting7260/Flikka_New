@@ -37,7 +37,7 @@ class SeekerAppliedJobsModel {
 }
 
 class AppliedJobsList {
-  dynamic id;
+  int? id;
   dynamic recruiterId;
   String? featureImg;
   String? video ;
@@ -61,6 +61,7 @@ class AppliedJobsList {
   dynamic requestedStatus;
   dynamic applicantStatus;
   bool? interViewSchedule;
+  int? progressStep ;
   dynamic lat ;
   dynamic long ;
   List<LanguageModel>? languageName;
@@ -97,6 +98,7 @@ class AppliedJobsList {
     this.requestedStatus,
     this.applicantStatus,
      this.interViewSchedule,
+     this.progressStep,
   });
 
   factory AppliedJobsList.fromJson(Map<String, dynamic> json) => AppliedJobsList(
@@ -123,6 +125,7 @@ class AppliedJobsList {
     requestedStatus: json["requested_status"],
     applicantStatus: json["applicant_status"],
     interViewSchedule: json["interview_scheduled"],
+    progressStep: json["progress_step"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
