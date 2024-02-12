@@ -4,6 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/controllers/AddInOngoingController/AddInOngoingController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -93,13 +94,15 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
           }
         case Status.COMPLETED:
           return SafeArea(
+            top: false,
             child: Scaffold(
               backgroundColor: Colors.black,
               appBar: AppBar(
                 toolbarHeight: 75,
                 leading: IconButton(
                     onPressed: () {
-                     Get.back() ;
+                 Get.back() ;
+                 Get.back() ;
                       seenUnSeenInterviewPendingControllerInstanse.seenUnSeenPendingInterviewAPi(
                           context,seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
                       }, icon:

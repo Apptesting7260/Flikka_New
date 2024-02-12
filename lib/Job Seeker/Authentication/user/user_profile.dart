@@ -1966,7 +1966,7 @@ class _UserProfileState extends State<UserProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: Get.height * .02,
+                                height: Get.height * .05,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1975,8 +1975,6 @@ class _UserProfileState extends State<UserProfile> {
                                       onTap: () {
                                         print("Same page") ;
                                         tabBarController.bottomTapped(0) ;
-                                        Get.back() ;
-                                        Get.back() ;
                                       },
                                       child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
                                   Container(
@@ -2021,7 +2019,7 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ],
                               ) ,
-                              SizedBox(height: Get.height * .3,),
+                              SizedBox(height: Get.height * .28,),
                               Row(
                                 children: [
                                   GestureDetector(

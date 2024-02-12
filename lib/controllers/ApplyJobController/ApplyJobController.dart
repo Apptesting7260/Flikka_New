@@ -5,7 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
+
 class ApplyJobController extends GetxController {
+  SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
 
   final _api = AuthRepository();
 
@@ -33,6 +36,7 @@ class ApplyJobController extends GetxController {
       if(value.status!){
        seekerID == null ? Utils.toastMessage( "Successfully Applied") :
        Utils.toastMessage( "Profile Selected") ;
+       SeekerViewNotificationControllerInstanse.viewSeekerNotificationApi();
         Get.back() ;
         return true ;
       }

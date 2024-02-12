@@ -12,6 +12,7 @@ import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControlle
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../SeekerBottomNavigationBar/tab_bar.dart';
 import '../SeekerJobs/progress_tracker.dart';
 import 'notification_progress_tracker.dart';
 
@@ -88,7 +89,9 @@ class _Notification1PageState extends State<SeekerNotification> {
                 child: GestureDetector(
                     onTap: () {
                       seenController.notificationSeen(context, seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
-                      Get.back();
+                      // Get.to(() => const TabScreen(index: 0)) ;
+                      Get.back() ;
+                      Get.back() ;
                     },
                     child: Image.asset('assets/images/icon_back_blue.png')),
               ),
@@ -138,11 +141,22 @@ class _Notification1PageState extends State<SeekerNotification> {
                             padding: const EdgeInsets.only(bottom: 12.0),
                             child: ListTile(
                               onTap: () {
-
+                                stepCount=SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].progressStep;
+                                setState(() {
+                                  stepCount;
+                                  print("This is stepCount ${stepCount}") ;
+                                  print("This is ID ${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].id}");
+                                  print("This is seeker ID ${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].seekerId}");
+                                  print("This is recruiter ID ${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].recruiterId}");
+                                  print("This is job ID ${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].jobId}");
+                                  print("This is company Name ${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].companyName}");
+                                });
                               Get.to(() => NotificationProgressTracker(companyName: "${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].companyName}",
                               jobId: "${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].jobId}",
                                 seekerId: "${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].seekerId}",
+                                index: index,
                               )) ;
+
                                 // Get.to(() => ViewNotificationJob(
                                 //   companyName: "${SeekerViewNotificationControllerInstanse
                                 //       .viewSeekerNotificationData.value.seekerNotification?[index].companyName}",
@@ -181,8 +195,7 @@ class _Notification1PageState extends State<SeekerNotification> {
                                 ),
                               ),
                               title: Text(
-                                SeekerViewNotificationControllerInstanse
-                                    .viewSeekerNotificationData.value.seekerNotification?[index].companyName ?? "",
+                                SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].companyName ?? "",
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse
                                     .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,
@@ -196,10 +209,9 @@ class _Notification1PageState extends State<SeekerNotification> {
                                   Text(
                                     SeekerViewNotificationControllerInstanse
                                         .viewSeekerNotificationData.value.seekerNotification?[index].description ?? "",
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse
-                                        .viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,),
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].seen == 1 ? AppColors.white : AppColors.black ,),
                                   ),
-                                  Text(DateFormat('MMMM dd yyyy, hh:mm a').format(createdAt),style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),)
+                                  Text(DateFormat('MMMM dd yyyy, hh:mm a').format(createdAt),style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.seekerNotification?[index].seen ==1 ? AppColors.white : AppColors.black),)
                                 ],
                               ),
                             ),

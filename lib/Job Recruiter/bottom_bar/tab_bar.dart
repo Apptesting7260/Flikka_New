@@ -74,7 +74,6 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
      )
       ) ,
 
-
       BottomNavigationBarItem(
         label: "",
         icon: Image.asset("assets/images/icon_Add_job.png", height: Get.height*.035),

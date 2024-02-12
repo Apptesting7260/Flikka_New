@@ -5,14 +5,17 @@ import 'package:flikka/chatseeker/CreateChat.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileControllerr.dart';
+import '../SeekerBottomNavigationBar/TabBarController.dart';
 import '../SeekerBottomNavigationBar/tab_bar.dart';
 
 class SeekerMessagePage extends StatefulWidget {
-  const SeekerMessagePage({super.key});
+  final  String? type;
+  const SeekerMessagePage({this.type, super.key});
 
   @override
   State<SeekerMessagePage> createState() => _SeekerMessagePageState();
@@ -40,21 +43,26 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
     final DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(dateTime);
   }
+
+  TabBarController tabBarController = Get.put(TabBarController()) ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-        appBar: AppBar(
+        appBar: (widget.type=="tabbar")?null:AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.dark
+          ),
           backgroundColor: AppColors.white,
           centerTitle: true,
           toolbarHeight: 65,
-          title: Text("Your Chats",style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
+         title: Text("Your Chats",style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
           leading: Padding(
             padding: const EdgeInsets.only(left: 15.0),
             child: InkWell(
                 onTap: (){
-                  Get.back() ;
-                  Get.to(const TabScreen(index: 0));
+                 Get.back() ;
+                 Get.back() ;
                 },
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),

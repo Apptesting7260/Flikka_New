@@ -421,10 +421,15 @@ class _ChatPageState extends State<ChatPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
+      top: false,
         child: Scaffold(
+          // extendBodyBehindAppBar: true,
       backgroundColor: AppColors.white,
       // resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.dark
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,

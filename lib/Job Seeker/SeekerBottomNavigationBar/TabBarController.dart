@@ -14,7 +14,7 @@ class TabBarController extends GetxController {
     }
       bottomSelectedIndex.value = index;
       pageController?.value.animateToPage(index,
-          duration: const Duration(microseconds: 1), curve: Curves.ease);
+          duration: const Duration(microseconds: 100), curve: Curves.ease);
   }
 
   void pageChanged(int index) {

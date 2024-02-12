@@ -156,6 +156,9 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
+                                    onTap: () {
+                                      Get.offAll(TabScreenEmployer(index: 4,));
+                                    },
                                     leading: drawerIcon(iconProfile),
                                     title: InkWell(
                                         onTap: (){
@@ -187,7 +190,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   // ),
                                   ListTile(
                                     onTap: () {
-
+                                      Get.offAll(TabScreenEmployer(index: 1,));
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,
@@ -222,12 +225,15 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   //       )),
                                   // ),
                                   ListTile(
+                                    onTap: () {
+                                      Get.to(() => const CreateJobPost()) ;
+                                    },
                                     horizontalTitleGap:0,
                                     dense: true,
                                     leading: drawerIcon(iconJobPost),
                                     title: InkWell(
                                         onTap: (){
-                                          Get.to(() => CreateJobPost()) ;
+                                          Get.to(() => const CreateJobPost()) ;
                                         } ,
                                         child: Text(
                                           "Job Post",
@@ -235,6 +241,9 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         )),
                                   ),
                                   ListTile(
+                                    onTap: () {
+                                      Get.to(() => const ChartReport());
+                                    },
                                     horizontalTitleGap:0,
                                     dense: true,
                                     leading: drawerIcon(iconReport),
@@ -317,7 +326,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   // ),
                                   ListTile(
                                     onTap: () {
-                                      // Get.to(() =>SettingPage());
+                                      Get.to(() =>const SettingPage());
                                     },
                                     horizontalTitleGap:0,
                                     dense: true,

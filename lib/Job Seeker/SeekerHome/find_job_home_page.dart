@@ -226,8 +226,10 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     // extendBody: true,
                     extendBodyBehindAppBar: true,
                   appBar: AppBar(
-                    systemOverlayStyle: const SystemUiOverlayStyle(
-                      statusBarIconBrightness: Brightness.dark,
+                    automaticallyImplyLeading: false,
+                    systemOverlayStyle:  SystemUiOverlayStyle(
+                      statusBarIconBrightness:  tabBarController.showListView.value ? jobSearchAppBar.value ?
+                      Brightness.dark :Brightness.light : Brightness.light,
                       statusBarColor: Colors.transparent,
                     ),
                     backgroundColor:
@@ -260,9 +262,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                           const SizedBox(width: 20,),
                           GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
-                                ) ;
+                                print("This is seeker notification") ;
+                                Get.to(() => const SeekerNotification()) ;
+                                // Navigator.of(context).push(
+                                //     MaterialPageRoute(builder: (BuildContext context) => const SeekerNotification() )
+                                // ) ;
                               } ,
                               child: Obx(() =>
                               SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ||
@@ -387,8 +391,11 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: Get.width * .5,
+                                        width: Get.width * .68,
+                                        height: Get.height*.05,
+                                        
                                         child: TextFormField(
+                                                                          
                                           controller: searchController,
                                           onChanged: (query) {
                                             getJobsListingController.filterJobs(query) ;
@@ -398,6 +405,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   borderRadius: BorderRadius.circular(10)
                                               ),
                                               hintText: "Start a job search" ,
+                                            contentPadding: EdgeInsets.only(top: 10),
+                                              
                                               hintStyle: const TextStyle(color: AppColors.black),
                                               filled: true,
                                               fillColor: AppColors.homeGrey ,
@@ -1267,7 +1276,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                 child: Container(
                                   color: Colors.black.withOpacity(_appBarOpacity.value),
                                   width: Get.width,
-                                  padding: EdgeInsets.only(bottom: 15 , top: _appBarOpacity.value == 1 ? 30 :5),
+                                  padding: EdgeInsets.only(bottom: 15 , top: _appBarOpacity.value == 1 ? 40 :5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [

@@ -37,6 +37,7 @@ class SeekerNotification {
      this.seen,
      this.createdAt,
      this.updatedAt,
+     this.progressStep,
      this.chat,
      this.companyName,
      this.jobFeatureImg,
@@ -52,6 +53,7 @@ class SeekerNotification {
   dynamic seen;
    String ?createdAt;
    String ?updatedAt;
+   int? progressStep;
     bool ?chat;
    String ?companyName;
    String ?jobFeatureImg;
@@ -68,6 +70,7 @@ class SeekerNotification {
     type = json['type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    progressStep = json['progress_step'];
     chat = json['chat'];
     companyName = json['company_name'];
     jobFeatureImg = json['job_feature_img'];

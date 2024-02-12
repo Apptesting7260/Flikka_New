@@ -30,8 +30,8 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
-     forumDataController.seekerForumListApi(page: "1");
-     industryID = null ;
+    forumDataController.seekerForumListApi(page: "1");
+    industryID = null ;
     _refreshController.refreshCompleted();
   }
 
@@ -113,7 +113,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   }
 
   TabBarController tabBarController = Get.put(TabBarController()) ;
-  
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -173,355 +173,354 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
                           onTap: () {
-                           tabBarController.bottomTapped(0);
+                            tabBarController.bottomTapped(0);
                           },
                           child: Image.asset('assets/images/icon_back_blue.png')),
                     ),
                     elevation: 0,
-                     // title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
+                    // title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
                   ),
                   body: SmartRefresher(
-                    controller: _refreshController,
-                    onRefresh: _onRefresh,
-                    // scrollController: _scrollController,
-                    child:   DefaultTabController(
-                  length: 2,
-            child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-            children: [
-              const TabBar(
-                        isScrollable: true,
-                        labelColor: AppColors.blueThemeColor,
-                        unselectedLabelColor: AppColors.black,
-                        indicatorColor: AppColors.blueThemeColor,
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-            tabs: [
-            Tab(child: Text("FORUM"),),
-            Tab(child: Text("MESSAGE"),),
-            ]
-            ),
-            SizedBox(
-            height: Get.height *.8 ,
-            child: TabBarView(
-            children: [
-              SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
-                    industryController.industryData.value.industryList == null ||
-                        industryController.industryData.value.industryList?.length == 0 ?
-                    const SizedBox() :
-                    SizedBox(
-                      height: Get.height * .15,
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                industryID = null ;
-                                forumDataController.forumList?.value = forumDataController.forumData.value.forumData ?? [] ;
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(3),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.black,width: 2)
-                                      ),
-                                      child: Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle ,
-                                            image: DecorationImage(
-                                                image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
-                                            )
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: Get.height * .01,),
-                                    Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: industryID == null ? AppColors.blueThemeColor : AppColors.black,fontWeight: FontWeight.w700),),
-                                  ],
+                      controller: _refreshController,
+                      onRefresh: _onRefresh,
+                      // scrollController: _scrollController,
+                      child:   DefaultTabController(
+                          length: 2,
+                          child: SingleChildScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            child: Column(
+                              children: [
+                                const TabBar(
+                                    isScrollable: true,
+                                    labelColor: AppColors.blueThemeColor,
+                                    unselectedLabelColor: AppColors.black,
+                                    indicatorColor: AppColors.blueThemeColor,
+                                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                                    tabs: [
+                                      Tab(child: Text("FORUM"),),
+                                      Tab(child: Text("MESSAGE"),),
+                                    ]
                                 ),
-                              )) ,
-                          SizedBox(width: Get.width*.01,) ,
-                          Flexible(
-                            child: SizedBox(
-                              width: Get.width *.8,
-                              child: ListView.builder(shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: industryController.industryData.value.industryList?.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    var data = industryController.industryData.value.industryList?[index] ;
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox( width: Get.width * 0.17,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            industryID = data?.id.toString() ;
-                                            // forumDataController.seekerForumListApi(industryID: "$industryID");
-                                            if(forumDataController.forumData.value.forumData != null) {
-                                              forumDataController.forumList?.value = forumDataController.forumData.value.forumData
-                                              !.where((e) {
-                                                return  e.industryId.toString() == data?.id.toString(); }).toList();
-                                            }
-                                          },
+                                SizedBox(
+                                  height: Get.height *.8 ,
+                                  child: TabBarView(
+                                      children: [
+                                        SingleChildScrollView(
+                                          controller: _scrollController,
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    padding: const EdgeInsets.all(3),
-                                                    decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        border: Border.all(color: data?.id.toString() == industryID.toString() ?
-                                                        AppColors.blueThemeColor : AppColors.black,width: 2)
-                                                    ),
-                                                    child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
-                                                      placeholder: (context, url) => const Center(
-                                                        child: CircularProgressIndicator(),),
-                                                      imageBuilder: (context, imageProvider) => Container(
-                                                        height: 60,
-                                                        width: 60,
-                                                        decoration: BoxDecoration(
-                                                            shape: BoxShape.circle ,
-                                                            image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
-                                                        ),
+                                              industryController.industryData.value.industryList == null ||
+                                                  industryController.industryData.value.industryList?.length == 0 ?
+                                              const SizedBox() :
+                                              SizedBox(
+                                                height: Get.height * .17,
+                                                child: Row(
+                                                  children: [
+                                                    GestureDetector(
+                                                        onTap: () {
+                                                          industryID = null ;
+                                                          forumDataController.forumList?.value = forumDataController.forumData.value.forumData ?? [] ;
+                                                        },
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 20),
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              Container(
+                                                                padding: const EdgeInsets.all(3),
+                                                                decoration: BoxDecoration(
+                                                                    shape: BoxShape.circle,
+                                                                    border: Border.all(color: industryID == null ? AppColors.blueThemeColor : AppColors.black,width: 2)
+                                                                ),
+                                                                child: Container(
+                                                                  height: 60,
+                                                                  width: 60,
+                                                                  decoration: const BoxDecoration(
+                                                                      shape: BoxShape.circle ,
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage("assets/images/icon_app_icon.png",),fit: BoxFit.cover
+                                                                      )
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(height: Get.height * .01,),
+                                                              Text("All",style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                                  color: industryID == null ? AppColors.blueThemeColor : AppColors.black,fontWeight: FontWeight.w700),),
+                                                            ],
+                                                          ),
+                                                        )) ,
+                                                    SizedBox(width: Get.width*.01,) ,
+                                                    Flexible(
+                                                      child: SizedBox(
+                                                        width: Get.width *.8,
+                                                        child: ListView.builder(shrinkWrap: true,
+                                                            scrollDirection: Axis.horizontal,
+                                                            itemCount: industryController.industryData.value.industryList?.length,
+                                                            itemBuilder: (BuildContext context, int index) {
+                                                              var data = industryController.industryData.value.industryList?[index] ;
+                                                              return Padding(
+                                                                padding: const EdgeInsets.all(8.0),
+                                                                child: SizedBox( width: Get.width * 0.17,
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      industryID = data?.id.toString() ;
+                                                                      // forumDataController.seekerForumListApi(industryID: "$industryID");
+                                                                      if(forumDataController.forumData.value.forumData != null) {
+                                                                        forumDataController.forumList?.value = forumDataController.forumData.value.forumData
+                                                                        !.where((e) {
+                                                                          return  e.industryId.toString() == data?.id.toString(); }).toList();
+                                                                      }
+                                                                    },
+                                                                    child: Column(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      children: [
+                                                                        Stack(
+                                                                          children: [
+                                                                            Container(
+                                                                              padding: const EdgeInsets.all(3),
+                                                                              decoration: BoxDecoration(
+                                                                                  shape: BoxShape.circle,
+                                                                                  border: Border.all(color: data?.id.toString() == industryID.toString() ?
+                                                                                  AppColors.blueThemeColor : AppColors.black,width: 2)
+                                                                              ),
+                                                                              child: CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
+                                                                                placeholder: (context, url) => const Center(
+                                                                                  child: CircularProgressIndicator(),),
+                                                                                imageBuilder: (context, imageProvider) => Container(
+                                                                                  height: 60,
+                                                                                  width: 60,
+                                                                                  decoration: BoxDecoration(
+                                                                                      shape: BoxShape.circle ,
+                                                                                      image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                                                                  ),
 
+                                                                                ),
+                                                                              ),
+                                                                            ),
+
+                                                                          ],
+                                                                        ) ,
+                                                                        SizedBox(height: Get.height * .01,),
+                                                                        Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
+                                                                          style: Theme.of(context).textTheme.bodyMedium
+                                                                              ?.copyWith(fontWeight: FontWeight.w700 ,
+                                                                              color: data?.id.toString() == industryID.toString() ?
+                                                                              AppColors.blueThemeColor : AppColors.black),),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }),
                                                       ),
                                                     ),
-                                                  ),
-
-                                                ],
-                                              ) ,
+                                                  ],
+                                                ),
+                                              ),
                                               SizedBox(height: Get.height * .01,),
-                                              Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
-                                                style: Theme.of(context).textTheme.bodyMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700 ,
-                                                    color: data?.id.toString() == industryID.toString() ?
-                                                    AppColors.blueThemeColor : AppColors.black),),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: Get.height * .01,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: Get.width*.04),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * .05,),
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(33.0),
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.search, color: AppColors.blueThemeColor,
-                                    size: 30,),
-                                  SizedBox(width: Get.width * .03),
-                                  Expanded(
-                                    child: TextFormField(
-                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                          color: AppColors.black, fontSize: 15),
-                                      onChanged: (query) {
-                                        forumDataController.filterList(query) ;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'Let’s talk',
-                                        hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                            color: Color(0xffA0A0A0)), border: InputBorder.none,),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.only(right: Get.width*.07),
-                              height: Get.height * 0.06,
-                              child: GestureDetector(
-                                  onTap: () {
-                                    Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
-                                  },
-                                  child: Image.asset('assets/images/icon_add_form.png',
-                                    fit: BoxFit.cover,))),
-                          // GestureDetector(
-                          //     onTap: () {
-                          //       Get.to(() =>const SeekerMessagePage());
-                          //     },
-                          //     child: Image.asset("assets/images/icon_msg_blue.png",height: Get.height*.06,)),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height * .015,
-                    ),
-                    //************* list *((((((((((((((((((((((((((((((((
-                    Column(
-                      children: [
-                        forumDataController.forumList == null || forumDataController.forumList?.length == 0 ?
-                        Column(
-                          children: [
-                            SizedBox(height: Get.height*.2,) ,
-                            const Text("No Data"),
-                          ],
-                        ) :
-                        ListView.builder(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: forumDataController.forumList?.length,
-                            itemBuilder: (context, index) {
-                              var data = forumDataController.forumList?[index];
-                              return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * .01),
-                                child: Stack(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.only(left: 7.0, top: 15),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.white,
-                                            borderRadius: BorderRadius.circular(25),
-                                          ),
-                                          child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            //crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
-                                                placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                                                imageBuilder: (context, imageProvider) => Container(
-                                                  height: 60,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
-                                                  ),
-                                                ),),
-                                              SizedBox(width: Get.width * 0.035,),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Container(
+                                                        margin: EdgeInsets.only(right: Get.width*.04),
+                                                        padding: EdgeInsets.symmetric(
+                                                          horizontal: Get.width * .05,),
+                                                        decoration: BoxDecoration(
+                                                          color: AppColors.white,
+                                                          borderRadius: BorderRadius.circular(33.0),
+                                                        ),
+                                                        child: Row(
+                                                          children: [
+                                                            const Icon(
+                                                              Icons.search, color: AppColors.blueThemeColor,
+                                                              size: 30,),
+                                                            SizedBox(width: Get.width * .03),
+                                                            Expanded(
+                                                              child: TextFormField(
+                                                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                                    color: AppColors.black, fontSize: 15),
+                                                                onChanged: (query) {
+                                                                  forumDataController.filterList(query) ;
+                                                                },
+                                                                decoration: InputDecoration(
+                                                                  hintText: 'Let’s talk',
+                                                                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                                      color: Color(0xffA0A0A0)), border: InputBorder.none,),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                        padding: EdgeInsets.only(right: Get.width*.07),
+                                                        height: Get.height * 0.06,
+                                                        child: GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
+                                                            },
+                                                            child: Image.asset('assets/images/icon_add_form.png',
+                                                              fit: BoxFit.cover,))),
+                                                    // GestureDetector(
+                                                    //     onTap: () {
+                                                    //       Get.to(() =>const SeekerMessagePage());
+                                                    //     },
+                                                    //     child: Image.asset("assets/images/icon_msg_blue.png",height: Get.height*.06,)),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: Get.height * .015,
+                                              ),
+                                              //************* list *((((((((((((((((((((((((((((((((
                                               Column(
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top: 8),
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        SizedBox( width : Get.width * 0.5,
-                                                          child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
-                                                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.black),
-                                                            softWrap: true,),
-                                                        ),
-                                                        SizedBox(height: Get.height * 0.005,),
-                                                        SizedBox( width : Get.width * 0.5,
-                                                          child: Text(
-                                                            data?.title ?? "",
-                                                            overflow: TextOverflow.ellipsis,
-                                                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.silverColor),
-                                                            softWrap: true,),
-                                                        ),
-                                                        SizedBox(height: Get.height * 0.005,),
-                                                        Text(data?.seekerName ?? "",
-                                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.silverColor),),
-                                                        SizedBox(height: Get.height * 0.01,),
-                                                        SizedBox(width: Get.width * 0.60,
-                                                          child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
-                                                              .of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.silverColor, letterSpacing: 0.01),),
-                                                        ),
-                                                        SizedBox(height: Get.height * 0.15,),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                  forumDataController.forumList == null || forumDataController.forumList?.length == 0 ?
+                                                  Column(
+                                                    children: [
+                                                      SizedBox(height: Get.height*.2,) ,
+                                                      const Text("No Data"),
+                                                    ],
+                                                  ) :
+                                                  ListView.builder(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      shrinkWrap: true,
+                                                      itemCount: forumDataController.forumList?.length,
+                                                      itemBuilder: (context, index) {
+                                                        var data = forumDataController.forumList?[index];
+                                                        return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * .01),
+                                                          child: Stack(
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
+                                                                  },
+                                                                  child: Container(
+                                                                    padding: const EdgeInsets.only(left: 7.0, top: 15),
+                                                                    decoration: BoxDecoration(
+                                                                      color: AppColors.white,
+                                                                      borderRadius: BorderRadius.circular(25),
+                                                                    ),
+                                                                    child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                      //crossAxisAlignment: CrossAxisAlignment.end,
+                                                                      children: [
+                                                                        CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
+                                                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                                                                          imageBuilder: (context, imageProvider) => Container(
+                                                                            height: 60,
+                                                                            width: 60,
+                                                                            decoration: BoxDecoration(
+                                                                                shape: BoxShape.circle,
+                                                                                image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                                                            ),
+                                                                          ),),
+                                                                        SizedBox(width: Get.width * 0.035,),
+                                                                        Column(
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.only(top: 8),
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  SizedBox( width : Get.width * 0.5,
+                                                                                    child: Text(data?.industryPreference ?? "", overflow: TextOverflow.ellipsis,
+                                                                                      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.black),
+                                                                                      softWrap: true,),
+                                                                                  ),
+                                                                                  SizedBox(height: Get.height * 0.005,),
+                                                                                  SizedBox( width : Get.width * 0.5,
+                                                                                    child: Text(
+                                                                                      data?.title ?? "",
+                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.silverColor),
+                                                                                      softWrap: true,),
+                                                                                  ),
+                                                                                  SizedBox(height: Get.height * 0.005,),
+                                                                                  Text(data?.seekerName ?? "",
+                                                                                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                                        color: AppColors.silverColor),),
+                                                                                  SizedBox(height: Get.height * 0.01,),
+                                                                                  SizedBox(width: Get.width * 0.60,
+                                                                                    child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
+                                                                                        .of(context).textTheme.bodySmall!.copyWith(
+                                                                                        color: AppColors.silverColor, letterSpacing: 0.01),),
+                                                                                  ),
+                                                                                  SizedBox(height: Get.height * 0.15,),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Positioned(
+                                                                  bottom: 0,
+                                                                  left: 0,
+                                                                  right: 0,
+                                                                  child: Container(
+                                                                    decoration: const BoxDecoration(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          bottomRight: Radius
+                                                                              .circular(25),
+                                                                          bottomLeft: Radius.circular(
+                                                                              24)),
+                                                                      color: Color(0xffE9E9E9),
+                                                                    ),
+                                                                    height: 70,
+                                                                    child: Center(
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.only(left: 18.0),
+                                                                        child: Row(
+                                                                          children: [
+                                                                            Image.asset('assets/images/viewicon.png', height: 25,),
+                                                                            SizedBox(width: Get.width * 0.015,),
+                                                                            Text("${data?.forumViewCount} Views",
+                                                                              style: Get.theme.textTheme.bodySmall!
+                                                                                  .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
+                                                                            SizedBox(width: Get.width * 0.075,),
+                                                                            GestureDetector(
+                                                                              onTap : () {
+                                                                                Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Image.asset('assets/images/commenticons.png',height: 20,),
+                                                                                  SizedBox(width: Get.width * 0.015,),
+                                                                                  Text("${data?.forumCommentCount} Comments",
+                                                                                    style: Get.theme.textTheme.bodySmall!
+                                                                                        .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
+                                                                                ],
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ]
+                                                          ),
+                                                        );
+                                                      }),
+                                                  Obx( () => forumDataController.loadingPage.value ? const Center(child: CircularProgressIndicator(),) : SizedBox()) ,
+                                                  SizedBox(height: Get.height *.15,)
                                                 ],
                                               )
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        bottom: 0,
-                                        left: 0,
-                                        right: 0,
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                bottomRight: Radius
-                                                    .circular(25),
-                                                bottomLeft: Radius.circular(
-                                                    24)),
-                                            color: Color(0xffE9E9E9),
-                                          ),
-                                          height: 70,
-                                          child: Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 18.0),
-                                              child: Row(
-                                                children: [
-                                                  Image.asset('assets/images/viewicon.png', height: 25,),
-                                                  SizedBox(width: Get.width * 0.015,),
-                                                  Text("${data?.forumViewCount} Views",
-                                                    style: Get.theme.textTheme.bodySmall!
-                                                        .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
-                                                  SizedBox(width: Get.width * 0.075,),
-                                                  GestureDetector(
-                                                    onTap : () {
-                                                      Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset('assets/images/commenticons.png',height: 20,),
-                                                        SizedBox(width: Get.width * 0.015,),
-                                                        Text("${data?.forumCommentCount} Comments",
-                                                          style: Get.theme.textTheme.bodySmall!
-                                                              .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ]
-                                ),
-                              );
-                            }),
-                        Obx( () => forumDataController.loadingPage.value ? const Center(child: CircularProgressIndicator(),) : SizedBox()) ,
-                        SizedBox(height: Get.height *.15,)
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              const SeekerMessagePage()
-            ]),
-            )
-            ],
-            ),
-            ))
-
+                                        const SeekerMessagePage(type: "tabbar",)
+                                      ]),
+                                )
+                              ],
+                            ),
+                          ))
 
                     // DefaultTabController(
                     //   length: 3,

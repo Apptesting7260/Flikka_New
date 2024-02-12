@@ -65,6 +65,7 @@ class _SettingPageState extends State<SettingPage> {
           child: GestureDetector(
             onTap: () {
               Get.back();
+              Get.back();
             },
               child: Image.asset('assets/images/icon_back_blue.png')),
         ),

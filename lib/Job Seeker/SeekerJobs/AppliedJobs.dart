@@ -12,8 +12,6 @@ import '../../widgets/app_colors.dart';
 import '../marketing_page.dart';
 
 var stepCount;
-final int currentStep = 1;
-
 class SeekerAppliedJobs extends StatefulWidget {
   const SeekerAppliedJobs({super.key});
 
@@ -83,6 +81,7 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: GestureDetector(
                     onTap: () {
+                      Get.back();
                       Get.back();
                     },
                     child: Image.asset('assets/images/icon_back_blue.png')),

@@ -77,6 +77,7 @@ class _JobListState extends State<JobList> {
         leading: GestureDetector(
           onTap: () {
             Get.back() ;
+            Get.back() ;
           },
           child: Image.asset(
             "assets/images/icon_back_blue.png",

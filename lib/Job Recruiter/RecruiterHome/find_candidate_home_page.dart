@@ -1156,7 +1156,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                     ),
                                     ),
                                     Positioned(
-                                      top: _appBarOpacity == 1 ? 0 : 40 - appBarPosition.value,
+                                      top: _appBarOpacity == 1 ? 0 : 20 - appBarPosition.value,
                                       child: Container(width: Get.width,
                                         padding: EdgeInsets.only(bottom: 10, left: 12, right: 20,top: _appBarOpacity == 1 ? 30 :0),
                                         color: Colors.black.withOpacity(_appBarOpacity),

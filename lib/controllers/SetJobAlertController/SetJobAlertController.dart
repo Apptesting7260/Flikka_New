@@ -29,6 +29,8 @@ class SetJobAlertController extends GetxController {
         Get.back() ;
         Get.back() ;
         Utils.toastMessage("Job alerts have been added successfully") ;
+      }else if(value.status == false) {
+        Utils.showMessageDialog(context, "this job alert already exists..") ;
       }
     }).onError((error, stackTrace){
       setError(error.toString());

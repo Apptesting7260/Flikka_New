@@ -94,6 +94,7 @@ class PieChart2State extends State {
                 child: GestureDetector(
                     onTap: () {
                       Get.back();
+                      Get.back();
                       seenUnSeenWalletMessageControllerInstanse.seenUnSeenWalletMessage(context,
                           seekerProfileControllerr.viewSeekerData.value.seekerInfo?.email) ;
                     },
