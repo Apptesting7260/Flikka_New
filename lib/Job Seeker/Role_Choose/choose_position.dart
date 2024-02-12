@@ -205,7 +205,7 @@ void showSkipDialog(BuildContext context) {
                               padding: EdgeInsets.symmetric(
                                   horizontal: Get.width * .05),
                               child: Text(
-                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                "Almost there…",
                                 style: Theme
                                     .of(context)
                                     .textTheme

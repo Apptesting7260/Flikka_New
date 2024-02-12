@@ -143,7 +143,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: Get.width * .07),
                               child: Text(
-                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                "Final steps…..",
                                 style: Theme
                                     .of(context)
                                     .textTheme

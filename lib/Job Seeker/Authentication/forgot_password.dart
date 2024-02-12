@@ -64,21 +64,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             child: Text("Forgot Password?",style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30))),
                       ),
                       SizedBox(height: Get.height*.02,),
-                      Center(
-                        child: SizedBox(
-                          width: Get.width*.9,
-                          child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffFFFFFF),fontSize: 13),),
-                        ),
-                      ),
+                      // Center(
+                      //   child: SizedBox(
+                      //     width: Get.width*.9,
+                      //     child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      //       textAlign: TextAlign.center,
+                      //       style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffFFFFFF),fontSize: 13),),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
                 DraggableScrollableSheet(
-                  initialChildSize: 0.72, // half screen
-                  minChildSize: 0.72, // half screen
-                  maxChildSize: 0.72, // full screen
+                  initialChildSize: 0.73, // half screen
+                  minChildSize: 0.73, // half screen
+                  maxChildSize: 0.73, // full screen
                   builder: (BuildContext context, ScrollController scrollController) {
                     return Container(
                       decoration: const BoxDecoration(

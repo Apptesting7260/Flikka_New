@@ -6,8 +6,8 @@ import '../marketing_page.dart';
 import 'AppliedJobs.dart';
 
 class ProgressTracker extends StatefulWidget {
- final int? index ;
- final dynamic jobData ;
+  final int? index ;
+  final dynamic jobData ;
   const ProgressTracker({super.key, this.index, this.jobData,});
 
   @override
@@ -37,47 +37,67 @@ class _ProgressTrackerState extends State<ProgressTracker> {
             child: Image.asset('assets/images/icon_back_blue.png',scale: 4,)),
         elevation: 0,
         title: GestureDetector(
-          onTap: () {
-            print(widget.index) ;
-            Get.to(() => MarketingIntern(jobData: jobsController.appliedJobs[widget.index!], appliedJobScreen: true,)) ;
-          },
+            onTap: () {
+              print(widget.index) ;
+              Get.to(() => MarketingIntern(jobData: jobsController.appliedJobs[widget.index!], appliedJobScreen: true,)) ;
+            },
             child: Text("${widget.jobData?.jobTitle ?? ""}",overflow: TextOverflow.ellipsis,style: Get.theme.textTheme.displayLarge)),
       ),
-    body: ListView.builder(
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: steps.length,
-          itemBuilder: (context, index) {
-          return Column(
-            children: [
-              SizedBox(height: Get.height*.02,) ,
-              Container(
-                          padding:  const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white,width: 2)
-                          ),
-                          child: Container(
-                            height: 70,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: index + 1 <= stepCount ? Colors.white : AppColors.blueThemeColor
-                            ),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: index + 1 <= stepCount ? Image.asset(steps[index]["icon"]!,height: Get.height*.04,)
-                                    : Image.asset(steps[index]["icon"]!,height: Get.height*.04,color: Colors.white,)),
-                          ),
-                        ),
-              SizedBox(height: Get.height*.01,),
-              Text(
-                steps[index]["text"]!,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              SizedBox(height: Get.height*.03,),
-            ],
-          );
-        },),
+      body: Stack(
+        children: [
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: steps.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  SizedBox(height: Get.height*.02,) ,
+                  Container(
+                    padding:  const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white,width: 2)
+                    ),
+                    child: Container(
+                      height: 55,
+                      width: 55,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: index + 1 <= stepCount ? Colors.white : AppColors.blueThemeColor
+                      ),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: index + 1 <= stepCount ? Image.asset(steps[index]["icon"]!,height: Get.height*.04,)
+                              : Image.asset(steps[index]["icon"]!,height: Get.height*.04,color: Colors.white,)),
+                    ),
+                  ),
+                  SizedBox(height: Get.height*.001,),
+                  Text(
+                    steps[index]["text"]!,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  SizedBox(height: Get.height*.02,),
+                ],
+              );
+            },),
+          Positioned(
+              right: 90,
+              top: 47,
+              child: Image.asset("assets/images/icon_dotted_one.png",height: Get.height*.18,color: Colors.white,)) ,
+          Positioned(
+              left: 90,
+              top: Get.height*.22,
+              child: Image.asset("assets/images/icon_dotted_left_side.png",height: Get.height*.18,color: Colors.white,)) ,
+          Positioned(
+              right: 90,
+              top: Get.height*.38,
+              child: Image.asset("assets/images/icon_dotted_one.png",height: Get.height*.18,color: Colors.white,)) ,
+          Positioned(
+              left: 90,
+              top: Get.height*.55,
+              child: Image.asset("assets/images/icon_dotted_left_side.png",height: Get.height*.18,color: Colors.white,)) ,
+        ],
+      ),
     );
   }
 }
