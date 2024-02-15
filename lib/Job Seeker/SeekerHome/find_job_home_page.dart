@@ -176,7 +176,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
       switch (getJobsListingController.rxRequestStatus.value) {
         case Status.LOADING:
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            backgroundColor: Colors.white,
+            body: Center(child: CircularProgressIndicator()
+            ),
           );
 
         case Status.ERROR:
@@ -196,31 +198,31 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
             );
           }
         case Status.COMPLETED:
-          return Obx(() {
-            switch (seekerProfileController.rxRequestStatus.value) {
-              case Status.LOADING:
-                return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              case Status.ERROR:
-                if (seekerProfileController.error.value == 'No internet') {
-                  return Scaffold(
-                    body: InterNetExceptionWidget(
-                      onPress: () {
-                        seekerProfileController.viewSeekerProfileApi();
-                      },
-                    ),
-                  );
-                } else {
-                  return Scaffold(
-                    body: GeneralExceptionWidget(onPress: () {
-                      seekerProfileController.viewSeekerProfileApi();
-                    }),
-                  );
-                }
-              case Status.COMPLETED:
+          // return Obx(() {
+          //   switch (seekerProfileController.rxRequestStatus.value) {
+          //     case Status.LOADING:
+          //       return const Scaffold(
+          //         body: Center(
+          //           child: CircularProgressIndicator(),
+          //         ),
+          //       );
+          //     case Status.ERROR:
+          //       if (seekerProfileController.error.value == 'No internet') {
+          //         return Scaffold(
+          //           body: InterNetExceptionWidget(
+          //             onPress: () {
+          //               seekerProfileController.viewSeekerProfileApi();
+          //             },
+          //           ),
+          //         );
+          //       } else {
+          //         return Scaffold(
+          //           body: GeneralExceptionWidget(onPress: () {
+          //             seekerProfileController.viewSeekerProfileApi();
+          //           }),
+          //         );
+          //       }
+          //     case Status.COMPLETED:
                 return Obx( () => Scaffold(
                     backgroundColor: AppColors.white,
                     // extendBody: true,
@@ -311,7 +313,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               Navigator.of(context).pop();
                             }
                           },
-                          child: tabBarController.showListView.value ?
+                          child:
+                          tabBarController.showListView.value ?
                           SafeArea(
                             child: SingleChildScrollView(
                               child: Column( crossAxisAlignment: CrossAxisAlignment.start,
@@ -393,9 +396,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                       SizedBox(
                                         width: Get.width * .68,
                                         height: Get.height*.05,
-                                        
+
                                         child: TextFormField(
-                                                                          
+
                                           controller: searchController,
                                           onChanged: (query) {
                                             getJobsListingController.filterJobs(query) ;
@@ -406,7 +409,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                               ),
                                               hintText: "Start a job search" ,
                                             contentPadding: EdgeInsets.only(top: 10),
-                                              
+
                                               hintStyle: const TextStyle(color: AppColors.black),
                                               filled: true,
                                               fillColor: AppColors.homeGrey ,
@@ -461,8 +464,8 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                currentPage = index ;
-                                                tabBarController.showListView(false) ;
+                                                    currentPage = index;
+                                                tabBarController.showListView(false);
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.02),
@@ -517,12 +520,12 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                           ],
                                         ) ;
                                       }) ,
-                            
+
                                 ],
                               ),
                             ),
                           ) :
-                          Stack(
+                       Stack(
                             children: [
                               getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
                                           getJobsListingController.getJobsListing.value.jobs == null
@@ -553,7 +556,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                          }
                                          return SingleChildScrollView(
                                            controller: _scrollController,
-                                           physics: const BouncingScrollPhysics(),
+                                           // physics: const BouncingScrollPhysics(),
                                            clipBehavior: Clip.hardEdge,
                                            child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                              children: [
@@ -1417,8 +1420,6 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     }),
                   ),
                 );
-            }
-          });
       }
     });
   }

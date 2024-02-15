@@ -144,6 +144,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                   horizontal: Get.width * .07),
                               child: Text(
                                 "Final steps…..",
+
                                 style: Theme
                                     .of(context)
                                     .textTheme

@@ -48,7 +48,7 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.lightHomeGrey,
         appBar: (widget.type=="tabbar")?null:AppBar(
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark
@@ -106,7 +106,7 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
               //
               //   ),
               // ),
-              SizedBox(height: Get.height*.02,) ,
+              SizedBox(height: Get.height*.025,) ,
               TextFormField(
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontSize: 15),
                 decoration: InputDecoration(
@@ -122,8 +122,6 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
 
                 ),
               ),
-              SizedBox(height: Get.height*0.02,),
-              //save prost first navi
               Expanded(
                   child: StreamBuilder(
                       stream: getMessagesStream(),
@@ -138,56 +136,54 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
                                 final timestamp = snapshot.data?.docs[index]['timestamp'] as Timestamp;
                                 var roomid =
                                 snapshot.data?.docs[index]['RoomID'];
-                                return Padding(
-                                  padding:  EdgeInsets.symmetric(vertical: Get.height*.01),
-                                  child: GestureDetector(
-                                    onTap: (){
-                                      RecruiterId=data['RecruiterId'];
-                                      chatname=data['RecruiterName'];
-                                      Chatimage=data['RecruiterImage'];
-                                      setState(() {
-                                        chatname;
-                                        RecruiterId;
-                                        Chatimage;
-                                      });
-                                      if (kDebugMode) {
-                                        print(RecruiterId);
-                                      }
-                                      Get.to(ChatPage());
+                                return GestureDetector(
+                                  onTap: (){
+                                    RecruiterId=data['RecruiterId'];
+                                    chatname=data['RecruiterName'];
+                                    Chatimage=data['RecruiterImage'];
+                                    setState(() {
+                                      chatname;
+                                      RecruiterId;
+                                      Chatimage;
+                                    });
+                                    if (kDebugMode) {
+                                      print(RecruiterId);
+                                    }
+                                    Get.to(ChatPage());
 
-                                    },
-                                    child: ListTile(
-                                      leading: CircleAvatar(
-                                        radius: 26,
-                                        backgroundImage:NetworkImage(data![ "RecruiterImage"]),
+                                  },
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      radius: 26,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage:NetworkImage(data![ "RecruiterImage"]),
 
-                                      ),
-                                      title: Text(data['RecruiterName'],style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black)),
-                                      subtitle:  Text(data[ "lastmsg"],style:Get.theme.textTheme.bodySmall!.copyWith(color: Colors.blue)),
-                                      trailing: Column(
-                                        children: [
-                                          SizedBox(height: Get.height*0.015,),
-                                          Text(   formatTimestamp(timestamp),style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: AppColors.silverColor)),
+                                    ),
+                                    title: Text(data['RecruiterName'],style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.black)),
+                                    subtitle:  Text(data[ "lastmsg"],style:Get.theme.textTheme.bodySmall!.copyWith(color: Colors.blue)),
+                                    trailing: Column(
+                                      children: [
+                                        SizedBox(height: Get.height*0.015,),
+                                        Text(   formatTimestamp(timestamp),style: Get.theme.textTheme.bodySmall!.copyWith(fontSize: 10,color: AppColors.silverColor)),
 
-                                          SizedBox(height: Get.height*0.005,),
-                                          FutureBuilder<String>(
-                                            future: MessengeRead(roomid),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                                return Text("");
-                                              } else if (snapshot.hasError) {
-                                                return Text(
-                                                    "Error: ${snapshot.error}");
-                                              } else {
-                                                return snapshot.data!="0"? CircleAvatar(
-                                                    radius: 8,
-                                                    child: Center(child: Text(snapshot.data ?? "",style: TextStyle(color: Colors.white,fontSize: 8),))):SizedBox();
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      ),
+                                        SizedBox(height: Get.height*0.005,),
+                                        FutureBuilder<String>(
+                                          future: MessengeRead(roomid),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Text("");
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                  "Error: ${snapshot.error}");
+                                            } else {
+                                              return snapshot.data!="0"? CircleAvatar(
+                                                  radius: 8,
+                                                  child: Center(child: Text(snapshot.data ?? "",style: TextStyle(color: Colors.white,fontSize: 8),))):SizedBox();
+                                            }
+                                          },
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 );

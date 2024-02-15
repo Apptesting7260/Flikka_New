@@ -16,7 +16,6 @@ class _ViewProfileState extends State<ViewProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.blueAccent,
       appBar: AppBar(
         toolbarHeight: 40,
         backgroundColor: AppColors.blueThemeColor,
@@ -63,40 +62,44 @@ class _ViewProfileState extends State<ViewProfile> {
                           topLeft:Radius.circular(30) , ),
                         color: Colors.black),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: Get.height*.07,),
                     Row(
                       children: [
                           Image.asset("assets/images/icon_phone_call.png",height: Get.height*.04,),
+                        SizedBox(width: Get.width*.02,),
                         Text("Phone Number",style: Theme.of(context).textTheme.titleSmall,)
                       ],
                     ),
-                    TextFormField(
-                      // controller: SaveBankDetailsControllerInstanse.bankName.value,
-                      readOnly: true,
-                      style: const TextStyle(color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                        filled: true,
-                        hintText: "+918789567845",
-                        hintStyle: const TextStyle(fontSize: 14.0, color: Color
-                            .fromRGBO(255, 255, 255, 1)),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 17, horizontal: 15),
-                        fillColor: const Color(0xff373737),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(33),
-                            borderSide: BorderSide.none
-                        ),
-                      ),
-                    ),
-                    CommonWidgets.divider(),
-                    Row(
-                      children: [
-                        Image.asset("assets/images/icon_phone_call.png",height: Get.height*.04,),
-                        Text("Phone Number",style: Theme.of(context).textTheme.titleSmall,)
-                      ],
-                    ),
+                    Text("+918789567845",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),
+                    // TextFormField(
+                    //   // controller: SaveBankDetailsControllerInstanse.bankName.value,
+                    //   readOnly: true,
+                    //   style: const TextStyle(color: Colors.white,
+                    //       fontSize: 16,
+                    //       fontWeight: FontWeight.w500),
+                    //   decoration: InputDecoration(
+                    //     // filled: true,
+                    //     hintText: "+918789567845",
+                    //     hintStyle: const TextStyle(fontSize: 14.0, color: Color
+                    //         .fromRGBO(255, 255, 255, 1)),
+                    //     // contentPadding: const EdgeInsets.symmetric(
+                    //     //     vertical: 17, horizontal: 15),
+                    //     // fillColor: const Color(0xff373737),
+                    //     border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(33),
+                    //         borderSide: BorderSide.none
+                    //     ),
+                    //   ),
+                    // ),
+                    // CommonWidgets.divider(),
+                    // Row(
+                    //   children: [
+                    //     Image.asset("assets/images/icon_phone_call.png",height: Get.height*.04,),
+                    //     Text("Phone Number",style: Theme.of(context).textTheme.titleSmall,)
+                    //   ],
+                    // ),
                   ],
                 ),
               );

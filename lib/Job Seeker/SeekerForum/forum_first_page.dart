@@ -163,43 +163,61 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
               case Status.COMPLETED:
                 return Scaffold(
                   backgroundColor: AppColors.lightHomeGrey,
-                  appBar: AppBar(
-                    systemOverlayStyle: const SystemUiOverlayStyle(
-                      statusBarIconBrightness: Brightness.dark,
-                    ),
-                    backgroundColor: AppColors.lightHomeGrey,
-                    toolbarHeight: 50,
-                    leading: Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: GestureDetector(
-                          onTap: () {
-                            tabBarController.bottomTapped(0);
-                          },
-                          child: Image.asset('assets/images/icon_back_blue.png')),
-                    ),
-                    elevation: 0,
-                    // title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
-                  ),
+                  // appBar: AppBar(
+                  //   systemOverlayStyle: const SystemUiOverlayStyle(
+                  //     statusBarIconBrightness: Brightness.dark,
+                  //   ),
+                  //   backgroundColor: AppColors.lightHomeGrey,
+                  //   toolbarHeight: 50,
+                  //   leading: Padding(
+                  //     padding: const EdgeInsets.only(left: 15.0),
+                  //     child: GestureDetector(
+                  //         onTap: () {
+                  //           tabBarController.bottomTapped(0);
+                  //         },
+                  //         child: Image.asset('assets/images/icon_back_blue.png')),
+                  //   ),
+                  //   elevation: 0,
+                  //   // title: Text("Forum", style: Get.theme.textTheme.displayLarge?.copyWith(color: AppColors.black)),
+                  // ),
                   body: SmartRefresher(
                       controller: _refreshController,
                       onRefresh: _onRefresh,
                       // scrollController: _scrollController,
-                      child:   DefaultTabController(
+                      child: DefaultTabController(
                           length: 2,
                           child: SingleChildScrollView(
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: NeverScrollableScrollPhysics(),
                             child: Column(
                               children: [
-                                const TabBar(
-                                    isScrollable: true,
-                                    labelColor: AppColors.blueThemeColor,
-                                    unselectedLabelColor: AppColors.black,
-                                    indicatorColor: AppColors.blueThemeColor,
-                                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-                                    tabs: [
-                                      Tab(child: Text("FORUM"),),
-                                      Tab(child: Text("MESSAGE"),),
-                                    ]
+                                SizedBox(height: Get.height*.04,),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          tabBarController.bottomTapped(0);
+                                        },
+                                          child: Image.asset('assets/images/icon_back_blue.png',height: Get.height*.06,)),
+                                      SizedBox(width: Get.width*.08,),
+                                      const Row(
+                                        children: [
+                                           TabBar(
+                                              isScrollable: true,
+                                              labelColor: AppColors.blueThemeColor,
+                                              unselectedLabelColor: AppColors.black,
+                                              indicatorColor: AppColors.blueThemeColor,
+                                              indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                                              tabs: [
+                                                Tab(child: Text("FORUM"),),
+                                                Tab(child: Text("MESSAGE"),),
+                                              ]
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: Get.height *.8 ,
