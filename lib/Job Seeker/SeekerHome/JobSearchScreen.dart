@@ -40,7 +40,8 @@ class _JobSearchScreenState extends State<JobSearchScreen> {
         jobTitle: '${seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? ''}',
         profileImage: '${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}',
       ),
-      body: SingleChildScrollView(
+      body: 
+      SingleChildScrollView(
         child: Column( crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10,),

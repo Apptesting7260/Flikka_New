@@ -7,6 +7,7 @@ import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
 import 'package:flikka/models/SeekerSavedPostModel/SeekerSavedPostModel.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../data/network/network_api_services.dart';
 import '../../models/AvtarImageListModel/AvtarImageListModel.dart';
@@ -25,9 +26,15 @@ import '../../res/app_url.dart';
 
 class SeekerRepository {
   final apiServices = NetworkApiServices();
-
+final box = GetStorage();
   Future<GetJobsListingModel> getJobsListingApi() async {
+    
     dynamic response = await apiServices.getApi2(AppUrl.getJobsListing);
+   
+      box.remove('jobsListing');
+        box.write('jobsListing', response);
+      var data=  box.read('jobsListing');
+       print("responseaaa${data['Jobs'][0]['lat']}");
     return GetJobsListingModel.fromJson(response);
   }
 

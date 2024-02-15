@@ -2,6 +2,7 @@ import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/TabBarController.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
+import 'package:flikka/Job%20Seeker/help%20section/help.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,10 +100,15 @@ class TabScreenState extends State<TabScreen> {
       body: Obx(() {
         switch (getJobsListingController.rxRequestStatus.value) {
           case Status.LOADING:
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
+            return  const Scaffold(
+              backgroundColor: Colors.white,
+              body: Center(child: CircularProgressIndicator()
+          //     Container(
+          // height: Get.height,
+          //   width: Get.height,
+          //   child: Image.asset("assets/images/icon_splash_logo.jpg",fit: BoxFit.cover)),
+              ),
             );
-
           case Status.ERROR:
             if (getJobsListingController.error.value == 'No internet') {
               return Scaffold(
@@ -147,11 +153,12 @@ class TabScreenState extends State<TabScreen> {
                       tabBarController.pageChanged(index);
                       } ,
                     children: [
-                      const FindJobHomeScreen(),
+                      // HelpSection(),
+                       FindJobHomeScreen(),
                       GoogleMapIntegration(filtered: widget.filtered,),
-                      const CompanySeekerPage(),
-                      const ForumFirstPage(),
-                      const UserProfile(),
+                       CompanySeekerPage(),
+                       ForumFirstPage(),
+                       UserProfile(),
                     ],
                   ),
                 ),

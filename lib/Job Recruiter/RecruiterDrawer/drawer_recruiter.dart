@@ -153,21 +153,24 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   //         )),
                                   //   ),
                                   // ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    onTap: () {
-                                      Get.offAll(TabScreenEmployer(index: 4,));
-                                    },
-                                    leading: drawerIcon(iconProfile),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.offAll(TabScreenEmployer(index: 4,));
-                                        },
-                                        child: Text(
-                                          "Profile",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                        )),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      onTap: () {
+                                        Get.offAll(TabScreenEmployer(index: 4,));
+                                      },
+                                      leading: drawerIcon(iconProfile),
+                                      title: InkWell(
+                                          onTap: (){
+                                            Get.offAll(TabScreenEmployer(index: 4,));
+                                          },
+                                          child: Text(
+                                            "Profile",
+                                            style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                          )),
+                                    ),
                                   ),
                                   // ListTile(
                                   //   horizontalTitleGap:0,
@@ -188,21 +191,24 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   //     ),
                                   //   ),
                                   // ),
-                                  ListTile(
-                                    onTap: () {
-                                      Get.offAll(TabScreenEmployer(index: 1,));
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(iconApplicant),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.offAll(TabScreenEmployer(index: 1,));
-                                        } ,
-                                        child: Text(
-                                          "Applicant Tracking",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                        )),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      onTap: () {
+                                        Get.offAll(TabScreenEmployer(index: 1,));
+                                      },
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      leading: drawerIcon(iconApplicant),
+                                      title: InkWell(
+                                          onTap: (){
+                                            Get.offAll(TabScreenEmployer(index: 1,));
+                                          } ,
+                                          child: Text(
+                                            "Applicant Tracking",
+                                            style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                          )),
+                                    ),
                                   ),
                                   // ListTile(
                                   //   onTap: () {
@@ -224,37 +230,43 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   //         style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                   //       )),
                                   // ),
-                                  ListTile(
-                                    onTap: () {
-                                      Get.to(() => const CreateJobPost()) ;
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(iconJobPost),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.to(() => const CreateJobPost()) ;
-                                        } ,
-                                        child: Text(
-                                          "Job Post",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                        )),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      onTap: () {
+                                        Get.to(() => const CreateJobPost()) ;
+                                      },
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      leading: drawerIcon(iconJobPost),
+                                      title: InkWell(
+                                          onTap: (){
+                                            Get.to(() => const CreateJobPost()) ;
+                                          } ,
+                                          child: Text(
+                                            "Job Post",
+                                            style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                          )),
+                                    ),
                                   ),
-                                  ListTile(
-                                    onTap: () {
-                                      Get.to(() => const ChartReport());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(iconReport),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.to(() => const ChartReport());
-                                        } ,
-                                        child: Text(
-                                          "Report",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                        )),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      onTap: () {
+                                        Get.to(() => const ChartReport());
+                                      },
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      leading: drawerIcon(iconReport),
+                                      title: InkWell(
+                                          onTap: (){
+                                            Get.to(() => const ChartReport());
+                                          } ,
+                                          child: Text(
+                                            "Report",
+                                            style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                          )),
+                                    ),
                                   ),
                                   // ListTile(
                                   //   horizontalTitleGap:0,
@@ -324,49 +336,58 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                   //         style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                   //       )),
                                   // ),
-                                  ListTile(
-                                    onTap: () {
-                                      Get.to(() =>const SettingPage());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(iconSetting),
-                                    title: InkWell(
-                                        onTap: () {
-                                          Get.to(() =>const SettingPage());
-                                        },
-                                        child: Text(
-                                          "Setting",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                        )),
-                                  ),
-                                  ListTile(
-                                    onTap: () {
-                                      Get.to(() => const HelpSection()) ;
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:    drawerIcon("assets/images/icon_help.png") ,
-                                    ),
-                                    title: Text(
-                                      "Help",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      onTap: () {
+                                        Get.to(() =>const SettingPage());
+                                      },
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      leading: drawerIcon(iconSetting),
+                                      title: InkWell(
+                                          onTap: () {
+                                            Get.to(() =>const SettingPage());
+                                          },
+                                          child: Text(
+                                            "Setting",
+                                            style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                          )),
                                     ),
                                   ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(iconLogout),
-                                    onTap: () {
-                                      logoutController.logout(context) ;
-                                      showLogoutDialog(context) ;
-                                    },
-                                   
-                                    title: Text(
-                                      "Logout",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      onTap: () {
+                                        Get.to(() => const HelpSection()) ;
+                                      },
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      leading: SizedBox(
+                                        height: 22,
+                                        child:    drawerIcon("assets/images/icon_help.png") ,
+                                      ),
+                                      title: Text(
+                                        "Help",
+                                        style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: Get.height*.05,
+                                    child: ListTile(
+                                      horizontalTitleGap:0,
+                                      dense: true,
+                                      leading: drawerIcon(iconLogout),
+                                      onTap: () {
+                                        logoutController.logout(context) ;
+                                        showLogoutDialog(context) ;
+                                      },
+
+                                      title: Text(
+                                        "Logout",
+                                        style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: Get.height*.2,),

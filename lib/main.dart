@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'Job Seeker/JobAlert/job_alert_listing.dart';
 import 'controllers/SeekerNotificationDataViewController/SeekerNotificationViewDataController.dart';
@@ -15,9 +16,11 @@ import 'hiring Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 
 String? fcmToken;
 void main() async {
+  // await  GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+   await GetStorage.init();
   runApp(const MyApp());
 }
 
