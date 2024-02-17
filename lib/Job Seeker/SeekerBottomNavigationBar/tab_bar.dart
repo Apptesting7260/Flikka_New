@@ -28,6 +28,7 @@ import '../../res/components/internet_exception_widget.dart';
 import '../../widgets/app_colors.dart';
 import '../SeekerForum/FriendsFamily/ContactsController.dart';
 import '../SeekerHome/find_job_home_page.dart';
+import '../coming_soon.dart';
 
 
 class TabScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class TabScreen extends StatefulWidget {
 }
 
 class TabScreenState extends State<TabScreen> {
- static int? bottomSelectedIndex;
+  static int? bottomSelectedIndex;
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
   bool loading = false;
@@ -61,7 +62,7 @@ class TabScreenState extends State<TabScreen> {
   SeekerViewNotificationController SeekerViewNotificationControllerInstanse = Get.put(SeekerViewNotificationController()) ;
   SeekerEarningController seekerEarningController = Get.put(SeekerEarningController());
   SeekerViewInterviewAllController interviewListController = Get.put(SeekerViewInterviewAllController()) ;
- SeekerJobAlertListController seekerJobAlertListControllerInstanse = Get.put(SeekerJobAlertListController()) ;
+  SeekerJobAlertListController seekerJobAlertListControllerInstanse = Get.put(SeekerJobAlertListController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
   @override
@@ -85,7 +86,7 @@ class TabScreenState extends State<TabScreen> {
       seekerEarningController.seekerEarningApi();
       interviewListController.seekerInterViewListApi();
       seekerJobAlertListControllerInstanse.viewSeekerJobAlertListApi() ;
-     tabBarController.pageController?.value = PageController(initialPage: widget.index , keepPage: true);
+      tabBarController.pageController?.value = PageController(initialPage: widget.index , keepPage: true);
     }
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
@@ -101,12 +102,12 @@ class TabScreenState extends State<TabScreen> {
         switch (getJobsListingController.rxRequestStatus.value) {
           case Status.LOADING:
             return  const Scaffold(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.white,
               body: Center(child: CircularProgressIndicator()
-          //     Container(
-          // height: Get.height,
-          //   width: Get.height,
-          //   child: Image.asset("assets/images/icon_splash_logo.jpg",fit: BoxFit.cover)),
+                //     Container(
+                // height: Get.height,
+                //   width: Get.height,
+                //   child: Image.asset("assets/images/icon_splash_logo.jpg",fit: BoxFit.cover)),
               ),
             );
           case Status.ERROR:
@@ -147,20 +148,21 @@ class TabScreenState extends State<TabScreen> {
               child: GestureDetector(
                 onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
                 child: Obx( () => PageView(
-                    controller: tabBarController.pageController?.value,
-                    physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (index) {
-                      tabBarController.pageChanged(index);
-                      } ,
-                    children: [
-                      // HelpSection(),
-                      const FindJobHomeScreen(),
-                      GoogleMapIntegration(filtered: widget.filtered,),
-                      const CompanySeekerPage(),
-                      const ForumFirstPage(),
-                      const UserProfile(),
-                    ],
-                  ),
+                  controller: tabBarController.pageController?.value,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (index) {
+                    tabBarController.pageChanged(index);
+                  } ,
+                  children: [
+                    // HelpSection(),
+                    FindJobHomeScreen(),
+                    // GoogleMapIntegration(filtered: widget.filtered,),
+                    ComingSoon(),
+                    CompanySeekerPage(),
+                    ForumFirstPage(),
+                    UserProfile(),
+                  ],
+                ),
                 ),
               ),
             );
@@ -178,23 +180,23 @@ class TabScreenState extends State<TabScreen> {
                 topRight: Radius.circular(25)
             ),
             child: Obx( () => BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                items: buildBottomNavBarItems,
-                selectedItemColor: const Color(0xff56B8F6),
-                unselectedItemColor: const Color(0xffC4C4C4),
-                selectedIconTheme: const IconThemeData(
-                  color: Color(0xff56B8F6),),
-                unselectedIconTheme: const IconThemeData(
-                  color: Color(0xffC4C4C4),),
-                elevation: 0,
-                backgroundColor: AppColors.homeGrey ,
-                currentIndex: tabBarController.bottomSelectedIndex.value ,
-                onTap: (index) {
-                  tabBarController.bottomTapped(index) ;
-                  },
-                selectedFontSize: 1,
-                unselectedFontSize: 1,
-              ),
+              type: BottomNavigationBarType.fixed,
+              items: buildBottomNavBarItems,
+              selectedItemColor: const Color(0xff56B8F6),
+              unselectedItemColor: const Color(0xffC4C4C4),
+              selectedIconTheme: const IconThemeData(
+                color: Color(0xff56B8F6),),
+              unselectedIconTheme: const IconThemeData(
+                color: Color(0xffC4C4C4),),
+              elevation: 0,
+              backgroundColor: AppColors.homeGrey ,
+              currentIndex: tabBarController.bottomSelectedIndex.value ,
+              onTap: (index) {
+                tabBarController.bottomTapped(index) ;
+              },
+              selectedFontSize: 1,
+              unselectedFontSize: 1,
+            ),
             ),
           ),
         ) : null,
@@ -208,10 +210,10 @@ class TabScreenState extends State<TabScreen> {
       tabBarController.showListView(true) ;
     }
     setState(() {
-        bottomSelectedIndex = index;
-        pageController!.animateToPage(index,
-            duration: const Duration(microseconds: 1), curve: Curves.ease);
-      },
+      bottomSelectedIndex = index;
+      pageController!.animateToPage(index,
+          duration: const Duration(microseconds: 1), curve: Curves.ease);
+    },
     );
   }
 

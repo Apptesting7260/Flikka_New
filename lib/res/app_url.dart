@@ -101,5 +101,7 @@ class AppUrl {
   static const String jobAlertWiseJobListingUrl = '$baseUrl/job-listing-job-alert' ;
   static const String jobAlertSeenUnseenUrl = '$baseUrl/job-alert-seen-unseen-job' ;
   static const String helpSectionUrl = '$baseUrl/help-section' ;
+  static const String coverAvtarListRecruiter = '$baseUrl/cover-image-list' ;
+  static const String coverImageModel = '$baseUrl/cover-image-upload' ;
 
 }

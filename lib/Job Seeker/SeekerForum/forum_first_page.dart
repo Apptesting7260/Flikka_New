@@ -190,22 +190,25 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                             physics: NeverScrollableScrollPhysics(),
                             child: Column(
                               children: [
-                                SizedBox(height: Get.height*.04,),
+                                SizedBox(height: Get.height*.065,),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  padding: EdgeInsets.only(left: Get.width*.04),
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                        onTap: () {
-                                          tabBarController.bottomTapped(0);
-                                        },
-                                          child: Image.asset('assets/images/icon_back_blue.png',height: Get.height*.06,)),
-                                      SizedBox(width: Get.width*.08,),
-                                      const Row(
+                                          onTap: () {
+                                            tabBarController.bottomTapped(0);
+                                          },
+                                          child: Image.asset('assets/images/icon_back_blue.png',height: Get.height*.05,)),
+                                      // SizedBox(width: MediaQuery.of(context).size.width*.07),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                           TabBar(
+                                          SizedBox(width: MediaQuery.of(context).size.width*.13,),
+                                          TabBar(
                                               isScrollable: true,
                                               labelColor: AppColors.blueThemeColor,
+                                              labelStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.black,fontSize: 17,fontWeight: FontWeight.w600),
                                               unselectedLabelColor: AppColors.black,
                                               indicatorColor: AppColors.blueThemeColor,
                                               indicatorPadding: EdgeInsets.symmetric(horizontal: 15),

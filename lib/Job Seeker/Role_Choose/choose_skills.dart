@@ -149,7 +149,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                     .of(context)
                                     .textTheme
                                     .labelLarge
-                                    ?.copyWith(fontWeight: FontWeight.w400,
+                                    ?.copyWith(fontWeight: FontWeight.w600,fontSize: 22,
                                     color: Color(0xffFFFFFF)),),
                             ),
                             SizedBox(height: Get.height * .05,),

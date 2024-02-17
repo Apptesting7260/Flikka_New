@@ -211,7 +211,7 @@ void showSkipDialog(BuildContext context) {
                                     .textTheme
                                     .bodySmall
                                     ?.copyWith(
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w600,fontSize: 22,
                                     color: const Color(0xffFFFFFF)),
                               ),
                             ),

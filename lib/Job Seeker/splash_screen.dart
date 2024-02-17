@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer( const Duration(seconds: 5),
+    Timer( const Duration(seconds: 2),
         () async {
           SharedPreferences sp = await SharedPreferences.getInstance();
           if (kDebugMode) {

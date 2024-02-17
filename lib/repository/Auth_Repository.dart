@@ -22,6 +22,7 @@ import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
 import 'package:flutter/foundation.dart';
+import '../models/CoverAvtarListRecruiterModel/CoverAvtarListRecruiterModel.dart';
 import '../models/EditMobileNumberModel.dart';
 import '../models/HelpSectionModel/HelpSectionModel.dart';
 import '../models/JobAlertSeenUnseenModel/JobAlertSeenUnseenModel.dart';
@@ -305,5 +306,7 @@ class AuthRepository {
     dynamic response = await _apiService.postApi2(data,AppUrl.helpSectionUrl);
     return HelpSectionModel.fromJson(response);
   }
+
+
 
 }

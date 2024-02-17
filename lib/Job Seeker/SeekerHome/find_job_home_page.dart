@@ -61,13 +61,13 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
   RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    getJobsListingController.seekerGetAllJobsApi();
+    getJobsListingController.refreshJobsApi();
     jobFilterController.reset(true);
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
-    getJobsListingController.seekerGetAllJobsApi();
+    getJobsListingController.refreshJobsApi();
     if (mounted) setState(() {});
     _refreshController.loadComplete();
   }
@@ -175,9 +175,17 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
     return Obx(() {
       switch (getJobsListingController.rxRequestStatus.value) {
         case Status.LOADING:
-          return const Scaffold(
+          return Scaffold(
             backgroundColor: Colors.white,
-            body: Center(child: CircularProgressIndicator()
+            body: Center(child: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  image: AssetImage("assets/images/icon_flikka_logo.png",))
+              ),
+            )
             ),
           );
 
@@ -465,7 +473,10 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                             GestureDetector(
                                               onTap: () {
                                                     currentPage = index;
-                                                tabBarController.showListView(false);
+                                                    print(currentPage);
+                                                tabBarController.showListView.value=false;
+                                                    print(tabBarController.showListView.value);
+
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.02),
@@ -554,7 +565,9 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                              }
                                            }
                                          }
-                                         return SingleChildScrollView(
+                                         return 
+                                         
+                                         SingleChildScrollView(
                                            controller: _scrollController,
                                            // physics: const BouncingScrollPhysics(),
                                            clipBehavior: Clip.hardEdge,
@@ -849,7 +862,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                        ],
                                                      ),
                                                      CommonWidgets.divider() ,
-                                                     // SizedBox(height: Get.height * 0.015,),
+                                                     SizedBox(height: Get.height * 0.015,),
                                                      getJobsListingController.getJobsListing.value.jobs?[currentPage].description == null || CommonFunctions.parseHTML(getJobsListingController.getJobsListing.value.jobs?[currentPage].description).toString().trim().length == 0 ?
                                                      Text("No job description",style: Theme.of(context).textTheme.labelLarge!
                                                          .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),) :
@@ -863,7 +876,7 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                        ],
                                                      ),
                                                      CommonWidgets.divider() ,
-                                                     // SizedBox(height: Get.height * 0.015,),
+                                                     SizedBox(height: Get.height * 0.015,),
                                                      getJobsListingController.getJobsListing.value.jobs?[currentPage].requirements == null || CommonFunctions.parseHTML(getJobsListingController.getJobsListing.value.jobs?[currentPage].requirements).toString().trim().length == 0 ?
                                                      Text("No requirements",style: Theme.of(context).textTheme.labelLarge!
                                                          .copyWith(color: AppColors.black,fontWeight: FontWeight.w400),) :
@@ -877,35 +890,37 @@ class FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                        ],
                                                      ),
                                                      CommonWidgets.divider() ,
-                                                     // SizedBox(height: Get.height * 0.015,),
+                                                     SizedBox(height: Get.height * 0.015,),
                                                      Text(getJobsListingController.getJobsListing.value.jobs?[currentPage].jobLocation ?? "No job location",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.labelLarge!.copyWith(color: AppColors.silverColor,fontWeight: FontWeight.w400),),
                                                      SizedBox(height: Get.height * 0.015,),
-                                                     SizedBox( height: 300,
-                                                         child: GoogleMap(
-                                                           initialCameraPosition: CameraPosition(
-                                                             target: LatLng(double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].lat}")!, double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].long}")!),
-                                                             zoom: 12,
-                                                           ),
-                                                           markers: <Marker>{
-                                                             Marker(
-                                                               markerId: const MarkerId("1"),
-                                                               position: LatLng(double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].lat}")!, double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].long}")!),
-                                                               infoWindow: const InfoWindow(
-                                                                 title: "Job Location",
-                                                               ),
-                                                             ),
-                                                           },
-                                                           mapType: MapType.normal,
-                                                           myLocationEnabled: true,
-                                                           compassEnabled: true,
-                                                           zoomControlsEnabled: false,
-                                                           onLongPress: (argument) => Get.to( GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].lat}")!,long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].long}")!)),
-                                                           onMapCreated: (GoogleMapController controller) {
-                                                             if(!mapController.isCompleted) {
-                                                               mapController.complete(controller);
-                                                             }
-                                                           },
-                                                         ), ),
+                                                    //  SizedBox( height: 300,
+                                                    //      child: GoogleMap(
+                                                    //        initialCameraPosition: CameraPosition(
+                                                    //          target: LatLng( double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].lat}")!, double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].long}")!),
+                                                            
+                                                    //          zoom: 12,
+                                                    //         // getJobsListingController.getJobsListing.value.jobs?[currentPage].lat
+                                                    //        ),
+                                                    //        markers: <Marker>{
+                                                    //          Marker(
+                                                    //            markerId: const MarkerId("1"),
+                                                    //           //  position: LatLng(double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].lat}")!, double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].long}")!),
+                                                    //            infoWindow: const InfoWindow(
+                                                    //              title: "Job Location",
+                                                    //            ),
+                                                    //          ),
+                                                    //        },
+                                                    //        mapType: MapType.normal,
+                                                    //        myLocationEnabled: true,
+                                                    //        compassEnabled: true,
+                                                    //        zoomControlsEnabled: false,
+                                                    //       //  onLongPress: (argument) => Get.to( GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].lat}")!,long:  double.tryParse("${getJobsListingController.getJobsListing.value.jobs?[currentPage].long}")!)),
+                                                    //        onMapCreated: (GoogleMapController controller) {
+                                                    //          if(!mapController.isCompleted) {
+                                                    //            mapController.complete(controller);
+                                                    //          }
+                                                    //        },
+                                                    //      ), ),
                                                      const SizedBox(height: 30,),
                                                      Row(
                                                        children: [

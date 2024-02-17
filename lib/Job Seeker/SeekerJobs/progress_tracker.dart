@@ -51,7 +51,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  SizedBox(height: Get.height*.02,) ,
+                  SizedBox(height: 15) ,
                   Container(
                     padding:  const EdgeInsets.all(5),
                     decoration: BoxDecoration(
@@ -59,43 +59,43 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                         border: Border.all(color: Colors.white,width: 2)
                     ),
                     child: Container(
-                      height: 55,
-                      width: 55,
+                      height: 50,
+                      width: 50,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: index + 1 <= stepCount ? Colors.white : AppColors.blueThemeColor
                       ),
                       child: IconButton(
                           onPressed: () {},
-                          icon: index + 1 <= stepCount ? Image.asset(steps[index]["icon"]!,height: Get.height*.04,)
-                              : Image.asset(steps[index]["icon"]!,height: Get.height*.04,color: Colors.white,)),
+                          icon: index + 1 <= stepCount ? Image.asset(steps[index]["icon"]!,height: 25,)
+                              : Image.asset(steps[index]["icon"]!,height: 25,color: Colors.white,)),
                     ),
                   ),
-                  SizedBox(height: Get.height*.001,),
+                  SizedBox(height: 5,),
                   Text(
                     steps[index]["text"]!,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  SizedBox(height: Get.height*.02,),
+                  SizedBox(height: 13,),
                 ],
               );
             },),
           Positioned(
-              right: 90,
-              top: 47,
-              child: Image.asset("assets/images/icon_dotted_one.png",height: Get.height*.18,color: Colors.white,)) ,
+              right: 115,
+              top: 37,
+              child: Image.asset("assets/images/icon_dotted_one.png",height: 120,color: Colors.white,)) ,
           Positioned(
-              left: 90,
-              top: Get.height*.22,
-              child: Image.asset("assets/images/icon_dotted_left_side.png",height: Get.height*.18,color: Colors.white,)) ,
+              left: 113,
+              top: 165,
+              child: Image.asset("assets/images/icon_dotted_left_side.png",height: 120,color: Colors.white,)) ,
           Positioned(
-              right: 90,
-              top: Get.height*.38,
-              child: Image.asset("assets/images/icon_dotted_one.png",height: Get.height*.18,color: Colors.white,)) ,
+              right: 113,
+              top: 280,
+              child: Image.asset("assets/images/icon_dotted_one.png",height: 120,color: Colors.white,)) ,
           Positioned(
-              left: 90,
-              top: Get.height*.55,
-              child: Image.asset("assets/images/icon_dotted_left_side.png",height: Get.height*.18,color: Colors.white,)) ,
+              left: 113,
+              bottom: 210,
+              child: Image.asset("assets/images/icon_dotted_left_side.png",height: 120,color: Colors.white,)) ,
         ],
       ),
     );

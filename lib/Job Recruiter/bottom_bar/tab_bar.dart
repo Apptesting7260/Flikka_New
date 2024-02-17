@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' ;
 import '../../Job Seeker/SeekerBottomNavigationBar/TabBarController.dart';
+import '../../controllers/CoverAvtarListRecruiterController/CoverAvtarListRecruiterController.dart';
 import '../../controllers/RecruiterHomeController/RecruiterHomeController.dart';
 import '../../controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
 import '../../controllers/RecruiterInboxDataController/RecruiterInboxDataController.dart';
@@ -42,6 +43,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
   RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
   RecruiterHomeController homeController = Get.put(RecruiterHomeController()) ;
   ShowInboxDataController ShowInboxDataControllerInstanse = Get.put(ShowInboxDataController());
+  CoverAvtarListController coverAvtarListController = Get.put(CoverAvtarListController()) ;
 
   @override
   void initState() {
@@ -53,6 +55,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
     bottomSelectedIndex = widget.index ;
     pageController = PageController(initialPage: widget.index, keepPage: false);
     ShowInboxDataControllerInstanse.showInboxDataApi();
+    coverAvtarListController.getCoverAvtarList();
     buildBottomNavBarItems = [
       BottomNavigationBarItem(
           label: "",

@@ -59,460 +59,472 @@ class _DrawerClassState extends State<DrawerClass> {
     return
       Scaffold(
         backgroundColor: Colors.transparent,
-        body: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: SizedBox(
-              height: Get.height,
-              width: Get.width,
-              child: Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () { Get.back() ;},
-                  ) ,
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      // height: Get.height * 1.43,
-                      width: Get.width * 0.62,
-                      alignment: Alignment.centerRight,
-                      child: Column(
-                        children: [
-                          Center(
-                            child: Container(
-                              height: Get.height*.22,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  color: AppColors.blueThemeColor
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: Get.height*.02,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 18.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: Get.height*.025,),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Get.to((const UserProfile())) ;
-                                          },
-                                          child: CircleAvatar(
-                                            radius:32,
-                                            backgroundColor: Colors.transparent,
-                                            child: CachedNetworkImage(
-                                                imageUrl: "${widget.profileImage}",
-                                            imageBuilder: (context, imageProvider) => Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                    image: imageProvider,
-                                                fit: BoxFit.cover ,
-                                                )
-                                              ),
-                                            ),
-                                              placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
-                                            ),
-                                            // backgroundImage: NetworkImage("${widget.profileImage}"),
-                                          ),
-                                        ),
-                                        // const SizedBox(
-                                        //   height: 9,
-                                        // ),
-                                        Text("${widget.name}",
-                                          style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
-                                        ),
-                                        SizedBox(
-                                          height: Get.height*.002,
-                                        ),
-                                        Text(
-                                            widget.jobTitle ?? "No job title",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall?.copyWith(color: const Color(0xffFFFFFF),fontWeight: FontWeight.w600)
-                                        ),
-                                        SizedBox(
-                                          height: Get.height*.002,
-                                        ),
-                                        Text(
-                                          "${widget.location}",overflow: TextOverflow.ellipsis,
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: Get.height/1.3,
-                            color: AppColors.homeGrey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // SizedBox(
-                                //   height: Get.height * 0.03,
-                                // ),
-                                // ListTile(
-                                //   onTap: () {
-                                //     Get.offAll(const TabScreen(index: 0));
-                                //   },
-                                //   horizontalTitleGap:0,
-                                //   dense: true,
-                                //   leading: drawerIcon(homeIcon) ,
-                                //   title: Text(
-                                //     "Home",
-                                //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                //   ),
-                                // ),
-                                // ListTile(
-                                //   horizontalTitleGap:0,
-                                //   onTap: () {
-                                //     Get.to(() => const UserProfile());
-                                //   },
-                                //   dense: true,
-                                //   leading: SizedBox(
-                                //     height: 22,
-                                //     child: drawerIcon(profileIcon,),
-                                //   ),
-                                //   title: Text(
-                                //     "Profile",
-                                //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16,color: AppColors.black),
-                                //   ),
-                                // ),
-                                SizedBox(height: Get.height*.01,),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    horizontalTitleGap:3,
-                                    onTap: (){
-                                      Get.to(() =>const SeekerMessagePage());
-                                    } ,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child: drawerIcon(messageIcon) ,
-                                    ),
-                                    title: Text(
-                                      "Message",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
+        body: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: SizedBox(
+                  // height: Get.height,
+                  height: MediaQuery.of(context).size.height,
+                  width: Get.width,
+                  child: Stack(
+                    children: [
+                      GestureDetector(
+                        onTap: () { Get.back() ;},
+                      ) ,
+                      Positioned(
+                        right: 0,
+                        child: Container(
+                          // height: Get.height * 1.43,
+                          width: Get.width * 0.55,
+                          alignment: Alignment.centerRight,
+                          child: Column(
+                            children: [
+                              Center(
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height*.25,
+                                  width: double.infinity,
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.blueThemeColor
                                   ),
-                                ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    onTap: () => Get.to(const MettingListTabbar()) ,
-                                    leading: SizedBox(
-                                      width: 45,
-                                      height: 40,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                              bottom: 9,
-                                              child: drawerIcon(interviewIcon)),
-                                          Obx(() => interviewListController.seekerInterViewData.value.unseenPendingInterview == 0
-                                              || interviewListController.seekerInterViewData.value.unseenPendingInterview == null ?
-                                          const SizedBox() :
-                                              Positioned(
-                                                  top: 0,
-                                                  right: 13,
-                                                  child: Container(
-                                                    height: 20,
-                                                    width: 20,
-                                                    alignment: Alignment.center,
-                                                    decoration: const BoxDecoration(
-                                                        shape: BoxShape.circle ,
-                                                        color: AppColors.red,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: Get.height*.02,),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 18.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: Get.height*.035,),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to((const UserProfile())) ;
+                                              },
+                                              child: CircleAvatar(
+                                                radius:32,
+                                                backgroundColor: Colors.transparent,
+                                                child: CachedNetworkImage(
+                                                  imageUrl: "${widget.profileImage}",
+                                                  imageBuilder: (context, imageProvider) => Container(
+                                                    height: 60,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover ,
+                                                        )
                                                     ),
-                                                    child: Obx(() => Text("${interviewListController.seekerInterViewData.value.unseenPendingInterview}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10))),
-                                                  ))
-                                          )
-                                        ],
+                                                  ),
+                                                  placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
+                                                ),
+                                                // backgroundImage: NetworkImage("${widget.profileImage}"),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: Get.height*.01,
+                                            ),
+                                            Text("${widget.name}",
+                                              style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
+                                            ),
+                                            SizedBox(
+                                              height: Get.height*.006,
+                                            ),
+                                            Text(
+                                                widget.jobTitle ?? "No job title",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall?.copyWith(color: const Color(0xffFFFFFF),fontWeight: FontWeight.w600)
+                                            ),
+                                            SizedBox(
+                                              height: Get.height*.006,
+                                            ),
+                                            Text(
+                                              "${widget.location}",overflow: TextOverflow.ellipsis,
+                                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
                                       )
-
-                                    ),
-                                    title: Text(
-                                      "Interviews",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
+                                    ],
                                   ),
                                 ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    onTap: () {
-                                      Get.to(() => const SeekerNotification());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      width: 45,
-                                      height: 40,
-                                      child: Stack(
+                              ),
+                              Container(
+                                height: MediaQuery.of(context).size.height*.7,
+                                color: AppColors.homeGrey,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      // height: Get.height/1.3,
+                                      height: MediaQuery.of(context).size.height*.6,
+                                      color: AppColors.homeGrey,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Positioned(
-                                            bottom: 9,
-                                              child: drawerIcon(notificationIcon),) ,
-                                          Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 || SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ?
-                                          const SizedBox() :
-                                          Positioned(
-                                            top: 0,
-                                            right: 13,
-                                            child: Container(
-                                              height: 20,
-                                              width: 20,
-                                              alignment: Alignment.center,
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle ,
-                                                  color: AppColors.red
+                                          // SizedBox(
+                                          //   height: Get.height * 0.03,
+                                          // ),
+                                          // ListTile(
+                                          //   onTap: () {
+                                          //     Get.offAll(const TabScreen(index: 0));
+                                          //   },
+                                          //   horizontalTitleGap:0,
+                                          //   dense: true,
+                                          //   leading: drawerIcon(homeIcon) ,
+                                          //   title: Text(
+                                          //     "Home",
+                                          //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          //   ),
+                                          // ),
+                                          // ListTile(
+                                          //   horizontalTitleGap:0,
+                                          //   onTap: () {
+                                          //     Get.to(() => const UserProfile());
+                                          //   },
+                                          //   dense: true,
+                                          //   leading: SizedBox(
+                                          //     height: 22,
+                                          //     child: drawerIcon(profileIcon,),
+                                          //   ),
+                                          //   title: Text(
+                                          //     "Profile",
+                                          //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16,color: AppColors.black),
+                                          //   ),
+                                          // ),
+                                          // SizedBox(height: Get.height*.01,),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              horizontalTitleGap:3,
+                                              onTap: (){
+                                                Get.to(() =>const SeekerMessagePage());
+                                              } ,
+                                              dense: true,
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child: drawerIcon(messageIcon) ,
                                               ),
-                                              child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10),)),
-                                            ),
+                                              title: Text(
+                                                "Message",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
                                             ),
                                           ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              onTap: () => Get.to(const MettingListTabbar()) ,
+                                              leading: SizedBox(
+                                                  height: MediaQuery.of(context).size.height*.05,
+                                                  width: MediaQuery.of(context).size.width*.06,
+                                                  child: Stack(
+                                                    children: [
+                                                      Positioned(
+                                                          bottom: 9,
+                                                          child: drawerIcon(interviewIcon)),
+                                                      Obx(() => interviewListController.seekerInterViewData.value.unseenPendingInterview == 0
+                                                          || interviewListController.seekerInterViewData.value.unseenPendingInterview == null ?
+                                                      const SizedBox() :
+                                                      Positioned(
+                                                          top: 0,
+                                                          right: 13,
+                                                          child: Container(
+                                                            height: 20,
+                                                            width: 20,
+                                                            alignment: Alignment.center,
+                                                            decoration: const BoxDecoration(
+                                                              shape: BoxShape.circle ,
+                                                              color: AppColors.red,
+                                                            ),
+                                                            child: Obx(() => Text("${interviewListController.seekerInterViewData.value.unseenPendingInterview}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10))),
+                                                          ))
+                                                      )
+                                                    ],
+                                                  )
+
+                                              ),
+                                              title: Text(
+                                                "Interviews",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              onTap: () {
+                                                Get.to(() => const SeekerNotification());
+                                              },
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.05,
+                                                width: MediaQuery.of(context).size.width*.06,
+                                                child: Stack(
+                                                  children: [
+                                                    Positioned(
+                                                      bottom: 9,
+                                                      child: drawerIcon(notificationIcon),) ,
+                                                    Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 || SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == null ?
+                                                    const SizedBox() :
+                                                    Positioned(
+                                                      top: 0,
+                                                      right: 13,
+                                                      child: Container(
+                                                        height: 20,
+                                                        width: 20,
+                                                        alignment: Alignment.center,
+                                                        decoration: const BoxDecoration(
+                                                            shape: BoxShape.circle ,
+                                                            color: AppColors.red
+                                                        ),
+                                                        child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white,fontSize: 10),)),
+                                                      ),
+                                                    ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ) ,
+                                              title: Stack(
+                                                children: [
+                                                  Text("Notifications",
+                                                    style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                              // trailing:  Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
+                                              //     const SizedBox() :
+                                              //     Container(
+                                              //     height: 30,
+                                              //     width: 30,
+                                              //     alignment: Alignment.center,
+                                              //     decoration: const BoxDecoration(
+                                              //       shape: BoxShape.circle ,
+                                              //       color: AppColors.red
+                                              //     ),
+                                              //     child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),)),
+                                              //   ),
+                                              // ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              onTap: () {
+                                                // Get.to(() =>  const SetJobAlert());
+                                                Get.to(() => const JobList());
+                                              },
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child:  drawerIcon(jobAlertIcon),
+                                              ),
+                                              title: Text(
+                                                "Job alert",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                              trailing: Obx(() => seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.newAlert == true ?
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                alignment: Alignment.center,
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle ,
+                                                  color: AppColors.red,
+                                                ),
+                                                child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),)
+                                                  : const SizedBox(),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              onTap: () {
+                                                Get.to(() =>const SavedPost());
+                                              },
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child:  drawerIcon(savePostIcon) ,
+                                              ),
+                                              title: Text(
+                                                "Save Post",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              onTap: () {
+                                                Get.to( () => const SeekerAppliedJobs()) ;
+                                              },
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child:   drawerIcon(appliedJobsIcon) ,
+                                              ),
+                                              title: Text(
+                                                "Applied jobs",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              onTap: () {
+                                                Get.to( () => const WalletSection()) ;
+                                              },
+                                              leading: SizedBox(
+                                                  height: MediaQuery.of(context).size.height*.05,
+                                                  width: MediaQuery.of(context).size.width*.06,
+                                                  child:   Stack(
+                                                    children: [
+                                                      Positioned(
+                                                          bottom: 9,
+                                                          child: drawerIcon(walletIcon)),
+                                                    ],
+                                                  )
+
+                                              ),
+                                              title: Text(
+                                                "Wallet",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                              trailing: Obx(() => seekerEarningController.getEarningDetails.value.newWalletMessage == true ?
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                alignment: Alignment.center,
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle ,
+                                                  color: AppColors.red,
+                                                ),
+                                                child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),)
+                                                  : const SizedBox(),
+                                              ),
+                                            ),
+                                          ),
+                                          // ListTile(
+                                          //   horizontalTitleGap:0,
+                                          //   dense: true,
+                                          //   onTap: () {
+                                          //     Get.to( () => const SeekerRequestedJobs()) ;
+                                          //   },
+                                          //   leading: drawerIcon(appliedJobsIcon) ,
+                                          //   title: Text(
+                                          //     "Requested jobs",
+                                          //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          //   ),
+                                          // ),
+                                          // ListTile(
+                                          //   horizontalTitleGap:0,
+                                          //   onTap: (){
+                                          //     Get.to(() =>const CompanySeekerPage());
+                                          //   } ,
+                                          //   dense: true,
+                                          //   leading: drawerIcon(companyIcon) ,
+                                          //   title: Text(
+                                          //     "Companies",
+                                          //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          //   ),
+                                          // ),
+
+                                          // ListTile(
+                                          //   horizontalTitleGap:0,
+                                          //   dense: true,
+                                          //   leading: drawerIcon(aboutIcon) ,
+                                          //   title: Text(
+                                          //     "About",
+                                          //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                          //   ),
+                                          // ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              onTap: () {
+                                                Get.to(() =>const SettingPage());
+                                              },
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child:   drawerIcon(settingIcon) ,
+                                              ),
+
+                                              title: Text(
+                                                "Setting",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                              // trailing: Obx(() => seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts == true ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              onTap: () {
+                                                Get.to(() => const HelpSection()) ;
+                                              },
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child:    drawerIcon("assets/images/icon_help.png") ,
+                                              ),
+                                              title: Text(
+                                                "Help",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: ListTile(
+                                              horizontalTitleGap:0,
+                                              dense: true,
+                                              onTap: () {
+                                                logoutController.logout(context) ;
+                                                showLogoutDialog(context)  ;
+                                              },
+                                              leading: SizedBox(
+                                                height: MediaQuery.of(context).size.height*.025,
+                                                child:   drawerIcon(logoutIcon) ,
+                                              ),
+                                              title: Text(
+                                                "Logout",
+                                                style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
+                                              ),
+                                            ),
+                                          ),
+                                          // SizedBox(height: Get.height*.2,),
                                         ],
                                       ),
-                                    ) ,
-                                    title: Stack(
-                                      children: [
-                                        Text("Notifications",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                        ),
-                                      ],
                                     ),
-                                    // trailing:  Obx( () => SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification == 0 ?
-                                    //     const SizedBox() :
-                                    //     Container(
-                                    //     height: 30,
-                                    //     width: 30,
-                                    //     alignment: Alignment.center,
-                                    //     decoration: const BoxDecoration(
-                                    //       shape: BoxShape.circle ,
-                                    //       color: AppColors.red
-                                    //     ),
-                                    //     child: Obx( () => Text("${SeekerViewNotificationControllerInstanse.viewSeekerNotificationData.value.unseenNotification}",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),)),
-                                    //   ),
-                                    // ),
-                                  ),
+                                  ],
                                 ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    onTap: () {
-                                       // Get.to(() =>  const SetJobAlert());
-                                       Get.to(() => const JobList());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:  drawerIcon(jobAlertIcon),
-                                    ),
-                                    title: Text(
-                                      "Job alert",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                    trailing: Obx(() => seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.newAlert == true ?
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      alignment: Alignment.center,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle ,
-                                        color: AppColors.red,
-                                      ),
-                                      child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),)
-                                        : const SizedBox(),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    onTap: () {
-                                      Get.to(() =>const SavedPost());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:  drawerIcon(savePostIcon) ,
-                                    ),
-                                    title: Text(
-                                      "Save Post",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    onTap: () {
-                                      Get.to( () => const SeekerAppliedJobs()) ;
-                                    },
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:   drawerIcon(appliedJobsIcon) ,
-                                    ),
-                                    title: Text(
-                                      "Applied jobs",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    onTap: () {
-                                      Get.to( () => const WalletSection()) ;
-                                    },
-                                    leading: SizedBox(
-                                      width: 45,
-                                      height: 40,
-                                      child:   Stack(
-                                        children: [
-                                          Positioned(
-                                              bottom: 9,
-                                              child: drawerIcon(walletIcon)),
-                                        ],
-                                      )
-
-                                    ),
-                                    title: Text(
-                                      "Wallet",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                    trailing: Obx(() => seekerEarningController.getEarningDetails.value.newWalletMessage == true ?
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      alignment: Alignment.center,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle ,
-                                        color: AppColors.red,
-                                      ),
-                                      child: Text("New",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 7,color: AppColors.white),),)
-                                     : const SizedBox(),
-                                  ),
-                                  ),
-                                ),
-                                // ListTile(
-                                //   horizontalTitleGap:0,
-                                //   dense: true,
-                                //   onTap: () {
-                                //     Get.to( () => const SeekerRequestedJobs()) ;
-                                //   },
-                                //   leading: drawerIcon(appliedJobsIcon) ,
-                                //   title: Text(
-                                //     "Requested jobs",
-                                //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                //   ),
-                                // ),
-                                // ListTile(
-                                //   horizontalTitleGap:0,
-                                //   onTap: (){
-                                //     Get.to(() =>const CompanySeekerPage());
-                                //   } ,
-                                //   dense: true,
-                                //   leading: drawerIcon(companyIcon) ,
-                                //   title: Text(
-                                //     "Companies",
-                                //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                //   ),
-                                // ),
-                            
-                                // ListTile(
-                                //   horizontalTitleGap:0,
-                                //   dense: true,
-                                //   leading: drawerIcon(aboutIcon) ,
-                                //   title: Text(
-                                //     "About",
-                                //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                //   ),
-                                // ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    onTap: () {
-                                      Get.to(() =>const SettingPage());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:   drawerIcon(settingIcon) ,
-                                    ),
-
-                                    title: Text(
-                                      "Setting",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                    // trailing: Obx(() => seekerJobAlertListControllerInstanse.viewSeekerJobAlertListData.value.jobAlertList?[index].newAlerts == true ),
-                                  ),
-                                ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    onTap: () {
-                                      Get.to(() => const HelpSection()) ;
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:    drawerIcon("assets/images/icon_help.png") ,
-                                    ),
-                                    title: Text(
-                                      "Help",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: Get.height*.06,
-                                  child: ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    onTap: () {
-                                      logoutController.logout(context) ;
-                                      showLogoutDialog(context)  ;
-                                    },
-                                    leading: SizedBox(
-                                      height: 22,
-                                      child:   drawerIcon(logoutIcon) ,
-                                    ),
-                                    title: Text(
-                                      "Logout",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16, color: AppColors.black),
-                                    ),
-                                  ),
-                                ),
-                                // SizedBox(height: Get.height*.2,),
-                                ],
-                            ),
-                          )
-                        ],
+                              )
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ]),
+            ]),
       );
   }
 

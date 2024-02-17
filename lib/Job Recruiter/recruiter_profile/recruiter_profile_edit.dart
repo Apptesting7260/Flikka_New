@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
 import 'package:flikka/controllers/SelectIndustryController/SelectIndustryController.dart';
@@ -16,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../controllers/CoverAvtarListRecruiterController/CoverAvtarListRecruiterController.dart';
+import '../../controllers/CoverImageController/CoverImageController.dart';
 import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -39,6 +42,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   var websiteLinkController = TextEditingController();
   var aboutDescriptionController = TextEditingController();
   var specializationController = TextEditingController();
+
 
   File? coverImage;
   File? profileImage;
@@ -83,6 +87,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                   Get.back() ;
                 },
               ),
+
             ],
           ),
         );
@@ -161,6 +166,77 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                 onTap1: () {
                   _pickImagee(ImageSource.gallery);
                 },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  CoverAvtarListController coverAvtarListController = Get.put(CoverAvtarListController()) ;
+  CoverImageController coverImageController = Get.put(CoverImageController());
+
+  Future<void> _openCoverAvatarRecruiter() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          child:  Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: Text(
+                  'Please choose avtar',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+                ),
+              ),
+              SizedBox(
+                height: Get.height*.6,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: coverAvtarListController.coverAvtarListRecruiter.value.coverImages?.length,
+                  itemBuilder: (context, index) {
+                    print(coverAvtarListController.coverAvtarListRecruiter.value.coverImages?[index].coverLink);
+                    return Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            CommonFunctions.confirmationDialog(context, message: "Do you want to upload this avtar",
+                              onTap: () async {
+                                CommonFunctions.showLoadingDialog(context, "uploading...") ;
+                                var result = await coverImageController.coverImageApiData(context, coverAvtarListController.coverAvtarListRecruiter.value.coverImages?[index].coverImg) ;
+                                // var result = await avtarImageController.avtarImageApiData(context, avtarController.avtarImageList.value.avtarImages?[index].avtarName) ;
+                                Get.back() ;
+                                Get.back() ;
+                                if(result == true) {
+                                  Get.back() ;
+                                  Get.back() ;
+                                }
+                              },);
+                          },
+                          child: CachedNetworkImage(
+                              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                              imageBuilder: (context, imageProvider) => Container(
+                                height: 90,
+                                width: 90,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+                                ),
+                              ),
+                            imageUrl: coverAvtarListController.coverAvtarListRecruiter.value.coverImages?[index].coverLink ?? "",
+
+                          ),
+                        ),
+                        SizedBox(height: Get.height*.01,),
+                      ],
+                    ) ;
+                  },),
               ),
             ],
           ),
@@ -323,6 +399,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
       if(widget.profileModel?.recruiterProfileDetails?.founded != null) {
       selectedDateString = parseDateString(widget.profileModel?.recruiterProfileDetails!.founded ?? "") ;
       print("$selectedDateString ==============================") ;
+
       }
       industry = widget.profileModel?.recruiterProfileDetails?.industryID ;
     }
@@ -416,28 +493,35 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 }
                                 return;
                               },
-                              child: Container(
-                                height: Get.height * .30,
-                                width: Get.width,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xff454545),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    coverImage != null ? Image.file(coverImage!, height: Get.height, width: Get.width, fit: BoxFit.cover,) :
-                                    widget.profileModel?.recruiterProfileDetails?.coverImg != null ?
-                                    Image.network(widget.profileModel?.recruiterProfileDetails?.coverImg ?? "", width: Get.width, fit : BoxFit.cover,) :
-                                    Image.asset("assets/images/icon_upload_cv.png", height: Get.height * .05,) ,
+                              child: GestureDetector(
+                                onTap: () {
+                                  CommonFunctions.confirmationDialog(context, message: "Do you want to upload avtar", onTap: () {
+                                    _openCoverAvatarRecruiter() ;
+                                  },);
+                                },
+                                child: Container(
+                                  height: Get.height * .30,
+                                  width: Get.width,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xff454545),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      coverImage != null ? Image.file(coverImage!, height: Get.height, width: Get.width, fit: BoxFit.cover,) :
+                                      widget.profileModel?.recruiterProfileDetails?.coverImg != null ?
+                                      Image.network(widget.profileModel?.recruiterProfileDetails?.coverImg ?? "", width: Get.width, fit : BoxFit.cover,) :
+                                      Image.asset("assets/images/icon_upload_cv.png", height: Get.height * .05,) ,
 
-                                    if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
-                                      SizedBox(width: Get.width * .04,),
-                                    if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
-                                      Text("Upload Cover Image",
-                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                            fontWeight: FontWeight.w400, color: const Color(0xffFFFFFF)),
-                                      )
-                                  ],
+                                      if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
+                                        SizedBox(width: Get.width * .04,),
+                                      if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
+                                        Text("Upload Cover Image",
+                                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                              fontWeight: FontWeight.w400, color: const Color(0xffFFFFFF)),
+                                        )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

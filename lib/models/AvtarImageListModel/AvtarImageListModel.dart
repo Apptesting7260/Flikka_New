@@ -1,10 +1,10 @@
 class AvtarImageListModel {
   AvtarImageListModel({
-     this.status,
-     this.avtarImages,
+    this.status,
+    this.avtarImages,
   });
-   bool? status;
-   List<AvtarImages>? avtarImages;
+  bool? status;
+  List<AvtarImages>? avtarImages;
 
   AvtarImageListModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
@@ -21,13 +21,13 @@ class AvtarImageListModel {
 
 class AvtarImages {
   AvtarImages({
-     this.id,
-     this.avtarName,
+    this.id,
+    this.avtarName,
     this.createdAt,
     this.updatedAt,
-     this.avtarLink,
+    this.avtarLink,
   });
-   dynamic id;
+  dynamic id;
   String? avtarName;
   dynamic createdAt;
   dynamic updatedAt;
